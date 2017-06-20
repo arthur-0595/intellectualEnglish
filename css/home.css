@@ -1,0 +1,77 @@
+section{
+	width: 1200px;
+	height: 720px;
+	background: url(../imgs/home/bacImg.png) no-repeat center;
+	margin: 25px auto;
+	position: relative;
+}
+.navs{
+	width: 672px;
+	height: 633px;
+	position: absolute;
+	left: 60px;top: 34px;
+	text-align: center;
+}
+.navs li{
+	width: 224px;
+	height: 164px;
+	float: left;
+	padding-top: 47px;
+	position: relative;
+	transition: all 0.3s ease-out;
+}
+.navs li:hover{
+	transform: scale(1.1);
+	background-color: #fff;
+	cursor: pointer;
+	box-shadow: 0 0 100px -30px #FF7B57;
+}
+@keyframes typefaceAnimation{
+	0%{top: 0;}
+	50%{top: -10px;}
+	100%{top: 0;}
+}
+.navs li:hover h3{
+	animation: typefaceAnimation 0.5s ease;
+	position: relative;
+	color: #ff7b57;
+}
+.navs li h3{
+	margin-top: 20px;
+	font-size: 18px;
+	color: #333;
+	line-height: 22px;
+	height: 22px;
+	font-weight: normal;
+}
+.navs li p{
+	font-size: 12px;
+	color: #999;
+	line-height: 18px;
+	height: 18px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -2,12 +2,44 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>首页-智能英语</title>
-
+	<title>登陆页-智能英语</title>
+	<link rel="stylesheet" href="css/style.css" />
+	<link rel="stylesheet" href="css/login.css" />
 </head>
 <body>
-	<header id="header"></header>
-	<section ></section>
-	<footer id="footer"></footer>
+	<header id="header">
+		<a class="logo" href="#" >
+			<img src="imgs/logo.png"/>
+		</a>
+		<!--<a class="exit" href="" >
+			退出
+		</a>-->
+	</header>
+	<section class="clearfix">
+		<div class="pic">
+			<img src="imgs/login/robot.png"/>
+		</div>
+		<div class="loginBox">
+			<div class="title">
+				<h1>欢迎登陆</h1>
+				<span>Welcome to login</span>
+			</div>
+			<div class="login">
+				<span class="remind">为保证学习质量，请使用Chrome浏览器</span>
+				<div class="username">
+					<input type="text" name="username" id="username" value="" placeholder="请输入您的账号"/>
+					<i></i>
+				</div>
+				<div class="password">
+					<input type="password" name="password" id="password" value="" placeholder="请输入您的密码"/>
+					<i></i>
+				</div>
+				<button class="loginBtn" id="loginBtn">登陆</button>
+			</div>
+		</div>
+	</section>
+	<footer id="footer">
+		©2017SOUGOU - 京ICP证050897号 - 京公安网备11000002000025号
+	</footer>
 </body>
 </html>

@@ -1,42 +1,82 @@
-*{margin: 0;padding: 0;}
-ul,li{list-style: none;}
-a{text-decoration: none;}
-img{border: none;}
+*{
+	margin:0;
+	border:0;
+	padding:0;
+	font-style:normal;
+}
+html,
+body {
+	height: 100%;
+	width: 100%;
+	font-family: "微软雅黑";
+}
 
+ul,
+li {
+	list-style: none;
+}
 
+a {
+	text-decoration: none;
+}
+i{
+	font-style: normal;
+}
+img {
+	border: none;
+}
+img,a,button,em,del,strong,var,label,cite,small,time,mark,code,textarea{
+	display:inline-block;
+}
 
+.clearfix:after{
+	content: ' ';
+	display: block;
+	clear: both;
+	visibility:hidden;
+	line-height: 0;
+	height:0;
+}
 
+header,
+section,
+footer {
+	position: relative;
+}
 
+header {
+	width: 1200px;
+	height: 64px;
+	margin: 0 auto;
+}
+header .logo{
+	float: left;
+}
+header .exit{
+	float: right;
+	width: 150px;
+	height: 64px;
+	text-align: center;
+	color: #333;
+	line-height: 64px;
+	font-size: 18px;
+	transition: all 0.5s;
+}
+header .exit:hover{
+	color: #ff7b57;
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+footer{
+	width: 100%;
+	text-align: center;
+	height: 60px;
+	background-color: #333;
+	color: #fff;
+	font-size: 14px;
+	line-height: 60px;
+	position: absolute;
+	bottom: 0;left: 50%;
+	transform: translateX(-50%);
+}
 
 

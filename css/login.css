@@ -1,0 +1,100 @@
+section {
+	width: 1200px;
+	margin: 0 auto;
+	height: 675px;
+}
+.pic{
+	width: 600px;
+	height: 675px;
+	float: left;
+	position: relative;
+}
+.pic img{
+	position: absolute;
+	right: 0;top: 50%;
+	transform: translateY(-50%);
+}
+
+.loginBox{
+	width: 600px;
+	float: right;
+	height: 675px;
+	background: url(../imgs/login/loginBook.png) no-repeat left center;
+}
+.title{
+	height: 78px;width: 407px;
+	text-align: center;
+	padding-top: 122px;
+}
+.title h1{
+	font-size: 34px;
+	line-height: 50px;
+	width: 100%;
+	height: 50px;
+}
+.title span{
+	width: 100%;
+	font-size: 12px;
+	line-height: 18px;
+	height: 18px;
+	display: block;
+}
+
+.login{
+	width: 327px;
+	height: 201px;
+	margin-left: 61px;
+	text-align: center;
+}
+.login .remind{
+	font-size: 14px;
+	/*color: #ff1919;*/
+	color: #AFEEEE;
+	line-height: 40px;
+	display: block;
+	height: 40px;
+}
+.login div{
+	width: 240px;
+	height: 36px;
+	border: 1px solid #333;
+	border-radius: 18px;
+	margin: 0px auto 16px;
+	position: relative;
+}
+.login div input{
+	width: 175px;
+	height: 36px;
+	line-height: 36px;
+	float: left;
+	margin-left: 20px;
+}
+.username i{
+	width: 22px;
+	height: 22px;
+	background: url(../imgs/login/no.png) no-repeat center;
+	background-size: 22px 22px;
+	float: right;
+	position: absolute;
+	right: 13px;top: 7px;
+}
+.password i{
+	width: 22px;
+	height: 22px;
+	background: url(../imgs/login/eye.png) no-repeat center;
+	background-size: 22px 10px;
+	float: right;
+	position: absolute;
+	right: 13px;top: 7px;
+}
+.loginBtn{
+	width: 240px;
+	height: 36px;
+	background-color: #ff7b57;
+	text-align: center;
+	color: #fff;
+	font-size: 14px;
+	line-height: 36px;
+	margin: 0 auto;
+	border-radius: 18px;
+}
