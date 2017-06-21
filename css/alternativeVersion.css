@@ -1,0 +1,374 @@
+body{
+	background-color: #f2f2f2;
+}
+header{
+	width: 100%;
+	background-color: #fff;
+	height: 64px;
+}
+header .header{
+	width: 1200px;
+	height: 64px;
+	margin: 0 auto;
+}
+.nav{
+	width: 100%;
+	height: 40px;
+	background-color: #ff7a57;
+}
+.nav .center{
+	width: 1200px;
+	margin: 0 auto;
+	line-height: 40px;
+	color: #fff;
+	font-size: 14px;
+}
+section{
+	width: 1200px;
+	margin: 0 auto;
+}
+section .main{
+	width: 1166px;
+	height: 620px;
+	margin: 40px auto;
+}
+section .mainleft{
+	width: 380px;
+	height: 620px;
+	float: left;
+}
+section .mainright{
+	width: 770px;
+	height: 620px;
+	float: right;
+}
+section .mainleft .lTop{
+	width: 100%;
+	height: 314px;
+	padding-top: 16px;
+	background: #ff7a57 url(../imgs/versions/bacImg.png);
+	margin-bottom: 16px;
+}
+.mainleft .course{
+	width: 350px;
+	height: 36px;
+	background-color: #fff;
+	color: #333;
+	font-size: 16px;
+	line-height: 36px;
+	position: relative;
+	border-radius: 18px;
+	margin: 0 auto 16px;
+	cursor: pointer;
+}
+.mainleft .course p{
+	width: 295px;
+	margin-left: 20px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+.mainleft .course i,
+.mainleft .section .sectionBox i,
+.mainleft .test i{
+	width: 16px;
+	height: 14px;
+	background: url(../imgs/versions/down.png) no-repeat center;
+	position: absolute;
+	right: 15px;
+	top: 11px;
+}
+.mainleft .section{
+	font-size: 16px;
+	line-height: 36px;
+	color: #fff;
+	margin-left: 15px;
+	margin-bottom: 16px;
+	cursor: pointer;
+}
+.mainleft .section .sectionBox{
+	margin-right: 30px;
+	float: left;
+	width: 124px;
+	height: 36px;
+	background-color: #fff;
+	line-height: 36px;
+	border-radius: 18px;
+	color: #333;
+	padding-left: 20px;
+	position: relative;
+}
+.mainleft .test{
+	width: 124px;
+	height: 36px;background-color: #fff;
+	line-height: 36px;border-radius: 18px;
+	color: #333;
+	padding-left: 20px;
+	position: relative;
+	left: 15px;
+	margin-bottom: 40px;
+	cursor: pointer;
+}
+.mainleft .wordBook,.mainleft .memory{
+	width: auto;
+	height: 30px;
+	display: inline-block;
+	color: #fff;
+	font-size: 16px;
+	line-height: 30px;
+	margin-bottom: 30px;
+	margin-left: 30px;
+	border-bottom: 1px solid transparent;
+}
+.mainleft .wordBook:hover,.mainleft .memory:hover{
+	border-bottom: 1px solid #fff;
+}
+section .mainleft .lBot{
+	width: 100%;
+	height: 212px;
+	background: #fff;
+	padding-top: 62px;
+}
+.mainleft .efficiency{
+	width: 100%;
+	text-align: center;
+	color: #333;
+	font-size: 18px;
+}
+.mainleft .percentage{
+	font-size: 36px;
+	font-weight: bold;
+	color: #ff7b57;
+	text-align: center;
+	width: 100%;
+	margin: 24px 0 37px;
+}
+.mainleft .onlineTime,
+.mainleft .validTime{
+	width: 100%;
+	text-align: center;
+	font-size: 14px;
+	color: #333333;
+	margin-bottom: 16px;
+}
+
+section .mainright{
+	width: 770px;
+	height: 620px;
+	float: right;
+}
+section .mainright .study{
+	width: 620px;
+	height: 100%;
+	float: left;
+}
+.mainright .study .start{
+	width: 100%;
+	height: 357px;
+	background-color: #fff;
+	margin-bottom: 1px;
+	padding-top: 45px;
+}
+.mainright .study .book{
+	width: 218px;
+	height: 294px;
+	background-color: #ecf2f2;
+	margin: 0 auto;	
+	padding-top: 14px;
+	cursor: pointer;
+	transition: all 0.5s ease-in-out;
+}
+.mainright .study .book:hover .cen{
+	border: 1px solid #333;
+}
+.mainright .study .book:hover .cen i{
+	display: block;
+}
+.mainright .book .cen{
+	width: 189px;
+	height: 218px;
+	border: 1px solid transparent;
+	margin: 0px auto;
+	text-align: center;
+	padding-top: 60px;
+}
+.mainright .book .cen .pic{
+	width: 86px;
+	height: 86px;
+	border-radius: 50%;
+	margin: 0 auto 30px;
+}
+.mainright .book .cen .pic img{
+	width: 100%;
+	height: 100%;
+}
+.mainright .cen h3{
+	font-size: 22px;
+	font-weight: normal;
+	color: #ff7b57;
+	line-height: 30px;
+	height: 30px;
+}
+.mainright .cen span{
+	width: 100%;
+	text-align: center;
+	font-size: 12px;
+	color: #666;
+	display: block;
+	line-height: 19px;
+	height: 19px;
+}
+.mainright .cen i{
+	width: 100%;
+	text-align: center;
+	font-size: 18px;
+	color: #ff1919;
+	display: none;
+	line-height: 33px;
+	height: 33px;
+}
+
+.study .bot .progress{
+	width: 344px;
+	height: 167px;
+	margin-right: 1px;
+	float: left;
+	background-color: #fff;
+	padding-top: 50px;
+	padding-left: 26px;
+	font-size: 16px;
+	color: #333;
+}
+.study .progress>div{
+	margin-bottom: 16px;
+}
+.study .progress>div>div{
+	display: inline-block;
+	width: 164px;
+	height: 10px;
+	background-color: #ccc;
+}
+.study .progress .unitpercent .now{
+	height: 100%;
+	width: 25%;
+	background-color: #ff7b57;
+}
+.study .progress .coursepercent .now{
+	height: 100%;
+	width: 49%;
+	background-color: #ff7b57;
+}
+.study .progress>div span{
+	display: inline-block;
+	font-size: 12px;
+	color: #333;
+}
+.study .progress .onceAgain{
+	cursor: pointer;
+}
+.study .progress .onceAgain:hover{
+	color: #ff7b57;
+}
+.study .bot .review{
+	width: 249px;
+	height: 217px;
+	float: left;
+	background-color: #fff;
+	text-align: center;
+	color: #333;
+}
+.study .review .courseStudyNum{
+	width: 100%;
+	font-size: 18px;
+	padding-top: 50px;
+}
+.study .review .courseStudyNum p{
+	margin: 22px 0 16px 0;
+	width: 100%;font-size: 36px;
+	font-weight: bold;
+}
+.study .review .bot a{
+	color: #ff7b57;
+	line-height: 30px;
+	display: inline-block;
+	height: 30px;
+	font-size: 14px;
+	border-bottom: 1px solid transparent;
+}
+.study .review .bot a:hover{
+	border-bottom: 1px solid #ff7b57;
+}
+section .mainright .navs{
+	width: 150px;
+	height: 576px;
+	float: right;
+	background-color: #ff7a57;
+	padding-top: 44px;
+	text-align: center;
+	position: relative;
+}
+section .navs .category{
+	font-size: 72px;
+	font-weight: bold;
+	color: #fff;
+	margin-bottom: 90px;
+}
+section .navs .category span{
+	display: block;
+	font-size: 12px;
+	font-weight: normal;
+	/*margin-top: 12px;*/
+}
+section .navs .title{
+	font-size: 18px;
+	font-family: "微软雅黑";
+	color: #fff;
+}
+section .navs i{
+	width: 50px;
+	height: 50px;
+	background: url(../imgs/versions/back.png) no-repeat center;
+	background-size: 33px 33px;
+	position: absolute;
+	bottom: 42px;
+	left: 50%;
+	transform: translateX(-50%);
+	cursor: pointer;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

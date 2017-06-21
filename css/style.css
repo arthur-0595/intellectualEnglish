@@ -52,7 +52,7 @@ header {
 header .logo{
 	float: left;
 }
-header .exit{
+header a{
 	float: right;
 	width: 150px;
 	height: 64px;
@@ -62,7 +62,7 @@ header .exit{
 	font-size: 18px;
 	transition: all 0.5s;
 }
-header .exit:hover{
+header a:hover{
 	color: #ff7b57;
 }
 
