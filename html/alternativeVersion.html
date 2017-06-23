@@ -22,7 +22,7 @@
 				</a>
 			</div>
 		</header>
-		<div class="nav">
+		<div class="topnav">
 			<div class="center">
 				您所在的位置： <span>智能单词 > 智能记忆</span>
 			</div>
@@ -31,21 +31,245 @@
 			<div class="main clearfix">
 				<div class="mainleft">
 					<div class="lTop">
-						<div class="course">
-							<p>人教社PEP版2012（三年级起点）- 六下 </p>
+						<div class="course" id="course">
+							<p>选择教材 </p>
 							<i></i>
 						</div>
+						<!--选择教材-->
+						<div class="selectingTextbooks" id="selectingTextbooks" style="display: none;">
+							<ul class="nav clearfix" id="courseNavs">
+								<li class="checked">在学课程</li>
+								<li class="">所有课程</li>
+							</ul>
+							<ul class="mainBot">
+								<li class="myCourses" style="display: block;">
+									<table>
+										<thead>
+											<tr class="clearfix">
+												<td>课程名称</td>
+												<td>最后一次学习时间</td>
+												<td>学习进度</td>
+												<td>学习</td>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td>语音训练第三期</td>
+												<td>两个小时前</td>
+												<td>
+													<a href="javascript:;">查看</a>
+													<table class="studyRate" id="studyRate" style="display: block;">
+														<tr>
+															<th class="title1">学习类型</th>
+															<th class="title2">进度</th>
+															<th class="title3">复习量</th>
+														</tr>
+														<tr>
+															<td>智能记忆</td>
+															<td>
+																<div class="rate">
+																	<div class="thisrate"></div>
+																</div>
+																<span class="rateNum">49%</span>
+															</td>
+															<td>23</td>
+														</tr>
+														<tr>
+															<td>智能听写</td>
+															<td>
+																<div class="rate">
+																	<div class="thisrate"></div>
+																</div>
+																<span class="rateNum">23%</span>
+															</td>
+															<td>23</td>
+														</tr>
+														<tr>
+															<td>智能默写</td>
+															<td>
+																<div class="rate">
+																	<div class="thisrate"></div>
+																</div>
+																<span class="rateNum">20%</span>
+															</td>
+															<td>23</td>
+														</tr>
+														<tr>
+															<td>例句听力</td>
+															<td>
+																<div class="rate">
+																	<div class="thisrate"></div>
+																</div>
+																<span class="rateNum">50%</span>
+															</td>
+															<td>23</td>
+														</tr>
+														<tr>
+															<td>例句翻译</td>
+															<td>
+																<div class="rate">
+																	<div class="thisrate"></div>
+																</div>
+																<span class="rateNum">65%</span>
+															</td>
+															<td>23</td>
+														</tr>
+														<tr>
+															<td>例句默写</td>
+															<td>
+																<div class="rate">
+																	<div class="thisrate"></div>
+																</div>
+																<span class="rateNum">12%</span>
+															</td>
+															<td>23</td>
+														</tr>
+													</table>
+												</td>
+												<td>学习</td>
+											</tr>
+											<tr>
+												<td>语音训练第三期</td>
+												<td>两个小时前</td>
+												<td>
+													<a href="javascript:;">查看</a>
+												</td>
+												<td>学习</td>
+											</tr>
+											<tr>
+												<td>语音训练第三期</td>
+												<td>两个小时前</td>
+												<td>
+													<a href="javascript:;">查看</a>
+												</td>
+												<td>学习</td>
+											</tr>
+											<tr>
+												<td>语音训练第三期</td>
+												<td>两个小时前</td>
+												<td>
+													<a href="javascript:;">查看</a>
+												</td>
+												<td>学习</td>
+											</tr>
+											<tr>
+												<td>语音训练第三期</td>
+												<td>两个小时前</td>
+												<td>
+													<a href="javascript:;">查看</a>
+												</td>
+												<td>学习</td>
+											</tr>
+											<tr>
+												<td>语音训练第三期</td>
+												<td>两个小时前</td>
+												<td>
+													<a href="javascript:;">查看</a>
+												</td>
+												<td>学习</td>
+											</tr>
+											<tr>
+												<td>语音训练第三期</td>
+												<td>两个小时前</td>
+												<td>
+													<a href="javascript:;">查看</a>
+												</td>
+												<td>学习</td>
+											</tr>
+											<tr>
+												<td>语音训练第三期</td>
+												<td>两个小时前</td>
+												<td>
+													<a href="javascript:;">查看</a>
+												</td>
+												<td>学习</td>
+											</tr>
+											<tr>
+												<td>语音训练第三期</td>
+												<td>两个小时前</td>
+												<td>
+													<a href="javascript:;">查看</a>
+												</td>
+												<td>学习</td>
+											</tr>
+										</tbody>
+									</table>
+								</li>
+								<li class="allCourses" style="display: none;">
+									<ul class="navTitle clearfix">
+										<li>选择系列</li>
+										<li>选择版本</li>
+										<li>选择课程</li>
+									</ul>
+									<div class="main">
+										<ul class="left">
+											<li class="padL30">小学英语</li>
+											<li class="padL30">初中英语</li>
+											<li class="padL30">高中英语</li>
+											<li class="padL30">大学英语</li>
+											<li class="padL30">成人考试</li>
+											<li class="padL30">其他课程</li>
+
+										</ul>
+										<ul class="mid">
+											<li class="padL30">三年级</li>
+											<li class="padL30">语音训练</li>
+											<li class="padL30">三年级aas</li>
+											<li class="padL30">三年asdsd级</li>
+											<li class="padL30">三年dfgdfg级</li>
+											<li class="padL30">三年asdsa级</li>
+											<li class="padL30">三年asdsd级</li>
+											<li class="padL30">三年dfgdfg级</li>
+											<li class="padL30">三年asdsa级</li>
+											<li class="padL30">三年dfgdfg级</li>
+											<li class="padL30">三年asdsa级</li>
+										</ul>
+										<ul class="right">
+											<li class="padL30">一上</li>
+											<li class="padL30">一下</li>
+											<li class="padL30">二上</li>
+											<li class="padL30">二上</li>
+											<li class="padL30">二上</li>
+											<li class="padL30">三上</li>
+											<li class="padL30">三上</li>
+											<li class="padL30">四上</li>
+											<li class="padL30">五上</li>
+										</ul>
+									</div>
+								</li>
+							</ul>
+						</div>
+						<!--选择教材结束-->
 						<div class="section">
-							<div class="sectionBox">
-								第三章
+							<div class="sectionBox" id="sectionBox">
+								选择章节
 								<i></i>
 							</div>
-							选择章节
+							<!--选择章节-->
+							<ul class="chapterList" id="chapterList" style="display: none;">
+								<li>Unit1</li>
+								<li>Unit2</li>
+								<li>Unit3</li>
+								<li>Unit4</li>
+								<li>Unit5</li>
+								<li>Unit6</li>
+								<li>Unit7</li>
+								<li>Unit8</li>
+							</ul>
 						</div>
-						<div class="test">
+						<div class="test" id="test">
 							测试中心
 							<i></i>
+							<!--测试中心开始-->
+							<ul class="testList" id="testList" style="display: none;">
+								<li>已学测试</li>
+								<li>生词测试</li>
+								<li>熟词测试</li>
+								<li>五维测试</li>
+							</ul>
+							<!--测试中心结束-->
 						</div>
+
 						<div id="">
 							<a class="wordBook" href="#">
 								单词本
@@ -146,6 +370,10 @@
 		<footer id="footer">
 			©2017SOUGOU - 京ICP证050897号 - 京公安网备11000002000025号
 		</footer>
+
+		<script src="../js/jquery-3.2.1.min.js"></script>
+		<script src="../js/common.js"></script>
+		<script src="../js/alternativeVersion.js"></script>
 	</body>
 
 </html>

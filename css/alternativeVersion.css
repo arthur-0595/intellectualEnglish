@@ -11,12 +11,12 @@ header .header{
 	height: 64px;
 	margin: 0 auto;
 }
-.nav{
+.topnav{
 	width: 100%;
 	height: 40px;
 	background-color: #ff7a57;
 }
-.nav .center{
+.topnav .center{
 	width: 1200px;
 	margin: 0 auto;
 	line-height: 40px;
@@ -48,6 +48,7 @@ section .mainleft .lTop{
 	padding-top: 16px;
 	background: #ff7a57 url(../imgs/versions/bacImg.png);
 	margin-bottom: 16px;
+	position: relative;
 }
 .mainleft .course{
 	width: 350px;
@@ -78,17 +79,216 @@ section .mainleft .lTop{
 	right: 15px;
 	top: 11px;
 }
+
+/*--选择教材--*/
+.selectingTextbooks{
+	width: 1166px;
+	height: 600px;
+	background-color: #fff;
+	position: absolute;
+	z-index: 2;
+	left: 0;
+	top: 50px;
+}
+.selectingTextbooks ul.nav{
+	width: 1086px;
+	height: 40px;
+	margin: 40px auto 0;
+}
+.selectingTextbooks ul.nav li{
+	width: 100px;
+	float: left;
+	height: 40px;
+	background-color: #eee;
+	text-align: center;
+	line-height: 40px;
+	color: #333;
+	font-size: 16px;
+	cursor: pointer;
+}
+.selectingTextbooks ul.nav li.checked{
+	background-color: #ff7b57;
+	color: #fff;
+}
+.selectingTextbooks ul.mainBot{
+	width: 1086px;
+	height: 480px;
+	margin: 0 auto;
+}
+.selectingTextbooks ul li.myCourses{
+	display: block;
+	width: 100%;
+	height: 100%;
+	
+}
+.selectingTextbooks ul li.myCourses table{
+	border-spacing:0;border-collapse:collapse;
+	width: 100%;height: 100%;
+}
+li.myCourses thead tr{
+	font-size: 16px;color: #fff;
+	height: 40px;text-align: center;
+	background-color: #ff7b57;
+	line-height: 40px;
+	font-weight: normal;
+}
+li.myCourses thead tr td:nth-child(1){
+	width: 546px;
+}
+li.myCourses thead tr td:nth-child(2){
+	width: 220px;
+}
+li.myCourses thead tr td:nth-child(3){
+	width: 160px;
+}
+li.myCourses thead tr td:nth-child(4){
+	width: 160px;
+}
+li.myCourses tbody tr{
+	border-bottom: 1px solid #eee;
+	font-size: 14px;color: #333;
+	text-align: center;line-height: 39px;
+}
+li.myCourses tbody tr td:nth-child(1){
+	text-align: left;
+	padding-left: 20px;
+}
+li.myCourses tbody tr td:nth-child(3){
+	position: relative;
+}
+li.myCourses tbody tr td:nth-child(4){
+	color: #999;
+}
+li.myCourses tbody tr a{
+	color: #ff7b57;
+}
+li.myCourses tbody #studyRate{
+	width: 410px;height: 280px;
+	border-spacing:0;border-collapse:collapse;
+	display: block;
+	position: absolute;
+	background-color: #fff;
+	z-index: 2;
+	left: -78%;top: 40px;
+}
+li.myCourses tbody #studyRate tr{
+	font-size: 14px;color: #333;
+	line-height: 40px;
+	border-left: 1px solid #eee;
+	border-right: 1px solid #eee;
+}
+li.myCourses tbody #studyRate tr:nth-child(1){
+	background-color: #333;
+	color: #fff;
+	font-size: 16px;
+}
+li.myCourses tbody #studyRate tr td{
+	background-color: #fff;
+}
+li.myCourses tbody #studyRate tr .rate{
+	display: inline-block;
+	width: 130px;height: 5px;
+	background-color: #ccc;
+	position: relative;
+	top: -3px;
+	margin-right: 5px;
+}
+li.myCourses tbody #studyRate tr .rate .thisrate{
+	width: 49%;
+	height: 100%;
+	background-color: #ff7b57;
+}
+.title1{
+	width: 100px;
+}
+.title2{
+	width: 210px;
+}
+.title3{
+	width: 100px;
+}
+
+.selectingTextbooks ul li.allCourses{
+	display: none;
+	width: 100%;
+	height: 100%;
+}
+li.allCourses .navTitle{
+	width: 100%;
+	height: 40px;
+}
+li.allCourses .navTitle li{
+	height: 40px;
+	line-height: 40px;
+	float: left;
+	color: #fff;
+	text-align: center;
+	background-color: #ff7b57;
+	font-size: 16px;
+}
+li.allCourses .navTitle li:nth-child(1){
+	width: 260px;
+}
+li.allCourses .navTitle li:nth-child(2){
+	width: 405px;
+}
+li.allCourses .navTitle li:nth-child(3){
+	width: 419px;
+}
+li.allCourses .main{
+	width: 100%;
+	height: 440px;
+	overflow: hidden;
+	margin: 0 auto;
+}
+li.allCourses .main ul{
+	float: left;
+	overflow: auto;
+	border-left: 1px solid #ccc;
+	border-right: 1px solid #ccc;
+}
+li.allCourses .main ul:nth-child(2){
+	margin-left: -1px;
+}
+li.allCourses .main ul:nth-child(3){
+	margin-left: -1px;
+}
+li.allCourses .main ul li{
+	border-bottom: 1px solid #ccc;
+	height: 39px;text-align: left;
+	line-height: 39px;
+	color: #333;
+	cursor: pointer;
+}
+li.allCourses .main ul li:hover{
+	background-color: #eee;
+}
+li.allCourses .main ul li:active{
+	background-color: #ff7b57;
+	color: #fff;
+}
+li.allCourses .main ul:nth-child(1){
+	width: 260px;
+}
+li.allCourses .main ul:nth-child(2){
+	width: 404px;
+}
+li.allCourses .main ul:nth-child(3){
+	width: 416px;
+}
+/*--选择教材结束--*/
+
 .mainleft .section{
 	font-size: 16px;
 	line-height: 36px;
 	color: #fff;
 	margin-left: 15px;
 	margin-bottom: 16px;
-	cursor: pointer;
+	position: relative;
 }
 .mainleft .section .sectionBox{
 	margin-right: 30px;
-	float: left;
+	/*float: left;*/
 	width: 124px;
 	height: 36px;
 	background-color: #fff;
@@ -97,7 +297,35 @@ section .mainleft .lTop{
 	color: #333;
 	padding-left: 20px;
 	position: relative;
+	cursor: pointer;
 }
+/*------------选择章节开始--------------*/
+.chapterList{
+	width: 1106px;
+	height: 455px;
+	background-color: #fff;
+	padding: 60px 0 0 60px;
+	position: absolute;
+	left: -15px;top: 36px;
+	z-index: 2;
+}
+.chapterList li{
+	width: 227px;height: 85px;
+	border: 1px solid #999;
+	border-radius: 43px;
+	float: left;
+	margin: 0 46px 46px 0;
+	font-size: 30px;
+	text-align: center;
+	color: #666;
+	line-height: 85px;
+	cursor: pointer;
+}
+.chapterList li:hover{
+	color: #ff7b57;
+	border-color: #ff7b57;
+}
+/*------------选择章节结束--------------*/
 .mainleft .test{
 	width: 124px;
 	height: 36px;background-color: #fff;
@@ -109,6 +337,23 @@ section .mainleft .lTop{
 	margin-bottom: 40px;
 	cursor: pointer;
 }
+/*-----------------测试开始-------------------*/
+.testList{
+	width: 144px;
+	position: absolute;
+	left: 0;top: 36px;
+}
+.testList li{
+	background-color: #fff;
+	border-top: 1px solid #999;
+	width: 114px;
+	padding-left: 30px;
+	text-align: left;
+	line-height: 35px;
+	font-size: 16px;
+	color: #333;
+}
+/*-----------------测试结束-------------------*/
 .mainleft .wordBook,.mainleft .memory{
 	width: auto;
 	height: 30px;
@@ -335,6 +580,9 @@ section .navs i{
 	transform: translateX(-50%);
 	cursor: pointer;
 }
+
+
+
 
 
 
