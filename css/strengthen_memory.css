@@ -46,11 +46,111 @@ section{
 	right: 20px;
 	top: 16px;
 }
-
-
-
-
-
+.word{
+	width: 100%;height: 236px;
+	text-align: center;
+	padding-top: 22px;
+}
+.word h3{
+	font-size: 26px;
+	color: #333;
+	line-height: 70px;
+	height: 70px;
+	font-weight: normal;
+}
+.word .inputBox{
+	width: 368px;height: 46px;
+	background-color: #eee;
+	margin: 0 auto;
+	position: relative;
+}
+.word .inputBox input{
+	background-color: transparent;
+	line-height: 46px;
+	height: 46px;
+	display: inline-block;
+	width: 100%;
+	border: none;
+	outline: medium;
+	font-size: 24px;
+	color: #666;
+	text-align: center;
+}
+.word .voice{
+	text-align: left;
+	width: 96px;
+	height: 46px;
+	line-height: 46px;
+	font-size: 12px;
+	color: #666;
+	cursor: pointer;
+	position: absolute;
+	left: -96px;top: 0;
+}
+.word .voice i{
+	width: 33px;
+	height: 30px;
+	display: block;
+	background: url(../imgs/soundY.png) no-repeat center;
+	position: absolute;
+	right: 15px;top: 8px;
+}
+.word .status{
+	width: 46px;height: 46px;
+	background-image: url(../imgs/hintNo.png);
+	background-repeat: no-repeat;
+	background-position: center;
+	position: absolute;
+	right: -46px;top: 0;
+}
+.word .status.correct{
+	background-image: url(../imgs/hintYes.png);
+}
+.word .hint{
+	font-size: 12px;
+	height: 35px;
+	line-height: 35px;
+	color: #666;
+	width: 100%;
+}
+.word .answer{
+	font-size: 30px;
+	color: #57b3ff;
+	line-height: 44px;
+	height: 44px;
+}
+/*-错误答案提示-*/
+.word div.answer.correct{
+	color: #ff1919;
+}
+.btns{
+	width: 100%;height: 94px;
+	position: relative;
+}
+.btns .enter{
+	line-height: 50px;
+	width: 466px;
+	height: 50px;
+	border-radius: 25px;
+	background-color: #ff7b57;
+	color: #fff;
+	text-align: center;
+	position: absolute;
+	bottom: 0px;left: 50%;
+	transform: translateX(-50%);
+	cursor: pointer;
+	font-size: 18px;
+}
+.btns .enter i{
+	width: 27px;height: 22px;
+	display: inline-block;
+	background: url(../imgs/next.png) no-repeat center;
+	position: relative;
+	top: 6px;
+}
+.btns .enter:hover{
+	box-shadow: inset 0 0 20px 0 #fff;
+}
 
 .otherInformation{
 	width: 100%;
@@ -64,6 +164,10 @@ section{
 .otherInformation .studyTime{
 	position: absolute;
 	left: 20px;top: 0;
+}
+.otherInformation .errorRate{
+	position: absolute;
+	left: 240px;top: 0;
 }
 .otherInformation .thisStudy{
 	position: absolute;
