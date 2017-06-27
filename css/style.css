@@ -94,3 +94,38 @@ footer{
 	padding-left: 30px;
 }
 
+.masking{
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0,0,0,.4);
+	position: absolute;
+	left: 0;top: 0;
+	z-index: 5;
+}
+.masking .reminder{
+	width: 344px;height: 230px;
+	background-color: #fff;
+	font-size: 18px;
+	color: #333;
+	position: absolute;
+	left: 50%;top: 50%;
+	transform: translate(-50%,-50%);
+	z-index: 6;
+	text-align: center;
+}
+.masking .reminder h4{
+	font-weight: normal;
+	line-height: 125px;
+	width: 100%;
+	height: 125px;
+}
+.masking .reminder .btnsOk{
+	width: 186px;
+	height: 50px;
+	border-radius: 25px;
+	background-color: #ff7b57;
+	color: #fff;
+	line-height: 50px;
+	margin: 0 auto;
+	font-size: 16px;
+}
