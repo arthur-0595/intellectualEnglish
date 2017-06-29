@@ -1,0 +1,149 @@
+body{
+	background: url(../imgs/bacImg1.png);
+}
+header{
+	width: 100%;
+	height: 54px;
+	background-color: #fff;
+	box-shadow: 0 25px 50px 0 rgba(0,0,0,.1);
+}
+header .con{
+	width: 1100px;
+	height: 100%;
+	margin: 0 auto;
+	position: relative;
+}
+header .con .title{
+	width: 250px;
+	height: 100%;
+	text-align: center;
+	font-size: 18px;
+	color: #333;
+	margin: 0 auto;
+	line-height: 54px;
+}
+header .con .versions{
+	font-size: 14px;
+	color: #333;
+	line-height: 54px;
+	height: 54px;
+	width: 400px;
+	position: absolute;
+	left: 0;top: 0;
+}
+header .con .back{
+	width: 54px;
+	height: 54px;
+	display: block;
+	position: absolute;
+	right: 35px;top: 0;
+	background: url(../imgs/no.png) no-repeat center;
+}
+.score{
+	width: 1100px;
+	height: 166px;
+	font-size: 36px;
+	color: #ff7b57;
+	line-height: 166px;
+	text-align: center;
+	margin: 0 auto;
+	background: #fff;
+}
+.section{
+	width: 1100px;
+	box-sizing: border-box;
+	padding: 0 20px;
+	background: #fff;
+	margin: 0 auto;
+	padding-bottom: 100px;
+}
+.section .con{
+	border: 1px solid #ccc;
+	border-bottom: none;
+	border-right: none;
+	width: 1059px;
+	margin: 0 auto;
+}
+.section .con li{
+	width: 528px;
+	height: 162px;
+	border: 1px solid #ccc;
+	border-left: none;
+	border-top: none;
+	float: left;
+	position: relative;
+}
+.section .con li h4{
+	box-sizing: border-box;
+	padding-left: 5px;
+	line-height: 34px;
+	font-size: 18px;
+	color: #333;
+}
+.section .con li .myans{
+	margin-top: 30px;
+	line-height: 34px;
+	font-size: 18px;
+	box-sizing: border-box;
+	padding-left: 20px;
+}
+.section .con li .translate{
+	margin-top: 25px;
+	line-height: 34px;
+	font-size: 18px;
+	box-sizing: border-box;
+	padding-left: 20px;
+}
+.section .con li.correct{
+	background-color: #fff;
+}
+.section .con li.correct .myans{
+	color: #57B3FF;
+}
+.section .con li.correct:after{
+	content: '';
+	width: 23px;height: 23px;
+	display: block;
+	background: url(../imgs/hintYes.png) no-repeat center;
+	position: absolute;
+	right: 15px;top: 15px;
+}
+.section .con li.error{
+	background-color: #eee;
+}
+.section .con li.error .myans{
+	color: #ff1919;
+}
+.section .con li.error:after{
+	content: '';
+	width: 23px;height: 23px;
+	display: block;
+	background: url(../imgs/hintNo.png) no-repeat center;
+	position: absolute;
+	right: 15px;top: 15px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
