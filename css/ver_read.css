@@ -1,0 +1,275 @@
+body{
+	background-color: #f2f2f2;
+}
+header{
+	width: 100%;
+	background-color: #fff;
+	height: 64px;
+}
+header .header{
+	width: 1200px;
+	height: 64px;
+	margin: 0 auto;
+}
+.topnav{
+	width: 100%;
+	height: 40px;
+	background-color: #ff7a57;
+}
+.topnav .center{
+	width: 1200px;
+	margin: 0 auto;
+	line-height: 40px;
+	color: #fff;
+	font-size: 14px;
+}
+section{
+	width: 1200px;
+	margin: 0 auto;
+}
+section .main{
+	width: 1166px;
+	height: 620px;
+	margin: 40px auto;
+}
+section .mainleft{
+	width: 228px;
+	height: 620px;
+	overflow: hidden;
+	float: left;
+}
+section .mainleft>ul{
+	width: 250px;
+	height: 620px;
+	background-color: #fff;
+	box-sizing: border-box;
+	padding: 25px 0 25px 20px;
+	overflow: auto;
+}
+section .mainleft>ul>li{
+	padding-left: 24px;
+	position: relative;
+	font-size: 16px;
+	color: #333;
+	line-height: 31px;
+	line-height: 31px;
+	cursor: pointer;
+}
+section .mainleft>ul>li:hover{
+	color: #ff7b57;
+}
+section .mainleft>ul>li span{
+	position: absolute;
+	width: 24px;
+	height: 31px;
+	top: 0;left: 0;
+}
+section .mainleft>ul>li .tit{
+	height: 31px;
+}
+section .mainleft>ul>li .courseA{
+	font-size: 14px;
+	line-height: 28px;
+	padding-left: 20px;
+}
+section .mainleft>ul>li .courseA li{
+	cursor: pointer;
+}
+section .mainleft>ul>li .courseA li:hover{
+	color: #ff7b57;
+}
+
+section .mainright{
+	width: 920px;
+	height: 620px;
+	float: right;
+}
+.mainright .study{
+	width: 770px;
+	height: 620px;
+	float: left;
+	background-color: #fff;
+}
+.mainright .study .top{
+	width: 100%;
+	height: 98px;
+	border-bottom: 1px solid #eee;
+	text-align: center;
+	font-size: 20px;
+	color: #333;
+	position: relative;
+}
+.mainright .study .top .tit{
+	width: 100%;
+	height: 70px;
+	line-height: 70px;
+}
+.mainright .study .top a{
+	color: #333;
+	font-size: 14px;
+	position: absolute;
+	right: 25px;
+	bottom: 15px;
+	transition: all 0.2s;
+}
+.mainright .study .top a:hover{
+	color: #ff7b57;
+}
+.mainright .study .bot{
+	width: 100%;
+	height: 521px;
+	overflow: hidden;
+	background-color: #fff;
+	box-sizing: border-box;
+	
+}
+.mainright .study .bot>ul{
+	width: 790px;
+	height: 521px;
+	box-sizing: border-box;
+	padding: 41px 0 0 75px;
+	overflow: auto;
+}
+.mainright .study .bot li{
+	width: 124px;
+	height: 138px;
+	text-align: center;
+	float: left;
+	background-color: #ffeb94;
+	color: #333;
+	font-size: 16px;line-height: 52px;
+	margin-bottom: 41px;
+	margin-right: 41px;
+	box-sizing: border-box;
+	padding-top: 22px;
+	cursor: pointer;
+}
+@keyframes thisLiScale{
+	0%{transform: scale(1);}
+	50%{transform: scale(1.05);}
+	100%{transform: scale(1);}
+}
+
+.mainright .study .bot li:hover{
+	animation: thisLiScale 0.3s ease-in-out;
+}
+.mainright .study .bot li:nth-child(2){
+	background-color: #fdeded;
+}
+.mainright .study .bot li:nth-child(3){
+	background-color: #adf6ed;
+}
+.mainright .study .bot li:nth-child(4){
+	background-color: #fce4ca;
+}
+.mainright .study .bot li:nth-child(5){
+	background-color: #fbf9ed;
+}
+.mainright .study .bot li:nth-child(6){
+	background-color: #f4efdc;
+}
+.mainright .study .bot li:nth-child(7){
+	background-color: #ebe8e3;
+}
+.mainright .study .bot li:nth-child(8){
+	background-color: #dbe9b6;
+}
+.mainright .study .bot li:nth-child(9){
+	background-color: #FFB6C1;
+}
+.mainright .study .bot li:nth-child(10){
+	background-color: #D8BFD8;
+}
+.mainright .study .bot li:nth-child(11){
+	background-color: #87CEEB;
+}
+.mainright .study .bot li:nth-child(12){
+	background-color: #AFEEEE;
+}
+.mainright .study .bot li .pic{
+	width: 50px;
+	height: 66px;
+	margin: 0 auto;
+	background: url(../imgs/bookN.png) no-repeat center;
+}
+.mainright .study .bot li.complete .pic{
+	background: url(../imgs/bookY.png) no-repeat center;
+}
+
+section .mainright .navs{
+	width: 150px;
+	height: 576px;
+	float: right;
+	background-color: #ff7a57;
+	padding-top: 44px;
+	text-align: center;
+	position: relative;
+}
+section .navs .category{
+	font-size: 72px;
+	font-weight: bold;
+	color: #fff;
+	margin-bottom: 90px;
+}
+section .navs .category span{
+	display: block;
+	font-size: 12px;
+	font-weight: normal;
+	/*margin-top: 12px;*/
+}
+section .navs .title{
+	font-size: 18px;
+	font-family: "微软雅黑";
+	color: #fff;
+}
+section .navs i{
+	width: 50px;
+	height: 50px;
+	background: url(../imgs/versions/back.png) no-repeat center;
+	background-size: 33px 33px;
+	position: absolute;
+	bottom: 42px;
+	left: 50%;
+	transform: translateX(-50%);
+	cursor: pointer;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
