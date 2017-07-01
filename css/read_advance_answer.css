@@ -1,0 +1,115 @@
+body{
+	background: url(../imgs/bacImg1.png);
+}
+header{
+	width: 100%;
+	height: 54px;
+	background-color: #fff;
+	box-shadow: 0 25px 50px 0 rgba(0,0,0,.1);
+}
+header .con{
+	width: 1100px;
+	height: 100%;
+	margin: 0 auto;
+	position: relative;
+}
+header .con .title{
+	width: 250px;
+	height: 100%;
+	text-align: center;
+	font-size: 18px;
+	color: #333;
+	margin: 0 auto;
+	line-height: 54px;
+}
+header .con .versions{
+	font-size: 14px;
+	color: #333;
+	line-height: 54px;
+	height: 54px;
+	width: 400px;
+	position: absolute;
+	left: 0;top: 0;
+}
+header .con .back{
+	width: 54px;
+	height: 54px;
+	display: block;
+	position: absolute;
+	right: 35px;top: 0;
+	background: url(../imgs/no.png) no-repeat center;
+}
+.section{
+	width: 1100px;
+	margin: 0 auto;
+	background-color: #fff;
+	padding-bottom: 150px;
+}
+.section .sectionBox{
+	width: 1100px;
+	height: 157px;
+	font-size: 36px;
+	color: #ff7b57;
+	text-align: center;
+	line-height: 157px;
+}
+
+.section .tabs{
+	width: 1060;
+	margin: 0 auto;
+	position: relative;
+	border-spacing:0;
+	border-collapse:collapse;
+	border-left: 1px solid #eee;
+}
+.section .tabs tr,.section .tabs td{
+	border: 1px solid #eee;
+	border-top: none;
+	border-left: none;
+	line-height: 38px;
+	font-size: 14px;
+	color:#333;
+}
+.section .tabs td{
+	box-sizing: border-box;
+	padding: 0 10px;
+}
+.section .tabs th{
+	background-color: #ff7b57;
+	text-align: center;
+	color: #fff;
+	border-right: 1px solid #eee;
+	height: 48px;
+	font-size: 18px;
+	font-weight: normal;
+}
+.section .tabs th:nth-child(1){
+	width: 70px;
+}
+.section .tabs th:nth-child(2){
+	width: 70px;
+}
+
+.section .tabs .status{
+	background: url(../imgs/blueYes.png) no-repeat center;
+}
+.section .tabs .listen{
+	cursor: pointer;
+	background: url(../imgs/soundY.png) no-repeat center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
