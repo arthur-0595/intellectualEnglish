@@ -51,7 +51,7 @@ header .con .back{
 	border-left: 1px solid #eee;
 	border-spacing:0;border-collapse:collapse;
 	width: 1059px;
-	margin: 0 auto 80px;
+	margin: 0 auto 40px;
 }
 .section th{
 	background-color: #ff7b57;
@@ -72,8 +72,27 @@ header .con .back{
 	color: #333;
 }
 
-
-
+.pagination{
+	font-family: consolas;
+	font-size: 14px;
+	color: #333;
+	line-height: 83px;
+	text-align: center;
+}
+.pagination div{
+	display: inline-block;
+	padding: 0 15px;
+	cursor: pointer;
+}
+.pagination div:hover{
+	color: #ff7b57;
+}
+.pagination .currentPage{
+	cursor: default;
+}
+.pagination .currentPage:hover{
+	color: #333;
+}
 
 
 

@@ -81,16 +81,60 @@ header .con .back{
 
 
 
-
-
-
-
-
-
-
-
-
-
+/*-----筛选生词------*/
+.hint{
+	width: 224px;height: 170px;
+	background-color: #FF7B57;
+	position: absolute;
+	left: 200px;top: 200px;
+	color: #fff;
+}
+.hint .top{
+	width: 204px;
+	height: 33px;
+	border-bottom: 1px solid #fff;
+	line-height: 33px;
+	margin: 0 auto;
+	font-size: 16px;
+	position: relative;
+}
+.hint .top span{
+	font-family: consolas;
+	position: absolute;
+	right: 0;top: 0;
+	font-size: 18px;
+	width: 33px;
+	text-align: center;
+	height: 33px;
+	cursor: pointer;
+	transition: all 0.6s;
+	box-sizing: border-box;
+}
+.hint .top span:hover{
+	transform: rotate(180deg);
+}
+.hint .translate{
+	width: 204px;
+	height: 94px;
+	overflow: auto;
+	line-height: 36px;
+	margin: 0 auto;
+}
+.hint .addNewWords{
+	width: 120px;
+	height: 26px;
+	background-color: #fff;
+	border-radius: 13px;
+	text-align: center;
+	line-height: 26px;
+	color: #333;
+	margin: 0 auto;
+	cursor: pointer;
+	transition: all 0.3s;
+}
+.hint .addNewWords:hover{
+	transform: translateY(-3px);
+}
 
 
 
