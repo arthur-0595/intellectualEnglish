@@ -283,3 +283,108 @@ section .navs i {
 	transform: translateX(-50%);
 	cursor: pointer;
 }
+
+
+.mode{
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0,0,0,.3);
+	position: absolute;
+	left: 0;top: 0;
+}
+.mode table{
+	width: 650px;height: 332px;
+	background-color: #fff;
+	position: absolute;
+	left: 50%;top: 50%;
+	transform: translate(-50% , -50%);
+	font-size: 16px;
+	
+	border-spacing: 0;
+	border-collapse: collapse;
+}
+.mode table caption{
+	width: 100%;height: 46px;
+	background-color: #fff;
+	text-align: center;
+	font-size: 18px;
+	color: #333;
+	line-height: 46px;
+	position: relative;
+}
+.mode table caption span{
+	width: 22px;
+	height: 22px;
+	display: block;
+	position: absolute;
+	right: 12px;
+	top: 12px;
+	background: url(../imgs/no.png) no-repeat center;
+	cursor: pointer;
+	transition: all 0.3s;
+}
+.mode table caption span:hover{
+	transform: rotate(180deg);
+}
+
+.mode table th{
+	background-color: #ff7b57;
+	color: #fff;
+	font-weight: normal;
+	height: 46px;
+}
+.mode table th:nth-child(1){
+	width: 130px;
+}
+.mode table th:nth-child(2){
+	width: 130px;
+}
+.mode table th:nth-child(4){
+	width: 130px;
+}
+.mode table td{
+	color: #333;
+	text-align: center;
+}
+.mode table td a{
+	color: #333;
+}
+.mode table td a:hover{
+	color: #ff7b57;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
