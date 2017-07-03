@@ -40,11 +40,12 @@ $(function(){
 				},
 				success:function(data){
 //					alert(JSON.stringify(data) );
-					var mainleft = document.getElementById('mainleft');
-					var template1 = document.getElementById('template1');
-//					alert(template1.innerHTML);
 					
-					fnupdateDoT(data[0] , mainleft , template1 );
+					var nhtml;
+					$.each(data, function(index , element) {
+						nhtml += `<li class="padL30" data-seseriesId = "${element.series_id}">${element.series_name}</li>`;
+					});
+					$("#mainleft").html(nhtml);
 				},
 				error:function(){
 					
@@ -52,6 +53,7 @@ $(function(){
 			});
 		}
 	})
+	
 	
 	//选择教材
 	$("#course").on("click",function(){
