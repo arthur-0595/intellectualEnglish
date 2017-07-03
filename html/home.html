@@ -17,9 +17,9 @@
 				退出
 			</a>
 		</header>
-		
+
 		<section>
-			<ul class="navs">
+			<ul class="navs" id="navs">
 				<li>
 					<div class="pic">
 						<img src="../imgs/home/1.png" alt="" />
@@ -84,10 +84,10 @@
 					<p>Classic English</p>
 				</li>
 			</ul>
-			<div class="message">
+			<div class="message" id="message">
 				<div class="me clearfix">
 					<div class="pic">
-						<img src="../imgs/personalCenter/2.png"/>
+						<img src="../imgs/personalCenter/2.png" />
 					</div>
 					<div class="name">
 						<h3 id="myname">李强 <span>LV19</span></h3>
@@ -109,6 +109,68 @@
 		<footer id="footer">
 			©2017SOUGOU - 京ICP证050897号 - 京公安网备11000002000025号
 		</footer>
+
+		<!--dot模版开始-->
+		<script type="text/template" id="template">
+			<div class="me clearfix">
+				<div class="pic">
+					<img src="http://192.168.2.127:8090{{=it.S_picurl}}" />
+				</div>
+				<div class="name">
+					<h3 id="myname">{{=it.S_name}} <span>LV{{=it.Grade}}</span></h3>
+					<span id="username" class="username">{{=it.S_code}}</span>
+				</div>
+			</div>
+			<div class="experience clearfix">
+				<div class="integral" id="integral">
+					积分：<span>{{=it.Today_Integral}}</span>(离升级还需<span>{{=it.Integral}}</span>积分)
+				</div>
+				<div>积分总数：<span>{{=it.Today_Integral}}</span></div>
+				<div>今日积分：<span>{{=it.Integral}}</span></div>
+				<div>已学单词：<span>{{=it.Learn_words}}</span></div>
+				<div>已学生词：<span>{{=it.New_words}}</span></div>
+			</div>
+		</script>
+		<!--dot模版结束-->
+
+		<script src="../js/common.js"></script>
+		<script type="text/javascript" src="../js/jquery-3.2.1.min.js"></script>
+		<script src="../js/doT.min.js"></script>
+		<script>
+			var message
+			//获取用户信息
+			var userMessage = sessionStorage.userMessage;
+			userMessage = JSON.parse(userMessage);
+			//var changeUserAvatar = sessionStorage.changeUserAvatar;
+
+			fnupdateMeMessage(userMessage[0]);
+			//点击大类跳转选择版本页面
+			$("#navs>li").on("click",function(){
+				var index = $(this).index()+1 ;
+				var typeStr = $(this).find("h3").html() ;
+				if($(this).index() < 6){
+					window.location = 'alternativeVersion.html?type='+index+'&typeStr='+typeStr;
+				}else if($(this).index() == 6){
+					alert("相关页面正在开发当中，请期待~");
+				}else if($(this).index() == 7){
+					window.location = 'ver_read.html';
+				}else if($(this).index() == 8){
+					window.location = 'ver_tongue.html';
+				}
+				
+			})
+			
+			//dot模版函数
+			function fnupdateMeMessage(data_) {
+				message = document.getElementById('message');
+				// 1. 编译模板函数
+				var tempFn = doT.template(document.getElementById('template').innerHTML);
+				// 2. 多次使用模板函数
+				var resultText = tempFn(data_);
+				message.innerHTML = resultText;
+			}
+			
+		</script>
 	</body>
 
 </html>

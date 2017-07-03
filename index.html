@@ -25,14 +25,14 @@
 				<span>Welcome to login</span>
 			</div>
 			<div class="login">
-				<span class="remind">为保证学习质量，请使用Chrome浏览器</span>
+				<span class="remind" id="remind" style="color: #ff1919;">为保证学习质量，请使用Chrome浏览器</span>
 				<div class="username">
 					<input type="text" name="username" id="username" value="" placeholder="请输入您的账号"/>
-					<i></i>
+					<i id="delUsername"></i>
 				</div>
 				<div class="password">
 					<input type="password" name="password" id="password" value="" placeholder="请输入您的密码"/>
-					<i></i>
+					<i id="showPassword"></i>
 				</div>
 				<button class="loginBtn" id="loginBtn">登陆</button>
 			</div>
@@ -41,5 +41,63 @@
 	<footer id="footer">
 		©2017SOUGOU - 京ICP证050897号 - 京公安网备11000002000025号
 	</footer>
+	
+	<script src="js/common.js"></script>
+	<script type="text/javascript" src="js/jquery-3.2.1.min.js" ></script>
+	<script>
+		var usernameVal , passwordVal;
+		$("#loginBtn").on("click",function(){
+			usernameVal = $.trim( $("#username").val() );
+			passwordVal = $.trim( $("#password").val() );
+			
+			$.ajax({
+				type:"POST",
+				url:thisUrl + '/Areas/Api/Interface.ashx',
+				dataType: "json",
+				data:{
+					method:"UserLogin",
+					S_code:usernameVal,
+					S_password:passwordVal
+				},
+				success:function(data){
+//					alert( JSON.stringify(data) );
+					sessionStorage.userMessage = JSON.stringify(data.info);
+					sessionStorage.changeUserAvatar = JSON.stringify(data.piclist);
+					
+					var userMessage = sessionStorage.userMessage;
+					var changeUserAvatar = sessionStorage.changeUserAvatar;
+//					alert(JSON.parse(changeUserAvatar) );
+//					alert( changeUserAvatar );
+										
+					if(data.result == 2){
+						window.location = 'html/home.html';
+					}else if(data.result == 1){
+						$("#remind").html("用户名或密码错误,请检查");
+						$("#password").val('');
+					}else if(data.result == 3){
+						$("#remind").html("账号已过期");
+						$("#password").val('');
+					}else if(data.result == 0){
+						$("#remind").html("登录失败，请联系客服");
+						$("#password").val('');
+					}
+				},
+				error:function(){
+					
+				}
+			});
+		})
+		
+		$("#delUsername").on("click",function(){
+			$("#username").val("");
+		})
+		
+		$("#showPassword").on("mousedown",function(){
+			$("#password").attr("type","text");
+		})
+		$("#showPassword").on("mouseup",function(){
+			$("#password").attr("type","password");
+		})
+	</script>
 </body>
 </html>

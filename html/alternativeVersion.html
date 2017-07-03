@@ -3,7 +3,7 @@
 
 	<head>
 		<meta charset="UTF-8">
-		<title>选择版本 - 智能英语</title>
+		<title>智能英语 - 选择版本</title>
 		<link rel="stylesheet" href="../css/style.css" />
 		<link rel="stylesheet" href="../css/alternativeVersion.css" />
 	</head>
@@ -41,7 +41,7 @@
 								<li class="checked">在学课程</li>
 								<li class="">所有课程</li>
 							</ul>
-							<ul class="mainBot">
+							<ul class="mainBot" id="mainBot">
 								<li class="myCourses" style="display: block;">
 									<table>
 										<thead>
@@ -58,7 +58,7 @@
 												<td>两个小时前</td>
 												<td>
 													<a href="javascript:;">查看</a>
-													<table class="studyRate" id="studyRate" style="display: block;">
+													<table class="studyRate" id="studyRate" style="display: none;">
 														<tr>
 															<th class="title1">学习类型</th>
 															<th class="title2">进度</th>
@@ -202,38 +202,18 @@
 										<li>选择课程</li>
 									</ul>
 									<div class="main">
-										<ul class="left">
-											<li class="padL30">小学英语</li>
+										<ul class="left" id="mainleft">
+											<li class="padL30" data-seseriesId = "11">小学英语</li>
 											<li class="padL30">初中英语</li>
 											<li class="padL30">高中英语</li>
-											<li class="padL30">大学英语</li>
-											<li class="padL30">成人考试</li>
-											<li class="padL30">其他课程</li>
-
 										</ul>
-										<ul class="mid">
+										<ul class="mid" id="mainmid" style="display: none;">
 											<li class="padL30">三年级</li>
 											<li class="padL30">语音训练</li>
-											<li class="padL30">三年级aas</li>
-											<li class="padL30">三年asdsd级</li>
-											<li class="padL30">三年dfgdfg级</li>
-											<li class="padL30">三年asdsa级</li>
-											<li class="padL30">三年asdsd级</li>
-											<li class="padL30">三年dfgdfg级</li>
-											<li class="padL30">三年asdsa级</li>
-											<li class="padL30">三年dfgdfg级</li>
-											<li class="padL30">三年asdsa级</li>
 										</ul>
-										<ul class="right">
+										<ul class="right" id="mainright" style="display: none;">
 											<li class="padL30">一上</li>
 											<li class="padL30">一下</li>
-											<li class="padL30">二上</li>
-											<li class="padL30">二上</li>
-											<li class="padL30">二上</li>
-											<li class="padL30">三上</li>
-											<li class="padL30">三上</li>
-											<li class="padL30">四上</li>
-											<li class="padL30">五上</li>
 										</ul>
 									</div>
 								</li>
@@ -370,8 +350,15 @@
 		<footer id="footer">
 			©2017SOUGOU - 京ICP证050897号 - 京公安网备11000002000025号
 		</footer>
+		
+		<script type="text/template" id="template1">
+			{{~it :value:index}}
+			<li class="padL30" data-seseriesId = "{{=value.series_id}}">{{=value.series_name}}</li>
+			{{~}}
+		</script>
 
 		<script src="../js/jquery-3.2.1.min.js"></script>
+		<script src="../js/doT.min.js"></script>
 		<script src="../js/common.js"></script>
 		<script src="../js/alternativeVersion.js"></script>
 	</body>

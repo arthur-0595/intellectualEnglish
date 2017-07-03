@@ -159,6 +159,11 @@ li.myCourses tbody tr td:nth-child(3){
 li.myCourses tbody tr td:nth-child(4){
 	color: #999;
 }
+li.myCourses tbody tr td:nth-child(4):hover{
+	color: #ff7b57;
+	cursor: pointer;
+}
+
 li.myCourses tbody tr a{
 	color: #ff7b57;
 }
