@@ -23,8 +23,8 @@
 			</div>
 		</header>
 		<div class="topnav">
-			<div class="center">
-				您所在的位置： <span>智能单词 > 智能记忆</span>
+			<div class="center" >
+				您所在的位置： <span id="centerSpan">智能记忆</span>
 			</div>
 		</div>
 		<section>
@@ -43,7 +43,7 @@
 							</ul>
 							<ul class="mainBot" id="mainBot">
 								<li class="myCourses" style="display: block;">
-									<table>
+									<table id="myCourses">
 										<thead>
 											<tr class="clearfix">
 												<td>课程名称</td>
@@ -53,145 +53,16 @@
 											</tr>
 										</thead>
 										<tbody>
-											<tr>
+											<!--<tr>
 												<td>语音训练第三期</td>
 												<td>两个小时前</td>
 												<td>
 													<a href="javascript:;">查看</a>
-													<table class="studyRate" id="studyRate" style="display: none;">
-														<tr>
-															<th class="title1">学习类型</th>
-															<th class="title2">进度</th>
-															<th class="title3">复习量</th>
-														</tr>
-														<tr>
-															<td>智能记忆</td>
-															<td>
-																<div class="rate">
-																	<div class="thisrate"></div>
-																</div>
-																<span class="rateNum">49%</span>
-															</td>
-															<td>23</td>
-														</tr>
-														<tr>
-															<td>智能听写</td>
-															<td>
-																<div class="rate">
-																	<div class="thisrate"></div>
-																</div>
-																<span class="rateNum">23%</span>
-															</td>
-															<td>23</td>
-														</tr>
-														<tr>
-															<td>智能默写</td>
-															<td>
-																<div class="rate">
-																	<div class="thisrate"></div>
-																</div>
-																<span class="rateNum">20%</span>
-															</td>
-															<td>23</td>
-														</tr>
-														<tr>
-															<td>例句听力</td>
-															<td>
-																<div class="rate">
-																	<div class="thisrate"></div>
-																</div>
-																<span class="rateNum">50%</span>
-															</td>
-															<td>23</td>
-														</tr>
-														<tr>
-															<td>例句翻译</td>
-															<td>
-																<div class="rate">
-																	<div class="thisrate"></div>
-																</div>
-																<span class="rateNum">65%</span>
-															</td>
-															<td>23</td>
-														</tr>
-														<tr>
-															<td>例句默写</td>
-															<td>
-																<div class="rate">
-																	<div class="thisrate"></div>
-																</div>
-																<span class="rateNum">12%</span>
-															</td>
-															<td>23</td>
-														</tr>
-													</table>
+													<div class="studyRateBox"></div>
 												</td>
 												<td>学习</td>
-											</tr>
-											<tr>
-												<td>语音训练第三期</td>
-												<td>两个小时前</td>
-												<td>
-													<a href="javascript:;">查看</a>
-												</td>
-												<td>学习</td>
-											</tr>
-											<tr>
-												<td>语音训练第三期</td>
-												<td>两个小时前</td>
-												<td>
-													<a href="javascript:;">查看</a>
-												</td>
-												<td>学习</td>
-											</tr>
-											<tr>
-												<td>语音训练第三期</td>
-												<td>两个小时前</td>
-												<td>
-													<a href="javascript:;">查看</a>
-												</td>
-												<td>学习</td>
-											</tr>
-											<tr>
-												<td>语音训练第三期</td>
-												<td>两个小时前</td>
-												<td>
-													<a href="javascript:;">查看</a>
-												</td>
-												<td>学习</td>
-											</tr>
-											<tr>
-												<td>语音训练第三期</td>
-												<td>两个小时前</td>
-												<td>
-													<a href="javascript:;">查看</a>
-												</td>
-												<td>学习</td>
-											</tr>
-											<tr>
-												<td>语音训练第三期</td>
-												<td>两个小时前</td>
-												<td>
-													<a href="javascript:;">查看</a>
-												</td>
-												<td>学习</td>
-											</tr>
-											<tr>
-												<td>语音训练第三期</td>
-												<td>两个小时前</td>
-												<td>
-													<a href="javascript:;">查看</a>
-												</td>
-												<td>学习</td>
-											</tr>
-											<tr>
-												<td>语音训练第三期</td>
-												<td>两个小时前</td>
-												<td>
-													<a href="javascript:;">查看</a>
-												</td>
-												<td>学习</td>
-											</tr>
+											</tr>-->
+
 										</tbody>
 									</table>
 								</li>
@@ -203,17 +74,17 @@
 									</ul>
 									<div class="main">
 										<ul class="left" id="mainleft">
-											<li class="padL30" data-seseriesId = "11">小学英语</li>
+											<!--<li class="padL30" data-seseriesId="11">小学英语</li>
 											<li class="padL30">初中英语</li>
-											<li class="padL30">高中英语</li>
+											<li class="padL30">高中英语</li>-->
 										</ul>
 										<ul class="mid" id="mainmid" style="display: none;">
-											<li class="padL30">三年级</li>
-											<li class="padL30">语音训练</li>
+											<!--<li class="padL30">三年级</li>
+											<li class="padL30">语音训练</li>-->
 										</ul>
 										<ul class="right" id="mainright" style="display: none;">
-											<li class="padL30">一上</li>
-											<li class="padL30">一下</li>
+											<!--<li class="padL30">一上</li>
+											<li class="padL30">一下</li>-->
 										</ul>
 									</div>
 								</li>
@@ -222,19 +93,13 @@
 						<!--选择教材结束-->
 						<div class="section">
 							<div class="sectionBox" id="sectionBox">
-								选择章节
+								<p>选择章节</p>
 								<i></i>
 							</div>
 							<!--选择章节-->
 							<ul class="chapterList" id="chapterList" style="display: none;">
 								<li>Unit1</li>
 								<li>Unit2</li>
-								<li>Unit3</li>
-								<li>Unit4</li>
-								<li>Unit5</li>
-								<li>Unit6</li>
-								<li>Unit7</li>
-								<li>Unit8</li>
 							</ul>
 						</div>
 						<div class="test" id="test">
@@ -280,10 +145,10 @@
 				<div class="mainright clearfix">
 					<div class="study">
 						<div class="start">
-							<div class="book">
-								<div class="cen">
+							<div class="book" id="clickBook">
+								<div class="cen" id="cen_book">
 									<div class="pic">
-										<img src="../imgs/home/1.png" />
+										<img src="../imgs/home/01.png" />
 									</div>
 									<h3>智能记忆</h3>
 									<span>Intelligent Memory</span>
@@ -334,14 +199,15 @@
 						</div>
 					</div>
 					<div class="navs">
-						<div class="category">
+						<div class="category" id="category_h">
 							01
 							<span>Intelligent Memory</span>
 						</div>
-						<div class="title">
+						<div class="title" id="title_h">
 							智能记忆
 						</div>
-						<i></i>
+						<a href="home.html">
+						<i></i></a>
 					</div>
 				</div>
 			</div>
@@ -350,11 +216,75 @@
 		<footer id="footer">
 			©2017SOUGOU - 京ICP证050897号 - 京公安网备11000002000025号
 		</footer>
-		
-		<script type="text/template" id="template1">
-			{{~it :value:index}}
-			<li class="padL30" data-seseriesId = "{{=value.series_id}}">{{=value.series_name}}</li>
-			{{~}}
+
+		<script type="text/template" id="template">
+			<table class="studyRate" id="studyRate" style="display: block;">
+				<tr>
+					<th class="title1">学习类型</th>
+					<th class="title2">进度</th>
+					<th class="title3">复习量</th>
+				</tr>
+				<tr>
+					<td>智能记忆</td>
+					<td>
+						<div class="rate">
+							<div class="thisrate"></div>
+						</div>
+						<span class="rateNum">49%</span>
+					</td>
+					<td>23</td>
+				</tr>
+				<tr>
+					<td>智能听写</td>
+					<td>
+						<div class="rate">
+							<div class="thisrate"></div>
+						</div>
+						<span class="rateNum">23%</span>
+					</td>
+					<td>23</td>
+				</tr>
+				<tr>
+					<td>智能默写</td>
+					<td>
+						<div class="rate">
+							<div class="thisrate"></div>
+						</div>
+						<span class="rateNum">20%</span>
+					</td>
+					<td>23</td>
+				</tr>
+				<tr>
+					<td>例句听力</td>
+					<td>
+						<div class="rate">
+							<div class="thisrate"></div>
+						</div>
+						<span class="rateNum">50%</span>
+					</td>
+					<td>23</td>
+				</tr>
+				<tr>
+					<td>例句翻译</td>
+					<td>
+						<div class="rate">
+							<div class="thisrate"></div>
+						</div>
+						<span class="rateNum">65%</span>
+					</td>
+					<td>23</td>
+				</tr>
+				<tr>
+					<td>例句默写</td>
+					<td>
+						<div class="rate">
+							<div class="thisrate"></div>
+						</div>
+						<span class="rateNum">12%</span>
+					</td>
+					<td>23</td>
+				</tr>
+			</table>
 		</script>
 
 		<script src="../js/jquery-3.2.1.min.js"></script>

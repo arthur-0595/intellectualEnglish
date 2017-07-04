@@ -22,63 +22,63 @@
 			<ul class="navs" id="navs">
 				<li>
 					<div class="pic">
-						<img src="../imgs/home/1.png" alt="" />
+						<img src="../imgs/home/01.png" alt="" />
 					</div>
 					<h3>智能记忆</h3>
 					<p>Intelligent Memory</p>
 				</li>
 				<li>
 					<div class="pic">
-						<img src="../imgs/home/2.png" alt="" />
+						<img src="../imgs/home/02.png" alt="" />
 					</div>
 					<h3>智能听写</h3>
 					<p>Intelligent Dictation</p>
 				</li>
 				<li>
 					<div class="pic">
-						<img src="../imgs/home/3.png" alt="" />
+						<img src="../imgs/home/03.png" alt="" />
 					</div>
 					<h3>智能默写</h3>
 					<p>Write From Memory</p>
 				</li>
 				<li>
 					<div class="pic">
-						<img src="../imgs/home/4.png" alt="" />
+						<img src="../imgs/home/04.png" alt="" />
 					</div>
 					<h3>例句听力</h3>
 					<p>intelligent example</p>
 				</li>
 				<li>
 					<div class="pic">
-						<img src="../imgs/home/5.png" alt="" />
+						<img src="../imgs/home/05.png" alt="" />
 					</div>
 					<h3>例句翻译</h3>
 					<p>Translate</p>
 				</li>
 				<li>
 					<div class="pic">
-						<img src="../imgs/home/6.png" alt="" />
+						<img src="../imgs/home/06.png" alt="" />
 					</div>
 					<h3>例句测评</h3>
 					<p>Appraisal</p>
 				</li>
 				<li>
 					<div class="pic">
-						<img src="../imgs/home/7.png" alt="" />
+						<img src="../imgs/home/07.png" alt="" />
 					</div>
 					<h3>经典语音</h3>
 					<p>Classical Voice</p>
 				</li>
 				<li>
 					<div class="pic">
-						<img src="../imgs/home/8.png" alt="" />
+						<img src="../imgs/home/08.png" alt="" />
 					</div>
 					<h3>经典阅读</h3>
 					<p>Classics Reading</p>
 				</li>
 				<li>
 					<div class="pic">
-						<img src="../imgs/home/9.png" alt="" />
+						<img src="../imgs/home/09.png" alt="" />
 					</div>
 					<h3>经典口语</h3>
 					<p>Classic English</p>
@@ -140,7 +140,12 @@
 			var message
 			//获取用户信息
 			var userMessage = sessionStorage.userMessage;
-			userMessage = JSON.parse(userMessage);
+			if(userMessage){
+				userMessage = JSON.parse(userMessage);
+			}else{
+				alert('检测到您未登录，请先登录！');
+				window.location = '../index.html';
+			}
 			//var changeUserAvatar = sessionStorage.changeUserAvatar;
 
 			fnupdateMeMessage(userMessage[0]);
@@ -148,8 +153,10 @@
 			$("#navs>li").on("click",function(){
 				var index = $(this).index()+1 ;
 				var typeStr = $(this).find("h3").html() ;
+				var typeEnglish = $(this).find("p").html() ;
+				
 				if($(this).index() < 6){
-					window.location = 'alternativeVersion.html?type='+index+'&typeStr='+typeStr;
+					window.location = 'alternativeVersion.html?type=0'+index+'&typeStr='+typeStr+'&typeEnglish='+typeEnglish;
 				}else if($(this).index() == 6){
 					alert("相关页面正在开发当中，请期待~");
 				}else if($(this).index() == 7){

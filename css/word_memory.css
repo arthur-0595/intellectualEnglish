@@ -118,11 +118,16 @@ section{
 .centent .countDown span{
 	color: #ff1919;
 }
+.centent .answer{
+	/*margin-top: 4px;*/
+	height: 136px;
+	padding-top: 4px;
+	box-sizing: border-box;
+}
 .centent .answer h3{
 	font-size: 26px;
 	color: #333;
 	line-height: 62px;
-	margin-top: 4px;
 	font-weight: normal;
 }
 .centent .answer .illustrate{
