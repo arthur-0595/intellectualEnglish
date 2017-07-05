@@ -133,7 +133,7 @@ section{
 .centent .answer .illustrate{
 	font-size: 16px;
 	color: #333;
-	line-height: 24px;
+	line-height: 28px;
 }
 .btns{
 	width: 466px;
@@ -155,6 +155,7 @@ section{
 	position: absolute;
 	top: 0;
 	cursor: pointer;
+	outline: medium;
 }
 .btns button:hover{
 	box-shadow: inset 0 0 15px 0px #fff;
@@ -182,6 +183,31 @@ section{
 	position: relative;
 	top: 6px;
 }
+.btns .ent{
+	width: 466px;
+	position: absolute;
+	left: 50%;
+	top: 0;
+	transform: translateX(-50%);
+	outline: medium;
+}
+.btns .ent div{
+	margin: 0 auto;
+	height: 50px;
+	width: 250px;
+	position: relative;
+	font-size: 24px;
+}
+.btns .ent div.ent_h{
+	background: url(../imgs/next.png) no-repeat center;
+}
+.btns .ent div sub{
+	position: absolute;
+	left: 55%;
+	font-size: 12px;
+	top: 3px;
+}
+
 .otherInformation{
 	width: 100%;
 	height: 53px;

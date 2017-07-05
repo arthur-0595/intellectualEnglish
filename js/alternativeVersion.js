@@ -14,15 +14,15 @@ $(function() {
 	//当前的大类，大类的name
 	var type, typeStr, typeEnglish;
 
-	$.getUrlParam = function(name) {
-		var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
-		var r = window.location.search.substr(1).match(reg);
-		if(r != null) return decodeURI(r[2]);
-		return null;
-	};
-	type = $.getUrlParam('type');
-	typeStr = $.getUrlParam('typeStr');
-	typeEnglish = $.getUrlParam('typeEnglish');
+//	$.getUrlParam = function(name) {
+//		var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+//		var r = window.location.search.substr(1).match(reg);
+//		if(r != null) return decodeURI(r[2]);
+//		return null;
+//	};
+	type = sessionStorage.type;
+	typeStr = sessionStorage.typeStr;
+	typeEnglish = sessionStorage.typeEnglish;
 	//根据大类以及大类的name来显示相应的页面内容
 	(function() {
 		var typeEnglish = ['Intelligent Memory'];
@@ -51,7 +51,7 @@ $(function() {
 
 	function fnopenLocationHref() {
 		if(textbook_id && version_id && chapter_id) {
-			window.location = 'word_memory.html?textbook_id=' + textbook_id + '&version_id=' + version_id + '&chapter_id=' + chapter_id + '&typeStr=' + typeStr + '&version_name=' + version_name + '&textbook_name=' + textbook_name + '&chapter_name=' + chapter_name;
+			window.location = 'word_memory.html';
 		} else {
 			alert("请确认已选择好课程及相关章节");
 		}
@@ -100,6 +100,11 @@ $(function() {
 							version_id = $(this).parent("tr")[0].dataset.versionid;
 							textbook_name = $(this).parent("tr")[0].dataset.textbookname;
 							version_name = $(this).parent("tr")[0].dataset.versionname;
+							
+							sessionStorage.textbook_id = textbook_id;
+							sessionStorage.version_id = version_id;
+							sessionStorage.textbook_name = textbook_name;
+							sessionStorage.version_name = version_name;
 
 							var name = $(this).parent("tr").find("td.StudycourseName").html();
 							$("#course p").html(name);
@@ -142,7 +147,7 @@ $(function() {
 										//								alert(JSON.stringify(data) );
 										var nhtml = '';
 										$.each(data, function(index, element) {
-											nhtml += `<li class="padL30" data-seseriesId = "${element.series_id}" data-versionId = "${element.version_id}" >${element.version_name}</li>`;
+											nhtml += `<li class="padL30" data-seseriesId = "${element.series_id}" data-versionId = "${element.version_id}"  data-versionname = "${element.version_name}" >${element.version_name}</li>`;
 										});
 										$("#mainmid").show();
 										$("#mainmid").html(nhtml);
@@ -150,7 +155,10 @@ $(function() {
 										//所有课程》选择系列>选择版本
 										$("#mainmid>li").on("click", function() {
 											var thisversionid = this.dataset.versionid;
-
+											version_name = this.dataset.versionname;
+											
+											sessionStorage.version_name = version_name;
+											
 											$("#course p").html(this.innerHTML);
 											$("#course p").append(' - ');
 											$.ajax({
@@ -164,10 +172,10 @@ $(function() {
 												},
 												success: function(data) {
 													if(data.length >= 1) {
-														//																			alert(JSON.stringify(data) );
+														//alert(JSON.stringify(data) );
 														var nhtml = '';
 														$.each(data, function(index, element) {
-															nhtml += `<li class="padL30" data-textbookid = "${element.textbook_id}" data-versionId = "${element.version_id}">${element.textbook_name}</li>`;
+															nhtml += `<li class="padL30" data-textbookid = "${element.textbook_id}" data-versionId = "${element.version_id}" data-textbookname = "${element.textbook_name}" >${element.textbook_name}</li>`;
 														});
 														$("#mainright").show();
 														$("#mainright").html(nhtml);
@@ -178,8 +186,14 @@ $(function() {
 
 															textbook_id = this.dataset.textbookid;
 															version_id = this.dataset.versionid;
-
-															//												alert(version_id);
+															textbook_name = this.dataset.textbookname;
+															
+															sessionStorage.textbook_id = textbook_id;
+															sessionStorage.version_id = version_id;
+															sessionStorage.textbook_name = textbook_name;
+															
+//															alert(version_id);
+															
 															fnselectingTextbooksTog();
 															$("#course p").append(this.innerHTML);
 														})
@@ -270,6 +284,9 @@ $(function() {
 
 						chapter_id = this.id;
 						chapter_name = this.dataset.chaptername;
+						
+						sessionStorage.chapter_id = chapter_id;
+						sessionStorage.chapter_name = chapter_name;
 
 						$("#chapterList").toggle();
 					});
