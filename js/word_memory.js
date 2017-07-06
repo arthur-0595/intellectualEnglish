@@ -90,6 +90,9 @@ $(function() {
 				} else if(data.result == 2) {
 					alert("记忆结束，下面开始单词强化！");
 					window.location = 'word_strengthen_memory.html';
+				} else if(data.result == 3){
+					alert("检测到您已经学习完毕，下面开始测试！");
+					window.location="word_simulationTest.html";
 				}
 			}
 		});

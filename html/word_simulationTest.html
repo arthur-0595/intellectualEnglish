@@ -10,11 +10,11 @@
 
 	<body>
 		<header id="header">
-			<div class="con">
-				<div class="versions">人教社PEP版三年级起点 - 五下(修订) - Unit(1)</div>
-				<div class="title">智能记忆测试</div>
+			<div class="con" id="con">
+				<div class="versions">{{version_name}} - {{textbook_name}} - {{chapter_name}}</div>
+				<div class="title">{{typeStr}}测试</div>
 				<div class="timeRemaining">
-					剩余时间：<span>0</span>分<span>50</span>秒
+					剩余时间：<span>0{{minute}}</span>分<span>{{second}}</span>秒
 				</div>
 			</div>
 		</header>
@@ -236,7 +236,7 @@
 					</ul>
 				</div>
 			</li>
-			<li id="e_c">
+			<li id="c_e">
 				<h3>【汉译英】 请根据所显示的中文词义，选择一个正确的英文单词</h3>
 				<div class="con">
 					<ul class="tests">
@@ -675,10 +675,16 @@
 			<div class="submitTheAnswer">
 				交卷
 			</div>
-			<div class="back">
+			<a href="alternativeVersion.html"><div class="back">
 				退出
-			</div>
+			</div></a>
 		</div>
+		
+		
+		<script src="../js/jquery-3.2.1.min.js"></script>
+		<script src="../js/common.js"></script>
+		<script src="../js/vue.min.js"></script>
+		<script src="../js/word_simulationTest.js"></script>
 	</body>
 
 </html>
