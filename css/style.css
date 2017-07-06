@@ -29,6 +29,10 @@ img,a,button,em,del,strong,var,label,cite,small,time,mark,code,textarea{
 	display:inline-block;
 }
 
+button,input{
+	outline: medium;
+}
+
 .clearfix:after{
 	content: ' ';
 	display: block;

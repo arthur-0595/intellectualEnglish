@@ -16,12 +16,12 @@
 					<div class="title">智能记忆 - 词义强化</div>
 					<a href="alternativeVersion.html" class="exit" id="exit"></a>
 				</div>
-				<div class="word">
+				<div class="word" id="word">
 					<h3 id="translate">吃早餐</h3>
 					<div class="inputBox">
-						<input type="text" />
-						<div class="voice">听语音<i></i></div>
-						<div class="status correct" style="display: none;"></div>
+						<input id="wordinput" type="text" autofocus/>
+						<div class="voice" id="voice">听语音<i></i></div>
+						<div class="status correct" id="status" style="display: none;"></div>
 					</div>
 					<div class="hint">
 						要求：先跟读，再拼写。ctrl+A可跳过词义强化
@@ -31,7 +31,7 @@
 					</div>
 				</div>
 				<div class="btns">
-					<button class="enter">
+					<button class="enter" id="enter">
 						<i></i>&nbsp;
 						(Enter)
 					</button>
@@ -42,7 +42,7 @@
 						错误率：
 						<span id="errorRate">23.00</span>%
 					</div>
-					<div class="thisStudy">
+					<div class="thisStudy" id="thisStudy">
 						进度：6/18
 					</div>
 				</div>
