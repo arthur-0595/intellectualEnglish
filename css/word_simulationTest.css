@@ -58,12 +58,14 @@ header .con .timeRemaining{
 	padding-left: 25px;
 	line-height: 48px;
 	font-weight: normal;
+	overflow: hidden;
 }
 .section>li .con{
 	width: 1100px;
 	background: #fff;
-	height: 1088px;
+	height: auto;
 	padding-top: 42px;
+	padding-bottom: 25px;
 }
 .section>li .con ul.tests{
 	margin: 0 auto;
@@ -71,7 +73,7 @@ header .con .timeRemaining{
 	border: 1px solid #ccc;
 	border-right: none;
 	border-bottom: none;
-	height: 1046px;
+	height: auto;
 }
 .section>li .con ul.tests>li{
 	float: left;
@@ -92,6 +94,7 @@ header .con .timeRemaining{
 	height: 42px;
 	line-height: 42px;
 	padding-left: 10px;
+	overflow: hidden;
 }
 .section .tests>li button{
 	width: 86px;
@@ -118,6 +121,7 @@ header .con .timeRemaining{
 	color: #333;
 	cursor: pointer;
 	font-weight: normal;
+	overflow: hidden;
 }
 .tests label input{
 	width: 16px;
