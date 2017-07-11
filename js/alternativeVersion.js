@@ -14,12 +14,12 @@ $(function() {
 	//当前的大类，大类的name
 	var type, typeStr, typeEnglish;
 
-//	$.getUrlParam = function(name) {
-//		var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
-//		var r = window.location.search.substr(1).match(reg);
-//		if(r != null) return decodeURI(r[2]);
-//		return null;
-//	};
+	//	$.getUrlParam = function(name) {
+	//		var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+	//		var r = window.location.search.substr(1).match(reg);
+	//		if(r != null) return decodeURI(r[2]);
+	//		return null;
+	//	};
 	type = sessionStorage.type;
 	typeStr = sessionStorage.typeStr;
 	typeEnglish = sessionStorage.typeEnglish;
@@ -42,20 +42,22 @@ $(function() {
 	//跳转智能记忆
 
 	$("#clickBook").on("click", function() {
-		if(type == 01) {
-			fnopenLocationHref();
-		} else {
-			alert("相关页面开发未完成");
-		}
-	});
-
-	function fnopenLocationHref() {
 		if(textbook_id && version_id && chapter_id) {
-			window.location = 'word_memory.html';
+			if(type == 01) {
+				window.location = 'word_memory.html';
+			} else if(type == 02) {
+				window.location = 'word_listen.html';
+			} else if(type == 03) {
+				window.location = 'word_write.html';
+			} else {
+				alert("相关页面开发未完成");
+			}
+
 		} else {
 			alert("请确认已选择好课程及相关章节");
 		}
-	}
+
+	});
 
 	//切换在学课程及全部课程
 	$("#courseNavs>li").on("click", function() {
@@ -100,7 +102,7 @@ $(function() {
 							version_id = $(this).parent("tr")[0].dataset.versionid;
 							textbook_name = $(this).parent("tr")[0].dataset.textbookname;
 							version_name = $(this).parent("tr")[0].dataset.versionname;
-							
+
 							sessionStorage.textbook_id = textbook_id;
 							sessionStorage.version_id = version_id;
 							sessionStorage.textbook_name = textbook_name;
@@ -156,9 +158,9 @@ $(function() {
 										$("#mainmid>li").on("click", function() {
 											var thisversionid = this.dataset.versionid;
 											version_name = this.dataset.versionname;
-											
+
 											sessionStorage.version_name = version_name;
-											
+
 											$("#course p").html(this.innerHTML);
 											$("#course p").append(' - ');
 											$.ajax({
@@ -187,13 +189,13 @@ $(function() {
 															textbook_id = this.dataset.textbookid;
 															version_id = this.dataset.versionid;
 															textbook_name = this.dataset.textbookname;
-															
+
 															sessionStorage.textbook_id = textbook_id;
 															sessionStorage.version_id = version_id;
 															sessionStorage.textbook_name = textbook_name;
-															
-//															alert(version_id);
-															
+
+															//															alert(version_id);
+
 															fnselectingTextbooksTog();
 															$("#course p").append(this.innerHTML);
 														})
@@ -284,7 +286,7 @@ $(function() {
 
 						chapter_id = this.id;
 						chapter_name = this.dataset.chaptername;
-						
+
 						sessionStorage.chapter_id = chapter_id;
 						sessionStorage.chapter_name = chapter_name;
 

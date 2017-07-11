@@ -49,7 +49,7 @@ $(function() {
 	})
 
 	//倒计时
-	var onlyTime = 300;
+	var onlyTime = 30;
 	var onlyminute, onlysecond;
 	var timer = setInterval(function() {
 		onlyTime--;
@@ -62,6 +62,7 @@ $(function() {
 		if(onlyTime <= 0) {
 			clearInterval(timer);
 			alert('倒计时结束');
+			$("#submitTheAnswer").trigger("click");
 		};
 	}, 1000);
 
@@ -87,6 +88,31 @@ $(function() {
 		});
 	}
 
+	//点击交卷按钮
+	var scoreNum = 0;
+	var correctArr = [];
+	$("#submitTheAnswer").on("click", function() {
+		//获取每一题，判定每一题下面的四个选项若某一项被选中并且其父级盒子label的自定义属性type为1时，则该题正确
+		//所有题遍历结束之后计算分数并且跳转页面，分数通过传值来传递，并且缓存对应的正确的题目的数组，以方面在成绩单页面显示对应的正确题目
+		var liArr = $(".tests>li");
+		$.each(liArr, function(index , element) {
+			$.each( $(element).find("input") , function(index_ , element_) {
+				if(element_.checked == true){
+//					alert($(element_).parent()[0].dataset.type);
+					if( $(element_).parent()[0].dataset.type == 1 ){
+						scoreNum++;
+						correctArr.push(index);
+					}
+				}
+			});
+		});
+		console.log(correctArr);
+		sessionStorage.correctArr = JSON.stringify(correctArr);
+		var thisScore = Math.round( (scoreNum/liArr.length)*100 );
+		//得到分数，并发送
+		fnsavethisScore(thisScore , liArr.length);
+	})
+
 	function fnshowtopic() {
 		//给e_c_Arr数组添加元素
 		fnpushArr(e_c_Arr);
@@ -98,22 +124,22 @@ $(function() {
 			listeningTestHtml = '';
 
 		$.each(e_c_Arr, function(index, element) {
-			e_cHtml += `<li data_correct="${element.word_mean}" >
-							<h4>${index}.${element.word_name}</h4>
+			e_cHtml += `<li data-correct="${element.word_mean}" >
+							<h4>${index+1}.${element.word_name}</h4>
 							<div class="item">
-								<label data_type="${element.chinese[0].type}">
+								<label data-type="${element.chinese[0].type}">
 									<input type="radio" name="${element.id}"/>
 									${element.chinese[0].content}
 								</label>
-								<label data_type="${element.chinese[1].type}">
+								<label data-type="${element.chinese[1].type}">
 									<input type="radio" name="${element.id}"/> 
 									${element.chinese[1].content}
 								</label>
-								<label data_type="${element.chinese[2].type}">
+								<label data-type="${element.chinese[2].type}">
 									<input type="radio" name="${element.id}"/>
 									${element.chinese[2].content}
 								</label>
-								<label data_type="${element.chinese[3].type}">
+								<label data-type="${element.chinese[3].type}">
 									<input type="radio" name="${element.id}"/>
 									${element.chinese[3].content}
 								</label>
@@ -123,22 +149,22 @@ $(function() {
 		$("#e_c .tests").html(e_cHtml);
 
 		$.each(c_e_Arr, function(index, element) {
-			c_eHtml += `<li data_correct="${element.word_name}" >
-							<h4>${index}.${element.word_mean}</h4>
+			c_eHtml += `<li data-correct="${element.word_name}" >
+							<h4>${index+1}.${element.word_mean}</h4>
 							<div class="item">
-								<label data_type="${element.chinese[0].type}">
+								<label data-type="${element.chinese[0].type}">
 									<input type="radio" name="${element.id}"/>
 									${element.english[0].content}
 								</label>
-								<label data_type="${element.chinese[1].type}">
+								<label data-type="${element.chinese[1].type}">
 									<input type="radio" name="${element.id}"/>
 									${element.english[1].content}
 								</label>
-								<label data_type="${element.chinese[2].type}">
+								<label data-type="${element.chinese[2].type}">
 									<input type="radio" name="${element.id}"/>
 									${element.english[2].content}
 								</label>
-								<label data_type="${element.chinese[3].type}">
+								<label data-type="${element.chinese[3].type}">
 									<input type="radio" name="${element.id}"/>
 									${element.english[3].content}
 								</label>
@@ -148,22 +174,22 @@ $(function() {
 		$("#c_e .tests").html(c_eHtml);
 
 		$.each(wordsArr, function(index, element) {
-			listeningTestHtml += `<li data_correct="${element.word_mean}" >
-							&nbsp;&nbsp;01. <button class="listenbtns" data_wordurl="${element.word_url}">听读音</button>
+			listeningTestHtml += `<li data-correct="${element.word_mean}" >
+							&nbsp;&nbsp;${index+1}. <button class="listenbtns" data-wordurl="${element.word_url}">听读音</button>
 							<div class="item">
-								<label data_type="${element.chinese[0].type}">
+								<label data-type="${element.chinese[0].type}">
 									<input type="radio" name="${element.id}"/>
 									${element.chinese[0].content}
 								</label>
-								<label data_type="${element.chinese[1].type}">
+								<label data-type="${element.chinese[1].type}">
 									<input type="radio" name="${element.id}"/>
 									${element.chinese[1].content}
 								</label>
-								<label data_type="${element.chinese[2].type}">
+								<label data-type="${element.chinese[2].type}">
 									<input type="radio" name="${element.id}"/>
 									${element.chinese[2].content}
 								</label>
-								<label data_type="${element.chinese[3].type}">
+								<label data-type="${element.chinese[3].type}">
 									<input type="radio" name="${element.id}"/>
 									${element.chinese[3].content}
 								</label>
@@ -171,9 +197,14 @@ $(function() {
 						</li>`;
 		});
 		$("#listeningTest .tests").html(listeningTestHtml);
-
+		//点击听语音按钮
 		$("#listeningTest li button").on("click", function() {
-			alert(this.dataset.wordurl);
+			var playerSrc = thisUrl2 + this.dataset.wordurl;
+			$("#audioplay").attr("src", playerSrc);
+		})
+		//点击选中选项事件
+		$(".tests label").on("click", function() {
+			$(this).parents("li").css("background-color",'#eee')
 		})
 	}
 
@@ -187,4 +218,31 @@ $(function() {
 		}
 	}
 
+	//发送成绩
+	function fnsavethisScore(thisScore_ , length){
+		var testsType = typeStr + "闯关测试(" + chapter_name + ")";
+		
+		$.ajax({
+			type: "POST",
+			url: thisUrl2 + '/Areas/Api/index.ashx',
+			dataType: "json",
+			data: {
+				method: "SaveTestRecord",
+				user_id: username,
+				textbook_id: textbook_id,
+				test_type: testsType,
+				test_score: thisScore_,
+				test_number: length
+			},
+			success: function(data) {
+				console.log(JSON.stringify(data) );
+				if(data.msg == "保存成功"){
+					window.location="score.html?score="+thisScore_;
+				}else{
+					alert('成绩上传失败，请重试');
+				}
+			}
+		});
+	}
+	
 })

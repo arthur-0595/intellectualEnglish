@@ -50,6 +50,7 @@ section{
 	width: 100%;height: 236px;
 	text-align: center;
 	padding-top: 22px;
+	position: relative;
 }
 .word h3{
 	font-size: 26px;

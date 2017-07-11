@@ -51,7 +51,7 @@ $(function() {
 				unit_id: chapter_id,
 			},
 			success: function(data) {
-				wordsArr = data.result;
+				wordsArr = data;
 				wordArrlength = wordsArr.length;
 
 				fnshowthisWord(wordsArr[num]);
