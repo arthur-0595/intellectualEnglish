@@ -52,6 +52,9 @@ section{
 	padding-top: 22px;
 	position: relative;
 }
+.word .translateBox{
+	height: 70px;
+}
 .word h3{
 	font-size: 26px;
 	color: #333;
@@ -121,7 +124,7 @@ section{
 	height: 44px;
 }
 /*-错误答案提示-*/
-.word div.answer.correct{
+.word div.answer.error{
 	color: #ff1919;
 }
 .btns{
