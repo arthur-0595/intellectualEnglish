@@ -11,21 +11,21 @@
 	<body>
 		<section id="sectionBox">
 			<div class="main">
-				<div class="titleBox">
-					<div class="versions">人教社PEP版三年级起点 - 五下(修订) - Unit(1)</div>
-					<div class="title">例句听力</div>
+				<div class="titleBox" id="titleBox">
+					<div class="versions">{{version_name}} - {{textbook_name}} - {{chapter_name}}</div>
+					<div class="title">{{typeStr}}</div>
 					<a href="alternativeVersion.html" class="exit" id="exit"></a>
 				</div>
-				<div class="sentence">
+				<div class="sentence" id="sentence">
 					<div class="thisSentence">
-						She received an eight-year prison sentence.
-						<div class="listening">
+						<div class="thisSentence_con" id="thisSentence_con"></div>
+						<div class="listening" id="listening">
 							听语音<span></span>
 						</div>
 					</div>
 					<div class="answer clearfix">
 						<!--<div class="answerArr clearfix correct">-->
-						<div class="answerArr error">
+						<div class="answerArr error" id="answerArr">
 							<span class="ans_null"></span>
 							<span class="ans_word">yellow</span>
 							<span class="ans_null"></span>
@@ -48,7 +48,7 @@
 					<div class="progressBar">
 						<div class="thisprogress"></div>
 					</div>
-					<ul class="items clearfix" style="display: block;">
+					<ul class="items clearfix" id="items"  style="display: block;">
 						<li>received</li>
 						<li class="actived">She</li>
 						<li>eight-year</li>
@@ -56,8 +56,8 @@
 						<li>prison</li>
 						<li>an</li>
 					</ul>
-					<div class="interpret" style="display: none;">
-						弗洛伊德对梦的含义的解析
+					<div class="interpret" id="interpret" style="display: none;">
+						{{thisinterpret}}
 					</div>
 				</div>
 				<div class="btns">
@@ -78,6 +78,13 @@
 				<button class="btnsOk">确定</button>
 			</div>
 		</div>
+		<audio autoplay src="{{audioplaySrc}}" type="audio/wav" id="audioplay">
+		</audio>
+		
+		<script src="../js/jquery-3.2.1.min.js"></script>
+		<script src="../js/vue.min.js"></script>
+		<script src="../js/common.js"></script>
+		<script src="../js/sentence_listen.js"></script>
 	</body>
 
 </html>

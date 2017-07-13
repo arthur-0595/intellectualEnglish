@@ -3,9 +3,12 @@ body{
 }
 section{
 	width: 1040px;height: 600px;
-	margin: 160px auto 0;
+	margin: 0 auto 0;
 	background: url(../imgs/bacImg2.png) no-repeat;
 	padding-top: 37px;
+	position: absolute;
+	left: 50%;top: 50%;
+	transform: translate(-50% , -50%);
 }
 .main{
 	width: 940px;height: 500px;

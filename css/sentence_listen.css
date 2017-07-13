@@ -3,9 +3,12 @@ body{
 }
 section{
 	width: 1040px;height: 600px;
-	margin: 160px auto 0;
+	margin: 0 auto 0;
 	background: url(../imgs/bacImg2.png) no-repeat;
 	padding-top: 37px;
+	position: absolute;
+	left: 50%;top: 50%;
+	transform: translate(-50% , -50%);
 }
 .main{
 	width: 940px;height: 500px;
@@ -53,14 +56,14 @@ section{
 	margin: 0 auto;
 }
 .sentence .thisSentence{
-	width: 100%;height: 30px;
+	width: 800px;height: 62px;
 	line-height: 30px;
 	font-size: 18px;
 	color: #333;
 	box-sizing: border-box;
 	padding-left: 0px;
 	position: relative;
-	margin-bottom: 32px;
+	padding-right: 92px;
 }
 .sentence .thisSentence .listening{
 	position: absolute;right: 0;top: 0;
@@ -76,9 +79,11 @@ section{
 	transform: translateX(-1px);
 }
 .sentence .answer{
-	width: 100%;height: 32px;
+	box-sizing: border-box;
+	width: 800px;height: 62px;
 	line-height: 32px;
-	margin-bottom: 27px;
+	padding-right: 92px;
+	margin-bottom: 12px;
 	position: relative;
 }
 .sentence .answerArr{
@@ -153,7 +158,7 @@ section{
 .sentence .progressBar{
 	width: 100%;height: 12px;
 	background-color: #eee;
-	margin-bottom: 18px;
+	margin-bottom: 12px;
 }
 .sentence .progressBar div{
 	width: 50%;height: 100%;

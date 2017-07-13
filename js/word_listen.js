@@ -15,8 +15,6 @@ $(function() {
 	var audioplaySrc;
 	//当前听写的单词
 	var thisListenWord;
-	//当前语音文件路径
-	var audioplaySrc;
 	//当前听写的单词的ID和状态
 	var thiswordId ,
 		thiswordState = 1;//默认熟词，不为1则为生词
