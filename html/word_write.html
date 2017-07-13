@@ -12,20 +12,23 @@
 	<body>
 		<section id="sectionBox">
 			<div class="main">
-				<div class="titleBox">
-					<div class="versions">人教社PEP版三年级起点 - 五下(修订) - Unit(1)</div>
-					<div class="title">智能默写</div>
+				<div class="titleBox" id="titleBox">
+					<div class="versions">{{version_name}} - {{textbook_name}} - {{chapter_name}}</div>
+					<div class="title">{{typeStr}}</div>
 					<a href="alternativeVersion.html" class="exit" id="exit"></a>
 				</div>
 				<div class="word" id="word">
-					<h3 id="translate">吃早餐</h3>
+					<div class="translateBox">
+						<h3 id="translate" style="display: block;">{{word_mean}}</h3>
+					</div>
 					<div class="inputBox">
 						<input id="wordinput" type="text" autofocus/>
-						<div class="voice" id="voice">听语音<i></i></div>
+						<div class="voice" id="voice">默写
+							<!--<i></i>--></div>
 						<div class="status correct" id="status" style="display: none;"></div>
 					</div>
 					<div class="answer " id="answer" style="display: block;">
-						sdgdfh sdfj jtyja
+						{{word_name}}
 					</div>
 					<div class="schedule">
 						<div class="atPresent"></div>
@@ -39,12 +42,8 @@
 				</div>
 				<div class="otherInformation">
 					<div class="studyTime">学习时长：00:05:03</div>
-					<div class="errorRate">
-						错误率：
-						<span id="errorRate">23.00</span>%
-					</div>
 					<div class="thisStudy" id="thisStudy">
-						进度：6/18
+						本次学习【生词：0 个&nbsp;  熟词：2 个 &nbsp; 复习：8 个】
 					</div>
 				</div>
 			</div>
@@ -57,8 +56,9 @@
 		</div>
 		<audio autoplay src="" type="audio/wav" id="audioplay">
 		</audio>
-		
+
 		<script src="../js/jquery-3.2.1.min.js"></script>
+		<script src="../js/vue.min.js"></script>
 		<script src="../js/common.js"></script>
 		<script src="../js/word_write.js"></script>
 	</body>
