@@ -75,9 +75,9 @@ section{
 	background: url(../imgs/soundY.png) no-repeat right center;
 	transition: all 0.1s;
 }
-.sentence .thisSentence .listening:hover{
+/*.sentence .thisSentence .listening:hover{
 	transform: translateX(-1px);
-}
+}*/
 .sentence .answer{
 	box-sizing: border-box;
 	width: 800px;height: 62px;
@@ -132,6 +132,7 @@ section{
 	text-indent: 5px;
 	width: auto;
 	margin-right: 0;
+	cursor: pointer;
 }
 .sentence .answerArr span.punctuation{
 	border: none;
@@ -146,13 +147,16 @@ section{
 	transition: all 0.1s;
 	cursor: pointer;
 }
-.sentence .clear:hover,.sentence .reset:hover{
-	transform: translateX(-1px);
-}
+/*.sentence .clear:hover,.sentence .reset:hover{
+	transform: translateX(-5px);
+}*/
 .sentence .clear{
 	background: url(../imgs/resetY.png) no-repeat right center;
 }
-.sentence .clear{
+.sentence .reset{
+	background: url(../imgs/resetN.png) no-repeat right center;
+}
+.sentence .reset.err{
 	background: url(../imgs/resetY.png) no-repeat right center;
 }
 .sentence .progressBar{
