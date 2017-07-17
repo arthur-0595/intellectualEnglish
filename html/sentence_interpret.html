@@ -3,9 +3,9 @@
 
 	<head>
 		<meta charset="UTF-8">
-		<title>例句默写</title>
+		<title>例句翻译</title>
 		<link rel="stylesheet" href="../css/style.css" />
-		<link rel="stylesheet" href="../css/sentence_write.css" />
+		<link rel="stylesheet" href="../css/sentence_listen.css" />
 	</head>
 
 	<body>
@@ -16,18 +16,43 @@
 					<div class="title">{{typeStr}}</div>
 					<a href="alternativeVersion.html" class="exit" id="exit"></a>
 				</div>
-				<div class="word" id="word">
-					<h3 id="translate">{{sentence_mean}}</h3>
-					<div class="answer show" id="answer">
-						{{sentence}}
+				<div class="sentence" id="sentence">
+					<div class="thisSentence">
+						<div class="thisSentence_con" id="thisSentence_con"></div>
+						<div class="listening" id="listening" style="display: none;">
+							听语音<span></span>
+						</div>
 					</div>
-					<div class="inputBox">
-						<input type="text" id="input" />
-						<div class="voice">默写<i></i></div>
-						<div class="status " style="display: none;"></div>
+					<div class="answer clearfix">
+						<!--<div class="answerArr clearfix correct">-->
+						<div class="answerArr" id="answerArr">
+							<span class="ans_null"></span>
+							<span class="ans_word">yellow</span>
+							<span class="ans_null"></span>
+							<span class="ans_null"></span>
+							<span class="punctuation">
+								.
+							</span>
+						</div>
+						<div class="clear" id="clear" style="display: block;">
+							清除
+							<span></span>
+						</div>
+						<div class="reset" id="reset" style="display: none;">
+							重组
+							<span></span>
+						</div>
 					</div>
 					<div class="progressBar">
-						<div class="progress"></div>
+						<div class="thisprogress"></div>
+					</div>
+					<ul class="items clearfix" id="items"  style="display: block;">
+						<li>received</li>
+						<li class="actived">She</li>
+						<li>eight-year</li>
+					</ul>
+					<div class="interpret" id="interpret" style="display: none;">
+						{{thisinterpret}}
 					</div>
 				</div>
 				<div class="btns">
@@ -54,7 +79,7 @@
 		<script src="../js/jquery-3.2.1.min.js"></script>
 		<script src="../js/vue.min.js"></script>
 		<script src="../js/common.js"></script>
-		<script src="../js/sentence_write.js"></script>
+		<script src="../js/sentence_interpret.js"></script>
 	</body>
 
 </html>

@@ -91,9 +91,9 @@ $(function() {
 			}
 			
 			var newObj = {
-				id: wordArr[num].id,
-				word_name: wordArr[num].word_name,
-				word_mean: wordArr[num].word_mean,
+				index: wordArr[num].id,
+				this_name: wordArr[num].word_name,
+				this_mean: wordArr[num].word_mean,
 				myVal: inputVal,
 				status: thisStatus
 			}

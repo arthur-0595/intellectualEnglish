@@ -52,9 +52,9 @@ $(function() {
 			} else if(type == 04) {
 				window.location = 'sentence_listen.html';
 			} else if(type == 05) {
-				window.location = 'sentence_write.html';
+				window.location = 'sentence_interpret.html';
 			} else if(type == 06) {
-				window.location = 'word_write.html';
+				window.location = 'sentence_write.html';
 			} else {
 				alert("相关页面开发未完成");
 			}

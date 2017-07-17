@@ -85,9 +85,9 @@ $(function() {
 			}
 			
 			var newObj = {
-				id: wordArr[num].id,
-				word_name: wordArr[num].word_name,
-				word_mean: wordArr[num].word_mean,
+				index: wordArr[num].id,
+				this_name: wordArr[num].word_name,
+				this_mean: wordArr[num].word_mean,
 				myVal: inputVal,
 				status: thisStatus
 			}
@@ -197,7 +197,7 @@ $(function() {
 				}
 			});
 			var thisScore = Math.round( (Nnum/testsArr.length)*100 );
-			alert(thisScore);
+//			alert(thisScore);
 			
 			window.location="sentence_test.html?score="+thisScore;
 		}

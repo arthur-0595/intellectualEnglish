@@ -14,7 +14,7 @@ $(function() {
 	//当前语音文件播放路径
 	var audioplaySrc;
 	//当前例句大类的类型
-	var thistype = 1; //1听力2翻译3默写
+	var thistype = 2; //1听力2翻译3默写
 	//当前听力的句子变量,由句子的每个单个项组成的数组,顺序没打乱时的数组
 	var thisSentence, thisSentenceArr, sentenceInTheRightOrderArr;
 	//当前正确或者错误的状态值
@@ -42,9 +42,9 @@ $(function() {
 
 	fnUpdatesentence();
 
-	$("#listening").on("click", function() {
-		$("#audioplay").attr("src", audioplaySrc);
-	});
+//	$("#listening").on("click", function() {
+//		$("#audioplay").attr("src", audioplaySrc);
+//	});
 
 	$("#clear").on("click", function() {
 		$("span.ans_word").html('').attr('class', 'ans_null');
@@ -55,7 +55,7 @@ $(function() {
 
 	$("#reset").unbind().on("click", function() {
 		fnclickresetBtn();
-		$("#thisSentence_con").show();
+//		$("#thisSentence_con").show();
 	});
 
 	function fnUpdatesentence() {
@@ -81,13 +81,13 @@ $(function() {
 					console.log(thisSentenceArr);
 					//自动播放语音文件
 					audioplaySrc = thisUrl2 + thisSentence.sentence_url;
-					$("#audioplay").attr("src", audioplaySrc);
+//					$("#audioplay").attr("src", audioplaySrc);
 					//获取到数据之后更新对应的句子相关内容
 					fnUpdateAll(thisSentence, thisSentenceArr, sentenceInTheRightOrderArr);
 
 				} else {
 					alert('学习完毕，下面进行测试');
-					window.location="sentence_listen_test.html"
+					window.location="sentence_interpret_test.html"
 				}
 
 			}
@@ -100,8 +100,8 @@ $(function() {
 		$("#clear").show();
 		$("#reset").hide();
 
-		$("#thisSentence_con").hide().html(thisSentence_.sentence);
-		$("#interpret").html(thisSentence_.sentence_mean);
+		$("#thisSentence_con").html(thisSentence_.sentence_mean);
+		$("#interpret").html(thisSentence_.sentence);
 		var re = /\,|\.|\!|\?/g;
 		//趁数组还没有进行随机打乱的时候，填充上面答案列表的内容
 		var answerArr_html = '';
@@ -150,10 +150,10 @@ $(function() {
 			});
 			console.log(topString);
 
-			$("#thisSentence_con").show();
+//			$("#thisSentence_con").show();
 			$("#clear").hide();
 			$("#reset").show();
-			$("#items").html(thisSentence.sentence_mean);
+			$("#items").html(thisSentence.sentence);
 			if(botString === topString) { //校验正确时
 				$("#answerArr").attr("class", 'answerArr correct')
 					.find("span").css("color", '#57b3ff');
@@ -168,6 +168,8 @@ $(function() {
 				}).unbind().on("click", function() {
 					fncontrast();
 				})
+				//播放句子语音文件
+				$("#audioplay").attr("src", audioplaySrc);
 
 				$("span.ans_word").css('color', '#57b3ff');
 
@@ -180,7 +182,7 @@ $(function() {
 					.css("cursor", 'pointer')
 					.on('click', function() {
 						fnclickresetBtn();
-						$("#thisSentence_con").show();
+//						$("#thisSentence_con").show();
 					});
 				//改变enter按钮的状态和颜色，取消其点击事件
 				$("#enter").css({
@@ -188,6 +190,9 @@ $(function() {
 					cursor: 'default',
 					boxShadow: 'none'
 				}).unbind();
+				
+				//播放句子语音文件
+				$("#audioplay").attr("src", audioplaySrc);
 
 				fnestimateType();
 
@@ -225,12 +230,12 @@ $(function() {
 					console.log(thisSentenceArr);
 					//自动播放语音文件
 					audioplaySrc = thisUrl2 + thisSentence.sentence_url;
-					$("#audioplay").attr("src", audioplaySrc);
+//					$("#audioplay").attr("src", audioplaySrc);
 					//获取到数据之后更新对应的句子相关内容
 					fnUpdateAll(thisSentence, thisSentenceArr, sentenceInTheRightOrderArr);
 				} else {
 					alert('学习完毕，下面进行测试');
-					window.location="sentence_listen_test.html"
+					window.location="sentence_interpret_test.html"
 				}
 
 			}
@@ -290,7 +295,7 @@ $(function() {
 				fncontrast();
 			})
 
-		$("#audioplay").attr("src", audioplaySrc);
+//		$("#audioplay").attr("src", audioplaySrc);
 		fnUpdateAll(thisSentence, thisSentenceArr, sentenceInTheRightOrderArr);
 	}
 

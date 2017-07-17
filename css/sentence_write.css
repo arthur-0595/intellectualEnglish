@@ -54,6 +54,7 @@ section{
 	text-align: center;
 	padding-top: 34px;
 	box-sizing: border-box;
+	position: relative;
 }
 .word h3{
 	font-size: 18px;
@@ -61,17 +62,21 @@ section{
 	height: 36px;
 	line-height: 36px;
 	font-weight: normal;
-	margin-bottom: 18px;
+	margin-bottom: 12px;
 }
 .word .answer{
 	font-size: 18px;
 	color: #333;
-	line-height: 37px;
-	height: 37px;
+	line-height: 33px;
+	max-height: 67px;
 	margin-bottom: 14px;
+	color: transparent;	
+}
+.word .answer.show{
+	color: #333;	
 }
 .word .inputBox{
-	width: 368px;height: 46px;
+	width: 600px;height: 46px;
 	background-color: #eee;
 	margin: 0 auto 38px;
 	position: relative;
@@ -114,7 +119,11 @@ section{
 	width: 800px;
 	height: 12px;
 	background-color: #eee;
-	margin:0 auto 41px;
+	/*margin:0 auto 41px;*/
+	position: absolute;
+	bottom: 22px;
+	left: 50%;
+	transform: translateX(-50%);
 }
 .word .progressBar div{
 	width: 50%;

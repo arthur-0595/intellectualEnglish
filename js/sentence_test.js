@@ -22,7 +22,7 @@ $(function() {
 	type = sessionStorage.type;
 	
 	var wordTestsArr =  sessionStorage.wordTestsArr;
-	wordTestsArr = JSON.parse(wordTestsArr);
+	var testResultArr =  sessionStorage.testResultArr;
 	
 	$.getUrlParam = function(name) {
 		var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
@@ -40,31 +40,43 @@ $(function() {
 			chapter_name: chapter_name,
 			typeStr: typeStr
 		}
-	})
+	});
 	var score = new Vue({
 		el: "#score",
 		data: {
 			score: urlScore
 		}
-	})
-	fnshowstatus();
+	});
 	
-	function fnshowstatus(){
+	if(testResultArr){
+		testResultArr = JSON.parse(testResultArr);
+		fnshowstatus(testResultArr);
+	}else if(wordTestsArr){
+		wordTestsArr = JSON.parse(wordTestsArr);
+		fnshowstatus(fnshowstatus);
+	}
+	
+	function fnshowstatus(arr_){
 		var conHtml = '';
-		$.each(wordTestsArr, function(index , element) {
+		$.each(arr_, function(index , element) {
 			var status = '';
 			if(element.status == 1){
 				status = 'correct';
 			}else{
 				status = 'error';
 			}
+			
+			var re = /^(\,|\.|\!|\?)$/g;
+			if( re.test( $.trim(element.myVal) ) ){
+				element.myVal = '';
+			}
 			conHtml+=`<li class="${status}">
-					<h4><span>${index+1}.</span>${element.word_name}</h4>
+					<h4><span>${index+1}.</span>${element.this_name}</h4>
 					<div class="myans">
 						${element.myVal}
 					</div>
 					<div class="translate">
-						${element.word_mean}
+						${element.this_mean}
 					</div>
 				</li>`;
 		});

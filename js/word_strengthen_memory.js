@@ -89,7 +89,7 @@ $(function() {
 			$("#status").show();
 
 			//输入的内容和正确答案进行对比
-			var inputVal = $("#wordinput").val();
+			var inputVal = $.trim( $("#wordinput").val() );
 			if(inputVal == $("#answer").html()) {//输入正确
 				$("#audioplay").attr("src", audioplaySrc);
 				
