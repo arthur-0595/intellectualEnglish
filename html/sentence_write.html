@@ -18,15 +18,15 @@
 				</div>
 				<div class="word" id="word">
 					<h3 id="translate">{{sentence_mean}}</h3>
-					<div class="answer show" id="answer">
+					<div class="answer" id="answer">
 						{{sentence}}
 					</div>
 					<div class="inputBox">
 						<input type="text" id="input" />
 						<div class="voice">默写<i></i></div>
-						<div class="status " style="display: none;"></div>
+						<div class="status " id="status" style="display: none;"></div>
 					</div>
-					<div class="progressBar">
+					<div class="progressBar" id="progressBar">
 						<div class="progress"></div>
 					</div>
 				</div>
@@ -38,7 +38,7 @@
 				</div>
 				<div class="otherInformation">
 					<div class="studyTime">学习时长：00:05:03</div>
-					<div class="thisStudy">本次学习【生词：<span id="newWord">5</span>　熟词：<span id="familiarWords">12</span>　复习：<span id="review">6</span>】</div>
+					<div class="thisStudy" id="thisStudy">本次学习【生词：<span id="newWord">5</span>　熟词：<span id="familiarWords">12</span>　复习：<span id="review">6</span>】</div>
 				</div>
 			</div>
 		</section>

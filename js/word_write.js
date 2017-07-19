@@ -51,8 +51,6 @@ $(function() {
 		var inputVal = $("#wordinput").val();
 		if(numEnt == 2) {
 			numEnt--;
-
-//			$("#translate").show();
 			$("#answer").show();
 
 			if(inputVal == $("#answer").html()) {

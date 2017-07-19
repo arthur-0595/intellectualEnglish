@@ -142,8 +142,68 @@ section .main{
 .con .changePassword:hover{
 	box-sizing: border-box;
 	line-height: 38px;
-	border: 1px solid #666;
-	background-color: #eee;
+	border: 1px solid #333;
+	/*background-color: #eee;*/
+}
+.changePasswordDialog{
+	width: 553px;
+	height: 350px;
+	position: absolute;
+	top: calc(50% - 175px);
+	left: 50%;
+	z-index: 1000;
+	border: 1px solid #ccc;
+	background-color: #fff;
+}
+.changePasswordDialog ul{
+	width: 500px;
+	margin: 10px auto;
+}
+
+.changePasswordDialog ul li{
+	height: 32px;
+	margin-top: 30px;
+}
+.changePasswordDialog ul li .password{
+	line-height: 32px;
+	color: #333;
+	font-size: 14px;
+	width: 90px;
+	display: inline-block;
+	float: left;
+
+}
+.changePasswordDialog ul li .passwordInput{
+	float: left;
+	border-radius: 17px;
+	width: 320px;
+	line-height: 32px;
+	color: #333;
+	border: 1px solid #ccc;
+	font-size: 14px;
+	padding-left: 10px;
+}
+.tip{
+	float:left;
+	font-size: 12px;
+	color: #999;
+	margin-left: 90px;
+	margin-top: 6px;
+	color: #e92322;
+
+}
+.submit{
+	width: 184px;
+	height: 34px;
+	background-color: #ff7b57;
+	text-align: center;
+	font-size: 16px;
+	color: #fff;
+	line-height: 34px;
+	margin-left: 130px;
+	margin-top: 52px;
+	border-radius: 17px;
+	cursor: pointer;
 }
 .con .right{
 	width: 661px;
@@ -271,8 +331,41 @@ section .main{
 .me .headPortrait li img:hover{
 	transform: scale(1.1);
 }
+.warning{
+	position: absolute;
+	width: 200px;
+	height: 20px;
+	padding: 10px;
+	line-height:20px;
+	text-align: center;
+	background-color: rgba(0,0,0,.4);
+    border-radius: 4px;
+	color:#fff;
+	z-index: 1001;
+    top: 48%;
+    left: 45%;
+    display: none;
+}
+.close{
+	position: absolute;
+    top: 0;
+    right: 4px;
+    color:#999;
+    cursor: pointer;
+    padding: 6px;
+}
+.close:hover{
+	color:#333;
+}
 
-
+.tipText{
+	float: left;
+    width: 200px;
+    margin-left: 203px;
+    margin-top: -26px;
+    color: #999;
+    font-size: 14px;
+}
 
 
 

@@ -93,18 +93,19 @@
 						<h3 id="myname">李强 <span>LV19</span></h3>
 						<span id="username" class="username">qqq555sss</span>
 					</div>
+					<p class="personal" style="position: absolute;right: 14px;top: 14px;cursor:pointer;">
+						<img src="../imgs/home/set.png" alt="">
+					</p>
 				</div>
 				<div class="experience clearfix">
 					<div class="integral" id="integral">
-						积分：<span>452665</span>(离升级还需<span>234</span>积分)
+						到期时间：<span>452665</span>
 					</div>
 					<div>金币总数：<span>246454</span></div>
 					<div>今日金币：<span>254</span></div>
 					<div>已学单词：<span>545</span></div>
 					<div>已学生词：<span>4556</span></div>
 				</div>
-				
-				
 			</div>
 		</section>
 
@@ -122,10 +123,13 @@
 					<h3 id="myname">{{=it.S_name}} <span>LV{{=it.Grade}}</span></h3>
 					<span id="username" class="username">{{=it.S_code}}</span>
 				</div>
+				<p class="personal" style="position: absolute;right: 14px;top: 14px;cursor:pointer;">
+						<img src="../imgs/home/set.png" alt="">
+					</p>
 			</div>
 			<div class="experience clearfix">
 				<div class="integral" id="integral">
-					积分：<span>{{=it.Today_Integral}}</span>(离升级还需<span>{{=it.Integral}}</span>积分)
+					到期时间：<span>{{=it.S_longtime}}</span>
 				</div>
 				<div>积分总数：<span>{{=it.Integral}}</span></div>
 				<div>今日积分：<span>{{=it.Today_Integral}}</span></div>
@@ -139,8 +143,9 @@
 		<script type="text/javascript" src="../js/jquery-3.2.1.min.js"></script>
 		<script src="../js/doT.min.js"></script>
 		<script>
+			
 			var message
-			//获取用户信息
+			// 获取用户信息
 			var userMessage = sessionStorage.userMessage;
 			if(userMessage){
 				userMessage = JSON.parse(userMessage);
@@ -148,7 +153,7 @@
 				alert('检测到您未登录，请先登录！');
 				window.location = '../index.html';
 			}
-			//var changeUserAvatar = sessionStorage.changeUserAvatar;
+			var changeUserAvatar = sessionStorage.changeUserAvatar;
 
 			fnupdateMeMessage(userMessage[0]);
 			//点击大类跳转选择版本页面
@@ -182,7 +187,9 @@
 				var resultText = tempFn(data_);
 				message.innerHTML = resultText;
 			}
-			
+			$('.personal').click(function(){
+				window.location = 'personalCenter.html'
+			});
 		</script>
 	</body>
 

@@ -75,7 +75,6 @@ $(function() {
 		$("#mainBot>li").eq(thisindex).show();
 
 		if(thisindex == 0) {
-			//			username = 1;
 			$.ajax({
 				type: "POST",
 				url: thisUrl2 + '/Areas/Api/index.ashx',
@@ -85,7 +84,6 @@ $(function() {
 					user_id: username
 				},
 				success: function(data) {
-					//					alert(JSON.stringify(data));
 					if(data.length >= 1) {
 
 						var nhtml = '';
