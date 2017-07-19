@@ -308,6 +308,11 @@ section .main{
     font-size: 14px;
 }
 
+.tipText img{
+	display: inline-block;
+	width:18px;
+	height: 18px;
+}
 
 
 /*-------修改密码模块---------*/
@@ -326,56 +331,67 @@ section .main{
 	top: 50%;
 	left: 50%;
 	transform: translate(-50% , -50%);
-	z-index: 10;
+	z-index: 1000;
 	border: 1px solid #ccc;
 	background-color: #fff;
 }
 .changePasswordDialog ul{
-	width: 500px;
-	margin: 10px auto;
+	width: 100%;
+	margin: 0 auto;
 }
-
 .changePasswordDialog ul li{
+	margin: 0 auto;
+	width: 500px;
 	height: 32px;
-	margin-top: 30px;
+	margin-top:45px;
+	position: relative;
+}
+.changePasswordDialog ul .oldPassword{
+	margin-top: 36px;	
 }
 .changePasswordDialog ul li .password{
 	line-height: 32px;
 	color: #333;
-	font-size: 14px;
-	width: 90px;
+	font-size: 16px;
+	width: 130px;
 	display: inline-block;
 	float: left;
+	text-align:right;
 
 }
+
 .changePasswordDialog ul li .passwordInput{
 	float: left;
 	border-radius: 17px;
 	width: 320px;
 	line-height: 32px;
 	color: #333;
-	border: 1px solid #ccc;
+	border: 1px solid #333;
 	font-size: 14px;
 	padding-left: 10px;
 }
+
 .tip{
-	float:left;
+	position: absolute;
+	left:145px;
+	top:42px;
 	font-size: 12px;
 	color: #999;
-	margin-left: 90px;
-	margin-top: 6px;
-	color: #e92322;
 
+}
+.oldInput{
+	color:#ff1919;
+	display:none;
 }
 .submit{
 	width: 184px;
-	height: 34px;
+	height: 32px;
 	background-color: #ff7b57;
 	text-align: center;
 	font-size: 16px;
 	color: #fff;
-	line-height: 34px;
-	margin-left: 130px;
+	line-height: 32px;
+	margin-left: 138px;
 	margin-top: 52px;
 	border-radius: 17px;
 	cursor: pointer;

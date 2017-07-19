@@ -37,7 +37,7 @@
 					</div>
 					<div class="username">{{userId}}</div>
 
-					<ul class="headPortrait clearfix" style="display: none;">
+					<ul id="headPortrait" class="headPortrait clearfix" style="display: none;">
 						<li><img src="../imgs/personalCenter/1.png" alt="" id="1" /></li>
 						<li><img src="../imgs/personalCenter/2.png" alt="" id="2" /></li>
 						<li><img src="../imgs/personalCenter/3.png" alt="" id="3" /></li>
@@ -131,7 +131,7 @@
 					<li class="oldPassword">
 						<span class="password">原密码：</span>
 						<input type="password" placeholder="请输入您的密码" class="passwordInput" id="oldPwd">
-						<!--<p class="tip oldInput">和原密码不符！</p>-->
+						<p class="tip oldInput">密码错误！</p>
 					</li>
 					<li>
 						<span class="password">新密码：</span>
@@ -141,7 +141,7 @@
 					<li>
 						<span class="password">重复新密码：</span>
 						<input type="password" placeholder="请再次输入新密码" class="passwordInput" id="newPwdAgain">
-						<p class="tip againInput">和上面的密码不一致，请重新输入！</p>
+						<p class="tip againInput" style="display:none">和上面的密码不一致，请重新输入！</p>
 					</li>
 				</ul>
 				<button class="submit">确认</button>

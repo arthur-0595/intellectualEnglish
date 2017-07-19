@@ -207,6 +207,10 @@ section .mainright .study {
 	font-size: 16px;
 	cursor: pointer;
 	background-color: #ffeb94;
+	transition: all 0.1s;
+}
+.mainright .study .bot li:hover{
+	transform: scale(1.1);
 }
 .mainright .study .bot li:nth-child(2){
 	background-color: #fdeded;

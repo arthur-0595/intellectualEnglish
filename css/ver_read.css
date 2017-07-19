@@ -55,7 +55,7 @@ section .mainleft>ul>li{
 	line-height: 31px;
 	cursor: pointer;
 }
-section .mainleft>ul>li:hover{
+section .mainleft>ul>li .tit:hover{
 	color: #ff7b57;
 }
 section .mainleft>ul>li span{

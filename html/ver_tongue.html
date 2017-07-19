@@ -11,7 +11,7 @@
 	<body>
 		<header id="header">
 			<div class="header clearfix">
-				<a class="logo" href="#">
+				<a class="logo" href="home.html">
 					<img src="../imgs/logo.png" />
 				</a>
 				<a class="exit" href="../index.html">
@@ -31,27 +31,16 @@
 			<div class="main clearfix">
 				<div class="mainleft">
 					<div class="lTop">
-						<ul class="tleft">
+						<ul class="tleft" id="tleft">
 							<li class="this">旅游基本用语</li>
-							<li>生活日常用语</li>
+							<!--<li>生活日常用语</li>
 							<li>计算机常用语</li>
 							<li>二次元常用语</li>
-							<li>生活日常用语</li>
+							<li>生活日常用语</li>-->
 						</ul>
-						<ul class="tright">
+						<ul class="tright" id="tright">
 							<li>基本会话</li>
 							<li class="this">启程和抵达</li>
-							<li>住宿</li>
-							<li>餐厅</li>
-							<li>逛街</li>
-							<li>观光和娱乐</li>
-							<li>交通</li>
-							<li>遇到麻烦</li>
-							<li>餐厅</li>
-							<li>逛街</li>
-							<li>观光和娱乐</li>
-							<li>交通</li>
-							<li>遇到麻烦</li>
 						</ul>
 					</div>
 					<div class="lBot">
@@ -71,10 +60,10 @@
 				</div>
 				<div class="mainright clearfix">
 					<div class="study">
-						<div class="top">
+						<div class="top" id="studytop">
 							启程和抵达
 						</div>
-						<ul class="bot clearfix">
+						<ul class="bot clearfix" id="studybot">
 							<li>订票及座位</li>
 							<li>登记手续</li>
 							<li>误机</li>
@@ -108,9 +97,9 @@
 			©2017SOUGOU - 京ICP证050897号 - 京公安网备11000002000025号
 		</footer>
 		
-		<div class="mode" style="display: none;" id="mode">
+		<div class="mode" id="mode" style="display: none;">
 			<table>
-				<caption>选择训练方式<span></span></caption>
+				<caption>选择训练方式<span id="closeBox"></span></caption>
 				<tr>
 					<th>训练方式</th>
 					<th>句子数量</th>
@@ -119,32 +108,32 @@
 				</tr>
 				<tr>
 					<td>跟读</td>
-					<td>8</td>
-					<td>20%</td>
+					<td>{{total}}</td>
+					<td>{{ (repeatnumber/total)*100 }}%</td>
 					<td>
 						<a href="javascript:;">开始</a>
 					</td>
 				</tr>
 				<tr>
 					<td>听力理解</td>
-					<td>1</td>
-					<td>40%</td>
+					<td>{{total}}</td>
+					<td>{{ (listennumber/total)*100 }}%</td>
 					<td>
 						<a href="javascript:;">开始</a>
 					</td>
 				</tr>
 				<tr>
 					<td>口语表达</td>
-					<td>12</td>
-					<td>9%</td>
+					<td>{{total}}</td>
+					<td>{{ (oralnumber/total)*100 }}%</td>
 					<td>
 						<a href="javascript:;">开始</a>
 					</td>
 				</tr>
 				<tr>
 					<td>闯关测试</td>
-					<td>20</td>
-					<td>100%</td>
+					<td>{{total*2}}</td>
+					<td>{{ score }}</td>
 					<td>
 						<a href="javascript:;">开始</a>
 					</td>
@@ -153,8 +142,9 @@
 		</div>
 
 		<script src="../js/jquery-3.2.1.min.js"></script>
+		<script src="../js/vue.min.js"></script>
 		<script src="../js/common.js"></script>
-		<script src="../js/alternativeVersion.js"></script>
+		<script src="../js/ver_tongue.js"></script>
 	</body>
 
 </html>

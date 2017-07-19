@@ -29,135 +29,42 @@
 		</div>
 		<section>
 			<div class="main clearfix">
-				<div class="mainleft">
-					<ul>
-					<li>
-						<span>+</span>
-						<div class="tit">
-							小学英语
-						</div>
-						<ul class="courseA" style="display: none;">
-							<li>一年级（易）</li>
-							<li>一年级（易）</li>
-							<li>一年级（易）</li>
-							<li>一年级（易）</li>
-							<li>一年级（易）</li>
-							<li>一年级（易）</li>
-							<li>一年级（易）</li>
-							<li>一年级（易）</li>
-							<li>一年级（易）</li>
-							<li>一年级（易）</li>
-							<li>一年级（易）</li>
-							<li>一年级（易）</li>
-							<li>一年级（易）</li>
-							<li>一年级（易）</li>
-						</ul>
-					</li>
-					<li>
-						<span>+</span>
-						<div class="tit">
-							初中英语
-						</div>
-						<ul class="courseA" style="display: none;">
-							<li>一年级（易）</li>
-							<li>一年级（易）</li>
-							<li>一年级（易）</li>
-							<li>一年级（易）</li>
-							<li>一年级（易）</li>
-							<li>一年级（易）</li>
-							<li>一年级（易）</li>
-							<li>一年级（易）</li>
-							<li>一年级（易）</li>
-							<li>一年级（易）</li>
-							<li>一年级（易）</li>
-							<li>一年级（易）</li>
-							<li>一年级（易）</li>
-							<li>一年级（易）</li>
-						</ul>
-					</li>
-					<li>
-						<span>+</span>
-						<div class="tit">
-							大学英语
-						</div>
-						<ul class="courseA" style="display: none;">
-							<li>一年级（易）</li>
-							<li>一年级（易）</li>
-							<li>一年级（易）</li>
-							<li>一年级（易）</li>
-							<li>一年级（易）</li>
-							<li>一年级（易）</li>
-							<li>一年级（易）</li>
-							<li>一年级（易）</li>
-							<li>一年级（易）</li>
-							<li>一年级（易）</li>
-							<li>一年级（易）</li>
-							<li>一年级（易）</li>
-							<li>一年级（易）</li>
-							<li>一年级（易）</li>
-						</ul>
-					</li>
+				<div class="mainleft" id="mainleft">
+					<ul id="mainleftul">
+						<li v-for="item in items" v-bind:id="item.id">
+							<div class="tit">
+								<span>+</span>
+								{{item.name}}
+							</div>
+							<ul class="courseA" style="display: none;">
+								<li v-for="list in item.type"  v-bind:id="list.id">{{list.name}}</li>
+
+							</ul>
+						</li>
 					</ul>
 				</div>
 				<div class="mainright clearfix">
 					<div class="study">
 						<div class="top">
-							<div class="tit">
+							<div class="tit" id="studyTit">
 								一年级（易）
 							</div>
 							<a href="javascript:;">生词本</a>
 						</div>
 						<div class="bot">
-						<ul class="clearfix">
-							<li class="complete">
-								<div class="pic">
-								</div>
-								第一篇</li>
-							<li>
-								<div class="pic">
-								</div>
-								第二篇</li>
-							<li>
-								<div class="pic">
-								</div>
-								第三篇</li>
-							<li>
-								<div class="pic">
-								</div>
-								第四篇</li>
-							<li>
-								<div class="pic">
-								</div>
-								第五篇</li>
-							<li>
-								<div class="pic">
-								</div>
-								第六篇</li>
-							<li>
-								<div class="pic">
-								</div>
-								第七篇</li>
-							<li>
-								<div class="pic">
-								</div>
-								第八篇</li>
-							<li>
-								<div class="pic">
-								</div>
-								第九篇</li>
-							<li>
-								<div class="pic">
-								</div>
-								第十篇</li>
-							<li>
-								<div class="pic">
-								</div>
-								第十一篇</li>
-							<li>
-								<div class="pic">
-								</div>
-								第十二篇</li>
-						</ul>
+							<ul class="clearfix" id="botUl">
+								<li class="complete">
+									<div class="pic">
+									</div>
+									第一篇
+								</li>
+								<li>
+									<div class="pic">
+									</div>
+									第二篇
+								</li>
+								
+							</ul>
 						</div>
 					</div>
 					<div class="navs">
@@ -179,8 +86,9 @@
 		</footer>
 
 		<script src="../js/jquery-3.2.1.min.js"></script>
+		<script src="../js/vue.min.js"></script>
 		<script src="../js/common.js"></script>
-		<script src="../js/alternativeVersion.js"></script>
+		<script src="../js/ver_read.js"></script>
 	</body>
 
 </html>
