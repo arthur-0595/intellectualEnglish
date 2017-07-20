@@ -40,13 +40,23 @@ $(function() {
 				});
 
 				$("#mainleftul>li .tit").on('click', function() {
-					$("#mainleftul>li").find('ul').slideUp();
-					$(this).parent().find('ul').slideDown();
+					if($(this).parent().find('ul')[0].style.display != 'none'){
+						return false;
+					}else{
+						$("#mainleftul>li").find('ul').slideUp();
+						$(this).parent().find('ul').slideDown();
+						
+						version_id = $(this).parent()[0].id;
+						version_name  = $(this).find('b').html();
+					}
 				})
 
 				$(".courseA li").on('click', function() {
 					var thisId = $(this).attr('id');
 					var thisCon = $(this).html();
+					
+					textbook_id = thisId;
+					textbook_name = thisCon;
 					
 					$("#studyTit").html(thisCon);
 					fnupdateListRead(thisId);
@@ -88,19 +98,28 @@ $(function() {
 			html_ += `<li class="${status}" id="${element.id}">
 									<div class="pic">
 									</div>
-									${element.title}
+									<span>${element.title}</span>
 								</li>`;
 		});
 		
 		$("#botUl").html(html_)
 			.find('li')
 			.on('click' , function(){
-				alert($(this).attr('id') );
+				var index = $(this).index();
 				
-				alert('跳转阅读页面');
+				chapter_name = $(this).find('span').html();
+				chapter_id = $(this).attr('id');
+				
+				sessionStorage.chapter_id = chapter_id;
+				sessionStorage.chapter_name = chapter_name;
+				sessionStorage.version_id = version_id;
+				sessionStorage.version_name = version_name;
+				sessionStorage.textbook_id = textbook_id;
+				sessionStorage.textbook_name = textbook_name;
+				
+				sessionStorage.readCon = data_[index].article;
+				
+				window.location='read_section.html';
 			});
-		
 	}
-
-
 })

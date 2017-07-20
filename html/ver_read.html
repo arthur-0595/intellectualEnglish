@@ -34,7 +34,7 @@
 						<li v-for="item in items" v-bind:id="item.id">
 							<div class="tit">
 								<span>+</span>
-								{{item.name}}
+								<b>{{item.name}}</b>
 							</div>
 							<ul class="courseA" style="display: none;">
 								<li v-for="list in item.type"  v-bind:id="list.id">{{list.name}}</li>
@@ -75,7 +75,7 @@
 						<div class="title">
 							经典阅读
 						</div>
-						<i></i>
+						<a href="home.html"><i></i></a>
 					</div>
 				</div>
 			</div>

@@ -11,117 +11,53 @@
 	<body>
 		<header id="header">
 			<div class="con">
-				<div class="versions">人教社PEP版三年级起点 - 五下(修订) - Unit(1)</div>
-				<div class="title">阅读训练</div>
-				<div class="back"></div>
+				<div class="versions" id="versions">{{version_name}} - {{textbook_name}} - {{chapter_name}}</div>
+				<div class="title">阅读训练测试</div>
+				<a href="home.html"><div class="back"></div></a>
 			</div>
 		</header>
 		<div class="section">
-			<div class="sectionBox">
+			<div class="sectionBox" id="sectionBoxId">
 				<ul>
-					<li class="topic">
-						<h4>1.sgdfhewwq jfhfsda sdfgdsg asdwq jhtfjkf hregewf sdfasf asfsdg  dfhfdh fdhdfa asfwf dfvh rdhrdg </h4>
-						<label>
-						<input type="radio" name="1" id="1" checked/>sdgda fdhs hrtaa asdas
-					</label>
-						<label>
-						<input type="radio" name="1" id="1" />sdgda fdhs hrtaa asdas
-					</label>
-						<label>
-						<input type="radio" name="1" id="1" />sdgda fdhs hrtaa asdas
-					</label>
-						<label>
-						<input type="radio" name="1" id="1" />sdgda fdhs hrtaa asdas
-					</label>
+					<li class="topic" v-for="(item , index) in items">
+						<h4>{{index+1}}.{{item.question}}
+						</h4>
+						<label v-for="itemO in item.answers"  v-bind:id="itemO.correct" >
+							<input type="radio" v-bind:name="item.id"/>
+							{{itemO.answer}}
+						</label>
 					</li>
-					<li class="topic">
-						<h4>1.sgdfhewwq jfhfsda sdfgdsg asdwq jhtfjkf hregewf sdfasf asfsdg  dfhfdh fdhdfa asfwf dfvh rdhrdg </h4>
-						<label>
-						<input type="radio" name="1" id="1" checked/>sdgda fdhs hrtaa asdas
-					</label>
-						<label>
-						<input type="radio" name="1" id="1" />sdgda fdhs hrtaa asdas
-					</label>
-						<label>
-						<input type="radio" name="1" id="1" />sdgda fdhs hrtaa asdas
-					</label>
-						<label>
-						<input type="radio" name="1" id="1" />sdgda fdhs hrtaa asdas
-					</label>
-					</li>
-					<li class="topic">
-						<h4>1.sgdfhewwq jfhfsda sdfgdsg asdwq jhtfjkf hregewf sdfasf asfsdg  dfhfdh fdhdfa asfwf dfvh rdhrdg </h4>
-						<label>
-						<input type="radio" name="1" id="1" checked/>sdgda fdhs hrtaa asdas
-					</label>
-						<label>
-						<input type="radio" name="1" id="1" />sdgda fdhs hrtaa asdas
-					</label>
-						<label>
-						<input type="radio" name="1" id="1" />sdgda fdhs hrtaa asdas
-					</label>
-						<label>
-						<input type="radio" name="1" id="1" />sdgda fdhs hrtaa asdas
-					</label>
-					</li>
-					<li class="topic">
-						<h4>1.sgdfhewwq jfhfsda sdfgdsg asdwq jhtfjkf hregewf sdfasf asfsdg  dfhfdh fdhdfa asfwf dfvh rdhrdg </h4>
-						<label>
-						<input type="radio" name="1" id="1" checked/>sdgda fdhs hrtaa asdas
-					</label>
-						<label>
-						<input type="radio" name="1" id="1" />sdgda fdhs hrtaa asdas
-					</label>
-						<label>
-						<input type="radio" name="1" id="1" />sdgda fdhs hrtaa asdas
-					</label>
-						<label>
-						<input type="radio" name="1" id="1" />sdgda fdhs hrtaa asdas
-					</label>
-					</li>
-					<li class="topic">
-						<h4>1.sgdfhewwq jfhfsda sdfgdsg asdwq jhtfjkf hregewf sdfasf asfsdg  dfhfdh fdhdfa asfwf dfvh rdhrdg </h4>
-						<label>
-						<input type="radio" name="1" id="1" checked/>sdgda fdhs hrtaa asdas
-					</label>
-						<label>
-						<input type="radio" name="1" id="1" />sdgda fdhs hrtaa asdas
-					</label>
-						<label>
-						<input type="radio" name="1" id="1" />sdgda fdhs hrtaa asdas
-					</label>
-						<label>
-						<input type="radio" name="1" id="1" />sdgda fdhs hrtaa asdas
-					</label>
-					</li>
-
 				</ul>
 			</div>
 			<div class="start">
-				<a href="javascript:alert('清除成功');" class="unfamiliarWords" id="EnterTheAnswer">
+				<a href="filtrate_newWorld.html" class="unfamiliarWords" id="EnterTheAnswer">
 					筛选生词
 				</a>
-				<a href="javascript:alert('清除成功');" class="showSection" id="EnterTheAnswer">
-					回到文章
+				<a href="javascript:alert(sessionStorage.readCon);" class="showSection" id="EnterTheAnswer">
+					查看文章
 				</a>
-				<a href="javascript:alert('清除成功');" class="submit" id="EnterTheAnswer">
+				<a href="javascript:;" class="submit" id="enterTheAnswer">
 					交卷
 				</a>
-				<a href="javascript:alert('清除成功');" class="exit" id="EnterTheAnswer">
+				<a href="ver_read.html" class="exit" id="EnterTheAnswer">
 					退出
 				</a>
 			</div>
 		</div>
-		<div class="mode" style="display: none;">
-			<ul class="box">
-				<li>第一题：正确</li>
-				<li>第二题：正确</li>
-				<li>第三题：正确</li>
-				<li>第四题：正确</li>
-				<li>第五题：正确</li>
+		<div class="mode" id="mode" style="display: none;">
+			<ul class="box" id="box">
+				<li>第一题：<span>错误</span></li>
+				<li>第二题：<span>错误</span></li>
+				<li>第三题：<span>错误</span></li>
+				<li>第四题：<span>错误</span></li>
+				<li>第五题：<span>错误</span></li>
 			</ul>
 		</div>
 
+		<script src="../js/jquery-3.2.1.min.js"></script>
+		<script src="../js/vue.min.js"></script>
+		<script src="../js/common.js"></script>
+		<script src="../js/read_test.js"></script>
 	</body>
 
 </html>

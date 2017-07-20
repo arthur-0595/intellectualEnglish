@@ -13,21 +13,20 @@ $(function() {
 	var type, typeStr, textbook_name, version_name, chapter_name;
 
 	fnupdateList();
-	//点击关闭弹出菜单
-	$("#closeBox").on("click" , function(){
-		$("#mode").finish().fadeToggle(150);
-		
-	})
 	
 	var mode = new Vue({
-		el:"#mode",
-		data:{
-			total: 20 ,
-			repeatnumber:8 ,
-			listennumber:10,
-			oralnumber:12,
-			score:66
+		el: "#mode",
+		data: {
+			total: 20,
+			repeatnumber: 8,
+			listennumber: 10,
+			oralnumber: 12,
+			score: 66
 		}
+	})
+	//点击关闭弹出菜单
+	$("#closeBox").on('click' ,function(){
+		$("#mode").finish().toggle();
 	})
 
 	function fnupdateList() {
@@ -52,6 +51,9 @@ $(function() {
 					$("#tleft>li").on("click", function() {
 						$("#tleft>li").attr('class', '');
 						$(this).attr('class', 'this');
+						
+						version_id = $(this).attr('id');
+						version_name = $(this).html();
 
 						fnupdateRightList($(this).attr('id'));
 					})
@@ -85,16 +87,19 @@ $(function() {
 						$("#tright>li").attr('class', '');
 						$(this).attr('class', 'this');
 						
-						$("#studytop").html( $(this).html() );
-						fnshowallItem( $(this).attr('id') );
+						textbook_id = $(this).attr('id');
+						textbook_name = $(this).html();
+
+						$("#studytop").html($(this).html());
+						fnshowallItem($(this).attr('id'));
 					})
 					$("#tright>li").eq(0).trigger('click');
 				}
 			}
 		});
 	}
-	
-	function fnshowallItem(id_){
+
+	function fnshowallItem(id_) {
 		$.ajax({
 			type: "post",
 			url: thisUrl2 + "/Areas/api/Index.ashx",
@@ -112,19 +117,23 @@ $(function() {
 					})
 					$("#studybot").html(htmlbot)
 						.find('li')
-						.on('click' , function(){
+						.on('click', function() {
 							var thisId = $(this).attr('id');
+							
+							chapter_id = thisId;
+							chapter_name = $(this).html();
+							
 							//thisId = 10;
 							$("#mode").fadeToggle(150);
-							
+
 							fnupdateMode(thisId);
 						});
 				}
 			}
 		});
 	}
-	
-	function fnupdateMode(id_){
+
+	function fnupdateMode(id_) {
 		$.ajax({
 			type: "post",
 			url: thisUrl2 + "/Areas/api/Index.ashx",
@@ -143,7 +152,6 @@ $(function() {
 					mode.listennumber = data[0].listennumber;
 					mode.oralnumber = data[0].oralnumber;
 					mode.score = data[0].score;
-					
 				}
 			}
 		});
