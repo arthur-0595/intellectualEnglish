@@ -13,7 +13,7 @@ $(function() {
 	var type, typeStr, textbook_name, version_name, chapter_name;
 
 	fnupdateList();
-	
+
 	var mode = new Vue({
 		el: "#mode",
 		data: {
@@ -25,7 +25,7 @@ $(function() {
 		}
 	})
 	//点击关闭弹出菜单
-	$("#closeBox").on('click' ,function(){
+	$("#closeBox").on('click', function() {
 		$("#mode").finish().toggle();
 	})
 
@@ -51,9 +51,11 @@ $(function() {
 					$("#tleft>li").on("click", function() {
 						$("#tleft>li").attr('class', '');
 						$(this).attr('class', 'this');
-						
+
 						version_id = $(this).attr('id');
 						version_name = $(this).html();
+						sessionStorage.version_id = version_id;
+						sessionStorage.version_name = version_name;
 
 						fnupdateRightList($(this).attr('id'));
 					})
@@ -86,9 +88,11 @@ $(function() {
 					$("#tright>li").on("click", function() {
 						$("#tright>li").attr('class', '');
 						$(this).attr('class', 'this');
-						
+
 						textbook_id = $(this).attr('id');
 						textbook_name = $(this).html();
+						sessionStorage.textbook_id = textbook_id;
+						sessionStorage.textbook_name = textbook_name;
 
 						$("#studytop").html($(this).html());
 						fnshowallItem($(this).attr('id'));
@@ -119,10 +123,12 @@ $(function() {
 						.find('li')
 						.on('click', function() {
 							var thisId = $(this).attr('id');
-							
+
 							chapter_id = thisId;
 							chapter_name = $(this).html();
-							
+							sessionStorage.chapter_id = chapter_id;
+							sessionStorage.chapter_name = chapter_name;
+
 							//thisId = 10;
 							$("#mode").fadeToggle(150);
 
@@ -148,9 +154,9 @@ $(function() {
 				if(data) {
 					console.log(data);
 					mode.total = data[0].total;
-					mode.repeatnumber = data[0].repeatnumber;
-					mode.listennumber = data[0].listennumber;
-					mode.oralnumber = data[0].oralnumber;
+					mode.repeatnumber = parseInt((data[0].repeatnumber/data[0].total)*100) ;
+					mode.listennumber = parseInt((data[0].listennumber/data[0].total)*100);
+					mode.oralnumber = parseInt((data[0].oralnumber/data[0].total)*100);
 					mode.score = data[0].score;
 				}
 			}

@@ -12,26 +12,28 @@
 		<section id="sectionBox">
 			<div class="main">
 				<div class="titleBox">
-					<div class="versions">人教社PEP版三年级起点 - 五下(修订) - Unit(1)</div>
+					<div class="versions" id="versions">{{version_name}} - {{textbook_name}} - {{chapter_name}}</div>
 					<div class="title">口语训练</div>
 					<a href="alternativeVersion.html" class="exit" id="exit"></a>
 				</div>
 				<div class="word">
-					<div class="con">
-						<div class="english">afasf asf sagfdh  rftjhewef asdfwqf sdf hd sdg ds herh  jasef asfwqf dsg h erher esfwaf wa awfwqf wgsdghrhaefasfsad asfawdfwqf  asfdsgfdhgsdgafasfa asfsafwgfdhgsdgafasfa asfsafwafsaf</div>
+					<div class="con" id="con">
+						<div class="english">
+							{{ thisEnglish }}
+						</div>
 						<div class="chinese">
-							张三上天啦张三上天啦张三上天啦张三上天啦张三上天啦张三上天啦张三上天啦张三上天啦张三上天啦张三上天啦张三上天啦张三上天啦张三上天
+							{{ thisChinese }}
 						</div>
 					</div>
 					<div class="operationBtns">
-						<div class="player">播放</div>
-						<div class="record">录音</div>
-						<div class="listenIn">收听</div>
-						<div class="contrast">对比</div>
+						<div class="player" id="player">播放</div>
+						<div class="record" id="record">录音</div>
+						<div class="listenIn" id="listenIn">收听</div>
+						<div class="contrast" id="contrast">对比</div>
 					</div>
 				</div>
 				<div class="btns">
-					<button class="enter">
+					<button class="enter"  id="enter">
 						<i></i>&nbsp;
 						(下一句)
 					</button>
@@ -45,9 +47,17 @@
 		<div class="masking" id="masking" style="display: none;">
 			<div class="reminder">
 				<h4>学习完成，现在开始进行模拟测试！</h4>
-				<button class="btnsOk">确定</button>
+				<button class="btnsOk" id="btnsOk">确定</button>
 			</div>
 		</div>
+		<audio autoplay v-bind:src="thisSrc" type="audio/wav" id="audioplay">
+		</audio>
+		
+		
+		<script src="../js/jquery-3.2.1.min.js"></script>
+		<script src="../js/vue.min.js"></script>
+		<script src="../js/common.js"></script>
+		<script src="../js/spokenLanguage.js"></script>
 	</body>
 
 </html>
