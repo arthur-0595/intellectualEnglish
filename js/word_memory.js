@@ -117,12 +117,9 @@ $(function() {
 				$("#answer").show();
 			}
 		}, 1000);
-
 	}
 	//点击认识或不认识
-	//	function fnclickBtns() {
 	$("#theFirstTime>button").on('click', function(ev) {
-		//			ev.cancelBubble = true;
 		ev.stopPropagation();
 
 		var index = $(this).index();
@@ -143,7 +140,6 @@ $(function() {
 			fnshowstrengthenMemory();
 		}
 	})
-	//	}
 
 	//点击是或否
 	$("#secondTime>button").on("click", function(ev) {
@@ -190,7 +186,6 @@ $(function() {
 	})
 
 	function fnnextWords(thisstate) {
-		//		alert(1);
 		//显示认识或不认识
 		$(".btns").hide();
 		$("#theFirstTime").show();
@@ -209,8 +204,6 @@ $(function() {
 				neworold_word: thisstate
 			},
 			success: function(data) {
-				//				alert(JSON.stringify(data));
-				//				alert(data.result.length);
 				if(data.result.length >= 1) {
 					var thisWord = data.result[0];
 					//赋值当前单词题目的ID
@@ -232,7 +225,6 @@ $(function() {
 						$("#audioplay").attr("src", audioplaySrc);
 					})
 
-					//					fnclickBtns();
 					//保存在学课程信息
 					fnsavecourse();
 

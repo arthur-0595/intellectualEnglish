@@ -12,55 +12,49 @@
 		<section id="sectionBox">
 			<div class="main">
 				<div class="titleBox">
-					<div class="versions">旅游基本用语 - 基本会话 - 问候及初次见面</div>
+					<div class="versions" id="versions">旅游基本用语 - 基本会话 - 问候及初次见面</div>
 					<div class="title">闯关测试</div>
-					<a href="alternativeVersion.html" class="exit" id="exit"></a>
+					<a href="ver_tongue.html" class="exit" id="exit"></a>
 				</div>
 				<div class="word">
-					<div class="player">
+					<!--富商大贾设定高度发滚动翻滚的范德萨发-->
+					<div class="player" id="player">
 						播放
 					</div>
 				</div>
-				<div class="centent">
-					<label checked>
-						<input type="radio" name="1" id="1" value="" />
-						这意味着如果没有进度条或是其他指示器，用户会觉得你的程序跑得很慢。
-					</label>
-					<label>
-						<input type="radio" name="1" id="1" value="" />
-						这意味着如果没有进度条或是其他指示器，用户会觉得你的程序跑得很慢。
-					</label>
-					<label>
-						<input type="radio" name="1" id="1" value="" />
-						这意味着如果没有进度条或是其他指示器，用户会觉得你的程序跑得很慢。
-					</label>
-					<label>
-						<input type="radio" name="1" id="1" value="" />
-						这意味着如果没有进度条或是其他指示器，用户会觉得你的程序跑得很慢。
+				<div class="centent" id="centent">
+					<label v-for="item in items" v-bind:id='item.type' >
+						<input type="radio" v-bind:name="thisLabelId" />
+						{{item.content}}
 					</label>
 				</div>
 				<div class="btns">
-					<button class="yes">
+					<button class="enter" id="enter">
 						<i></i>&nbsp;
-						认识
-					</button>
-					<button class="no">
-						<i></i>&nbsp;
-						不认识
+						下一个
 					</button>
 				</div>	
 				<div class="otherInformation">
 					<div class="studyTime">学习时长：00:05:03</div>
-					<div class="thisStudy">本次学习【生词：<span id="newWord">5</span>　熟词：<span id="familiarWords">12</span>　复习：<span id="review">6</span>】</div>
+					<div class="thisStudy">
+						进度： 4/12
+					</div>
 				</div>
 			</div>
 		</section>
 		<div class="masking" id="masking" style="display: none;">
 			<div class="reminder">
-				<h4>学习完成，现在开始强化记忆！</h4>
+				<h4>本次测试完成</h4>
 				<button class="btnsOk">确定</button>
 			</div>
 		</div>
+		<audio autoplay src="" type="audio/wav" id="audioplay">
+		</audio>
+
+		<script src="../js/jquery-3.2.1.min.js"></script>
+		<script src="../js/vue.min.js"></script>
+		<script src="../js/common.js"></script>
+		<script src="../js/read_advance.js"></script>
 	</body>
 
 </html>

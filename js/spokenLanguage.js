@@ -61,6 +61,52 @@ $(function(){
 		fnUpdateNextSen();
 	});
 	
+	
+	// 录音按钮动画				
+	var num = 0;
+	$('#record').on('click',function(){
+		num++;
+		if( num%2 != 0 ){
+			$(this).addClass('a');
+			recorder && recorder.record();
+		}
+		else{
+			$(this).removeClass('a');
+			recorder && recorder.stop(); 
+		}		
+	});
+	
+	$('#listenIn').on('click',function(){
+		createLink();
+		recorder.clear();
+	})
+	
+	var audio_context;
+  	var recorder;
+
+	function startUserMedia(stream) {
+	   var input = audio_context.createMediaStreamSource(stream);
+	   recorder = new Recorder(input);
+	}
+
+  function createLink() {
+    recorder && recorder.exportWAV(function(blob) {
+      var url = URL.createObjectURL(blob);
+      $("#audioplay").attr('src' , url);
+      
+    });
+  }      
+	navigator.getUserMedia({audio: true}, startUserMedia, function(e) {
+      console.log('No live audio input: ' + e);
+   });
+   
+    window.AudioContext = window.AudioContext || window.webkitAudioContext;
+    navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia;
+    window.URL = window.URL || window.webkitURL;     
+    audio_context = new AudioContext;
+    
+  
+					
 	function fnAjaxSen(){
 		$.ajax({
 			type:"POST",
