@@ -24,6 +24,18 @@ $(function() {
 	typeStr = sessionStorage.typeStr;
 	typeEnglish = sessionStorage.typeEnglish;
 	
+	version_id = sessionStorage.version_id;
+	textbook_id = sessionStorage.textbook_id;
+	chapter_id = sessionStorage.chapter_id;
+	version_name = sessionStorage.version_name;
+	textbook_name = sessionStorage.textbook_name;
+	chapter_name = sessionStorage.chapter_name;
+	
+	if(version_name && textbook_name && chapter_name){
+		var courseP = version_name+' - '+textbook_name;
+		$("#course p").html(courseP);
+		$("#sectionBox p").html(chapter_name);
+	}
 	
 	//根据大类以及大类的name来显示相应的页面内容
 	(function() {
@@ -200,8 +212,6 @@ $(function() {
 															sessionStorage.version_id = version_id;
 															sessionStorage.textbook_name = textbook_name;
 
-															//															alert(version_id);
-
 															fnselectingTextbooksTog();
 															$("#course p").append(this.innerHTML);
 														})
@@ -295,8 +305,9 @@ $(function() {
 
 						sessionStorage.chapter_id = chapter_id;
 						sessionStorage.chapter_name = chapter_name;
-
-						$("#chapterList").toggle();
+						
+						fnchapterList();
+						$("#chapterList").hide();
 					});
 				}
 			}
