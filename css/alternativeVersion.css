@@ -313,9 +313,10 @@ li.allCourses .main ul:nth-child(3){
 	position: absolute;
 	left: -15px;top: 36px;
 	z-index: 2;
+	overflow: auto;
 }
 .chapterList li{
-	width: 227px;height: 85px;
+	width: 215px;height: 85px;
 	border: 1px solid #999;
 	border-radius: 43px;
 	float: left;

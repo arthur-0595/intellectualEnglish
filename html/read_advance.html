@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:v-bind="http://www.w3.org/1999/xhtml">
 
 	<head>
 		<meta charset="UTF-8">
@@ -12,31 +12,38 @@
 		<section id="sectionBox">
 			<div class="main">
 				<div class="titleBox">
-					<div class="versions" id="versions">旅游基本用语 - 基本会话 - 问候及初次见面</div>
+					<div class="versions" id="versions">{{textbook_name}} - {{version_name }}- {{chapter_name}}</div>
 					<div class="title">闯关测试</div>
 					<a href="ver_tongue.html" class="exit" id="exit"></a>
 				</div>
-				<div class="word">
-					<!--富商大贾设定高度发滚动翻滚的范德萨发-->
+				<div class="word e_c" id="word">
+					<div class="problem" id="problem">
+						富商大贾设定高度发滚动翻滚的范德萨发
+					</div>
 					<div class="player" id="player">
 						播放
 					</div>
 				</div>
 				<div class="centent" id="centent">
 					<label v-for="item in items" v-bind:id='item.type' >
-						<input type="radio" v-bind:name="thisLabelId" />
-						{{item.content}}
+						<input type="radio" v-bind:name="thisLabelId" v-bind:checked='checkedtrue'/>
+						<span v-if="e_c">{{item.content}}</span>
+						<i v-else v-bind:data-src = "item.content" >
+							播放
+						</i>
 					</label>
 				</div>
+				
 				<div class="btns">
 					<button class="enter" id="enter">
 						<i></i>&nbsp;
 						下一个
 					</button>
+					
 				</div>	
 				<div class="otherInformation">
 					<div class="studyTime">学习时长：00:05:03</div>
-					<div class="thisStudy">
+					<div class="thisStudy" id="thisStudy">
 						进度： 4/12
 					</div>
 				</div>
@@ -48,8 +55,7 @@
 				<button class="btnsOk">确定</button>
 			</div>
 		</div>
-		<audio autoplay src="" type="audio/wav" id="audioplay">
-		</audio>
+		<audio autoplay src="" type="audio/wav" id="audioplay"></audio>
 
 		<script src="../js/jquery-3.2.1.min.js"></script>
 		<script src="../js/vue.min.js"></script>

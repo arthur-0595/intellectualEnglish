@@ -23,11 +23,11 @@ $(function() {
 			oralnumber: 12,
 			score: 66
 		}
-	})
+	});
 	//点击关闭弹出菜单
 	$("#closeBox").on('click', function() {
 		$("#mode").finish().toggle();
-	})
+	});
 
 	function fnupdateList() {
 		var bigType = 0;
@@ -45,7 +45,7 @@ $(function() {
 					var html_ = '';
 					$.each(data, function(index, element) {
 						html_ += `<li id="${element.id}">${element.spoke_name}</li>`;
-					})
+					});
 					$("#tleft").html(html_);
 					//给点击大类的按钮绑定事件
 					$("#tleft>li").on("click", function() {
@@ -58,7 +58,7 @@ $(function() {
 						sessionStorage.version_name = version_name;
 
 						fnupdateRightList($(this).attr('id'));
-					})
+					});
 					//默认点击第一个大类的第一个小类
 					$("#tleft>li").eq(0).trigger('click');
 				}
@@ -81,7 +81,7 @@ $(function() {
 					var htmlR = '';
 					$.each(data, function(index, element) {
 						htmlR += `<li id="${element.id}">${element.spoke_name}</li>`;
-					})
+					});
 					$("#tright").html(htmlR);
 
 					//给点击小类的按钮绑定事件
@@ -96,7 +96,7 @@ $(function() {
 
 						$("#studytop").html($(this).html());
 						fnshowallItem($(this).attr('id'));
-					})
+					});
 					$("#tright>li").eq(0).trigger('click');
 				}
 			}
@@ -118,7 +118,7 @@ $(function() {
 					var htmlbot = '';
 					$.each(data, function(index, element) {
 						htmlbot += `<li id="${element.id}">${element.spoke_name}</li>`;
-					})
+					});
 					$("#studybot").html(htmlbot)
 						.find('li')
 						.on('click', function() {
@@ -129,7 +129,6 @@ $(function() {
 							sessionStorage.chapter_id = chapter_id;
 							sessionStorage.chapter_name = chapter_name;
 
-							//thisId = 10;
 							$("#mode").fadeToggle(150);
 
 							fnupdateMode(thisId);
@@ -163,4 +162,4 @@ $(function() {
 		});
 	}
 
-})
+});

@@ -57,6 +57,13 @@ section{
 	box-sizing: border-box;
 	padding-left: 237px;
 }
+.word.e_c .problem,.word.c_e .player{
+	display: none;
+}
+.word.e_c .player,.word.c_e .problem{
+	display: block;
+}
+
 .word .player{
 	width: 67px;height: 69px;
 	font-size: 12px;
@@ -78,6 +85,7 @@ section{
 	font-size: 16px;
 	color: #333;
 	background-color: #fff;
+	cursor: pointer;
 }
 .centent label:hover{
 	background-color: #eee;
@@ -91,7 +99,14 @@ section{
 	position: relative;
 	top: 2px;
 }
-
+.centent label i{
+	text-align: center;
+	display: inline-block;
+	width: 150px;
+	height: 100%;
+	cursor: pointer;
+	background: url(../imgs/soundY.png) no-repeat right center;
+}
 
 
 

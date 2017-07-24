@@ -3,7 +3,7 @@
 
 	<head>
 		<meta charset="UTF-8">
-		<title>闯关测试</title>
+		<title>闯关测试分数</title>
 		<link rel="stylesheet" href="../css/style.css" />
 		<link rel="stylesheet" href="../css/read_advance_answer.css" />
 	</head>
@@ -11,91 +11,36 @@
 	<body>
 		<header id="header">
 			<div class="con">
-				<div class="versions">人教社PEP版三年级起点 - 五下(修订) - Unit(1)</div>
+				<div class="versions" id="versions">{{version_name}} - {{textbook_name}}- {{chapter_name}}</div>
 				<div class="title">闯关测试</div>
-				<div class="back"></div>
+				<a href="ver_tongue.html"><div class="back"></div></a>
 			</div>
 		</header>
 		<div class="section">
 			<div class="sectionBox">
-				考试得分：88分
+				考试得分：<span id="thisScore">88</span>分
 			</div>
-			<table class="tabs">
+			<table class="tabs" id="tabs">
 				<tr>
 					<th>对错</th>
 					<th>语音</th>
 					<th>英语</th>
 					<th>翻译</th>
 				</tr>
-				<tr>
-					<td class="status"></td>
-					<td class="listen"></td>
-					<td class="sentence">These tags provide information about the language that the text was written in, the script or writing-system used, the regional linguistic variation, and so on. </td>
-					<td class="translate">这些标记提供关于文本编写所用语言、使用的脚本或编写系统的信息，以及地区性语言变化等。</td>
-				</tr>
-				<tr>
-					<td class="status"></td>
-					<td class="listen"></td>
-					<td class="sentence">These tags provide information about the language that the text was written in, the script or writing-system used, the regional linguistic variation, and so on. </td>
-					<td class="translate">这些标记提供关于文本编写所用语言、使用的脚本或编写系统的信息，以及地区性语言变化等。</td>
-				</tr>
-				<tr>
-					<td class="status"></td>
-					<td class="listen"></td>
-					<td class="sentence">These tags provide information about the language that the text was written in </td>
-					<td class="translate">这些标记提供关于文本编写所用语言</td>
-				</tr>
-				<tr>
-					<td class="status"></td>
-					<td class="listen"></td>
-					<td class="sentence">These tags provide information about the lang</td>
-					<td class="translate">这些标记提供关于文本编写</td>
-				</tr>
-				<tr>
-					<td class="status"></td>
-					<td class="listen"></td>
-					<td class="sentence">These tags provide information about the language that the text was written in, the script or writing-system used, the regional linguistic variation, and so on. </td>
-					<td class="translate">这些标记提供关于文本编写所用语言、使用的脚本或编写系统的信息，以及地区性语言变化等。</td>
-				</tr>
-				<tr>
-					<td class="status"></td>
-					<td class="listen"></td>
-					<td class="sentence">These tags provide information about the language that the text was written in, the script or writing-system used, the regional linguistic variation, and so on. </td>
-					<td class="translate">这些标记提供关于文本编写所用语言、使用的脚本或编写系统的信息，以及地区性语言变化等。</td>
-				</tr>
-				<tr>
-					<td class="status"></td>
-					<td class="listen"></td>
-					<td class="sentence">These tags provide information about the language that the text was written in, the script or writing-system used, the regional linguistic variation, and so on. </td>
-					<td class="translate">这些标记提供关于文本编写所用语言、使用的脚本或编写系统的信息，以及地区性语言变化等。</td>
-				</tr>
-				<tr>
-					<td class="status"></td>
-					<td class="listen"></td>
-					<td class="sentence">These tags provide information about the language that the text was written in, the script or writing-system used, the regional linguistic variation, and so on. </td>
-					<td class="translate">这些标记提供关于文本编写所用语言、使用的脚本或编写系统的信息，以及地区性语言变化等。</td>
-				</tr>
-				<tr>
-					<td class="status"></td>
-					<td class="listen"></td>
-					<td class="sentence">These tags provide information about the language that the text was written in, the script or writing-system used, the regional linguistic variation, and so on. </td>
-					<td class="translate">这些标记提供关于文本编写所用语言、使用的脚本或编写系统的信息，以及地区性语言变化等。</td>
-				</tr>
-				<tr>
-					<td class="status"></td>
-					<td class="listen"></td>
-					<td class="sentence">These tags provide information about the language that the text was written in, the script or writing-system used, the regional linguistic variation, and so on. </td>
-					<td class="translate">这些标记提供关于文本编写所用语言、使用的脚本或编写系统的信息，以及地区性语言变化等。</td>
-				</tr>
-				<tr>
-					<td class="status"></td>
-					<td class="listen"></td>
-					<td class="sentence">These tags provide information about the language that the text was written in, the script or writing-system used, the regional linguistic variation, and so on. </td>
-					<td class="translate">这些标记提供关于文本编写所用语言、使用的脚本或编写系统的信息，以及地区性语言变化等。</td>
+				<tr v-for="item in items">
+					<td v-bind:class="{status:item.status}" v-bind:id="item.status"></td>
+					<td class="listen" v-bind:data-src = "item.audioplaySrc"></td>
+					<td class="sentence">{{item.this_name}}</td>
+					<td class="translate">{{item.this_mean}}</td>
 				</tr>
 			</table>
 		</div>
+		<audio autoplay src="" type="audio/wav" id="audioplay"></audio>
 
+		<script src="../js/jquery-3.2.1.min.js"></script>
+		<script src="../js/vue.min.js"></script>
+		<script src="../js/common.js"></script>
+		<script src="../js/read_advance_answer.js"></script>
 	</body>
 
 </html>

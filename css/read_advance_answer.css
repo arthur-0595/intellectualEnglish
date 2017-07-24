@@ -90,7 +90,11 @@ header .con .back{
 	width: 70px;
 }
 
-.section .tabs .status{
+.section .tabs tr td:nth-child(1){
+	background: url(../imgs/redNo.png) no-repeat center;
+}
+
+.section .tabs tr td.status{
 	background: url(../imgs/blueYes.png) no-repeat center;
 }
 .section .tabs .listen{

@@ -23,6 +23,8 @@ $(function() {
 	type = sessionStorage.type;
 	typeStr = sessionStorage.typeStr;
 	typeEnglish = sessionStorage.typeEnglish;
+	
+	
 	//根据大类以及大类的name来显示相应的页面内容
 	(function() {
 		var typeEnglish = ['Intelligent Memory'];
