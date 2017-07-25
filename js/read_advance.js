@@ -98,22 +98,22 @@ $(function() {
 			checkedtrue: false,
 			items: [{
 					"type": 0,
-					"content": "我来自中国北京，您呢？++",
+					"content": "我来自中国北京，您呢？",
 					'playerSrc': 'xx'
 				},
 				{
 					"type": 1,
-					"content": "您好！我叫约翰史密斯，很高兴见到您。++",
+					"content": "您好！我叫约翰史密斯，很高兴见到您。",
 					'playerSrc': 'xx'
 				},
 				{
 					"type": 0,
-					"content": "噢，谢谢。++",
+					"content": "噢，谢谢。",
 					'playerSrc': 'xx'
 				},
 				{
 					"type": 0,
-					"content": "丹，您来自哪里？++",
+					"content": "丹，您来自哪里？",
 					'playerSrc': 'xx'
 				}
 			]

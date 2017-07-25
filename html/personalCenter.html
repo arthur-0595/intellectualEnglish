@@ -1,163 +1,163 @@
 <!DOCTYPE html>
 <html>
 
-	<head>
-		<meta charset="UTF-8">
-		<title>个人中心</title>
-		<link rel="stylesheet" href="../css/style.css" />
-		<link rel="stylesheet" href="../css/personalCenter.css" />
-	</head>
+<head>
+    <meta charset="UTF-8">
+    <title>个人中心</title>
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/personalCenter.css" />
+</head>
 
-	<body>
-		<header id="header">
-			<div class="header clearfix">
-				<a class="logo" href="#">
-					<img src="../imgs/logo.png" />
-				</a>
-				<a class="exit" href="../index.html">
+<body>
+    <header id="header">
+        <div class="header clearfix">
+            <a class="logo" href="#">
+                <img src="../imgs/logo.png" />
+            </a>
+            <a class="exit" href="../index.html">
 					退出
 				</a>
-				<a class="goHome" href="home.html">
+            <a class="goHome" href="home.html">
 					回到首页
 				</a>
-			</div>
-		</header>
-		<section>
-			<div class="main" id="main">
-				<div class="topnav">
-					您所在的位置： <span>个人中心</span>
-				</div>
-				<div class="me">
-					<div class="pic" id="userPic">
-						<img src="" alt="" />
-					</div>
-					<div class="yourName">
-						<input type="text" name="yourName" id="yourName" value="{{uesrName}}" />
-						<span class="delAll" style="display: none;"></span>
-					</div>
-					<div class="username">{{userId}}</div>
+        </div>
+    </header>
+    <section>
+        <div class="main" id="main">
+            <div class="topnav">
+                您所在的位置： <span>个人中心</span>
+            </div>
+            <div class="me">
+                <div class="pic" id="userPic">
+                    <img src="" alt="" />
+                </div>
+                <div class="yourName">
+                    <input type="text" name="yourName" id="yourName" value="{{uesrName}}" />
+                    <span class="delAll" style="display: none;"></span>
+                </div>
+                <div class="username">{{userId}}</div>
 
-					<ul id="headPortrait" class="headPortrait clearfix" style="display: none;">
-						<li><img src="../imgs/personalCenter/1.png" alt="" id="1" /></li>
-						<li><img src="../imgs/personalCenter/2.png" alt="" id="2" /></li>
-						<li><img src="../imgs/personalCenter/3.png" alt="" id="3" /></li>
-						<li><img src="../imgs/personalCenter/4.png" alt="" id="4" /></li>
-						<li><img src="../imgs/personalCenter/5.png" alt="" id="5" /></li>
-						<li><img src="../imgs/personalCenter/6.png" alt="" id="6" /></li>
-						<li><img src="../imgs/personalCenter/7.png" alt="" id="7" /></li>
-						<li><img src="../imgs/personalCenter/8.png" alt="" id="8" /></li>
-						<li><img src="../imgs/personalCenter/9.png" alt="" id="9" /></li>
-					</ul>
-				</div>
+                <ul id="headPortrait" class="headPortrait clearfix" style="display: none;">
+                    <li><img src="../imgs/personalCenter/1.png" alt="" id="1" /></li>
+                    <li><img src="../imgs/personalCenter/2.png" alt="" id="2" /></li>
+                    <li><img src="../imgs/personalCenter/3.png" alt="" id="3" /></li>
+                    <li><img src="../imgs/personalCenter/4.png" alt="" id="4" /></li>
+                    <li><img src="../imgs/personalCenter/5.png" alt="" id="5" /></li>
+                    <li><img src="../imgs/personalCenter/6.png" alt="" id="6" /></li>
+                    <li><img src="../imgs/personalCenter/7.png" alt="" id="7" /></li>
+                    <li><img src="../imgs/personalCenter/8.png" alt="" id="8" /></li>
+                    <li><img src="../imgs/personalCenter/9.png" alt="" id="9" /></li>
+                </ul>
+            </div>
 
-				<div class="con clearfix">
-					<div class="left">
-						<div class="message">
-							<div>
-								<span>账号ID：</span>
-								<i id="user_id">{{userId}}</i>
-							</div>
-							<div>
-								<span>账号有效期：</span>
-								<i>{{longtime}}</i>
-							</div>
-							<div>
-								<span>积分：</span>
-								<i>{{Integral}}</i>
-							</div>
-							<div>
-								<span>积分等级：</span>
-								<i>{{Grade}}</i>
-							</div>
-							<div>
-								<span>今日积分：</span>
-								<i>{{Today_Integral}}</i>
-							</div>
-						</div>
-						<div class="changePassword">
-							修改密码
-						</div>
-					</div>
-					<ul class="right">
-						<li>
-							<span>性别：</span>
-							<div class="genderBox clearfix">
-								<div class="man checked" id="man">男</div>
-								<div class="woman" id="woman">女</div>
-							</div>
-						</li>
-						<li>
-							<span>家长手机：</span>
-							<div>
-								<input type="text" name="parentsInformation" id="parentsInformation" value="{{phone}}" placeholder="请输入家长手机号码" />
-								<!--<span class="delAll" style="display: none;"></span>-->
-								<p class="tipText tel"></p>
+            <div class="con clearfix">
+                <div class="left">
+                    <div class="message">
+                        <div>
+                            <span>账号ID：</span>
+                            <i id="user_id">{{userId}}</i>
+                        </div>
+                        <div>
+                            <span>账号有效期：</span>
+                            <i>{{longtime}}</i>
+                        </div>
+                        <div>
+                            <span>积分：</span>
+                            <i>{{Integral}}</i>
+                        </div>
+                        <div>
+                            <span>积分等级：</span>
+                            <i>{{Grade}}</i>
+                        </div>
+                        <div>
+                            <span>今日积分：</span>
+                            <i>{{Today_Integral}}</i>
+                        </div>
+                    </div>
+                    <div class="changePassword">
+                        修改密码
+                    </div>
+                </div>
+                <ul class="right">
+                    <li>
+                        <span>性别：</span>
+                        <div class="genderBox clearfix">
+                            <div class="man checked" id="man">男</div>
+                            <div class="woman" id="woman">女</div>
+                        </div>
+                    </li>
+                    <li>
+                        <span>家长手机：</span>
+                        <div>
+                            <input type="text" name="parentsInformation" id="parentsInformation" value="{{phone}}" placeholder="请输入家长手机号码" />
+                            <!--<span class="delAll" style="display: none;"></span>-->
+                            <p class="tipText tel"></p>
 
-							</div>
-						</li>
-						<li>
-							<span>QQ：</span>
-							<div>
-								<input type="text" name="yourQQ" id="yourQQ" value="{{qq}}" placeholder="请输入您的QQ号码" />
-								<!--<span class="delAll" style="display: none;"></span>-->
-								<p class="tipText qq"></p>
-							</div>
-						</li>
-						<li>
-							<span>邮箱：</span>
-							<div>
-								<input type="email" name="yourEmail" id="yourEmail" value="{{email}}" placeholder="请输入您的邮箱" />
-								<!--<span class="delAll" style="display: none;"></span>-->
-								<p class="tipText email"></p>
-							</div>
-						</li>
-						<li>
-							<span>地址：</span>
-							<div class="site">
-								<input type="text" name="yoursite" id="yoursite" value="{{address}}" placeholder="请输入您的详细地址" />
-								<!--<span class="delAll" style="display: none;"></span>-->
-								<p class="tipText address"></p>
-							</div>
-						</li>
-						<button class="saveBtn">保存</button>
-					</ul>
-				</div>
+                        </div>
+                    </li>
+                    <li>
+                        <span>QQ：</span>
+                        <div>
+                            <input type="text" name="yourQQ" id="yourQQ" value="{{qq}}" placeholder="请输入您的QQ号码" />
+                            <!--<span class="delAll" style="display: none;"></span>-->
+                            <p class="tipText qq"></p>
+                        </div>
+                    </li>
+                    <li>
+                        <span>邮箱：</span>
+                        <div>
+                            <input type="email" name="yourEmail" id="yourEmail" value="{{email}}" placeholder="请输入您的邮箱" />
+                            <!--<span class="delAll" style="display: none;"></span>-->
+                            <p class="tipText email"></p>
+                        </div>
+                    </li>
+                    <li>
+                        <span>地址：</span>
+                        <div class="site">
+                            <input type="text" name="yoursite" id="yoursite" value="{{address}}" placeholder="请输入您的详细地址" />
+                            <!--<span class="delAll" style="display: none;"></span>-->
+                            <p class="tipText address"></p>
+                        </div>
+                    </li>
+                    <button class="saveBtn">保存</button>
+                </ul>
+            </div>
 
-			</div>
-		</section>
-		<div class="cover" id="cover"  style="display:none;">
-			<div class="changePasswordDialog">
-				<ul class="changePasswordInput">
-					<li class="oldPassword">
-						<span class="password">原密码：</span>
-						<input type="password" placeholder="请输入您的密码" class="passwordInput" id="oldPwd">
-						<p class="tip oldInput">密码错误！</p>
-					</li>
-					<li>
-						<span class="password">新密码：</span>
-						<input type="password" placeholder="请输入新密码" class="passwordInput" id="newPwd">
-						<p class="tip newInput">字母、数字、下划线组成，字母开头，6-16位</p>
-					</li>
-					<li>
-						<span class="password">重复新密码：</span>
-						<input type="password" placeholder="请再次输入新密码" class="passwordInput" id="newPwdAgain">
-						<p class="tip againInput" style="display:none">和上面的密码不一致，请重新输入！</p>
-					</li>
-				</ul>
-				<button class="submit">确认</button>
-			</div>
-		</div>
+        </div>
+    </section>
+    <div class="cover" id="cover" style="display:none;">
+        <div class="changePasswordDialog">
+            <ul class="changePasswordInput">
+                <li class="oldPassword">
+                    <span class="password">原密码：</span>
+                    <input type="password" placeholder="请输入您的密码" class="passwordInput" id="oldPwd">
+                    <p class="tip oldInput">密码错误！</p>
+                </li>
+                <li>
+                    <span class="password">新密码：</span>
+                    <input type="password" placeholder="请输入新密码" class="passwordInput" id="newPwd">
+                    <p class="tip newInput">字母、数字、下划线组成，字母开头，6-16位</p>
+                </li>
+                <li>
+                    <span class="password">重复新密码：</span>
+                    <input type="password" placeholder="请再次输入新密码" class="passwordInput" id="newPwdAgain">
+                    <p class="tip againInput" style="display:none">和上面的密码不一致，请重新输入！</p>
+                </li>
+            </ul>
+            <button class="submit">确认</button>
+        </div>
+    </div>
 
-		<footer id="footer">
-			©2017SOUGOU - 京ICP证050897号 - 京公安网备11000002000025号
-		</footer>
-		<p class="warning">
-			<span></span>
-		</p>
-		<script src="../js/jquery-3.2.1.min.js"></script>
-		<script src="../js/common.js"></script>
-		<script src="../js/vue.min.js"></script>
-		<script src="../js/personalCenter.js"></script>
-	</body>
+    <footer id="footer">
+        ©2017SOUGOU - 京ICP证050897号 - 京公安网备11000002000025号
+    </footer>
+    <p class="warning">
+        <span></span>
+    </p>
+    <script src="../js/jquery-3.2.1.min.js"></script>
+    <script src="../js/common.js"></script>
+    <script src="../js/vue.min.js"></script>
+    <script src="../js/personalCenter.js"></script>
+</body>
 
 </html>

@@ -6,107 +6,154 @@
 		<title>生词本</title>
 		<link rel="stylesheet" href="../css/style.css" />
 		<link rel="stylesheet" href="../css/newWordsNotebook.css" />
+		<style>
+			.delword:hover{
+				cursor:pointer;
+				color:red;
+			}
+		</style>
 	</head>
 
 	<body>
 		<header id="header">
 			<div class="con">
-				<div class="versions">人教社PEP版三年级起点 - 五下(修订) - Unit(1)</div>
+				<div class="versions">{{textbook_name}} - {{version_name}} - {{chapter_name}}</div>
 				<div class="title">生词本</div>
 				<div class="back"></div>
 			</div>
 		</header>
 		<div class="section">
-			<table class="tabs">
-				<tr>
-					<th>编号</th>
-					<th>单词</th>
-					<th>词义</th>
-					<th>删除</th>
-				</tr>
-				<tr>
-					<td>1</td>
-					<td>gafgz</td>
-					<td>张三打人啦</td>
-					<td>删除</td>
-				</tr>
-				<tr>
-					<td>1</td>
-					<td>gafgz</td>
-					<td>张三打人啦</td>
-					<td>删除</td>
-				</tr>
-				<tr>
-					<td>1</td>
-					<td>gafgz</td>
-					<td>张三打人啦</td>
-					<td>删除</td>
-				</tr>
-				<tr>
-					<td>1</td>
-					<td>gafgz</td>
-					<td>张三打人啦</td>
-					<td>删除</td>
-				</tr>
-				<tr>
-					<td>1</td>
-					<td>gafgz</td>
-					<td>张三打人啦</td>
-					<td>删除</td>
-				</tr>
-				<tr>
-					<td>1</td>
-					<td>gafgz</td>
-					<td>张三打人啦</td>
-					<td>删除</td>
-				</tr>
-				<tr>
-					<td>1</td>
-					<td>gafgz</td>
-					<td>张三打人啦</td>
-					<td>删除</td>
-				</tr>
-				<tr>
-					<td>1</td>
-					<td>gafgz</td>
-					<td>张三打人啦</td>
-					<td>删除</td>
-				</tr>
-				<tr>
-					<td>1</td>
-					<td>gafgz</td>
-					<td>张三打人啦</td>
-					<td>删除</td>
-				</tr>
-				<tr>
-					<td>1</td>
-					<td>gafgz</td>
-					<td>张三打人啦</td>
-					<td>删除</td>
-				</tr>
-				<tr>
-					<td>1</td>
-					<td>gafgz</td>
-					<td>张三打人啦</td>
-					<td>删除</td>
-				</tr>
-				<tr>
-					<td>1</td>
-					<td>gafgz</td>
-					<td>张三打人啦</td>
-					<td>删除</td>
-				</tr>
-				
+			<table class="tabs">				
 			</table>
 			<div class="pagination">
 				<div class="startPage">首页</div>
 				<div class="previousPage">< 上一页</div>
-				<div class="currentPage">1/28</div>
+				<div class="currentPage"></div>
 				<div class="nextPage">下一页 ></div>
 				<div class="endPage">末页</div>
 			</div>
 		</div>
 		
 	</body>
-
+	<script src="../js/jquery-3.2.1.min.js"></script>
+	<script src="../js/vue.min.js"></script>
+	<script src="../js/common.js"></script>
+	<script>
+		$(function(){
+			//获取用户名
+			var userMessage = sessionStorage.userMessage;
+			if(userMessage) {
+				userMessage = JSON.parse(userMessage);
+				var username = userMessage[0].ID;
+			} else {
+				alert('检测到您未登录，请先登录！');
+				window.location = '../index.html';
+			}
+			
+			var textbook_name = sessionStorage.textbook_name;
+			var version_name = sessionStorage.version_name;
+			var chapter_name = sessionStorage.chapter_name;
+			var pageindex = 1;
+			var totalPage = 1;
+			
+			var headtitle = new Vue({
+				el:'.versions',
+				data:{
+					textbook_name:textbook_name,
+					version_name:version_name,
+					chapter_name:chapter_name
+				}
+			});
+			
+			$('.back').on('click',function(){
+				window.location = './ver_read.html';
+			})
+			
+			getNewWords();
+			function getNewWords(){
+				$.ajax({
+					type:'get',
+					url: thisUrl + "/Areas/api/Interface.ashx",
+					dataType: "json",
+					data:{
+						method:'getnewword',
+						user_id:username,
+						pageindex:pageindex,
+						pagesize:12
+					},
+					success: function(data){
+						var newWordArr = data[0].nword;						
+						totalPage = data[0].page;
+						var thead = `<tr>
+							<th>编号</th>
+							<th>单词</th>
+							<th>词义</th>
+							<th>删除</th>
+						</tr>`;
+						var _html = '';
+						$.each(newWordArr,function(index,element){
+							_html += `<tr>
+								<td>${index+1}</td>
+								<td>${element.newword}</td>
+								<td>${element.newword_mean}</td>
+								<td class="delword" id="${element.id}">删除</td>
+							</tr>`;							
+						});	
+						var result = thead + _html;
+						$('.tabs').html(result);						
+						// 删除
+						$('.delword').on('click',function(){
+							var $this = $(this);
+							var this_id = $(this)[0].id;
+							$.ajax({
+								type:'get',
+								url:thisUrl + "/Areas/api/Interface.ashx",
+								data:{
+									method:'delnewword',
+									newword_id:this_id
+								},
+								success: function( data ){
+									$this.parent().remove();									
+									window.location.reload(true);
+								}
+							})
+						});	
+						// 显示当前页
+						$('.currentPage').text( pageindex + '/' + totalPage);
+					}
+				});
+			}						
+			
+			// 下一页
+			$('.nextPage').on('click',function(){
+				if(pageindex < totalPage){
+					pageindex++;
+					getNewWords();
+				}
+				
+			});
+			// 上一页
+			$('.previousPage').on('click',function(){
+				if(pageindex > 1){
+					pageindex--;
+					getNewWords();
+				}
+			});
+			
+			// 首页
+			$('.startPage').on('click',function(){
+				pageindex = 1;
+				getNewWords();
+			});	
+			
+			// 最后一页
+			$('.endPage').on('click',function(){
+				pageindex = totalPage;
+				getNewWords();
+			});						
+			
+		})
+		
+		
+	</script>
 </html>
