@@ -1,4 +1,4 @@
-$(function() {
+$(function () {
     //获取用户名
     var userMessage = sessionStorage.userMessage;
     if (userMessage) {
@@ -18,17 +18,16 @@ $(function() {
     var mainleft;
     fnupdateList();
 
-
     function fnupdateList() {
         $.ajax({
             type: "get",
             url: thisUrl + "/Areas/api/Interface.ashx",
             dataType: "json",
             data: {
-                method: 'getreadtype'
+                method: 'getvoicetype'
             },
             async: true,
-            success: function(data) {
+            success: function (data) {
                 //				console.log(JSON.stringify(data));
                 navs = data;
 
@@ -39,7 +38,7 @@ $(function() {
                     }
                 });
 
-                $("#mainleftul>li .tit").on('click', function() {
+                $("#mainleftul>li .tit").on('click', function () {
                     if ($(this).parent().find('ul')[0].style.display != 'none') {
                         return false;
                     } else {
@@ -51,7 +50,7 @@ $(function() {
                     }
                 })
 
-                $(".courseA li").on('click', function() {
+                $(".courseA li").on('click', function () {
                     var thisId = $(this).attr('id');
                     var thisCon = $(this).html();
 
@@ -73,12 +72,12 @@ $(function() {
             url: thisUrl + "/Areas/api/Interface.ashx",
             dataType: "json",
             data: {
-                method: 'getreading',
+                method: 'getvoice',
                 type_id: itmeId_,
                 user_id: username
             },
             async: true,
-            success: function(data) {
+            success: function (data) {
                 console.log(JSON.stringify(data));
                 fnshowReadList(data);
             }
@@ -87,24 +86,34 @@ $(function() {
 
     function fnshowReadList(data_) {
         var html_ = '';
-        $.each(data_, function(index, element) {
-            var status;
+        $.each(data_, function (index, element) {
+            var status , classC;
             if (element.allow == 1) {
                 status = 'complete';
             } else {
                 status = '';
             }
+            if (element.v_name == '学前测试' || element.v_name == '学后测试') {
+                classC = 'none';    
+            }else{
+                classC = 'block';  
+            }
 
             html_ += `<li class="${status}" id="${element.id}">
-									<div class="pic">
-									</div>
+                                    <div class="pic">
+                                    </div>
+                                    <div class="operate" id="operate" style='display:${classC}'>
+                                        <a href="">辩音</a>
+                                        <a href="">听写</a>
+                                        <a href="">闯关</a>
+                                    </div>
 									<span>${element.title}</span>
 								</li>`;
         });
 
         $("#botUl").html(html_)
             .find('li')
-            .on('click', function() {
+            .on('click', function () {
                 var index = $(this).index();
 
                 chapter_name = $(this).find('span').html();

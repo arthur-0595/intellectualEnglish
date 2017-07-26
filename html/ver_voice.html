@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>选择版本 - 经典语音</title>
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/ver_read.css" />
+</head>
+
+<body>
+    <header id="header">
+        <div class="header clearfix">
+            <a class="logo" href="#">
+                <img src="../imgs/logo.png" />
+            </a>
+            <a class="exit" href="../index.html">
+					退出
+				</a>
+            <a class="goHome" href="home.html">
+					回到首页
+				</a>
+        </div>
+    </header>
+    <div class="topnav">
+        <div class="center">
+            您所在的位置： <span>智能阅读 > 经典语音</span>
+        </div>
+    </div>
+    <section>
+        <div class="main clearfix">
+            <div class="mainleft" id="mainleft">
+                <ul id="mainleftul">
+                    <li v-for="item in items" v-bind:id="item.id">
+                        <div class="tit">
+                            <span>+</span>
+                            <b>{{item.name}}</b>
+                        </div>
+                        <ul class="courseA" style="display: none;">
+                            <li v-for="list in item.type" v-bind:id="list.id">
+
+                                {{list.name}}
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="mainright clearfix">
+                <div class="study">
+                    <div class="top">
+                        <div class="tit" id="studyTit">
+                            认字母
+                        </div>
+                    </div>
+                    <div class="bot">
+                        <ul class="clearfix" id="botUl">
+                            <li class="complete">
+                                <div class="pic">
+                                </div>
+                                第一篇
+                            </li>
+                            <li>
+                                <div class="pic">
+                                </div>
+                                第二篇
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="navs">
+                    <div class="category">
+                        07
+                        <span>Intelligent Memory</span>
+                    </div>
+                    <div class="title">
+                        经典语音
+                    </div>
+                    <a href="home.html"><i></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="footer">
+        ©2017SOUGOU - 京ICP证050897号 - 京公安网备11000002000025号
+    </footer>
+
+    <script src="../js/jquery-3.2.1.min.js"></script>
+    <script src="../js/vue.min.js"></script>
+    <script src="../js/common.js"></script>
+    <script src="../js/ver_voice.js"></script>
+</body>
+
+</html>

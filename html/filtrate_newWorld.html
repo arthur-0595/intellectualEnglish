@@ -11,40 +11,180 @@
 	<body>
 		<header id="header">
 			<div class="con">
-				<div class="versions">人教社PEP版三年级起点 - 五下(修订) - Unit(1)</div>
+				<div class="versions" id="versions">{{version_name}} - {{textbook_name}} - {{chapter_name}}</div>
 				<div class="title">筛选生词</div>
 				<a href="home.html"><div class="back"></div></a>
 			</div>
 		</header>
 		<div class="section">
-			<div class="sectionBox">
-				The study found that sixteen babies born by C-section had higher DNA-methylation rates immediately after they were born than the other babies.The study found that sixteen babies born by C-section had higher DNA-methylation rates immediately after they were born than the other babies.The study found that sixteen babies born by C-section had higher DNA-methylation rates immediately after they were born than the other babies.The study found that sixteen babies born by C-section had higher DNA-methylation rates immediately after they were born than the other babies.The study found that sixteen babies born by C-section had higher DNA-methylation rates immediately after they were born than the other babies.
+			<div class="sectionBox" id="sectionBox">
+				{{content}}
 			</div>
 			<div class="start">
 				<a href="newWordsNotebook.html" class="EnterTheAnswer" id="EnterTheAnswer">
 					生词本
 				</a>
 			</div>
+					
+			</p>
 		</div>
-		<div class="hint" id="hint" style="display: block;"> 
+		<p class="addStatus" id="addStatus">	
+		<div class="hint" id="hint" style="display: none;"> 
 			<div class="top">
 				<div class="word">
-					translate
+					<!--translate-->
 				</div>
-				<span>x</span>
+				<span id="delTranslate">x</span>
 			</div>
 			<div class="translate">
-				vt. 翻译；转化；解释；转变为；调动vi. 翻译
+				<!--vt. 翻译；转化；解释；转变为；调动vi. 翻译-->
 			</div>
 			<div class="addNewWords" id="addNewWords">
 				加入生词本
 			</div>
 		</div>
 		
+		
+		
 		<script src="../js/jquery-3.2.1.min.js"></script>
 		<script src="../js/vue.min.js"></script>
 		<script src="../js/common.js"></script>
+		<script src="../js/md5.js"></script>
 		<script>
+			$(function(){
+				var userMessage = sessionStorage.userMessage;
+			    if (userMessage) {
+			        userMessage = JSON.parse(userMessage);
+			        var username = userMessage[0].ID;
+			    } else {
+			        alert('检测到您未登录，请先登录！');
+			        window.location = '../index.html';
+			    }
+			    // 获取文章内容
+			    var readCon = sessionStorage.readCon;
+			    var textbook_name = sessionStorage.textbook_name;
+			    var version_name = sessionStorage.version_name;
+			    var chapter_name = sessionStorage.chapter_name;
+				var contentBox = new Vue({
+					el:'.sectionBox',
+					data:{
+						content:readCon
+					}
+				});	
+				
+				var versions = new Vue({
+					el:'#versions',
+					data:{
+						version_name : version_name,
+						textbook_name : textbook_name,
+						chapter_name : chapter_name
+					}
+				});
+				
+				// 选中文本
+				$('#sectionBox').on('mouseup',function(e){
+					var selectedText = funGetSelectText();
+					if(selectedText){
+						// 去除标点符号
+						var reg = /\.|\,|\?|\,|\．|\?|\!/g;
+						selectedText = selectedText.replace(reg, ' '); 
+						selectedText = $.trim(selectedText);
+						// 找出第一个单词
+						var firstWord = selectedText.split(' ')[0];
+						var newWord = firstWord.charAt(0).toLowerCase() + firstWord.substring(1);
+						// 给百度翻译发送请求翻译
+						var appid = '2015063000000001';
+						var key = '12345678';
+						var salt = (new Date).getTime();
+						var query = newWord;
+						var from = 'en';
+						var to = 'zh';
+						var str1 = appid + query + salt +key;
+						var sign = MD5(str1);						
+						$.ajax({							
+						    url: 'http://api.fanyi.baidu.com/api/trans/vip/translate',
+						    type: 'get',
+						    dataType: 'jsonp',
+						    data: {
+						        q: query,
+						        appid: appid,
+						        salt: salt,
+						        from: from,
+						        to: to,
+						        sign: sign
+						    },
+						    success: function (data) {
+						        var word_mean = data.trans_result[0].dst;	
+						        var word = data.trans_result[0].src;
+						        $('#hint').find('.word').text(word);
+						        $('#hint').find('.translate').text(word_mean);						        
+						        // 获取鼠标坐标
+						        var x = e.pageX;
+						        var y = e.pageY;
+						        $('#hint').css({
+						        	"display":"block",
+						        	"left":x + 20,
+						        	"top":y +20
+						        });
+						        
+						        $("#delTranslate").on('click',function(){
+						        	$('#hint').hide();
+						        });
+						        $('#addNewWords').on('click',function(){
+						        	$.ajax({
+						        		type:'get',
+						        		url:thisUrl+'/Areas/api/Interface.ashx',
+						        		data:{
+						        			method:'addnewword',
+						        			user_id:username,
+						        			newword:word,
+						        			newword_mean:word_mean
+						        		},
+						        		success:function( data ){
+						        			if(data === "1"){
+						        				$('#addStatus').text('添加成功');
+						        				$('#addStatus').css({
+						        					"display":"block"
+						        				}).delay(1000).hide(0);
+						        				
+						        			}else if(data === "0"){
+						        				$('#addStatus').text('添加失败');
+						        				$('#addStatus').css({
+						        					"display":"block"
+						        				}).delay(1000).hide(0);
+						        				
+						        			}else if(data === "2"){
+						        				$('#addStatus').text('已添加过了');
+						        				$('#addStatus').css({
+						        					"display":"block"
+						        				}).delay(1000).hide(0);
+						        			}
+						        		}
+						        	})
+						        })
+						    } 
+						});
+					}
+				
+				});
+				$(document.body).on('click',function( e ){
+//		        	if( e.target.className == 'section'){
+						$('#hint').hide(0);
+//		        	}
+		        });
+												
+				// 获取选中区域的兼容写法
+				function funGetSelectText(){
+					var txt = '';
+					if(document.selection){
+						txt = document.selection.createRange(); // ie
+					}else{
+						txt = document.getSelection();
+					}
+					return txt.toString();
+				}
+				
+			})
 			
 		</script>
 	</body>
