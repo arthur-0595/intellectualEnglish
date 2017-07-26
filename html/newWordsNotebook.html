@@ -19,7 +19,7 @@
 			<div class="con">
 				<div class="versions">{{textbook_name}} - {{version_name}} - {{chapter_name}}</div>
 				<div class="title">生词本</div>
-				<div class="back"></div>
+				<a href="ver_read.html"><div class="back"></div></a>
 			</div>
 		</header>
 		<div class="section">
@@ -65,14 +65,10 @@
 				}
 			});
 			
-			$('.back').on('click',function(){
-				window.location = './ver_read.html';
-			})
-			
 			getNewWords();
 			function getNewWords(){
 				$.ajax({
-					type:'get',
+					type:'post',
 					url: thisUrl + "/Areas/api/Interface.ashx",
 					dataType: "json",
 					data:{
@@ -82,6 +78,7 @@
 						pagesize:12
 					},
 					success: function(data){
+						console.log(data);
 						var newWordArr = data[0].nword;						
 						totalPage = data[0].page;
 						var thead = `<tr>
