@@ -45,7 +45,7 @@ $(function () {
                     }
                 });
 
-                $("#mainleftul>li .tit").on('click', function () {
+                $("#mainleftul>li .tit").unbind().on('click', function () {
                     if ($(this).parent().find('ul')[0].style.display != 'none') {
                         return false;
                     } else {
@@ -57,7 +57,7 @@ $(function () {
                     }
                 })
 
-                $(".courseA li").on('click', function () {
+                $(".courseA li").unbind().on('click', function () {
                     //添加和删除对应的class
                     $(".courseA li").removeClass('thisColor');
                     $(this).addClass('thisColor');
@@ -120,7 +120,7 @@ $(function () {
     }
 
     function fnclickVoiceList() {
-        $("#botUl").find('li.complete')
+        $("#botUl").find('li.complete').unbind()
             .on('click', function () {
                 var index = $(this).index();
 
