@@ -95,7 +95,7 @@ section{
 .sentence .answerArr.correct{
 	color: #57b3ff;
 }
-.sentence .correct:before{
+.sentence .answerArr.correct:before{
 	content: '';
 	width: 23px;height: 23px;
 	display: block;
@@ -107,7 +107,7 @@ section{
 .sentence .answerArr.error{
 	color: #ff1919;
 }
-.sentence .error:before{
+.sentence .answerArr.error:before{
 	content: '';
 	width: 23px;height: 23px;
 	display: block;

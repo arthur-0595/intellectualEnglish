@@ -6,6 +6,23 @@
     <title>选择版本 - 经典语音</title>
     <link rel="stylesheet" href="../css/style.css" />
     <link rel="stylesheet" href="../css/ver_read.css" />
+     <link rel="stylesheet" href="../css/global.css"> 
+	 <link rel="stylesheet" href="../css/loading.css"> 
+    <style>
+        li .operate a{
+            font-size: 16px;
+            color: #333;
+        }
+        li .operate a:hover{
+            color: #ff7b57;
+        }
+        .courseA li.thisColor{
+            color: #ff7b57;
+        }
+        section{
+            margin: 0 auto;
+        }
+    </style>
 </head>
 
 <body>
@@ -37,8 +54,7 @@
                             <b>{{item.name}}</b>
                         </div>
                         <ul class="courseA" style="display: none;">
-                            <li v-for="list in item.type" v-bind:id="list.id">
-
+                            <li v-for="list in item.type" v-bind:id="list.id" class="">
                                 {{list.name}}
                             </li>
                         </ul>
@@ -49,20 +65,20 @@
                 <div class="study">
                     <div class="top">
                         <div class="tit" id="studyTit">
-                            认字母
+                            点击左侧列表选择学习类别
                         </div>
                     </div>
                     <div class="bot">
-                        <ul class="clearfix" id="botUl">
-                            <li class="complete">
+                        <ul class="clearfix" id="botUl"> 
+                            <li v-for="(item,index) in items" v-bind:class="item.allow==1?'complete':''">
                                 <div class="pic">
                                 </div>
-                                第一篇
-                            </li>
-                            <li>
-                                <div class="pic">
+                                <div v-if="(item.v_name == '学前测试' || item.v_name == '学后测试')?false:true" class="operate" style="display:none;">
+                                    <a v-if="item.type_id == 2?false:true" href="classicalVoice/voice_distinguish.html">辩音</a>
+                                    <a href="">听写</a>
+                                    <a href="">闯关</a>
                                 </div>
-                                第二篇
+                                <span>{{item.v_name}}</span>
                             </li>
                         </ul>
                     </div>
@@ -87,7 +103,8 @@
 
     <script src="../js/jquery-3.2.1.min.js"></script>
     <script src="../js/vue.min.js"></script>
-    <script src="../js/common.js"></script>
+       <script src="../js/common.js"></script>  
+     <script src="../js/loading.js"></script>  
     <script src="../js/ver_voice.js"></script>
 </body>
 

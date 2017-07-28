@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>智能辩音</title>
+	<link rel="stylesheet" href="../../css/style.css" />
+	<link rel="stylesheet" href="../../css/sentence_listen.css" />
+	<style>
+		.title {
+			position: relative;
+		}
+
+		.title span {
+			width: 350px;
+			text-align: left;
+			color: #ff7b57;
+			font-size: 14px;
+			position: absolute;
+			right: 0;
+			top: 0;
+			transform: translateX(100%);
+		}
+
+		.sentence .thisSentence {
+			width: 640px;
+			margin: 0 auto;
+			box-sizing: content-box;
+			padding-left: 0;
+			padding-right: 0;
+			position: relative;
+			height: 50px;
+		}
+
+		.sentence .thisSentence .listening {
+			position: absolute;
+			right: 0;
+			top: 100%;
+			transform: translateX(100%);
+		}
+
+		.sentence .thisSentence_con {
+			text-align: center;
+			line-height: 50px;
+			height: 50px;
+		}
+
+		.sentence .answer {
+			width: 565px;
+			height: 104px;
+			line-height: 42px;
+			box-sizing: content-box;
+			padding-left: 0;
+			padding-right: 0;
+			margin: 0 auto;
+		}
+
+		.sentence .answer .answerArr {
+			width: 565px;
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: space-around;
+			height: 100%;
+		}
+
+		.sentence .answer .answerArr span {
+			width: 140px;
+			line-height: 42px;
+			height: 42px;
+			margin-top: 10px;
+			text-align: center;
+			margin: 0 23px;
+		}
+
+		.sentence .answerArr span.ans_word {
+			font-size: 16px;
+			color: #333;
+			cursor: pointer;
+			border-bottom: 1px solid #333;
+		}
+		.sentence .answerArr span.error{
+			color: #ff1919;
+		}
+		.sentence .answerArr span.error:before,.sentence .answerArr span.correct:before{
+			content: '';
+			background:none;
+		}
+		.sentence .answerArr span.correct{
+			color: #57b3ff;
+		}
+
+		.sentence .items {
+			margin-top: 8px;
+		}
+
+		.sentence .items li {
+			height: 34px;
+			line-height: 34px;
+		}
+	</style>
+</head>
+
+<body>
+	<section id="sectionBox">
+		<div class="main">
+			<div class="titleBox" id="titleBox">
+				<div class="versions">{{version_name}} - {{textbook_name}} - {{chapter_name}}</div>
+				<div class="title">智能辩音<span>（辩音：选择含该字母发音的单词。）</span></div>
+				<a href="../ver_voice.html" class="exit" id="exit"></a>
+			</div>
+			<div class="sentence" id="sentence">
+				<div class="thisSentence">
+					<div class="thisSentence_con" id="thisSentence_con">
+						bab
+					</div>
+					<div class="listening" id="listening">
+						播放<span></span>
+					</div>
+				</div>
+				<div class="answer clearfix">
+					<div class="answerArr" id="answerArr">
+						<span class="ans_word error">asdasdsadsa</span>
+						<span class="ans_word correct">asdasdsa</span>
+						<span class="ans_word">asdasdsa</span>
+						<span class="ans_word">asdasdsa</span>
+						<span class="ans_null"></span>
+						<span class="ans_null"></span>
+					</div>
+				</div>
+				<ul class="items clearfix" id="items" style="display: block;">
+					<li>received</li>
+					<li class="actived">She</li>
+					<li>eight-year</li>
+					<li>received</li>
+					<li class="actived">She</li>
+					<li>eight-year</li>
+					<li>received</li>
+					<li class="actived">She</li>
+				</ul>
+				<div class="interpret" id="interpret" style="display: none;">
+					{{thisinterpret}}
+				</div>
+			</div>
+			<div class="btns">
+				<button class="enter" id="enter">
+						<i></i>&nbsp;
+						下一个
+					</button>
+			</div>
+			<div class="otherInformation">
+				<div class="studyTime">学习时长：00:05:03</div>
+				<div class="thisStudy">
+					进度： 4/12
+				</div>
+			</div>
+		</div>
+	</section>
+	<div class="masking" id="masking" style="display: none;">
+		<div class="reminder">
+			<h4>学习完成，现在开始进行模拟测试！</h4>
+			<button class="btnsOk">确定</button>
+		</div>
+	</div>
+	<audio autoplay src="{{audioplaySrc}}" type="audio/wav" id="audioplay">
+	</audio>
+
+	<script src="../../js/jquery-3.2.1.min.js"></script>
+	<script src="../../js/vue.min.js"></script>
+	<script src="../../js/common.js"></script>
+	<script src="../../js/classicalVoice/voice_distinguish.js"></script>
+</body>
+
+</html>

@@ -70,8 +70,12 @@ $(function() {
 				type: thistype
 			},
 			success: function(data) {
+				console.log(JSON.stringify(data));
+				if(!data[0].sentence){
+					alert('没有可学习的内容，点击确定返回！');	
+					window.location='home.html';
+				}
 				if(data[0]) {
-					//console.log(JSON.stringify(data));
 					thisSentence = data[0];
 
 					var processorSentence = fnprocessor(thisSentence.sentence);

@@ -18,6 +18,13 @@ $(function () {
     var mainleft;
     fnupdateList();
 
+    var botUlCon = new Vue({
+        el: '#botUl',
+        data: {
+            items: 'data'
+        }
+    })
+
     function fnupdateList() {
         $.ajax({
             type: "get",
@@ -51,6 +58,10 @@ $(function () {
                 })
 
                 $(".courseA li").on('click', function () {
+                    //添加和删除对应的class
+                    $(".courseA li").removeClass('thisColor');
+                    $(this).addClass('thisColor');
+
                     var thisId = $(this).attr('id');
                     var thisCon = $(this).html();
 
@@ -60,13 +71,32 @@ $(function () {
                     $("#studyTit").html(thisCon);
                     fnupdateListRead(thisId);
                 })
+                //************ */
                 $("#mainleftul>li").eq(0).find('.tit').trigger('click');
                 $(".courseA li").eq(0).trigger('click');
+                $(".courseA li").eq(0).trigger('click');
+                
             }
         });
     }
 
     function fnupdateListRead(itmeId_) {
+        $('body').loading({
+            loadingWidth: 120,
+            title: '',
+            name: 'test',
+            discription: '',
+            direction: 'column',
+            type: 'origin',
+            // originBg:'#71EA71',
+            originDivWidth: 40,
+            originDivHeight: 40,
+            originWidth: 6,
+            originHeight: 6,
+            smallLoading: false,
+            loadingMaskBg: 'rgba(0,0,0,0.2)'
+        });
+
         $.ajax({
             type: "get",
             url: thisUrl + "/Areas/api/Interface.ashx",
@@ -79,40 +109,18 @@ $(function () {
             async: true,
             success: function (data) {
                 console.log(JSON.stringify(data));
-                fnshowReadList(data);
+
+                botUlCon.items = data;
+
+                fnclickVoiceList();
+
+                removeLoading('test');
             }
         });
     }
 
-    function fnshowReadList(data_) {
-        var html_ = '';
-        $.each(data_, function (index, element) {
-            var status , classC;
-            if (element.allow == 1) {
-                status = 'complete';
-            } else {
-                status = '';
-            }
-            if (element.v_name == '学前测试' || element.v_name == '学后测试') {
-                classC = 'none';    
-            }else{
-                classC = 'block';  
-            }
-
-            html_ += `<li class="${status}" id="${element.id}">
-                                    <div class="pic">
-                                    </div>
-                                    <div class="operate" id="operate" style='display:${classC}'>
-                                        <a href="">辩音</a>
-                                        <a href="">听写</a>
-                                        <a href="">闯关</a>
-                                    </div>
-									<span>${element.title}</span>
-								</li>`;
-        });
-
-        $("#botUl").html(html_)
-            .find('li')
+    function fnclickVoiceList() {
+        $("#botUl").find('li.complete')
             .on('click', function () {
                 var index = $(this).index();
 
@@ -126,9 +134,22 @@ $(function () {
                 sessionStorage.textbook_id = textbook_id;
                 sessionStorage.textbook_name = textbook_name;
 
-                sessionStorage.readCon = data_[index].article;
-
-                window.location = 'read_section.html';
+                if (!$(this).find('.operate')[0]) {
+                    alert('将跳转测试页面');
+                    //  window.location='';
+                }
+            })
+            .on('mouseenter', function () {
+                if ($(this).find('.operate')[0]) {
+                    $(this).find('.operate').finish().show();
+                    $(this).find('span').finish().hide();
+                }
+            })
+            .on('mouseleave', function () {
+                if ($(this).find('.operate')[0]) {
+                    $(this).find('.operate').finish().hide();
+                    $(this).find('span').finish().show();
+                }
             });
     }
 })
