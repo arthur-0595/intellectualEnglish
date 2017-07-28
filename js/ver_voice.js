@@ -14,8 +14,8 @@ $(function () {
     //选中的文章的id和文章的内容
     var thisReadId, thisReadCon;
     //认字母的听写和闯关页面
-    var href1='classicalVoice/wordRead.html';
-    var href2='classicalVoice/recognizeWord.html';
+    var href1 = 'classicalVoice/wordRead.html';
+    var href2 = 'classicalVoice/recognizeWord.html';
 
 
     var navs;
@@ -25,8 +25,8 @@ $(function () {
     var botUlCon = new Vue({
         el: '#botUl',
         data: {
-            href1:'classicalVoice/letterRead.html',
-            href2:'classicalVoice/singleWordRead.html',
+            href1: 'classicalVoice/letterRead.html',
+            href2: 'classicalVoice/singleWordRead.html',
             items: 'data'
         }
     })
@@ -74,12 +74,12 @@ $(function () {
                     textbook_id = thisId;
                     textbook_name = thisCon;
 
-                    if(textbook_id == 2){
-                        botUlCon.href1=href1;    
-                        botUlCon.href2=href2;    
-                    }else{
-                        botUlCon.href1='classicalVoice/letterRead.html';    
-                        botUlCon.href2='classicalVoice/singleWordRead.html';  
+                    if (textbook_id == 2) {
+                        botUlCon.href1 = href1;
+                        botUlCon.href2 = href2;
+                    } else {
+                        botUlCon.href1 = 'classicalVoice/letterRead.html';
+                        botUlCon.href2 = 'classicalVoice/singleWordRead.html';
                     }
 
                     $("#studyTit").html(thisCon);
@@ -89,7 +89,7 @@ $(function () {
                 $("#mainleftul>li").eq(0).find('.tit').trigger('click');
                 $(".courseA li").eq(0).trigger('click');
                 $(".courseA li").eq(0).trigger('click');
-                
+
             }
         });
     }
@@ -149,8 +149,11 @@ $(function () {
                 sessionStorage.textbook_name = textbook_name;
 
                 if (!$(this).find('.operate')[0]) {
-                    alert('将跳转测试页面');
-                    //  window.location='';
+                    if (textbook_id == 2) {
+                        window.location = 'classicalVoice/recognizeWord.html';
+                    } else {
+                        window.location = 'classicalVoice/singleWordRead.html';
+                    }
                 }
             })
             .on('mouseenter', function () {

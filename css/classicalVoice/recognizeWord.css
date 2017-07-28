@@ -82,6 +82,9 @@ section .btn{
 	margin-top:80px;
 	margin-left:640px;
 }
+section .btn a{
+	color: #333;
+}
 section .commit{
 	width:166px;
 	height:50px;
@@ -112,6 +115,7 @@ section .commit:hover{
 	box-shadow: inset 0 15px 25px 0 rgba(255,255,255,.3);
 }
 section .quit:hover{
+	border-color: #ff7b57;
 	color:#ff7a57;
 }
 

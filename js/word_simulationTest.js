@@ -49,7 +49,7 @@ $(function() {
 	})
 
 	//倒计时
-	var onlyTime = 30;
+	var onlyTime = 300;
 	var onlyminute, onlysecond;
 	var timer = setInterval(function() {
 		onlyTime--;

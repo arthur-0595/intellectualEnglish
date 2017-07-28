@@ -70,7 +70,7 @@
                     </div>
                     <div class="bot">
                         <ul class="clearfix" id="botUl"> 
-                            <li v-for="(item,index) in items" v-bind:class="item.allow==1?'complete':''">
+                            <li v-for="(item,index) in items" v-bind:class="item.allow==1?'complete':''" v-bind:id="item.id">
                                 <div class="pic">
                                 </div>
                                 <div v-if="(item.v_name == '学前测试' || item.v_name == '学后测试')?false:true" class="operate" style="display:none;">

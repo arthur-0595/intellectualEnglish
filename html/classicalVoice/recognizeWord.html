@@ -8,67 +8,25 @@
 	</head>
 	<body>
 		<header class="header">
-			<div class="top">
-				<p class="title">字母拼读 - 认字母 - 第1关闯关测试</p>
-				<p class="countdown">剩余时间: 0分11秒</p>
+			<div class="top" id="top">
+				<p class="title">{{version_name}} - {{textbook_name}} - {{chapter_name}}</p>
+				<p class="countdown">
+					剩余时间：<span>0{{minute}}</span>分<span>{{second}}</span>秒
+				</p>
 			</div>
 		</header>
 		<section>
 			<div class="content">
-				<ul class="clearfix">
-					<li class="item">
-						<span class="num">1.</span>
-						<input type="text" class="line" placeholder="点击文本框听读音"/>						
+				<ul class="clearfix" id="contentUl">
+					<li class="item" v-for="(item,index) in items" v-bind:id="index" >
+						<span class="num">{{index+1}}.</span>
+						<input type="text" class="line" v-on:click="fnclickItemPlayer(item.letter_url)" v-bind:data-src="item.letter_url" v-bind:data-letter="item.letter"  placeholder="点击文本框听读音"/>						
 					</li>	
-					<li class="item">
-						<span class="num">1.</span>
-						<input type="text" class="line" placeholder="点击文本框听读音"/>						
-					</li>
-					<li class="item">
-						<span class="num">1.</span>
-						<input type="text" class="line" placeholder="点击文本框听读音"/>						
-					</li>
-					<li class="item">
-						<span class="num">1.</span>
-						<input type="text" class="line" placeholder="点击文本框听读音"/>						
-					</li>
-					<li class="item">
-						<span class="num">1.</span>
-						<input type="text" class="line" placeholder="点击文本框听读音"/>						
-					</li>
-					<li class="item">
-						<span class="num">1.</span>
-						<input type="text" class="line" placeholder="点击文本框听读音"/>						
-					</li>
-					<li class="item">
-						<span class="num">1.</span>
-						<input type="text" class="line" placeholder="点击文本框听读音"/>						
-					</li>
-					<li class="item">
-						<span class="num">1.</span>
-						<input type="text" class="line" placeholder="点击文本框听读音"/>						
-					</li>
-					<li class="item">
-						<span class="num">1.</span>
-						<input type="text" class="line" placeholder="点击文本框听读音"/>						
-					</li>
-					<li class="item">
-						<span class="num">1.</span>
-						<input type="text" class="line" placeholder="点击文本框听读音"/>						
-					</li>
-					<li class="item">
-						<span class="num">1.</span>
-						<input type="text" class="line" placeholder="点击文本框听读音"/>						
-					</li>
-					<li class="item">
-						<span class="num">1.</span>
-						<input type="text" class="line" placeholder="点击文本框听读音"/>						
-					</li>										
 				</ul>
 			</div>
 			<div class="btn clearfix">
-				<div class="commit">交卷</div>
-				<div class="quit">退出</div>
+				<div class="commit" id="commit">交卷</div>
+				<a href="../ver_voice.html"><div class="quit">退出</div></a>
 			</div>			
 		</section>
 		<audio autoplay src="" type="audio/wav" id="audioplay">
@@ -77,9 +35,7 @@
 		
 		<script src="../../js/jquery-3.2.1.min.js"></script>
 		<script src="../../js/common.js"></script>
-		<script src="../../js/doT.min.js"></script>
-		<script>
-			
-		</script>
+		<script src="../../js/vue.min.js"></script>
+		<script src="../../js/classicalVoice/recognizeWord.js"></script>
 	</body>
 </html>
