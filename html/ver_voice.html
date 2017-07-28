@@ -75,8 +75,8 @@
                                 </div>
                                 <div v-if="(item.v_name == '学前测试' || item.v_name == '学后测试')?false:true" class="operate" style="display:none;">
                                     <a v-if="item.type_id == 2?false:true" href="classicalVoice/voice_distinguish.html">辩音</a>
-                                    <a href="">听写</a>
-                                    <a href="">闯关</a>
+                                    <a v-bind:href="href1">听写</a>
+                                    <a v-bind:href="href2">闯关</a>
                                 </div>
                                 <span>{{item.v_name}}</span>
                             </li>

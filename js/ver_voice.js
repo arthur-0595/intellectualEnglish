@@ -13,6 +13,10 @@ $(function () {
     var type, typeStr, textbook_name, version_name, chapter_name;
     //选中的文章的id和文章的内容
     var thisReadId, thisReadCon;
+    //认字母的听写和闯关页面
+    var href1='classicalVoice/wordRead.html';
+    var href2='classicalVoice/recognizeWord.html';
+
 
     var navs;
     var mainleft;
@@ -21,6 +25,8 @@ $(function () {
     var botUlCon = new Vue({
         el: '#botUl',
         data: {
+            href1:'classicalVoice/letterRead.html',
+            href2:'classicalVoice/singleWordRead.html',
             items: 'data'
         }
     })
@@ -67,6 +73,14 @@ $(function () {
 
                     textbook_id = thisId;
                     textbook_name = thisCon;
+
+                    if(textbook_id == 2){
+                        botUlCon.href1=href1;    
+                        botUlCon.href2=href2;    
+                    }else{
+                        botUlCon.href1='classicalVoice/letterRead.html';    
+                        botUlCon.href2='classicalVoice/singleWordRead.html';  
+                    }
 
                     $("#studyTit").html(thisCon);
                     fnupdateListRead(thisId);
