@@ -2,102 +2,42 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>测试分数</title>
+		<title>字母拼写测试分数</title>
 		<link rel="stylesheet" href="../../css/style.css" />
 		<link rel="stylesheet" href="../../css/classicalVoice/singleWordResult.css" />
 	</head>
 	<body>
 		<header class="header">
 			<div class="top">
-				<p class="title">字母拼读 - 认字母 - 第1关闯关测试</p>
-				<p class="countdown">剩余时间: 0分11秒</p>
+				<p class="title" id="title">{{version_name}} - {{textbook_name}} - {{chapter_name}}</p>
 			</div>
 		</header>
 		
-		<section>
-			<div class="score">考试得分:&nbsp;&nbsp;88分</div>
+		<section id="section">
+			<div class="score" id="score">考试得分:&nbsp;&nbsp;{{urlScore}}分</div>
 			<div class="content">
 				<ul class="clearfix">
-					<li class="item">
-						<span class="num">1.</span>
-						<input type="text" class="line correct" value="g"/>
-						<span class="word">ack</span>
-						<p class="completeWord">back</p>
+					<li class="item" v-for="(item,index) in items">
+						<span class="num">{{index+1}}.</span>
+						<input type="text" v-bind:class="(item.status == 1)?'line correct':'line error'" v-bind:value="item.myletter" disabled/>
+						<span class="word">{{item.word.substr(1)}}</span>
+						<p class="completeWord">{{item.word}}</p>
 					</li>	
-					<li class="item">
-						<span class="num">2.</span>
-						<input type="text" class="line error" value="b"/>
-						<span class="word">ack</span>	
-						<p class="completeWord">back</p>
-					</li>
-					<li class="item">
-						<span class="num">1.</span>
-						<input type="text" class="line" />
-						<span class="word">ack</span>
-						
-					</li>	
-					<li class="item">
-						<span class="num">2.</span>
-						<input type="text" class="line" />
-						<span class="word">ack</span>						
-					</li>
-					<li class="item">
-						<span class="num">1.</span>
-						<input type="text" class="line" />
-						<span class="word">ack</span>						
-					</li>
-					<li class="item">
-						<span class="num">2.</span>
-						<input type="text" class="line" />
-						<span class="word">ack</span>						
-					</li>
-					<li class="item">
-						<span class="num">1.</span>
-						<input type="text" class="line" />
-						<span class="word">ack</span>						
-					</li>
-					<li class="item">
-						<span class="num">2.</span>
-						<input type="text" class="line" />
-						<span class="word">ack</span>						
-					</li>
-					<li class="item">
-						<span class="num">1.</span>
-						<input type="text" class="line" />
-						<span class="word">ack</span>
-						
-					</li>	
-					<li class="item">
-						<span class="num">2.</span>
-						<input type="text" class="line" />
-						<span class="word">ack</span>						
-					</li>
-					<li class="item">
-						<span class="num">1.</span>
-						<input type="text" class="line" />
-						<span class="word">ack</span>
-						
-					</li>	
-					<li class="item">
-						<span class="num">2.</span>
-						<input type="text" class="line" />
-						<span class="word">ack</span>						
-					</li>
 				</ul>
 			</div>
 			<div class="btn clearfix">
-				<div class="commit">重新测试</div>
-				<div class="quit">退出</div>
+				<a href="../classicalVoice/singleWordRead.html">
+					<div class="commit">重新测试</div>
+				</a>
+				<a href="../ver_voice.html" style="color:#333">
+					<div class="quit">退出</div>
+				</a>
 			</div>
-			
 		</section>
-		
 		
 		<script src="../../js/jquery-3.2.1.min.js"></script>
 		<script src="../../js/common.js"></script>
-		<script src="../../js/doT.min.js"></script>
-		<script>
-			
-		</script>
+		<script src="../../js/vue.min.js"></script>
+		<script src="../../js/classicalVoice/singleWordResult.js"></script>
 	</body>
 </html>

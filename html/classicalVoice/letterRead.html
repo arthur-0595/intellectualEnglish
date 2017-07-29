@@ -8,29 +8,30 @@
 		<link rel="stylesheet" href="../../css/word_strengthen_memory.css" />
 		<link rel="stylesheet" href="../../css/word_write.css" />
 		<style>
-		.titleBox .title {
-				display: inline-block;
+			.titleBox .title{
+				width:100%;
+				margin:0 auto;
 				font-size: 14px;
 				line-height: 54px;
 				height: 54px;
 				color: #333;
+				position:relative;
 			}
-			
-			.titleBox .title .titleBold {
-				color: #333;
-				font-size: 18px;
-				letter-spacing: 2px;
+			.titleBox .title .titleBold{
+				color:#333;
+				font-size:18px;
+				letter-spacing:2px;
 			}
-			
-			.titleBox .title .titleWarn {
-				font-size: 16px;
-				color: #ff7b57;
+			.titleBox .title .titleWarn{
+				position:absolute;
+				top:0;left:512px;
+				font-size:16px;
+				color:#ff7b57;
 			}
 			
 			.word .wordCon {
 				width: 280px;
 				height: 160px;
-				/*border: 1px solid red;*/
 				margin: 32px auto;
 				line-height: 140px;
 				position: relative;
@@ -55,7 +56,7 @@
 			}
 			.word .wordCon .answer {
 				color: #ff1919;
-				font-size: 26px;
+				font-size: 24px;
 				letter-spacing: 2px;
 				position: absolute;
 				left: 126px;
@@ -115,12 +116,12 @@
 		<section id="sectionBox">
 			<div class="main">
 				<div class="titleBox" id="titleBox">
-					<div class="versions">字母拼读 - 单个字母 - 第一关</div>
+					<div class="versions" id="versions">{{version_name}} - {{textbook_name}} - {{chapter_name}}</div>
 					<div class="title">
 						<span class="titleBold">智能拼写</span>
 						<span class="titleWarn">( 听写：根据读音写出单词  )</span>
 					</div>
-					<a href="#" class="exit" id="exit"></a>
+					<a href="../ver_voice.html" class="exit" id="exit"></a>
 				</div>
 				<div class="word" id="word">
 					<div class="wordCon">
@@ -128,12 +129,12 @@
 							hack
 						</div>
 						<div class="letterBox">
-							<input type="text" class="letterInput" />
-							<span class="letters">ack</span>
+							<input type="text" class="letterInput" id="letterInput"/>
+							<span class="letters" id="letters">ack</span>
 						</div>
 						<div class="voice" id="voice">听语音<i></i></div>
 						<div class="status correctImg" id="status" style="display: none;"></div>
-						<div class="tips correctTip" style="display:none">回答正确</div>
+						<div class="tips correctTip" id="tips" style="display:none">回答正确</div>
 					</div>
 				</div>
 				<div class="btns">
@@ -145,7 +146,7 @@
 				<div class="otherInformation">
 					<div class="studyTime">学习时长：00:05:03</div>
 					<div class="thisStudy" id="thisStudy">
-						总单词数：&nbsp; 12 &nbsp; 已学单词：8
+						总单词数：&nbsp; <span id="wordsNum"></span> &nbsp; &nbsp; &nbsp; &nbsp; 已学单词：<span id="hasLearnWords"></span>
 					</div>
 				</div>
 			</div>
@@ -162,6 +163,143 @@
 		<script src="../../js/jquery-3.2.1.min.js"></script>
 		<script src="../../js/vue.min.js"></script>
 		<script src="../../js/common.js"></script>
+		<script>
+			//获取用户ID
+			var userMessage = sessionStorage.userMessage;
+			if(userMessage) {
+				userMessage = JSON.parse(userMessage);
+				var username = userMessage[0].ID;
+			} else {
+				alert('检测到您未登录，请先登录！');
+				window.location = '../../index.html';
+			}
+			//当前选择的版本ID，教材ID ,选择的章节
+			var textbook_id, chapter_id, version_id;
+			var type, typeStr, textbook_name, version_name, chapter_name;
+			
+			textbook_id = sessionStorage.textbook_id;
+			version_id = sessionStorage.version_id;
+			chapter_id = sessionStorage.chapter_id;
+			typeStr = sessionStorage.typeStr;
+			textbook_name = sessionStorage.textbook_name;
+			version_name = sessionStorage.version_name;
+			chapter_name = sessionStorage.chapter_name;
+			type = sessionStorage.type;
+
+			var titleBox = new Vue({
+				el:'#versions',
+				data:{
+					version_name:version_name,
+					textbook_name:textbook_name,
+					chapter_name:chapter_name
+				}
+			});	
+			
+			
+			var currentVoice = {};
+			var VoiceArr = [];
+			var currentIndex = 0;
+			getAllVoices();
+			function getAllVoices(){
+			 	$.ajax({
+			 		type:'get',
+			 		url:thisUrl + '/Areas/api/Interface.ashx',
+			 		dataType:'json',
+			 		data:{
+			 			method:'voicetest',
+						type_id:textbook_id,
+						voice_id:chapter_id,
+						type:2,
+						issound:0
+			 		},
+			 		success: function( data ){
+			 			VoiceArr = data;
+			 			if(VoiceArr.length > 0){
+			 				currentVoice = VoiceArr[currentIndex];
+			 				$('#letters').text(currentVoice.letter.substring(1));
+			 				$('#letterInput').focus();
+			 				$('#wordsNum').text(VoiceArr.length);
+			 				$('#hasLearnWords').text(currentIndex+1);
+			 				$('#audioplay').attr('src',thisUrl + currentVoice.letter_url);
+			 			}else{
+			 				alert('获取数据失败，请联系相关客服人员');
+			 			}
+			 		}
+			 		
+			 	});
+			}
+			
+			
+			$('#voice').on('click',function(){
+				$('#audioplay').attr('src',thisUrl + currentVoice.letter_url);
+			});
+			
+			
+			$('#enter').on('click',function(){
+				valideWords();
+			});
+			
+			document.onkeydown=function(event){
+	            var e = event || window.event || arguments.callee.caller.arguments[0];
+	             if(e && e.keyCode==13){ 
+	                valideWords();
+	            }
+	       };
+	       
+	       	var checkout_flag = false;
+	       	var enterNum = 0;
+	       	function valideWords(){
+	       		enterNum ++;
+	       		var word_input = $.trim( $('#letterInput').val() );
+	       		var first_letter = currentVoice.letter.charAt(0);
+	       		if( enterNum%2 != 0 ){
+	       			$('#letterInput').attr('disabled' , true).css('background','#fff');
+	       		}
+	       		else{
+	       			$('#letterInput').attr('disabled', false).val('').focus();	
+	       		}
+	       		
+	       		if(word_input === first_letter){
+	       			if(checkout_flag){
+	       				toNextLetter();
+	       			}else{
+	       				$('#answer').attr('class','answer correctAnswer').text(currentVoice.letter).show();
+	       				$('#status').attr('class','status correctImg').show();
+	       				$('#tips').attr('class','tips correctTip').text('回答正确').show();
+	       				checkout_flag = true;
+	       			}
+	       		}
+	       		else{
+	       			$('#answer').attr('class','answer').text(currentVoice.letter).show();
+       				$('#status').attr('class','status').show();
+       				$('#tips').attr('class','tips').text('回答错误').show();
+       				
+       				checkout_flag = false;
+	       		}
+	       	}
+	       	
+	       	function toNextLetter(){
+	       		if(currentIndex == VoiceArr.length-1){
+	    			$('#masking').show().find('.btnsOk').on('click',function (e){	    				
+    					window.location = './recognizeWord.html';
+    					$("#letterInput").val('').focus();	    				
+	    			});
+					return;
+	    		}
+	    		checkout_flag = false;
+	    		currentIndex ++;
+	    		currentVoice = VoiceArr[currentIndex];
+	    		$('#letterInput').focus();
+	    		$('#letters').text(currentVoice.letter.substring(1));
+	    		$('#hasLearnWords').text(currentIndex+1);
+	    		$("#answer").hide();
+	    		$('#tips').hide();
+	    		$("#letterInput").val('').focus();
+	    		$("#status").hide();
+				$("#audioplay").attr("src",thisUrl+VoiceArr[currentIndex].letter_url);	       		
+	       }
+			
+		</script>
 	</body>
 
 </html>

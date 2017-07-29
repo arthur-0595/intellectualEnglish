@@ -72,17 +72,22 @@ section .content .item .num{
 section .content .item .line{	
 	width: 40px;
 	height:26px;
-    border-bottom: 1px solid #333;
+    border: 1px solid #333;
 	font-size:22px;
 	text-align:center;
 	line-height:32px;
 	margin-left:32px;
 }
-section .content .item .correct{
+section .content .item .line:disabled{
+	background-color: #fff;
+}
+section .content .item .error{
+	border-color: #ff1919;
 	color:#ff1919;
 	font-size:22px;
 }
-section .content .item .error{
+section .content .item .correct{
+	border-color: #57b3ff;
 	color:#57b3ff;
 	font-size:22px;
 }
@@ -99,6 +104,9 @@ section .btn{
 	margin-top:80px;
 	margin-left:640px;
 }
+section .btn a{
+	float: left;
+}
 section .commit{
 	width:170px;
 	height:50px;
@@ -110,7 +118,6 @@ section .commit{
 	text-align:center;
 	line-height:50px;
 	cursor: pointer;
-	float:left;
 	margin-right:10px;
 	
 }
@@ -123,7 +130,6 @@ section .quit{
 	line-height:50px;
 	text-align:center;
 	cursor:pointer;
-	float:left;
 }
 section .commit:hover{
 	box-shadow: inset 0 15px 25px 0 rgba(255,255,255,.3);

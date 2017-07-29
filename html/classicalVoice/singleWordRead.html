@@ -2,102 +2,31 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>字母拼读</title>
+		<title>字母拼写测试</title>
 		<link rel="stylesheet" href="../../css/style.css" />
 		<link rel="stylesheet" href="../../css/classicalVoice/singleWordRead.css" />
 	</head>
 	<body>
 		<header class="header">
-			<div class="top">
-				<p class="title">字母拼读 - 认字母 - 第1关闯关测试</p>
-				<p class="countdown">剩余时间: 0分11秒</p>
+			<div class="top" id="top">
+				<p class="title">{{version_name}} - {{textbook_name}} - {{chapter_name}}</p>
+				<p class="countdown">剩余时间: {{minute}}分{{second}}秒</p>
 			</div>
 		</header>
 		<section>
 			<div class="content">
-				<ul class="clearfix">
-					<li class="item">
-						<span class="num">1.</span>
-						<input type="text" class="line" />
-						<span class="word">ack</span>
-						
+				<ul class="clearfix" id="contentUl">
+					<li class="item" v-for="(item,index) in items" v-bind:id="index" v-bind:data-word="item.letter">
+						<span class="num">{{index+1}}.</span>
+						<input type="text" class="line" v-on:click="fnclickItemPlayer(item.letter_url)" v-bind:data-src="item.letter_url" v-bind:data-letter="item.letter.charAt(0)" />
+						<span class="word">{{item.letter.substr(1)}}</span>
 					</li>	
-					<li class="item">
-						<span class="num">2.</span>
-						<input type="text" class="line" />
-						<span class="word">ack</span>						
-					</li>
-					<li class="item">
-						<span class="num">1.</span>
-						<input type="text" class="line" />
-						<span class="word">ack</span>
-						
-					</li>	
-					<li class="item">
-						<span class="num">2.</span>
-						<input type="text" class="line" />
-						<span class="word">ack</span>						
-					</li>
-					<li class="item">
-						<span class="num">1.</span>
-						<input type="text" class="line" />
-						<span class="word">ack</span>						
-					</li>
-					<li class="item">
-						<span class="num">2.</span>
-						<input type="text" class="line" />
-						<span class="word">ack</span>						
-					</li>
-					<li class="item">
-						<span class="num">1.</span>
-						<input type="text" class="line" />
-						<span class="word">ack</span>						
-					</li>
-					<li class="item">
-						<span class="num">2.</span>
-						<input type="text" class="line" />
-						<span class="word">ack</span>						
-					</li>
-					<li class="item">
-						<span class="num">1.</span>
-						<input type="text" class="line" />
-						<span class="word">ack</span>
-						
-					</li>	
-					<li class="item">
-						<span class="num">2.</span>
-						<input type="text" class="line" />
-						<span class="word">ack</span>						
-					</li>
-					<li class="item">
-						<span class="num">1.</span>
-						<input type="text" class="line" />
-						<span class="word">ack</span>
-						
-					</li>	
-					<li class="item">
-						<span class="num">2.</span>
-						<input type="text" class="line" />
-						<span class="word">ack</span>						
-					</li>
-					<li class="item">
-						<span class="num">1.</span>
-						<input type="text" class="line" />
-						<span class="word">ack</span>
-						
-					</li>	
-					<li class="item">
-						<span class="num">2.</span>
-						<input type="text" class="line" />
-						<span class="word">ack</span>						
-					</li>
 				</ul>
 			</div>
 			<div class="btn clearfix">
-				<div class="commit">交卷</div>
-				<div class="quit">退出</div>
+				<div class="commit" id="commit">交卷</div>
+				<a href="../ver_voice.html"><div class="quit">退出</div></a>
 			</div>
-			
 		</section>
 		<audio autoplay src="" type="audio/wav" id="audioplay">
 		</audio>
@@ -105,9 +34,7 @@
 		
 		<script src="../../js/jquery-3.2.1.min.js"></script>
 		<script src="../../js/common.js"></script>
-		<script src="../../js/doT.min.js"></script>
-		<script>
-			
-		</script>
+		<script src="../../js/vue.min．js"></script>
+		<script src="../../js/classicalVoice/singleWordRead.js"></script>
 	</body>
 </html>

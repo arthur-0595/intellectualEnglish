@@ -176,6 +176,8 @@
 				});
 			}
 			
+			
+			
 			// 设置播放按钮的语音播放路径
 			$("#voice").click(function(){
 				$("#audioplay").attr("src",thisUrl+currentVoice.letter_url);
@@ -205,10 +207,16 @@
 			
 			// 定义验证状态
 	        var checkout_flag = false;
-	        
+	        var enterNum = 0;
 	        // 校验输入框的值和当前播放的值
 	        function valideWords(){
-	        	var word_input = $("#wordinput").val();
+	        	enterNum ++;	        	
+	        	var word_input = $.trim( $("#wordinput").val() );
+	        	if(enterNum%2 != 0){
+	        		$("#wordinput").attr('disabled', true).css('background','#eee');
+	        	}else{
+	        		$("#wordinput").attr('disabled', false).val('').focus();
+	        	}
 	        	// 输入正确的情况
 	        	if( word_input == currentVoice.letter ){
 	        		if(checkout_flag)
@@ -223,34 +231,31 @@
 	        	else{
 	        		$("#answer").attr("class","answer").text("对比："+currentVoice.letter).show();
 	        		$("#status").attr("class","status").show();
-	        		$("#wordinput").val('').focus();
+	        		$("#wordinput").focus();
 	        		checkout_flag = false;
 	        	}
 	       		
-	       }
+	        }
 			
 			// 下一个
 	        function toNextLetter(){
 	       		if(currentIndex == voiceArr.length-1){
-	    			$('#masking').show().on('click',function (e){
-	    				if(e.target.id == 'masking'){
-	    					$('#masking').hide();
-	    				}else if(e.target.className == 'btnsOk'){
-	    					window.location = './recognizeWord.html';
-	    					$("#wordinput").val("").focus();
-	    				}
-	    			});
+	       			$('#masking').show().find('.btnsOk')
+	       			.on('click',function(){
+	       				window.location = './recognizeWord.html';
+						$("#wordinput").val("").focus();	
+	       			});					    					    		
 					return;
 	    		}
 	    		checkout_flag = false;
 	    		currentIndex ++;
 	    		currentVoice = voiceArr[currentIndex];
 	    		$('#hasLearnWords').text(currentIndex+1);
-	    		$("#answer").attr("class","answer correctAnswer").text("");
+	    		$("#answer").hide();
 	    		$("#wordinput").val("").focus();
-	    		$("#status").attr("class","status correctImg").hide();
+	    		$("#status").hide();
 				$("#audioplay").attr("src",thisUrl+voiceArr[currentIndex].letter_url);	       		
-	       }
+	        }
 		</script>
 	</body>
 

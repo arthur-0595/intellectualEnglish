@@ -28,6 +28,53 @@ $(function () {
             href1: 'classicalVoice/letterRead.html',
             href2: 'classicalVoice/singleWordRead.html',
             items: 'data'
+        },
+        methods: {
+            fnclickVoiceList: function (allow_, name_, id_, type_, event) {
+                if (allow_ == 1) {
+                    var thistg = event.target;
+
+                    chapter_name = name_;
+                    chapter_id = id_;
+
+                    sessionStorage.chapter_id = chapter_id;
+                    sessionStorage.chapter_name = chapter_name;
+                    sessionStorage.version_id = version_id;
+                    sessionStorage.version_name = version_name;
+                    sessionStorage.textbook_id = textbook_id;
+                    sessionStorage.textbook_name = textbook_name;
+
+                    if (type_ == 1 || type_ == 3) {
+                        if (textbook_id == 2) {
+                            window.location = 'classicalVoice/recognizeWord.html';
+                        } else {
+                            window.location = 'classicalVoice/singleWordRead.html';
+                        }
+                    }
+                }
+                return false;
+
+            },
+            fnmouseenterVoiceList: function (allow_, type_, event) {
+                if (allow_ == 1) {
+                    var thistg = event.target;
+                    if (type_ == 2) {
+                        $(thistg).find('.operate').finish().show('fast')
+                            .end().find('span').finish().hide('fast');
+                    }
+                }
+                return false;
+            },
+            fnmouseleaveVoiceList: function (allow_, type_, event) {
+                if (allow_ == 1) {
+                    var thistg = event.target;
+                    if (type_ == 2) {
+                        $(thistg).find('.operate').finish().hide('fast')
+                            .end().find('span').finish().show('fast');
+                    }
+                }
+                return false;
+            }
         }
     })
 
@@ -88,8 +135,6 @@ $(function () {
                 //************ */
                 $("#mainleftul>li").eq(0).find('.tit').trigger('click');
                 $(".courseA li").eq(0).trigger('click');
-                $(".courseA li").eq(0).trigger('click');
-
             }
         });
     }
@@ -126,47 +171,9 @@ $(function () {
 
                 botUlCon.items = data;
 
-                fnclickVoiceList();
-
                 removeLoading('test');
             }
         });
     }
 
-    function fnclickVoiceList() {
-        $("#botUl").find('li.complete').unbind()
-            .on('click', function () {
-                var index = $(this).index();
-
-                chapter_name = $(this).find('span').html();
-                chapter_id = $(this).attr('id');
-
-                sessionStorage.chapter_id = chapter_id;
-                sessionStorage.chapter_name = chapter_name;
-                sessionStorage.version_id = version_id;
-                sessionStorage.version_name = version_name;
-                sessionStorage.textbook_id = textbook_id;
-                sessionStorage.textbook_name = textbook_name;
-
-                if (!$(this).find('.operate')[0]) {
-                    if (textbook_id == 2) {
-                        window.location = 'classicalVoice/recognizeWord.html';
-                    } else {
-                        window.location = 'classicalVoice/singleWordRead.html';
-                    }
-                }
-            })
-            .on('mouseenter', function () {
-                if ($(this).find('.operate')[0]) {
-                    $(this).find('.operate').finish().show();
-                    $(this).find('span').finish().hide();
-                }
-            })
-            .on('mouseleave', function () {
-                if ($(this).find('.operate')[0]) {
-                    $(this).find('.operate').finish().hide();
-                    $(this).find('span').finish().show();
-                }
-            });
-    }
 })
