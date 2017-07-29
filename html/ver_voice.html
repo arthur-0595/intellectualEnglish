@@ -78,7 +78,7 @@
                                     <a v-bind:href="href1">听写</a>
                                     <a v-bind:href="href2">闯关</a>
                                 </div>
-                                <span>{{item.v_name}}</span>
+                                <span>{{item.v_name}}</span><i style="color:#ff1919">{{(item.id == 1)?item.score:''}}</i>
                             </li>
                         </ul>
                     </div>

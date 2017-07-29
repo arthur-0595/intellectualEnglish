@@ -6,7 +6,7 @@ $(function () {
         var username = userMessage[0].ID;
     } else {
         alert('检测到您未登录，请先登录！');
-        window.location = '../index.html';
+        window.location = '../../index.html';
     }
     //当前选择的版本ID，教材ID ,选择的章节
     var textbook_id, chapter_id, version_id;
@@ -27,7 +27,14 @@ $(function () {
     textbook_name = sessionStorage.textbook_name;
     version_name = sessionStorage.version_name;
     chapter_name = sessionStorage.chapter_name;
-    type = sessionStorage.type;
+
+    //type作为区分类别的变量
+    var type = 2;
+    if (chapter_name == '学前测试') {
+        type = 1;
+    } else if (chapter_name == '学后测试') {
+        type = 3;
+    }
 
     var top = new Vue({
         el: "#top",
@@ -69,7 +76,7 @@ $(function () {
             var thisinput = $(element).find('input');
             var thisletter = thisinput[0].dataset.letter;
             var letter_url = thisinput[0].dataset.src;
-            var myletter = $.trim( thisinput.val() );
+            var myletter = $.trim(thisinput.val());
             var status = 0;
             if (thisletter == myletter) {
                 status = 1;
@@ -85,21 +92,38 @@ $(function () {
         });
         console.log(thisTestArr);
         //计算本次测试分数
-        var thisScore = Math.round( (Nnum/thisTestArr.length)*100 );
+        var thisScore = Math.round((Nnum / thisTestArr.length) * 100);
         //缓存本次测试数组
         sessionStorage.thisTestArr = JSON.stringify(thisTestArr);
 
-        window.location = 'recognizeWordResult.html?score='+thisScore;
+        //提交分数
+        fnsubmit(thisScore);
     });
 
-    function fnupdateTestCon() {
-        var type;
-        if (chapter_name == '学前测试') {
-            type = 1;
-        } else if (chapter_name == '学后测试') {
-            type = 3;
-        }
+    function fnsubmit(score_) {
+        $.ajax({
+            type: "GET",
+            url: thisUrl + "/Areas/api/Interface.ashx",
+            data: {
+                method: 'submit',
+                user_id: username,
+                type_id: textbook_id,
+                voice_id: chapter_id,
+                score: score_,
+                type: type
+            },
+            dataType: "json",
+            success: function (data) {
+                console.log(data);
+                if(data == 1){
+                    //若分数提交成功，则转入成绩单页面
+                    window.location = 'recognizeWordResult.html?score=' + score_;
+                }
+            }
+        });
+    }
 
+    function fnupdateTestCon() {
         $.ajax({
             type: "get",
             url: thisUrl + "/Areas/api/Interface.ashx",
@@ -123,7 +147,7 @@ $(function () {
                         fnclickItemPlayer: function (src) {
                             audioplaySrc = thisUrl + src;
                             console.log(audioplaySrc);
-                            audioplay.src = audioplaySrc;
+                            $("#audioplay").attr('src' , audioplaySrc);
                         }
                     }
                 })
