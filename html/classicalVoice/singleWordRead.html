@@ -5,6 +5,11 @@
 		<title>字母拼写测试</title>
 		<link rel="stylesheet" href="../../css/style.css" />
 		<link rel="stylesheet" href="../../css/classicalVoice/singleWordRead.css" />
+		<style>
+			section .content .item .line {
+				     margin-left: 0; 
+			}
+		</style>
 	</head>
 	<body>
 		<header class="header">
@@ -18,8 +23,9 @@
 				<ul class="clearfix" id="contentUl">
 					<li class="item" v-for="(item,index) in items" v-bind:id="index" v-bind:data-word="item.letter">
 						<span class="num">{{index+1}}.</span>
-						<input type="text" class="line" v-on:click="fnclickItemPlayer(item.letter_url)" v-bind:data-src="item.letter_url" v-bind:data-letter="item.letter.charAt(0)" />
-						<span class="word">{{item.letter.substr(1)}}</span>
+						 <!-- <input type="text" class="line" v-on:click="fnclickItemPlayer(item.letter_url)" v-bind:data-src="item.letter_url" v-bind:data-letter="item.letter.charAt(0)" /> -->
+						<span class="word" v-for="(subitem,index) in item.testletter" v-bind:data-state="subitem.state">{{(subitem.state == 0)?subitem.model:''}}<input class="line"  v-if="subitem.state == 1?true:false" type="text" name="" value=""
+							v-on:click="fnclickItemPlayer(item.letter_url)" v-bind:data-src="item.letter_url" v-bind:data-letter="subitem.model" /></span>
 					</li>	
 				</ul>
 			</div>

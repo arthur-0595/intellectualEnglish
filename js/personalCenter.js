@@ -4,7 +4,6 @@ $(function() {
 	if(userMessage) {
 		userMessage = JSON.parse(userMessage);
 	} else {
-		alert('检测到您未登录，请先登录！');
 		window.location = '../index.html';
 	}
 

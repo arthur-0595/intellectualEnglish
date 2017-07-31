@@ -5,7 +5,6 @@ $(function() {
 		userMessage = JSON.parse(userMessage);
 		var username = userMessage[0].ID;
 	} else {
-		alert('检测到您未登录，请先登录！');
 		window.location = '../index.html';
 	}
 	//当前选择的版本ID，教材ID ,选择的章节
@@ -229,8 +228,8 @@ $(function() {
 					fnsavecourse();
 
 				} else if(data.result == 0) {
-					alert("单词获取失败，请重试！");
-					window.location = 'alternativeVersion.html';
+					alert("单词获取失败，请联系客服人员！");
+					window.close();
 				} else if(data.result == 2) {
 					alert("记忆结束，下面开始单词强化！");
 					window.location = 'word_strengthen_memory.html';
@@ -241,10 +240,6 @@ $(function() {
 
 		return false;
 	}
-
-	$("#exit").on("click", function() {
-		this.href = 'alternativeVersion.html';
-	})
 
 	//保存在学课程信息
 	function fnsavecourse() {

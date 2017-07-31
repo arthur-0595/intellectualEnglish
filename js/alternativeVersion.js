@@ -5,7 +5,6 @@ $(function() {
         userMessage = JSON.parse(userMessage);
         var username = userMessage[0].ID;
     } else {
-        alert('检测到您未登录，请先登录！');
         window.location = '../index.html';
     }
     //当前选择的版本ID，教材ID ,选择的章节
@@ -31,11 +30,11 @@ $(function() {
     // textbook_name = sessionStorage.textbook_name;
     // chapter_name = sessionStorage.chapter_name;
 
-    if (version_name && textbook_name && chapter_name) {
-        var courseP = version_name + ' - ' + textbook_name;
-        $("#course p").html(courseP);
-        $("#sectionBox p").html(chapter_name);
-    }
+    // if (version_name && textbook_name && chapter_name) {
+    //     var courseP = version_name + ' - ' + textbook_name;
+    //     $("#course p").html(courseP);
+    //     $("#sectionBox p").html(chapter_name);
+    // }
 
     //根据大类以及大类的name来显示相应的页面内容
     (function() {
@@ -58,17 +57,23 @@ $(function() {
     $("#clickBook").on("click", function() {
         if (textbook_id && version_id && chapter_id) {
             if (type == 01) {
-                window.location = 'word_memory.html';
+                // window.location = 'word_memory.html';
+                window.open('word_memory.html');
             } else if (type == 02) {
-                window.location = 'word_listen.html';
+                // window.location = 'word_listen.html';
+                window.open('word_listen.html');
             } else if (type == 03) {
-                window.location = 'word_write.html';
+                // window.location = 'word_write.html';
+                window.open('word_write.html');
             } else if (type == 04) {
-                window.location = 'sentence_listen.html';
+                // window.location = 'sentence_listen.html';
+                window.open('sentence_listen.html');
             } else if (type == 05) {
-                window.location = 'sentence_interpret.html';
+                // window.location = 'sentence_interpret.html';
+                window.open('sentence_interpret.html');
             } else if (type == 06) {
-                window.location = 'sentence_write.html';
+                // window.location = 'sentence_write.html';
+                window.open('sentence_write.html');
             } else {
                 alert("相关页面开发未完成");
             }

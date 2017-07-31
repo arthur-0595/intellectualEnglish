@@ -1,43 +1,58 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="UTF-8">
-		<title>字母拼写测试分数</title>
-		<link rel="stylesheet" href="../../css/style.css" />
-		<link rel="stylesheet" href="../../css/classicalVoice/singleWordResult.css" />
-	</head>
-	<body>
-		<header class="header">
-			<div class="top">
-				<p class="title" id="title">{{version_name}} - {{textbook_name}} - {{chapter_name}}</p>
-			</div>
-		</header>
-		
-		<section id="section">
-			<div class="score" id="score">考试得分:&nbsp;&nbsp;{{urlScore}}分</div>
-			<div class="content">
-				<ul class="clearfix">
-					<li class="item" v-for="(item,index) in items">
-						<span class="num">{{index+1}}.</span>
-						<input type="text" v-bind:class="(item.status == 1)?'line correct':'line error'" v-bind:value="item.myletter" disabled/>
-						<span class="word">{{item.word.substr(1)}}</span>
-						<p class="completeWord">{{item.word}}</p>
-					</li>	
-				</ul>
-			</div>
-			<div class="btn clearfix">
-				<a href="../classicalVoice/singleWordRead.html">
-					<div class="commit">重新测试</div>
-				</a>
-				<a href="../ver_voice.html" style="color:#333">
-					<div class="quit">退出</div>
-				</a>
-			</div>
-		</section>
-		
-		<script src="../../js/jquery-3.2.1.min.js"></script>
-		<script src="../../js/common.js"></script>
-		<script src="../../js/vue.min.js"></script>
-		<script src="../../js/classicalVoice/singleWordResult.js"></script>
-	</body>
+
+<head>
+	<meta charset="UTF-8">
+	<title>字母拼写测试分数</title>
+	<link rel="stylesheet" href="../../css/style.css" />
+	<link rel="stylesheet" href="../../css/classicalVoice/singleWordResult.css" />
+	<style>
+		section .content .item .line {
+			margin-left: 0;
+		}
+		section .content .item .completeWord {
+			color: #ff7b57;
+		}
+	</style>
+</head>
+
+<body>
+	<header class="header">
+		<div class="top">
+			<p class="title" id="title">{{version_name}} - {{textbook_name}} - {{chapter_name}}</p>
+		</div>
+	</header>
+
+	<section id="section">
+		<div class="score" id="score">考试得分:&nbsp;&nbsp;{{urlScore}}分</div>
+		<div class="content">
+			<ul class="clearfix">
+				<li class="item" v-for="(item,index) in items">
+					<span class="num">{{index+1}}.</span>
+					<span class="word" v-for="subitem in item.myletter">
+						{{subitem.state==0?subitem.model:''}}
+						<input type="text"
+							v-if="subitem.state == 1?true:false" 
+							v-bind:class="(item.status == 1)?'line correct':'line error'" v-bind:value="subitem.model" disabled />
+					</span>
+					<p class="completeWord">{{item.word}}</p>
+				</li>
+			</ul>
+		</div>
+		<div class="btn clearfix">
+			<a href="../classicalVoice/singleWordRead.html">
+				<div class="commit">重新测试</div>
+			</a>
+			<a href="../ver_voice.html" style="color:#333">
+				<div class="quit">退出</div>
+			</a>
+		</div>
+	</section>
+
+	<script src="../../js/jquery-3.2.1.min.js"></script>
+	<script src="../../js/common.js"></script>
+	<script src="../../js/vue.min.js"></script>
+	<script src="../../js/classicalVoice/singleWordResult.js"></script>
+</body>
+
 </html>

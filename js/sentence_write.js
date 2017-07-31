@@ -5,7 +5,6 @@ $(function() {
 		userMessage = JSON.parse(userMessage);
 		var username = userMessage[0].ID;
 	} else {
-		alert('检测到您未登录，请先登录！');
 		window.location = '../index.html';
 	}
 	//当前选择的版本ID，教材ID ,选择的章节
@@ -73,8 +72,8 @@ $(function() {
 			success: function(data) {
 				console.log(JSON.stringify(data));
 				if(!data[0].sentence){
-					alert('没有可学习的内容，点击确定返回！');	
-					window.location='home.html';
+					alert('没有可学习的内容，请联系客服人员！');	
+					window.close();
 				}
 				if(data[0]) {
 					thisSentence = data[0];

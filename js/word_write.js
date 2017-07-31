@@ -5,9 +5,9 @@ $(function() {
 		userMessage = JSON.parse(userMessage);
 		var username = userMessage[0].ID;
 	} else {
-		alert('检测到您未登录，请先登录！');
 		window.location = '../index.html';
 	}
+	
 	//当前选择的版本ID，教材ID ,选择的章节
 	var textbook_id, chapter_id, version_id;
 	var type, typeStr, textbook_name, version_name, chapter_name;
@@ -208,13 +208,12 @@ $(function() {
 //		$("#translate").hide();
 		$("#schedule").hide();
 		
-		
 		$.ajax({
 			type:"POST",
 			url:thisUrl2 + "/Areas/Api/index.ashx",
 			dataType: "json",
 			data: {
-				method: 'GetDictationTest',
+				method: 'GetWriteTest',
 				user_id: username,
 				unit_id: chapter_id
 			},
@@ -226,7 +225,8 @@ $(function() {
 					
 					fntestshowWord(wordArr[0]);
 				}else{
-					alert('单词获取失败，请尝试刷新！');
+					alert('单词获取失败，请联系客服人员！');
+					window.close();
 				}
 				
 			}

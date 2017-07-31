@@ -5,7 +5,6 @@ $(function () {
         userMessage = JSON.parse(userMessage);
         var username = userMessage[0].ID;
     } else {
-        alert('检测到您未登录，请先登录！');
         window.location = '../../index.html';
     }
     //当前选择的版本ID，教材ID ,选择的章节
@@ -81,21 +80,32 @@ $(function () {
             var letter_url = thisinput[0].dataset.src;
             var myletter = $.trim(thisinput.val());
             var status = 0;
+            var spana = $(element).find('span.word');
 
             if (thisletter == myletter) {
                 status = 1;
                 Nnum++;
             }
+
             var obj = {
                 word: word,
                 letter: thisletter,
                 letter_url: letter_url,
-                myletter: myletter,
+                myletter: [{
+                    "model": spana[0].dataset.state==1?myletter:spana[0].innerText,
+                    "state": spana[0].dataset.state
+                }, {
+                    "model": spana[1].dataset.state==1?myletter:spana[1].innerText,
+                    "state": spana[1].dataset.state
+                }, {
+                    "model": spana[2].dataset.state==1?myletter:spana[2].innerText,
+                    "state": spana[2].dataset.state
+                }],
                 status: status
             }
             thisTestArr.push(obj);
         });
-        console.log(thisTestArr);
+        // console.log(thisTestArr);
         //计算本次测试分数
         var thisScore = Math.round((Nnum / thisTestArr.length) * 100);
         //缓存本次测试数组
@@ -120,7 +130,7 @@ $(function () {
             dataType: "json",
             success: function (data) {
                 console.log(data);
-                if(data == 1){
+                if (data == 1) {
                     //若分数提交成功，则转入成绩单页面
                     window.location = 'singleWordResult.html?score=' + score_;
                 }
@@ -152,7 +162,7 @@ $(function () {
                         fnclickItemPlayer: function (src) {
                             audioplaySrc = thisUrl + src;
                             console.log(audioplaySrc);
-                            $("#audioplay").attr('src' , audioplaySrc);
+                            $("#audioplay").attr('src', audioplaySrc);
                         }
                     }
                 })

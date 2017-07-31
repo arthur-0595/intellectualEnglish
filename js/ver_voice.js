@@ -5,7 +5,6 @@ $(function () {
         userMessage = JSON.parse(userMessage);
         var username = userMessage[0].ID;
     } else {
-        alert('检测到您未登录，请先登录！');
         window.location = '../index.html';
     }
     //当前选择的版本ID，教材ID ,选择的章节
@@ -43,6 +42,7 @@ $(function () {
                     sessionStorage.version_name = version_name;
                     sessionStorage.textbook_id = textbook_id;
                     sessionStorage.textbook_name = textbook_name;
+                    // alert(version_id + '+' + textbook_id + '+' + chapter_id);
 
                     if (type_ == 1 || type_ == 3) {
                         if (textbook_id == 2) {
