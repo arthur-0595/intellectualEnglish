@@ -17,3 +17,30 @@ function fnupdateDoT(data_, boxId, temId) {
 	var resultText = tempFn(data_);
 	boxId.innerHTML = resultText;
 }
+
+function enter_key(callback){
+	document.onkeyup=function(event){
+        var e = event || window.event || arguments.callee.caller.arguments[0];
+         if(e && e.keyCode==13){ 
+            callback();
+        }
+   };
+}
+
+function timer( selector ){
+	// 设置学习时长
+	var oldTime = Date.now();
+	setInterval(function(){
+		// 获取学习总毫秒数
+		var durationTime = Date.now() - oldTime;
+		// 转化为时，分，秒
+		var h = parseInt( durationTime / 1000 / 60 / 60 );  
+		var m = parseInt( durationTime / 1000 / 60 % 60 );
+		var s = parseInt(durationTime / 1000 % 60);
+		h = h < 10 ? '0' +h:h;
+		m = m < 10 ? '0' +m:m;
+		s = s < 10 ? '0' +s:s;
+		var selectors = document.querySelector(selector);
+		selectors.innerText = '学习时长：' + h + ' : ' + m + ' : ' + s;
+	},1000);
+}

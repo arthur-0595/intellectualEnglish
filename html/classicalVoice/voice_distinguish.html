@@ -45,6 +45,14 @@
 			height: 50px;
 		}
 
+		.sentence .thisSentence_con.correct {
+			background: url(../../imgs/hintYes.png) no-repeat 70% center;
+		}
+
+		.sentence .thisSentence_con.error {
+			background: url(../../imgs/hintYes.png) no-repeat 70% center;
+		}
+
 		.sentence .answer {
 			width: 565px;
 			height: 104px;
@@ -78,14 +86,18 @@
 			cursor: pointer;
 			border-bottom: 1px solid #333;
 		}
-		.sentence .answerArr span.error{
+
+		.sentence .answerArr span.error {
 			color: #ff1919;
 		}
-		.sentence .answerArr span.error:before,.sentence .answerArr span.correct:before{
+
+		.sentence .answerArr span.error:before,
+		.sentence .answerArr span.correct:before {
 			content: '';
-			background:none;
+			background: none;
 		}
-		.sentence .answerArr span.correct{
+
+		.sentence .answerArr span.correct {
 			color: #57b3ff;
 		}
 
@@ -94,9 +106,47 @@
 		}
 
 		.sentence .items li {
-			height: 34px;
-			line-height: 34px;
+			box-sizing: border-box;
+			padding: 0 20px;
+			height: 30px;
+			border-radius: 15px;
+			float: left;
+			cursor: pointer;
+			background-color: #fff;
+			transition: all 0.1s;
 		}
+		.sentence .items li.unenter {
+			cursor: pointer;
+			background-color: #fff;
+		}
+
+		.sentence .items li.unenter:hover {
+			background-color: #56b4fe;
+			color: #fff;
+		}
+
+		.sentence .items li.actived {
+			background-color: transparent;
+			color: transparent;
+			cursor: default;
+		}
+		.sentence .items li.actived:hover {
+			background-color: transparent;
+			color: transparent;
+			cursor: default;
+		}
+
+		.sentence .items li.enter {
+			background-color: transparent;
+			color: #333;
+			cursor: default;
+		}
+		.sentence .items li.enter:hover {
+			background-color: transparent;
+			color: #333;
+			cursor: default;
+		}
+
 	</style>
 </head>
 
@@ -108,10 +158,10 @@
 				<div class="title">智能辩音<span>（辩音：选择含该字母发音的单词。）</span></div>
 				<a href="../ver_voice.html" class="exit" id="exit"></a>
 			</div>
-			<div class="sentence" id="sentence">
+			<div class="sentence">
 				<div class="thisSentence">
 					<div class="thisSentence_con" id="thisSentence_con">
-						bab
+						letter
 					</div>
 					<div class="listening" id="listening">
 						播放<span></span>
@@ -119,37 +169,33 @@
 				</div>
 				<div class="answer clearfix">
 					<div class="answerArr" id="answerArr">
-						<span class="ans_word error">asdasdsadsa</span>
-						<span class="ans_word correct">asdasdsa</span>
-						<span class="ans_word">asdasdsa</span>
-						<span class="ans_word">asdasdsa</span>
+						<!-- <span class="ans_word error">asdasdsadsa</span> -->
+						<!-- <span class="ans_word correct">asdasdsa</span> -->
+						<span class="ans_null"></span>
+						<span class="ans_null"></span>
+						<span class="ans_null"></span>
+						<span class="ans_null"></span>
 						<span class="ans_null"></span>
 						<span class="ans_null"></span>
 					</div>
 				</div>
-				<ul class="items clearfix" id="items" style="display: block;">
-					<li>received</li>
-					<li class="actived">She</li>
-					<li>eight-year</li>
-					<li>received</li>
-					<li class="actived">She</li>
-					<li>eight-year</li>
-					<li>received</li>
-					<li class="actived">She</li>
+				<ul class="items clearfix" id="items" style="user-select: none;">
+					<!-- <li v-for="(item,index) in items" v-bind:id="'item'+(index+1)"
+						 v-bind:data-state="item.state"
+						 v-bind:data-url="item.letter_url"
+						 v-on:click.once="fnclickItem(item.state , item.letter , item.letter_url , $event)">{{item.letter}}</li> -->
+					<!-- <li class="actived">Shasdafgsdgsdgdse</li>  -->
 				</ul>
-				<div class="interpret" id="interpret" style="display: none;">
-					{{thisinterpret}}
-				</div>
 			</div>
 			<div class="btns">
-				<button class="enter" id="enter">
+				<button class="enter actived" id="enter">
 						<i></i>&nbsp;
-						下一个
+						enter
 					</button>
 			</div>
 			<div class="otherInformation">
-				<div class="studyTime">学习时长：00:05:03</div>
-				<div class="thisStudy">
+				<div class="studyTime" id="studyTime">学习时长：00:05:03</div>
+				<div class="thisStudy" id="thisStudy">
 					进度： 4/12
 				</div>
 			</div>
@@ -157,8 +203,8 @@
 	</section>
 	<div class="masking" id="masking" style="display: none;">
 		<div class="reminder">
-			<h4>学习完成，现在开始进行模拟测试！</h4>
-			<button class="btnsOk">确定</button>
+			<h4>学习完成，点击按钮进入听力学习！</h4>
+			<button class="btnsOk" id="btnsOk">确定</button>
 		</div>
 	</div>
 	<audio autoplay src="" type="audio/wav" id="audioplay">

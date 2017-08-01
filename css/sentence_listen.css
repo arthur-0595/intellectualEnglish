@@ -191,6 +191,7 @@ section{
 .sentence .items li.actived{
 	background-color: transparent;
 	color: transparent;
+	cursor: default;
 }
 .sentence .interpret{
 	font-size: 18px;

@@ -9,7 +9,7 @@ $(function () {
     }
     //当前选择的版本ID，教材ID ,选择的章节
     var textbook_id, chapter_id, version_id;
-    var type, typeStr, textbook_name, version_name, chapter_name;
+    var typeStr, textbook_name, version_name, chapter_name;
     //当前语音文件播放路径
     var audioplay = $("#audioplay");
     var audioplaySrc;

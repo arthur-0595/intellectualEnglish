@@ -95,7 +95,7 @@
 					</button>
 				</div>
 				<div class="otherInformation">
-					<div class="studyTime">学习时长：00:05:03</div>
+					<div class="studyTime" id="studyTime">学习时长：00 : 00 : 00</div>
 					<div class="thisStudy" id="thisStudy">
 						总单词数：<span id="wordsNum"></span> &nbsp;&nbsp;&nbsp;&nbsp; &nbsp; 已学单词：<span id="hasLearnWords"></span> 
 					</div>
@@ -189,21 +189,10 @@
 			});
 			
 			// 按enter键
-			document.onkeydown=function(event){
-	            var e = event || window.event || arguments.callee.caller.arguments[0];
-	             if(e && e.keyCode==13){ 
-	                valideWords();
-	            }
-	        }
+			enter_key(valideWords);
 			
 			// 设置学习时长
-//			var oldTime = Date.now();
-//			setInterval(function(){
-//				// 获取学习总毫秒数
-//				var durationTime = Date.now() - oldTime;
-//				// 转化为时，分，秒
-//				var h = parseInt( durationTime / 1000 / 60 / 60 )  ;
-//			},1000);
+			timer('#studyTime');
 			
 			// 定义验证状态
 	        var checkout_flag = false;
