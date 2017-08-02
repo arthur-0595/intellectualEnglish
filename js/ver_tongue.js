@@ -149,7 +149,7 @@ $(function() {
 			},
 			async: true,
 			success: function(data) {
-				if(data) {
+				if(data[0]) {
 					console.log(data);
 					mode.total = data[0].total;
 					mode.repeatnumber = parseInt((data[0].repeatnumber/data[0].total)*100) ;

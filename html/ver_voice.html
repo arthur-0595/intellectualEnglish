@@ -79,7 +79,7 @@
                                 <div class="pic">
                                 </div>
                                 <div v-if="(item.type == 1 || item.type == 3)?false:true" class="operate" style="display:none;">
-                                    <a v-if="item.type_id == 2?false:true" href="classicalVoice/voice_distinguish.html">辩音</a>
+                                    <a v-if="item.type_id == 2?false:true" href="javascript:window.open('classicalVoice/voice_distinguish.html');">辩音</a>
                                     <a v-bind:href="href1">听写</a>
                                     <a v-bind:href="href2">闯关</a>
                                 </div>

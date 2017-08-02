@@ -86,7 +86,6 @@ $(function () {
 		$("#answerArr span").attr('class', 'ans_null').html('');
 		$("#enter").attr('class' , 'enter actived');
 
-
 		$("#thisSentence_con").html(arr_.letter);
 		audioplaySrc = thisUrl + arr_.letter_url;
 		audioplay.attr('src', audioplaySrc);
@@ -103,6 +102,7 @@ $(function () {
 	function fnLiClick() {
 		$("#items li").off().on('click', function () {
 			numLi++;
+			console.log(numLi);
 			if (numLi < 6) {
 				fnclickItem(this.dataset.state, this.innerHTML, this.dataset.url, this);
 			} else {
@@ -130,13 +130,16 @@ $(function () {
 		$("#answerArr span.ans_word").off().on('click', function () {
 			var thisInnerHtml = this.innerHTML;
 			$(this).attr('class', 'ans_null').html('');
+			numLi--;
+			console.log(numLi);
 
 			var itemsLi = $("#items li");
 			$.each(itemsLi, function (index, element) {
 				if (element.innerHTML == thisInnerHtml) {
-					$(element).attr('class', '').trigger('click');
+					$(element).attr('class', 'unenter');
 				};
 			});
+			fnLiClick();
 		});
 	}
 
@@ -164,7 +167,7 @@ $(function () {
 		if (num_ == 6) { //说明全队，则跳转下一题
 			letterArrNum++;
 		}
-		if(letterArrNum < 4){
+		if(letterArrNum < letterArrLength){
 			fnUpdateTheWord(letterArr[letterArrNum]);
 		}else{
 			$("#masking").show();

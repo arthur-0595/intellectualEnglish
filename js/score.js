@@ -90,7 +90,7 @@ $(function() {
 
 		$.each(e_c_Arr, function(index, element) {
 			e_cHtml += `<li data-correct="${element.word_mean}" class="correct">
-							<h4>${index+1}.${element.word_name}</h4>
+							<h4>${index+1}.${element.word_name.replace(/\•/g,'')}</h4>
 							<ul class="item">
 								<li  data-type="${element.chinese[0].type}">
 									<i class="yes"></i>
@@ -115,24 +115,24 @@ $(function() {
 		$("#e_c .tests").html(e_cHtml);
 
 		$.each(c_e_Arr, function(index, element) {
-			c_eHtml += `<li data-correct="${element.word_name}" class=" ">
+			c_eHtml += `<li data-correct="${element.word_name.replace(/\•/g,'')}" class=" ">
 							<h4>${index+1}.${element.word_mean}</h4>
 							<ul class="item">
 								<li data-type="${element.english[0].type}">
 									<i class=""></i>
-									${element.english[0].content}
+									${element.english[0].content.replace(/\•/g,'')}
 								</li>
 								<li data-type="${element.english[1].type}">
 									<i class=""></i>
-									${element.english[1].content}
+									${element.english[1].content.replace(/\•/g,'')}
 								</li>
 								<li data-type="${element.english[2].type}">
 									<i class=""></i>
-									${element.english[2].content}
+									${element.english[2].content.replace(/\•/g,'')}
 								</li>
 								<li data-type="${element.english[3].type}">
 									<i class=""></i>
-									${element.english[3].content}
+									${element.english[3].content.replace(/\•/g,'')}
 								</li>
 							</ul>
 							<span class="status"></span>

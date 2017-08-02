@@ -143,6 +143,9 @@ header .con .timeRemaining{
 	position: relative;
 	background-color: #fff;
 }
+.submitBox a{
+	color: #333;
+}
 .submitBox .back{
 	width: 112px;
 	height: 48px;

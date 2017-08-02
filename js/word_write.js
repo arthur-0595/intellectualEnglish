@@ -48,7 +48,7 @@ $(function() {
 
 	//enter按钮
 	$("#enter").on("click", function() {
-		var inputVal = $("#wordinput").val();
+		var inputVal = $.trim( $("#wordinput").val() );
 		if(numEnt == 2) {
 			numEnt--;
 			$("#answer").show();
@@ -75,8 +75,10 @@ $(function() {
 			fnsendWordState(thiswordId , thiswordState)
 			
 		}else if(numEnt == 666){//该值为666表示当前处于测试状态
+			var thisWordName = wordArr[num].word_name.replace(/\•/g, '');
+
 			var thisStatus;
-			if(inputVal == wordArr[num].word_name){
+			if(inputVal == thisWordName){
 				thisStatus =  1;
 			}else{
 				thisStatus =  0;
@@ -84,7 +86,7 @@ $(function() {
 			
 			var newObj = {
 				index: wordArr[num].id,
-				this_name: wordArr[num].word_name,
+				this_name: thisWordName,
 				this_mean: wordArr[num].word_mean,
 				myVal: inputVal,
 				status: thisStatus
@@ -128,7 +130,7 @@ $(function() {
 				unit_id: chapter_id
 			},
 			success: function(data) {
-				console.log(JSON.stringify(data));
+				// console.log(JSON.stringify(data));
 				if(data[0]){
 					fnshowthisWord(data[0]);
 				}else if(data.msg == "默写完毕"){
@@ -151,16 +153,10 @@ $(function() {
 		$("#wordinput")[0].focus();
 		$("#answer").hide();
 		$("#status").hide();
-//		$("#translate").hide();
-//		var word = new Vue({
-//			el: "#word",
-//			data: {
-//				word_mean: wordObj.word_mean,
-//				word_name: wordObj.word_name
-//			}
-//		})
+
 		$("#translate").html(wordObj.word_mean);
-		$("#answer").html(wordObj.word_name);
+		var thisWordName = wordObj.word_name.replace(/\•/g, '');
+		$("#answer").html(thisWordName);
 
 		numEnt = 2;
 		

@@ -118,7 +118,8 @@ $(function() {
 
                 sessionStorage.readCon = data_[index].article;
 
-                window.location = 'read_section.html';
+                window.open('read_section.html');
+                // window.location = 'read_section.html';
             });
     }
 })

@@ -124,7 +124,7 @@ $(function() {
 
 		$.each(e_c_Arr, function(index, element) {
 			e_cHtml += `<li data-correct="${element.word_mean}" >
-							<h4>${index+1}.${element.word_name}</h4>
+							<h4>${index+1}.${element.word_name.replace(/\•/g,'')}</h4>
 							<div class="item">
 								<label data-type="${element.chinese[0].type}">
 									<input type="radio" name="${element.id}"/>
@@ -148,24 +148,24 @@ $(function() {
 		$("#e_c .tests").html(e_cHtml);
 
 		$.each(c_e_Arr, function(index, element) {
-			c_eHtml += `<li data-correct="${element.word_name}" >
+			c_eHtml += `<li data-correct="${element.word_name.replace(/\•/g,'')}" >
 							<h4>${index+1}.${element.word_mean}</h4>
 							<div class="item">
 								<label data-type="${element.chinese[0].type}">
 									<input type="radio" name="${element.id}"/>
-									${element.english[0].content}
+									${element.english[0].content.replace(/\•/g,'')}
 								</label>
 								<label data-type="${element.chinese[1].type}">
 									<input type="radio" name="${element.id}"/>
-									${element.english[1].content}
+									${element.english[1].content.replace(/\•/g,'')}
 								</label>
 								<label data-type="${element.chinese[2].type}">
 									<input type="radio" name="${element.id}"/>
-									${element.english[2].content}
+									${element.english[2].content.replace(/\•/g,'')}
 								</label>
 								<label data-type="${element.chinese[3].type}">
 									<input type="radio" name="${element.id}"/>
-									${element.english[3].content}
+									${element.english[3].content.replace(/\•/g,'')}
 								</label>
 							</div>
 						</li>`;
@@ -173,7 +173,7 @@ $(function() {
 		$("#c_e .tests").html(c_eHtml);
 
 		$.each(wordsArr, function(index, element) {
-			listeningTestHtml += `<li data-correct="${element.word_mean}" >
+			listeningTestHtml += `<li data-correct="${element.word_name.replace(/\•/g,'')}" >
 							&nbsp;&nbsp;${index+1}. <button class="listenbtns" data-wordurl="${element.word_url}">听读音</button>
 							<div class="item">
 								<label data-type="${element.chinese[0].type}">

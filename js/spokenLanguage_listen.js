@@ -81,7 +81,8 @@ $(function() {
 					fnshowthisWord(spokenLanguageArr[0]);
 				}else{
 					alert('学习完毕');
-					window.location='ver_tongue.html'
+					window.close();
+					// window.location='ver_tongue.html'
 				}
 			}
 		});
@@ -123,6 +124,8 @@ $(function() {
 		audioplaySrc = thisUrl2 + obj_.sentence_url;
 		$("#audioplay").attr('src', audioplaySrc);
 
+		console.log(obj_.sentence_url);
+		console.log(audioplaySrc);
 		thisSenId = obj_.id;
 	}
 	//发送认识或者不认识的信息给后台

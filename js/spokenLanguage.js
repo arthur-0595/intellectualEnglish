@@ -133,8 +133,9 @@ $(function(){
 		if(num < spokenLanguageArrlength){
 			fnUpdateSen(spokenLanguageArr[num]);
 		}else{
-			alert('学习完成，点击确定返回');
-			window.location = 'ver_tongue.html';
+			alert('学习完成');
+			window.close();
+			// window.location = 'ver_tongue.html';
 		}
 	}
 	//加载数组内当前项的内容到页面

@@ -53,7 +53,7 @@ $(function() {
 	})
 	//enter按钮
 	$("#enter").on("click", function() {
-		var inputVal = $("#wordinput").val();
+		var inputVal = $.trim( $("#wordinput").val() );
 		if(numEnt == 2) {
 			numEnt--;
 
@@ -82,21 +82,23 @@ $(function() {
 			fnsendWordState(thiswordId , thiswordState)
 			
 		}else if(numEnt == 666){//该值为666表示当前处于测试状态
+			var thisWordName = wordArr[num].word_name.replace(/\•/g, '');
+
 			var thisStatus;
-			if(inputVal == wordArr[num].word_name){
+			if( inputVal == thisWordName ){
 				thisStatus =  1;
 			}else{
 				thisStatus =  0;
 			}
 			
 			var newObj = {
-				index: wordArr[num].id,
-				this_name: wordArr[num].word_name,
-				this_mean: wordArr[num].word_mean,
+				index: wordArr[num].id ,
+				this_name: thisWordName ,
+				this_mean: wordArr[num].word_mean ,
 				myVal: inputVal,
 				status: thisStatus
 			}
-//			alert(JSON.stringify(newObj) );
+			// console.log(JSON.stringify(newObj) );
 			//构建测试的单词对象保存进数组，然后载入下一个单词
 			testsArr.push(newObj);
 			
@@ -135,7 +137,7 @@ $(function() {
 				unit_id: chapter_id
 			},
 			success: function(data) {
-				console.log(JSON.stringify(data));
+				// console.log(JSON.stringify(data));
 				if(data[0]){
 					fnshowthisWord(data[0]);
 				}else if(data.msg == "听写完毕"){
@@ -159,15 +161,13 @@ $(function() {
 		$("#answer").hide();
 		$("#status").hide();
 		$("#translate").hide();
-//		var word = new Vue({
-//			el: "#word",
-//			data: {
-//				word_mean: wordObj.word_mean,
-//				word_name: wordObj.word_name
-//			}
-//		})
+
 		$("#translate").html(wordObj.word_mean);
-		$("#answer").html(wordObj.word_name);
+
+		// console.log(wordObj.word_name);
+		var thisWordName = wordObj.word_name.replace(/\•/g, '');
+		// console.log(thisWordName);
+		$("#answer").html(thisWordName);
 
 		//设置播放路径，绑定听语音事件
 		audioplaySrc = thisUrl2 + wordObj.word_url;
@@ -199,7 +199,7 @@ $(function() {
 			
 		}else if(num >= wordArrLength){
 			alert('测试完成');
-			console.log(JSON.stringify(testsArr) );
+			// console.log(JSON.stringify(testsArr) );
 			sessionStorage.wordTestsArr = JSON.stringify(testsArr);
 			var Nnum = 0;
 			$.each(testsArr, function(index , element) {
@@ -208,7 +208,7 @@ $(function() {
 				}
 			});
 			var thisScore = Math.round( (Nnum/testsArr.length)*100 );
-			alert(thisScore);
+			// alert(thisScore);
 			
 			window.location="sentence_test.html?score="+thisScore;
 		}

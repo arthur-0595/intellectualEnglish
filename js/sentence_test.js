@@ -52,7 +52,7 @@ $(function() {
 		fnshowstatus(testResultArr);
 	}else if(wordTestsArr){
 		wordTestsArr = JSON.parse(wordTestsArr);
-		fnshowstatus(fnshowstatus);
+		fnshowstatus(wordTestsArr);
 	}
 	
 	function fnshowstatus(arr_){

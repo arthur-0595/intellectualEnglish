@@ -6,20 +6,16 @@ $(function() {
 	} else {
 		window.location = '../index.html';
 	}
-
 	fnupdateMessage();
 
 	// 修改性别
-	var newSex;
+	var newSex = userMessage[0].S_sex;
 	$('.genderBox>div').on('click', function() {
 		$('.genderBox>div').removeClass('checked');
 		$(this).addClass('checked');
-	});
-
-	
-
+		newSex = this.id.substr(-1);
+	});	
 	// 头像修改
-	var imgUrl;
 	$('#userPic img').on('click', function() {
 		$('#headPortrait').toggle();
 		$("#headPortrait img").on('click', function() {
@@ -32,7 +28,6 @@ $(function() {
 			$('#headPortrait').hide();
 		})
 	});
-//	console.log($('#userPic img')attr('id'));
 
 	var isTelTrue, isEmailTrue, isQqTrue;
 	var TelReg = /^1\d{10}$/,
@@ -40,15 +35,15 @@ $(function() {
 		QqReg = /^[1-9][0-9]{4,}$/;
 	// 密码框
 	$('.changePassword').on('click', function() {
-		$('.cover').show();
-		$('.changePasswordDialog').show();
+		$('#cover').show();
+		$('#changePasswordDialog').show();
 		var oldPassword, newPassword, newPasswordAgain, userCode = userMessage[0]['S_code'];
 		$('#newPwd').on('keyup', function() {
 			var reg = /^[a-zA-z]\w{5,15}$/;
 			if(reg.test($(this).val())) {
-				$('.newInput').fadeOut(200)
+				$('.newInput').fadeOut(200);
 			} else {
-				$('.newInput').fadeIn(200)
+				$('.newInput').fadeIn(200);
 			}
 		});
 		$('#newPwdAgain').on('keyup', function() {
@@ -58,13 +53,11 @@ $(function() {
 				$('.againInput').fadeOut(200);
 			}
 		})
-
 		// 验证密码修改状态
 		$('.submit').on('click', function() {
 			oldPassword = $.trim($('#oldPwd').val());
 			newPassword = $.trim($('#newPwd').val());
 			newPasswordAgain = $.trim($('#newPwdAgain').val());
-
 			if(oldPassword && newPassword && newPasswordAgain) {
 				if(newPassword === newPasswordAgain) {
 					$.ajax({
@@ -79,51 +72,25 @@ $(function() {
 						},
 						success: function(data) {
 							if(data.result === 0) {
-								$('.warning').stop();
-								$('.warning').find('span').text('对不起，重置密码失败！');
-								$('.warning').stop(true);
-								$('.warning').show(200).delay(800).fadeOut(400);
-								$('.passwordInput').each(function() {
-									$(this).val('');
-								});
+								clearInput('对不起，重置密码失败');
 							} else if(data.result === 1) {
-								$('.warning').find('span').text('恭喜您，密码修改成功!');
-								$('.warning').stop(true);
-								$('.warning').show(200).delay(800).fadeOut(400);
+								warnMsg('恭喜您，密码修改成功');
 								$("#cover").delay(1600).fadeOut(200);
 
 							} else if(data.result === 2) {
-								$('.warning').find('span').text('原密码有误！');
-								$('.warning').stop(true);
+								clearInput('原密码有误');
 								$('.oldInput').show();
-								$('.warning').show(200).delay(800).fadeOut(400);
 
-								$('.passwordInput').each(function() {
-									$(this).val('');
-								});
-
-							} else if(data.result === 3) {
-								$('.warning').find('span').text('该用户不存在！');
-								$('.warning').stop(true);
-
-								$('.warning').show(200).delay(800).fadeOut(400);
-								$('.passwordInput').each(function() {
-									$(this).val('');
-								});
+							} else if(data.result === 3) {								
+								clearInput('该用户不存在');
 							}
 						}
-
 					});
-				} else if(newPassword !== newPasswordAgain) {
-					$('.warning').find('span').text('两次密码不一致！');
-					$('.warning').stop(true);
-					$('.warning').show(200).delay(800).fadeOut(400);
+				} else {
+					warnMsg('两次密码不一致');
 				}
 			} else if(!oldPassword || !newPassword || !newPasswordAgain) {
-				$('.warning').find('span').text('请填写完整！');
-				$('.warning').stop(true);
-				$('.warning').show(200).delay(800).fadeOut(400);
-
+				warnMsg('请填写完整信息');
 			}
 		});
 	});
@@ -135,18 +102,14 @@ $(function() {
 		}
 	});
 	// 修改信息保存
-	$('.saveBtn').on('click', function() {
-		$('.genderBox>div').each(function() {
-			if($(this).hasClass('checked')) {
-				newSex = $(this).html();
-			}
-		});				
+	$('#saveBtn').on('click', function() {
 		isTelTrue = TelReg.test($('#parentsInformation').val());
 		isEmailTrue = EmailReg.test($('#yourEmail').val());
 		isQqTrue = QqReg.test($('#yourQQ').val());
 		// 验证家长电话
 		if(isTelTrue && isEmailTrue && isQqTrue) {
 			changeMessageajax();
+			
 			$('.tel').text('');
 			$('.email').text('');
 			$('.qq').text('');
@@ -159,7 +122,20 @@ $(function() {
 		} else if(!isQqTrue) {
 			$('.qq').text('请输入正确的qq号！');
 		}
-	})
+	});
+	
+	// 密码框提示信息
+	function warnMsg( msg ){
+		$('#warning').stop(true,true).html(msg).show(200).delay(800).fadeOut(400);
+	}
+	
+	// 修改信息后清除input值
+	function clearInput(msg){
+		$('#warning').stop(true,true).html(msg).show(200).delay(800).fadeOut(400);
+		$('.passwordInput').each(function() {
+			$(this).val('');
+		});
+	}
 
 	function fnupdateMessage() {
 		main = new Vue({
@@ -170,49 +146,52 @@ $(function() {
 				Integral: userMessage[0].Integral,
 				Grade: userMessage[0].Grade,
 				Today_Integral: userMessage[0].Today_Integral,
-
+				sex: userMessage[0].S_sex,
+				phone: userMessage[0].S_phone,
+				email: userMessage[0].S_email,
+				qq: userMessage[0].S_qq,
+				address: userMessage[0].S_address,
+				uesrName: userMessage[0].S_name,
+				userPicSrc: thisUrl + userMessage[0].S_picurl
 			}
 		})
-		if(userMessage[0].S_sex == "男") {
-			$('.genderBox>div').removeClass('checked');
-			$("#man").attr('class', 'man checked');
-		} else {
-			$('.genderBox>div').removeClass('checked');
-			$("#woman").attr('class', 'woman checked');
-		}
-
-		$("#userPic img").attr('src', thisUrl + userMessage[0].S_picurl);
-		$("#yourName").val(userMessage[0].S_name);
-		$("#parentsInformation").val(userMessage[0].S_phone);
-		$("#yourQQ").val(userMessage[0].S_qq);
-		$("#yourEmail").val(userMessage[0].S_email);
-		$("#yoursite").val(userMessage[0].S_address);
 	}
 
 	function changeMessageajax() {
+		var code = userMessage[0].S_code,
+			name = $("#yourName").val(),
+			phone = $("#parentsInformation").val(),
+			picurl = $("#userPic img").attr('id'),
+			address = $("#yoursite").val(),
+			qq = $("#yourQQ").val(),
+			email = $("#yourEmail").val();
+		
 		$.ajax({
 			type: 'GET',
 			url: thisUrl + '/Areas/api/Interface.ashx',
 			dataType: 'json',
 			data: {
 				method: 'Editinfo',
-				S_code: userMessage[0].S_code,
-				S_name: $("#yourName").val(),
+				S_code: code,
+				S_name: name,
 				S_sex: newSex,
-				S_phone: $("#parentsInformation").val(),
-				S_picurl: $("#userPic img").attr('id'),
-				S_address: $("#yoursite").val(),
-				S_qq: $("#yourQQ").val(),
-				S_email: $("#yourEmail").val()
+				S_phone: phone,
+				S_picurl: picurl,
+				S_address: address,
+				S_qq: qq,
+				S_email: email
 			},
 			success: function(data) {
+				console.log(data);
 				if(data.result === 1) {
 					$('.warning').text('修改信息成功!')
 					$('.warning').css({
 						'right': '60%',
 						'top': '40%'
 					}).fadeIn(400).delay(400).fadeOut(400);
-					//setNewStorage();
+
+					//更新用户信息的缓存
+					sessionStorage.userMessage = JSON.stringify(data.update);
 				} else {
 					$('.warning').text('修改信息失败，请核对!')
 					$('.warning').css({
@@ -223,61 +202,4 @@ $(function() {
 			}
 		});
 	}
-
-					
-
-//	function setNewStorage(){
-//		userMessage[0].S_name = $("#yourName").val();
-//		userMessage[0].S_sex = newSex;
-//		userMessage[0].S_phone = $("#parentsInformation").val();
-//		userMessage[0].S_picurl = $("#userPic img").attr('id');
-//		userMessage[0].S_address = $("#yoursite").val();
-//		userMessage[0].S_qq = $("#yourQQ").val();
-//		userMessage[0].S_email = $("#yourEmail").val();	
-//		
-//		var userMessageStr = JSON.stringify(userMessage);
-//	    sessionStorage.userMessage = userMessageStr;
-//		userMessage = JSON.parse(sessionStorage.userMessage);	
-//		return userMessage;			
-//	}
-
-	// 验证家长电话
-	//				$('#parentsInformation').on('blur', function() {	
-	//					isTelTrue = TelReg.test($(this).val());
-	//					//console.log(isTelTrue);
-	//					if(isTelTrue) {
-	//						$('.tel').html('<img  src="../imgs/personalCenter/yes.png">');
-	//						$('.tel').fadeIn(200);
-	//					} else {
-	//						$('.tel').html('<img src="../imgs/no.png">');
-	//						$('.tel').fadeIn(200);
-	//						
-	//					}
-	//				});
-
-	// 验证邮箱
-	//				$('#yourEmail').on('blur', function() {
-	//					isEmailTrue = EmailReg.test($(this).val());
-	//					if(isEmailTrue) {
-	//						$('.email').html('<img src="../imgs/personalCenter/yes.png">');
-	//						$('.email').fadeIn(200);
-	//					} else {
-	//						$('.email').html('<img src="../imgs/no.png">');
-	//						$('.email').fadeIn(200);
-	//						
-	//					}
-	//				});
-
-	// 验证 qq
-	//				$('#yourQQ').on('blur', function() {
-	//					a = $('#yourQQ').val();
-	//					isQqTrue = QqReg.test($(this).val());					
-	//					if(isQqTrue) {
-	//						$('.qq').html('<img src="../imgs/personalCenter/yes.png">');
-	//						$('.qq').fadeIn(200);
-	//					} else {
-	//						$('.qq').html('<img src="../imgs/no.png">');
-	//						$('.qq').fadeIn(200);												
-	//					}
-	//				});
 })

@@ -67,7 +67,9 @@ $(function() {
 		$("#status").hide();
 		
 		$("#translate").html(wordObj.word_mean);
-		$("#answer").html(wordObj.word_name);
+
+		var thisWordName = wordObj.word_name.replace(/\•/g, '');
+		$("#answer").html(thisWordName);
 
 		//设置播放路径，绑定听语音事件
 		audioplaySrc = thisUrl2 + wordObj.word_url;

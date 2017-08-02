@@ -70,7 +70,7 @@
 						<div class="titleBold">智能拼写</div>
 						<div class="titleWarn">( 听写：根据读音写出单词  )</div>
 					</div>
-					<a href="../ver_voice.html" class="exit" id="exit"></a>
+					<a href="javascript:window.close();" class="exit" id="exit"></a>
 				</div>
 				<div class="word" id="word">
 					<div class="wordCon">
@@ -121,7 +121,6 @@
 				userMessage = JSON.parse(userMessage);
 				var username = userMessage[0].ID;
 			} else {
-				alert('检测到您未登录，请先登录！');
 				window.location = '../../index.html';
 			}
 			//当前选择的版本ID，教材ID ,选择的章节

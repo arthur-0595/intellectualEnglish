@@ -123,6 +123,7 @@ $(function () {
     }
 
     function fnupdateTestCon() {
+        console.log(textbook_id +'+'+ chapter_id +'+'+ type +'+'+ issound);
         $.ajax({
             type: "get",
             url: thisUrl + "/Areas/api/Interface.ashx",
