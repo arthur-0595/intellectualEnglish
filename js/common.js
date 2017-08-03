@@ -1,11 +1,11 @@
 //本地地址
 var thisUrl = 'http://192.168.2.127:8090';
 
-//var thisUrl2 = 'http://192.168.2.111:8015';
-var thisUrl2 = 'http://192.168.2.127:8090';
+var thisUrl2 = 'http://192.168.2.111:8015';
+// var thisUrl2 = 'http://192.168.2.127:8090';
 
-//var thisUrl = 'http://106.14.64.236:8012';
-//var thisUrl2 = 'http://106.14.64.236:8012';
+// var thisUrl = 'http://106.14.64.236:8012';
+// var thisUrl2 = 'http://106.14.64.236:8012';
 //服务器地址
 var serverUrl = '';
 //若页面内存在ID为studyTime的标签，则运行倒计时函数

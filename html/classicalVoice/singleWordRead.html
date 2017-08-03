@@ -24,8 +24,11 @@
 					<li class="item" v-for="(item,index) in items" v-bind:id="index" v-bind:data-word="item.letter">
 						<span class="num">{{index+1}}.</span>
 						 <!-- <input type="text" class="line" v-on:click="fnclickItemPlayer(item.letter_url)" v-bind:data-src="item.letter_url" v-bind:data-letter="item.letter.charAt(0)" /> -->
-						<span class="word" v-for="(subitem,index) in item.testletter" v-bind:data-state="subitem.state">{{(subitem.state == 0)?subitem.model:''}}<input class="line"  v-if="subitem.state == 1?true:false" type="text" name="" value=""
-							v-on:click="fnclickItemPlayer(item.letter_url)" v-bind:data-src="item.letter_url" v-bind:data-letter="subitem.model" /></span>
+						<span class="word" v-for="(subitem,index) in item.testletter" v-bind:data-state="subitem.state">
+							{{(subitem.state == 0)?subitem.model:''}}
+							<input class="line"  v-if="(subitem.state == 1)?true:false" type="text" name="" value=""
+							v-on:click="fnclickItemPlayer(item.letter_url)" v-bind:data-src="item.letter_url" v-bind:data-letter="subitem.model" />
+						</span>
 					</li>	
 				</ul>
 			</div>

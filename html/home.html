@@ -117,7 +117,7 @@
     <script type="text/template" id="template">
         <div class="me clearfix">
             <div class="pic">
-                <img src="http://192.168.2.127:8090{{=it.S_picurl}}" />
+                <img src="{{=(thisUrl + it.S_picurl)}}" />
             </div>
             <div class="name">
                 <h3 id="myname">{{=it.S_name}} <span>LV{{=it.Grade}}</span></h3>
@@ -149,7 +149,6 @@
         if (userMessage) {
             userMessage = JSON.parse(userMessage);
         } else {
-            alert('检测到您未登录，请先登录！');
             window.location = '../index.html';
         }
         var changeUserAvatar = sessionStorage.changeUserAvatar;

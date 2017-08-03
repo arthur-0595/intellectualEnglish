@@ -41,11 +41,11 @@ table {
 }
 
 /* line 28, C:/Ruby22-x64/lib/ruby/gems/2.2.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
-caption, th, td {
+/* caption, th, td {
   text-align: left;
   font-weight: normal;
   vertical-align: middle;
-}
+} */
 
 /* line 30, C:/Ruby22-x64/lib/ruby/gems/2.2.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
 q, blockquote {

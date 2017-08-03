@@ -58,6 +58,7 @@ $(function() {
 	});
 
 	function fnUpdatesentence() {
+		// console.log(chapter_id +'+'+ thistype);
 		$.ajax({
 			type: "POST",
 			url: thisUrl + "/Areas/Api/Interface.ashx",
@@ -69,8 +70,8 @@ $(function() {
 				type: thistype
 			},
 			success: function(data) {
-				console.log(JSON.stringify(data));
-				if(!data[0].sentence){
+				console.log(data);
+				if(data == 3){
 					alert('没有可学习的内容，请联系客服人员！');	
 					window.close();
 				}
@@ -88,7 +89,7 @@ $(function() {
 					//获取到数据之后更新对应的句子相关内容
 					fnUpdateAll(thisSentence, thisSentenceArr, sentenceInTheRightOrderArr);
 
-				} else {
+				} else if(data == 2){
 					alert('学习完毕，下面进行测试');
 					window.location="sentence_listen_test.html"
 				}

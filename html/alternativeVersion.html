@@ -1,59 +1,79 @@
 <!DOCTYPE html>
 <html>
 
-	<head>
-		<meta charset="UTF-8">
-		<title>智能英语 - 选择版本</title>
-		<link rel="stylesheet" href="../css/style.css" />
-		<link rel="stylesheet" href="../css/alternativeVersion.css" />
-	</head>
+<head>
+	<meta charset="UTF-8">
+	<title>智能英语 - 选择版本</title>
+	<link rel="stylesheet" href="../css/style.css" />
+	<link rel="stylesheet" href="../css/loading.css">
+	<link rel="stylesheet" href="../css/alternativeVersion.css" />
+	
+	<style>
+		#footer{
+			line-height: 60px;
+		}
+		#hintMessage{
+			background-color: rgba(0, 0, 0, .3);
+			height: 50px;
+			line-height: 50px;
+			padding: 0 15px;
+			font-size: 22px;
+			color: #fff;
+			border-radius: 6px;
+			position: absolute;
+			left:50%;top:50%;
+			display: none;
+			transform: translate(-50% , -50%);
+		}
+	</style>
+</head>
 
-	<body>
-		<header id="header">
-			<div class="header clearfix">
-				<a class="logo" href="#">
+<body>
+	<header id="header">
+		<div class="header clearfix">
+			<a class="logo" href="#">
 					<img src="../imgs/logo.png" />
 				</a>
-				<a class="exit" href="../index.html">
+			<a class="exit" href="../index.html">
 					退出
 				</a>
-				<a class="goHome" href="home.html">
+			<a class="goHome" href="home.html">
 					回到首页
 				</a>
-			</div>
-		</header>
-		<div class="topnav">
-			<div class="center" >
-				您所在的位置： <span id="centerSpan">智能记忆</span>
-			</div>
 		</div>
-		<section>
-			<div class="main clearfix">
-				<div class="mainleft">
-					<div class="lTop">
-						<div class="course" id="course">
-							<p>选择教材 </p>
-							<i></i>
-						</div>
-						<!--选择教材-->
-						<div class="selectingTextbooks" id="selectingTextbooks" style="display: none;">
-							<ul class="nav clearfix" id="courseNavs">
-								<li class="checked">在学课程</li>
-								<li class="">所有课程</li>
-							</ul>
-							<ul class="mainBot" id="mainBot">
-								<li class="myCourses" style="display: block;">
-									<table id="myCourses">
-										<thead>
-											<tr class="clearfix">
-												<td>课程名称</td>
-												<td>最后一次学习时间</td>
-												<td>学习进度</td>
-												<td>学习</td>
-											</tr>
-										</thead>
-										<tbody>
-											<!--<tr>
+	</header>
+	<div class="topnav">
+		<div class="center">
+			您所在的位置： <span id="centerSpan">智能记忆</span>
+		</div>
+	</div>
+	<section>
+		<div class="main clearfix">
+			<div class="mainleft userSelect">
+				<div class="lTop">
+					<div class="course" id="course">
+						<p>选择教材 </p>
+						<i></i>
+					</div>
+					<!--选择教材-->
+					<div class="selectingTextbooks" id="selectingTextbooks" style="display: none;">
+						<ul class="nav clearfix" id="courseNavs">
+							<li class="checked">在学课程</li>
+							<li class="">所有课程</li>
+						</ul>
+						<ul class="mainBot" id="mainBot">
+							<li class="myCourses" style="display: block;">
+								<table id="myCourses">
+									<thead>
+										<tr class="clearfix">
+											<td>课程名称</td>
+											<td>最后一次学习时间</td>
+											<td>学习进度</td>
+											<td>学习</td>
+										</tr>
+									</thead>
+									<tbody>
+										<!--<tr>
 												<td>语音训练第三期</td>
 												<td>两个小时前</td>
 												<td>
@@ -63,233 +83,237 @@
 												<td>学习</td>
 											</tr>-->
 
-										</tbody>
-									</table>
-								</li>
-								<li class="allCourses" style="display: none;">
-									<ul class="navTitle clearfix">
-										<li>选择系列</li>
-										<li>选择版本</li>
-										<li>选择课程</li>
-									</ul>
-									<div class="main">
-										<ul class="left" id="mainleft">
-											<!--<li class="padL30" data-seseriesId="11">小学英语</li>
+									</tbody>
+								</table>
+							</li>
+							<li class="allCourses" style="display: none;">
+								<ul class="navTitle clearfix">
+									<li>选择系列</li>
+									<li>选择版本</li>
+									<li>选择课程</li>
+								</ul>
+								<div class="main">
+									<ul class="left" id="mainleft">
+										<!--<li class="padL30" data-seseriesId="11">小学英语</li>
 											<li class="padL30">高中英语</li>-->
-										</ul>
-										<ul class="mid" id="mainmid" style="display: none;">
-											<!--<li class="padL30">三年级</li>
+									</ul>
+									<ul class="mid" id="mainmid" style="display: none;">
+										<!--<li class="padL30">三年级</li>
 											<li class="padL30">语音训练</li>-->
-										</ul>
-										<ul class="right" id="mainright" style="display: none;">
-											<!--<li class="padL30">一上</li>
+									</ul>
+									<ul class="right" id="mainright" style="display: none;">
+										<!--<li class="padL30">一上</li>
 											<li class="padL30">一下</li>-->
-										</ul>
-									</div>
-								</li>
-							</ul>
-						</div>
-						<!--选择教材结束-->
-						<div class="section">
-							<div class="sectionBox" id="sectionBox">
-								<p>选择章节</p>
-								<i></i>
-							</div>
-							<!--选择章节-->
-							<ul class="chapterList" id="chapterList" style="display: none;">
-								<li>Unit1</li>
-								<li>Unit2</li>
-							</ul>
-						</div>
-						<div class="test" id="test">
-							测试中心
+									</ul>
+								</div>
+							</li>
+						</ul>
+					</div>
+					<!--选择教材结束-->
+					<div class="section">
+						<div class="sectionBox" id="sectionBox">
+							<p>选择章节</p>
 							<i></i>
-							<!--测试中心开始-->
-							<ul class="testList" id="testList" style="display: none;">
-								<li>已学测试</li>
-								<li>生词测试</li>
-								<li>熟词测试</li>
-								<li>五维测试</li>
-							</ul>
-							<!--测试中心结束-->
 						</div>
+						<!--选择章节-->
+						<ul class="chapterList" id="chapterList" style="display: none;">
+							<li>Unit1</li>
+							<li>Unit2</li>
+						</ul>
+					</div>
+					<div class="test" id="test">
+						测试中心
+						<i></i>
+						<!--测试中心开始-->
+						<ul class="testList" id="testList" style="display: none;">
+							<li>已学测试</li>
+							<li>生词测试</li>
+							<li>熟词测试</li>
+							<li>五维测试</li>
+						</ul>
+						<!--测试中心结束-->
+					</div>
 
-						<div id="">
-							<a class="wordBook" href="#">
+					<div id="">
+						<a class="wordBook" href="#">
 								单词本
 							</a>
-						</div>
-						<div>
-							<a class="memory" href="#">
+					</div>
+					<div>
+						<a class="memory" href="#">
 								记忆追踪
 							</a>
-						</div>
+					</div>
 
-					</div>
-					<div class="lBot">
-						<div class="efficiency">
-							今日学习效率
-						</div>
-						<div class="percentage">
-							41%
-						</div>
-						<div class="onlineTime">
-							在线时长： <span>00: 20: 15</span>
-						</div>
-						<div class="validTime">
-							有效时长： <span>00: 12: 15</span>
-						</div>
-					</div>
 				</div>
-				<div class="mainright clearfix">
-					<div class="study">
-						<div class="start">
-							<div class="book" id="clickBook">
-								<div class="cen" id="cen_book">
-									<div class="pic">
-										<img src="../imgs/home/01.png" />
-									</div>
-									<h3>智能记忆</h3>
-									<span>Intelligent Memory</span>
-									<i>点击开始学习</i>
-								</div>
-							</div>
-						</div>
-						<div class="bot clearfix">
-							<div class="progress">
-								<div class="speed">
-									速度：&nbsp;<span>120</span>&nbsp;个/小时
-								</div>
-								<div class="unitpercent">
-									单元进度：
-									<div class="percent">
-										<div class="now"></div>
-									</div>&nbsp;
-									<span class="percentNum">25%</span>
-								</div>
-								<div class="coursepercent">
-									课程进度：
-									<div class="percent">
-										<div class="now"></div>
-									</div>&nbsp;
-									<span class="percentNum">49%</span>
-								</div>
-								<div class="onceAgain">
-									再学一遍
-								</div>
-							</div>
-							<div class="review">
-								<div class="courseStudyNum">
-									课程总复习量
-									<p>
-										112个
-									</p>
-									<div class="bot">
-										<a class="intelligentReview" href="#">
-											智能复习
-										</a>&nbsp;&nbsp;
-										<a class="testReview" href="#">
-											测试复习
-										</a>
-									</div>
-								</div>
-
-							</div>
-						</div>
+				<div class="lBot">
+					<div class="efficiency">
+						今日学习效率
 					</div>
-					<div class="navs">
-						<div class="category" id="category_h">
-							01
-							<span>Intelligent Memory</span>
-						</div>
-						<div class="title" id="title_h">
-							智能记忆
-						</div>
-						<a href="home.html">
-						<i></i></a>
+					<div class="percentage">
+						41%
+					</div>
+					<div class="onlineTime">
+						在线时长： <span>00: 20: 15</span>
+					</div>
+					<div class="validTime">
+						有效时长： <span>00: 12: 15</span>
 					</div>
 				</div>
 			</div>
-		</section>
+			<div class="mainright clearfix">
+				<div class="study">
+					<div class="start">
+						<div class="book" id="clickBook">
+							<div class="cen" id="cen_book">
+								<div class="pic">
+									<img src="../imgs/home/01.png" />
+								</div>
+								<h3>智能记忆</h3>
+								<span>Intelligent Memory</span>
+								<i>点击开始学习</i>
+							</div>
+						</div>
+					</div>
+					<div class="bot clearfix">
+						<div class="progress">
+							<div class="speed">
+								速度：&nbsp;<span>120</span>&nbsp;个/小时
+							</div>
+							<div class="unitpercent">
+								单元进度：
+								<div class="percent">
+									<div class="now"></div>
+								</div>&nbsp;
+								<span class="percentNum">25%</span>
+							</div>
+							<div class="coursepercent">
+								课程进度：
+								<div class="percent">
+									<div class="now"></div>
+								</div>&nbsp;
+								<span class="percentNum">49%</span>
+							</div>
+							<div class="onceAgain" id="onceAgain">
+								再学一遍
+							</div>
+						</div>
+						<div class="review">
+							<div class="courseStudyNum">
+								课程总复习量
+								<p>
+									112个
+								</p>
+								<div class="bot">
+									<a class="intelligentReview" href="#">
+											智能复习
+										</a>&nbsp;&nbsp;
+									<a class="testReview" href="#">
+											测试复习
+										</a>
+								</div>
+							</div>
 
-		<footer id="footer">
-			©2017SOUGOU - 京ICP证050897号 - 京公安网备11000002000025号
-		</footer>
+						</div>
+					</div>
+				</div>
+				<div class="navs">
+					<div class="category" id="category_h">
+						01
+						<span>Intelligent Memory</span>
+					</div>
+					<div class="title" id="title_h">
+						智能记忆
+					</div>
+					<a href="home.html">
+						<i></i></a>
+				</div>
+			</div>
+		</div>
+	</section>
+	<span id="hintMessage">
+		本章学习记录已清除，开始学习吧！
+	</span>
 
-		<script type="text/template" id="template">
-			<table class="studyRate" id="studyRate" style="display: block;">
-				<tr>
-					<th class="title1">学习类型</th>
-					<th class="title2">进度</th>
-					<th class="title3">复习量</th>
-				</tr>
-				<tr>
-					<td>智能记忆</td>
-					<td>
-						<div class="rate">
-							<div class="thisrate"></div>
-						</div>
-						<span class="rateNum">49%</span>
-					</td>
-					<td>23</td>
-				</tr>
-				<tr>
-					<td>智能听写</td>
-					<td>
-						<div class="rate">
-							<div class="thisrate"></div>
-						</div>
-						<span class="rateNum">23%</span>
-					</td>
-					<td>23</td>
-				</tr>
-				<tr>
-					<td>智能默写</td>
-					<td>
-						<div class="rate">
-							<div class="thisrate"></div>
-						</div>
-						<span class="rateNum">20%</span>
-					</td>
-					<td>23</td>
-				</tr>
-				<tr>
-					<td>例句听力</td>
-					<td>
-						<div class="rate">
-							<div class="thisrate"></div>
-						</div>
-						<span class="rateNum">50%</span>
-					</td>
-					<td>23</td>
-				</tr>
-				<tr>
-					<td>例句翻译</td>
-					<td>
-						<div class="rate">
-							<div class="thisrate"></div>
-						</div>
-						<span class="rateNum">65%</span>
-					</td>
-					<td>23</td>
-				</tr>
-				<tr>
-					<td>例句默写</td>
-					<td>
-						<div class="rate">
-							<div class="thisrate"></div>
-						</div>
-						<span class="rateNum">12%</span>
-					</td>
-					<td>23</td>
-				</tr>
-			</table>
-		</script>
+	<footer id="footer">
+		©2017SOUGOU - 京ICP证050897号 - 京公安网备11000002000025号
+	</footer>
 
-		<script src="../js/jquery-3.2.1.min.js"></script>
-		<script src="../js/doT.min.js"></script>
-		<script src="../js/common.js"></script>
-		<script src="../js/alternativeVersion.js"></script>
-	</body>
+	<script type="text/template" id="template">
+		<table class="studyRate" id="studyRate" style="display: block;">
+			<tr>
+				<th class="title1">学习类型</th>
+				<th class="title2">进度</th>
+				<th class="title3">复习量</th>
+			</tr>
+			<tr>
+				<td>智能记忆</td>
+				<td>
+					<div class="rate">
+						<div class="thisrate"></div>
+					</div>
+					<span class="rateNum">49%</span>
+				</td>
+				<td>23</td>
+			</tr>
+			<tr>
+				<td>智能听写</td>
+				<td>
+					<div class="rate">
+						<div class="thisrate"></div>
+					</div>
+					<span class="rateNum">23%</span>
+				</td>
+				<td>23</td>
+			</tr>
+			<tr>
+				<td>智能默写</td>
+				<td>
+					<div class="rate">
+						<div class="thisrate"></div>
+					</div>
+					<span class="rateNum">20%</span>
+				</td>
+				<td>23</td>
+			</tr>
+			<tr>
+				<td>例句听力</td>
+				<td>
+					<div class="rate">
+						<div class="thisrate"></div>
+					</div>
+					<span class="rateNum">50%</span>
+				</td>
+				<td>23</td>
+			</tr>
+			<tr>
+				<td>例句翻译</td>
+				<td>
+					<div class="rate">
+						<div class="thisrate"></div>
+					</div>
+					<span class="rateNum">65%</span>
+				</td>
+				<td>23</td>
+			</tr>
+			<tr>
+				<td>例句默写</td>
+				<td>
+					<div class="rate">
+						<div class="thisrate"></div>
+					</div>
+					<span class="rateNum">12%</span>
+				</td>
+				<td>23</td>
+			</tr>
+		</table>
+	</script>
+
+	<script src="../js/jquery-3.2.1.min.js"></script>
+	<script src="../js/doT.min.js"></script>
+	<script src="../js/common.js"></script>
+	<script src="../js/loading.js"></script>
+	<script src="../js/alternativeVersion.js"></script>
+</body>
 
 </html>

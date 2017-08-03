@@ -32,65 +32,88 @@ $(function() {
 	var isTelTrue, isEmailTrue, isQqTrue;
 	var TelReg = /^1\d{10}$/,
 		EmailReg = /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/,
-		QqReg = /^[1-9][0-9]{4,}$/;
+		QqReg = /^[1-9][0-9]{4,}$/;		
+		$('#newPwd').on('blur', function() {
+			if($(this).val()){
+				var reg = /^\w{6,16}$/;
+				if(!reg.test($(this).val())) {
+					$('.newInput').text('密码应为6-16位！').css('color','red').fadeIn(200);
+				} else {
+					$('.newInput').fadeOut(200);
+				}
+			}			
+		});
+		$('#newPwd').on('focus',function(){
+			$('.newInput').text('6-16位数字、字母、下划线').css('color','#999').fadeIn(200);
+		});
 	// 密码框
-	$('.changePassword').on('click', function() {
+	$('.changePassword').on('click', function() {		
 		$('#cover').show();
 		$('#changePasswordDialog').show();
-		var oldPassword, newPassword, newPasswordAgain, userCode = userMessage[0]['S_code'];
-		$('#newPwd').on('keyup', function() {
-			var reg = /^[a-zA-z]\w{5,15}$/;
-			if(reg.test($(this).val())) {
-				$('.newInput').fadeOut(200);
-			} else {
-				$('.newInput').fadeIn(200);
-			}
+		$('#oldPwd').focus();
+		$('.passwordInput').each(function() {
+			$(this).val('');
 		});
-		$('#newPwdAgain').on('keyup', function() {
-			if($(this).val() !== $('#newPwd').val()) {
-				$('.againInput').fadeIn(200);
-			} else {
-				$('.againInput').fadeOut(200);
-			}
-		})
+		$('.oldInput').hide();
+		$('.newInput').text('6-16位数字、字母、下划线').css('color','#999').fadeIn(200);
+		$('.againInput').hide();
+		var oldPassword, newPassword, newPasswordAgain, userCode = userMessage[0]['S_code'];
 		// 验证密码修改状态
 		$('.submit').on('click', function() {
 			oldPassword = $.trim($('#oldPwd').val());
 			newPassword = $.trim($('#newPwd').val());
 			newPasswordAgain = $.trim($('#newPwdAgain').val());
 			if(oldPassword && newPassword && newPasswordAgain) {
-				if(newPassword === newPasswordAgain) {
-					$.ajax({
-						type: 'POST',
-						url: thisUrl + '/Areas/api/Interface.ashx',
-						dataType: 'json',
-						data: {
-							method: 'Editpwd',
-							S_code: userCode,
-							pwd: oldPassword,
-							newpwd: newPassword
-						},
-						success: function(data) {
-							if(data.result === 0) {
-								clearInput('对不起，重置密码失败');
-							} else if(data.result === 1) {
-								warnMsg('恭喜您，密码修改成功');
-								$("#cover").delay(1600).fadeOut(200);
-
-							} else if(data.result === 2) {
-								clearInput('原密码有误');
-								$('.oldInput').show();
-
-							} else if(data.result === 3) {								
-								clearInput('该用户不存在');
-							}
-						}
-					});
+				if(newPassword === newPasswordAgain) {						
+						var reg = /^\w{6,16}$/;
+						if(!reg.test($('#newPwd').val())) {
+							$('#newPwd').focus();
+							$('.newInput').text('密码应为6-16位！').css('color','red').fadeIn(200);	
+							$('.againInput').hide();
+						} 
+						else {
+							$('.newInput').fadeOut(200);
+							$.ajax({
+								type: 'POST',
+								url: thisUrl + '/Areas/api/Interface.ashx',
+								dataType: 'json',
+								data: {
+									method: 'Editpwd',
+									S_code: userCode,
+									pwd: oldPassword,
+									newpwd: newPassword
+								},
+								success: function(data) {
+									if(data.result === 0) {
+										clearInput('对不起，重置密码失败');
+									} else if(data.result === 1) {
+										$('.againInput').hide();
+										warnMsg('恭喜您，密码修改成功');												
+										$("#cover").delay(1600).fadeOut(200);
+										return false;
+									} else if(data.result === 2) {
+										warnMsg('原密码有误');
+										$('#oldPwd').focus();
+										$('.oldInput').show();
+										$('.newInput').text('6-16位数字、字母、下划线').css('color','#999').fadeIn(200);
+										$('.againInput').hide();
+		
+									} else if(data.result === 3) {								
+										clearInput('该用户不存在');
+									}
+								}
+							});
+						}					
+						
+					
 				} else {
 					warnMsg('两次密码不一致');
+					$('#newPwdAgain').val('').focus();
+					$('.againInput').css('color','red').fadeIn(200);
 				}
 			} else if(!oldPassword || !newPassword || !newPasswordAgain) {
 				warnMsg('请填写完整信息');
+				$('#oldPwd').focus();
 			}
 		});
 	});
@@ -108,8 +131,7 @@ $(function() {
 		isQqTrue = QqReg.test($('#yourQQ').val());
 		// 验证家长电话
 		if(isTelTrue && isEmailTrue && isQqTrue) {
-			changeMessageajax();
-			
+			changeMessageajax();			
 			$('.tel').text('');
 			$('.email').text('');
 			$('.qq').text('');
