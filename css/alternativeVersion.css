@@ -1,48 +1,57 @@
-body{
+body {
 	background-color: #f2f2f2;
 }
-header{
+
+header {
 	width: 100%;
 	background-color: #fff;
 	height: 64px;
 }
-header .header{
+
+header .header {
 	width: 1200px;
 	height: 64px;
 	margin: 0 auto;
 }
-.topnav{
+
+.topnav {
 	width: 100%;
 	height: 40px;
 	background-color: #ff7a57;
 }
-.topnav .center{
+
+.topnav .center {
 	width: 1200px;
 	margin: 0 auto;
 	line-height: 40px;
 	color: #fff;
 	font-size: 14px;
 }
-section{
+
+section {
 	width: 1200px;
 	margin: 0 auto;
 }
-section .main{
+
+section .main {
 	width: 1166px;
 	height: 620px;
 	margin: 40px auto;
 }
-section .mainleft{
+
+section .mainleft {
 	width: 380px;
 	height: 620px;
 	float: left;
 }
-section .mainright{
+
+section .mainright {
 	width: 770px;
 	height: 620px;
 	float: right;
 }
-section .mainleft .lTop{
+
+section .mainleft .lTop {
 	width: 100%;
 	height: 314px;
 	padding-top: 16px;
@@ -50,7 +59,8 @@ section .mainleft .lTop{
 	margin-bottom: 16px;
 	position: relative;
 }
-.mainleft .course{
+
+.mainleft .course {
 	width: 350px;
 	height: 36px;
 	background-color: #fff;
@@ -62,16 +72,18 @@ section .mainleft .lTop{
 	margin: 0 auto 16px;
 	cursor: pointer;
 }
-.mainleft .course p{
+
+.mainleft .course p {
 	width: 295px;
 	margin-left: 20px;
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
 }
+
 .mainleft .course i,
 .mainleft .section .sectionBox i,
-.mainleft .test i{
+.mainleft .test i {
 	width: 16px;
 	height: 14px;
 	background: url(../imgs/versions/down.png) no-repeat center;
@@ -80,8 +92,10 @@ section .mainleft .lTop{
 	top: 11px;
 }
 
+
 /*--选择教材--*/
-.selectingTextbooks{
+
+.selectingTextbooks {
 	width: 1166px;
 	height: 600px;
 	background-color: #fff;
@@ -90,12 +104,14 @@ section .mainleft .lTop{
 	left: 0;
 	top: 50px;
 }
-.selectingTextbooks ul.nav{
+
+.selectingTextbooks ul.nav {
 	width: 1086px;
 	height: 40px;
 	margin: 40px auto 0;
 }
-.selectingTextbooks ul.nav li{
+
+.selectingTextbooks ul.nav li {
 	width: 100px;
 	float: left;
 	height: 40px;
@@ -106,123 +122,157 @@ section .mainleft .lTop{
 	font-size: 16px;
 	cursor: pointer;
 }
-.selectingTextbooks ul.nav li.checked{
+
+.selectingTextbooks ul.nav li.checked {
 	background-color: #ff7b57;
 	color: #fff;
 }
-.selectingTextbooks ul.mainBot{
+
+.selectingTextbooks ul.mainBot {
 	width: 1086px;
 	height: 480px;
 	margin: 0 auto;
 }
-.selectingTextbooks ul li.myCourses{
+
+.selectingTextbooks ul li.myCourses {
 	display: block;
 	width: 100%;
 	height: 100%;
-	
 }
-.selectingTextbooks ul li.myCourses table{
-	border-spacing:0;border-collapse:collapse;
+
+.selectingTextbooks ul li.myCourses table {
+	border-spacing: 0;
+	border-collapse: collapse;
 	width: 100%;
 }
-li.myCourses thead tr{
-	font-size: 16px;color: #fff;
-	height: 40px;text-align: center;
+
+li.myCourses thead tr {
+	font-size: 16px;
+	color: #fff;
+	height: 40px;
+	text-align: center;
 	background-color: #ff7b57;
 	line-height: 40px;
 	font-weight: normal;
 }
-li.myCourses thead tr td:nth-child(1){
+
+li.myCourses thead tr td:nth-child(1) {
 	width: 546px;
 }
-li.myCourses thead tr td:nth-child(2){
+
+li.myCourses thead tr td:nth-child(2) {
 	width: 220px;
 }
-li.myCourses thead tr td:nth-child(3){
+
+li.myCourses thead tr td:nth-child(3) {
 	width: 160px;
 }
-li.myCourses thead tr td:nth-child(4){
+
+li.myCourses thead tr td:nth-child(4) {
 	width: 160px;
 }
-li.myCourses tbody tr{
+
+li.myCourses tbody tr {
 	border-bottom: 1px solid #eee;
-	font-size: 14px;color: #333;
-	text-align: center;line-height: 39px;
+	font-size: 14px;
+	color: #333;
+	text-align: center;
+	line-height: 39px;
 }
-li.myCourses tbody tr td:nth-child(1){
+
+li.myCourses tbody tr td:nth-child(1) {
 	text-align: left;
 	padding-left: 20px;
 }
-li.myCourses tbody tr td:nth-child(3){
+
+li.myCourses tbody tr td:nth-child(3) {
 	position: relative;
 }
-li.myCourses tbody tr td:nth-child(4){
+
+li.myCourses tbody tr td:nth-child(4) {
 	color: #999;
 }
-li.myCourses tbody tr td:nth-child(4):hover{
+
+li.myCourses tbody tr td:nth-child(4):hover {
 	color: #ff7b57;
 	cursor: pointer;
 }
 
-li.myCourses tbody tr a{
+li.myCourses tbody tr a {
 	color: #ff7b57;
 }
-li.myCourses tbody #studyRate{
-	width: 410px;height: 280px;
-	border-spacing:0;border-collapse:collapse;
+
+li.myCourses tbody #studyRate {
+	width: 410px;
+	height: 280px;
+	border-spacing: 0;
+	border-collapse: collapse;
 	display: block;
 	position: absolute;
 	background-color: #fff;
 	z-index: 2;
-	left: -78%;top: 40px;
+	left: -78%;
+	top: 40px;
 }
-li.myCourses tbody #studyRate tr{
-	font-size: 14px;color: #333;
+
+li.myCourses tbody #studyRate tr {
+	font-size: 14px;
+	color: #333;
 	line-height: 40px;
 	border-left: 1px solid #eee;
 	border-right: 1px solid #eee;
 }
-li.myCourses tbody #studyRate tr:nth-child(1){
+
+li.myCourses tbody #studyRate tr:nth-child(1) {
 	background-color: #333;
 	color: #fff;
 	font-size: 16px;
 }
-li.myCourses tbody #studyRate tr td{
+
+li.myCourses tbody #studyRate tr td {
 	background-color: #fff;
 }
-li.myCourses tbody #studyRate tr .rate{
+
+li.myCourses tbody #studyRate tr .rate {
 	display: inline-block;
-	width: 130px;height: 5px;
+	width: 130px;
+	height: 5px;
 	background-color: #ccc;
 	position: relative;
 	top: -3px;
 	margin-right: 5px;
 }
-li.myCourses tbody #studyRate tr .rate .thisrate{
+
+li.myCourses tbody #studyRate tr .rate .thisrate {
 	width: 49%;
 	height: 100%;
 	background-color: #ff7b57;
 }
-.title1{
-	width: 100px;
-}
-.title2{
-	width: 210px;
-}
-.title3{
+
+.title1 {
 	width: 100px;
 }
 
-.selectingTextbooks ul li.allCourses{
+.title2 {
+	width: 210px;
+}
+
+.title3 {
+	width: 100px;
+}
+
+.selectingTextbooks ul li.allCourses {
 	display: none;
 	width: 100%;
 	height: 100%;
 }
-li.allCourses .navTitle{
+
+li.allCourses .navTitle {
 	width: 100%;
 	height: 40px;
 }
-li.allCourses .navTitle li{
+
+li.allCourses .navTitle li {
 	height: 40px;
 	line-height: 40px;
 	float: left;
@@ -231,59 +281,75 @@ li.allCourses .navTitle li{
 	background-color: #ff7b57;
 	font-size: 16px;
 }
-li.allCourses .navTitle li:nth-child(1){
+
+li.allCourses .navTitle li:nth-child(1) {
 	width: 260px;
 }
-li.allCourses .navTitle li:nth-child(2){
+
+li.allCourses .navTitle li:nth-child(2) {
 	width: 405px;
 }
-li.allCourses .navTitle li:nth-child(3){
+
+li.allCourses .navTitle li:nth-child(3) {
 	width: 419px;
 }
-li.allCourses .main{
+
+li.allCourses .main {
 	width: 100%;
 	height: 440px;
 	overflow: hidden;
 	margin: 0 auto;
 }
-li.allCourses .main ul{
+
+li.allCourses .main ul {
 	float: left;
 	overflow: auto;
 	border-left: 1px solid #ccc;
 	border-right: 1px solid #ccc;
 }
-li.allCourses .main ul:nth-child(2){
+
+li.allCourses .main ul:nth-child(2) {
 	margin-left: -1px;
 }
-li.allCourses .main ul:nth-child(3){
+
+li.allCourses .main ul:nth-child(3) {
 	margin-left: -1px;
 }
-li.allCourses .main ul li{
+
+li.allCourses .main ul li {
 	border-bottom: 1px solid #ccc;
-	height: 39px;text-align: left;
+	height: 39px;
+	text-align: left;
 	line-height: 39px;
 	color: #333;
 	cursor: pointer;
 }
-li.allCourses .main ul li:hover{
+
+li.allCourses .main ul li:hover {
 	background-color: #eee;
 }
-li.allCourses .main ul li:active{
+
+li.allCourses .main ul li:active {
 	background-color: #ff7b57;
 	color: #fff;
 }
-li.allCourses .main ul:nth-child(1){
+
+li.allCourses .main ul:nth-child(1) {
 	width: 260px;
 }
-li.allCourses .main ul:nth-child(2){
+
+li.allCourses .main ul:nth-child(2) {
 	width: 404px;
 }
-li.allCourses .main ul:nth-child(3){
+
+li.allCourses .main ul:nth-child(3) {
 	width: 416px;
 }
+
+
 /*--选择教材结束--*/
 
-.mainleft .section{
+.mainleft .section {
 	font-size: 16px;
 	line-height: 36px;
 	color: #fff;
@@ -291,7 +357,8 @@ li.allCourses .main ul:nth-child(3){
 	margin-bottom: 16px;
 	position: relative;
 }
-.mainleft .section .sectionBox{
+
+.mainleft .section .sectionBox {
 	margin-right: 30px;
 	/*float: left;*/
 	width: 124px;
@@ -304,19 +371,25 @@ li.allCourses .main ul:nth-child(3){
 	position: relative;
 	cursor: pointer;
 }
+
+
 /*------------选择章节开始--------------*/
-.chapterList{
+
+.chapterList {
 	width: 1106px;
 	height: 455px;
 	background-color: #fff;
 	padding: 60px 0 0 60px;
 	position: absolute;
-	left: -15px;top: 36px;
+	left: -15px;
+	top: 36px;
 	z-index: 2;
 	overflow: auto;
 }
-.chapterList li{
-	width: 215px;height: 85px;
+
+.chapterList li {
+	width: 215px;
+	height: 85px;
 	border: 1px solid #999;
 	border-radius: 43px;
 	float: left;
@@ -327,66 +400,93 @@ li.allCourses .main ul:nth-child(3){
 	line-height: 85px;
 	cursor: pointer;
 }
-.chapterList li:hover{
+
+.chapterList li:hover {
 	color: #ff7b57;
 	border-color: #ff7b57;
 }
+
+
 /*------------选择章节结束--------------*/
-.mainleft .test{
+
+.mainleft .test {
 	width: 124px;
-	height: 36px;background-color: #fff;
-	line-height: 36px;border-radius: 18px;
+	height: 36px;
+	background-color: #fff;
+	line-height: 36px;
+	border-radius: 18px;
 	color: #333;
 	padding-left: 20px;
 	position: relative;
 	left: 15px;
-	margin-bottom: 40px;
+	margin-bottom: 25px;
 	cursor: pointer;
 }
+.mainleft .test a{
+	color: #333;
+	width: 100%;
+	height: 100%;
+	display: block;
+	line-height: 35px;
+}
 /*-----------------测试开始-------------------*/
-.testList{
+
+.testList {
 	width: 144px;
 	position: absolute;
-	left: 0;top: 36px;
+	left: 0;
+	top: 36px;
 }
-.testList li{
+
+.testList li {
 	background-color: #fff;
 	border-top: 1px solid #999;
-	width: 114px;
-	padding-left: 30px;
+	width: 144px;
+	box-sizing: border-box;
 	text-align: left;
+	padding-left: 28px;
 	line-height: 35px;
 	font-size: 16px;
 	color: #333;
 }
+
 /*-----------------测试结束-------------------*/
-.mainleft .wordBook,.mainleft .memory{
+
+.mainleft .wordBook,
+.mainleft .memory,
+.mainleft .testLog {
 	width: auto;
 	height: 30px;
 	display: inline-block;
 	color: #fff;
 	font-size: 16px;
 	line-height: 30px;
-	margin-bottom: 30px;
+	margin-bottom: 20px;
 	margin-left: 30px;
 	border-bottom: 1px solid transparent;
 }
-.mainleft .wordBook:hover,.mainleft .memory:hover{
+
+.mainleft .wordBook:hover,
+.mainleft .memory:hover,
+.mainleft .testLog:hover {
 	border-bottom: 1px solid #fff;
 }
-section .mainleft .lBot{
+
+section .mainleft .lBot {
 	width: 100%;
 	height: 212px;
 	background: #fff;
 	padding-top: 62px;
 }
-.mainleft .efficiency{
+
+.mainleft .efficiency {
 	width: 100%;
 	text-align: center;
 	color: #333;
 	font-size: 18px;
 }
-.mainleft .percentage{
+
+.mainleft .percentage {
 	font-size: 36px;
 	font-weight: bold;
 	color: #ff7b57;
@@ -394,8 +494,9 @@ section .mainleft .lBot{
 	width: 100%;
 	margin: 24px 0 37px;
 }
+
 .mainleft .onlineTime,
-.mainleft .validTime{
+.mainleft .validTime {
 	width: 100%;
 	text-align: center;
 	font-size: 14px;
@@ -403,39 +504,45 @@ section .mainleft .lBot{
 	margin-bottom: 16px;
 }
 
-section .mainright{
+section .mainright {
 	width: 770px;
 	height: 620px;
 	float: right;
 }
-section .mainright .study{
+
+section .mainright .study {
 	width: 620px;
 	height: 100%;
 	float: left;
 }
-.mainright .study .start{
+
+.mainright .study .start {
 	width: 100%;
 	height: 357px;
 	background-color: #fff;
 	margin-bottom: 1px;
 	padding-top: 45px;
 }
-.mainright .study .book{
+
+.mainright .study .book {
 	width: 218px;
 	height: 294px;
 	background-color: #ecf2f2;
-	margin: 0 auto;	
+	margin: 0 auto;
 	padding-top: 14px;
 	cursor: pointer;
 	transition: all 0.5s ease-in-out;
 }
-.mainright .study .book:hover .cen{
+
+.mainright .study .book:hover .cen {
 	border: 1px solid #333;
 }
-.mainright .study .book:hover .cen i{
+
+.mainright .study .book:hover .cen i {
 	display: block;
 }
-.mainright .book .cen{
+
+.mainright .book .cen {
 	width: 189px;
 	height: 218px;
 	border: 1px solid transparent;
@@ -443,24 +550,28 @@ section .mainright .study{
 	text-align: center;
 	padding-top: 60px;
 }
-.mainright .book .cen .pic{
+
+.mainright .book .cen .pic {
 	width: 86px;
 	height: 86px;
 	border-radius: 50%;
 	margin: 0 auto 30px;
 }
-.mainright .book .cen .pic img{
+
+.mainright .book .cen .pic img {
 	width: 100%;
 	height: 100%;
 }
-.mainright .cen h3{
+
+.mainright .cen h3 {
 	font-size: 22px;
 	font-weight: normal;
 	color: #ff7b57;
 	line-height: 30px;
 	height: 30px;
 }
-.mainright .cen span{
+
+.mainright .cen span {
 	width: 100%;
 	text-align: center;
 	font-size: 12px;
@@ -469,7 +580,8 @@ section .mainright .study{
 	line-height: 19px;
 	height: 19px;
 }
-.mainright .cen i{
+
+.mainright .cen i {
 	width: 100%;
 	text-align: center;
 	font-size: 18px;
@@ -479,7 +591,7 @@ section .mainright .study{
 	height: 33px;
 }
 
-.study .bot .progress{
+.study .bot .progress {
 	width: 344px;
 	height: 167px;
 	margin-right: 1px;
@@ -490,37 +602,45 @@ section .mainright .study{
 	font-size: 16px;
 	color: #333;
 }
-.study .progress>div{
+
+.study .progress>div {
 	margin-bottom: 16px;
 }
-.study .progress>div>div{
+
+.study .progress>div>div {
 	display: inline-block;
 	width: 164px;
 	height: 10px;
 	background-color: #ccc;
 }
-.study .progress .unitpercent .now{
+
+.study .progress .unitpercent .now {
 	height: 100%;
 	width: 25%;
 	background-color: #ff7b57;
 }
-.study .progress .coursepercent .now{
+
+.study .progress .coursepercent .now {
 	height: 100%;
 	width: 49%;
 	background-color: #ff7b57;
 }
-.study .progress>div span{
+
+.study .progress>div span {
 	display: inline-block;
 	font-size: 12px;
 	color: #333;
 }
-.study .progress .onceAgain{
+
+.study .progress .onceAgain {
 	cursor: pointer;
 }
-.study .progress .onceAgain:hover{
+
+.study .progress .onceAgain:hover {
 	color: #ff7b57;
 }
-.study .bot .review{
+
+.study .bot .review {
 	width: 249px;
 	height: 217px;
 	float: left;
@@ -528,17 +648,21 @@ section .mainright .study{
 	text-align: center;
 	color: #333;
 }
-.study .review .courseStudyNum{
+
+.study .review .courseStudyNum {
 	width: 100%;
 	font-size: 18px;
 	padding-top: 50px;
 }
-.study .review .courseStudyNum p{
+
+.study .review .courseStudyNum p {
 	margin: 22px 0 16px 0;
-	width: 100%;font-size: 36px;
+	width: 100%;
+	font-size: 36px;
 	font-weight: bold;
 }
-.study .review .bot a{
+
+.study .review .bot a {
 	color: #ff7b57;
 	line-height: 30px;
 	display: inline-block;
@@ -546,10 +670,12 @@ section .mainright .study{
 	font-size: 14px;
 	border-bottom: 1px solid transparent;
 }
-.study .review .bot a:hover{
+
+.study .review .bot a:hover {
 	border-bottom: 1px solid #ff7b57;
 }
-section .mainright .navs{
+
+section .mainright .navs {
 	width: 150px;
 	height: 576px;
 	float: right;
@@ -558,24 +684,28 @@ section .mainright .navs{
 	text-align: center;
 	position: relative;
 }
-section .navs .category{
+
+section .navs .category {
 	font-size: 72px;
 	font-weight: bold;
 	color: #fff;
 	margin-bottom: 90px;
 }
-section .navs .category span{
+
+section .navs .category span {
 	display: block;
 	font-size: 12px;
 	font-weight: normal;
 	/*margin-top: 12px;*/
 }
-section .navs .title{
+
+section .navs .title {
 	font-size: 18px;
 	font-family: "微软雅黑";
 	color: #fff;
 }
-section .navs i{
+
+section .navs i {
 	width: 50px;
 	height: 50px;
 	background: url(../imgs/versions/back.png) no-repeat center;
@@ -586,43 +716,3 @@ section .navs i{
 	transform: translateX(-50%);
 	cursor: pointer;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

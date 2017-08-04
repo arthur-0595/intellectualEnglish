@@ -13,12 +13,6 @@ $(function () {
     //当前的大类，大类的name
     var type, typeStr, typeEnglish;
 
-    //	$.getUrlParam = function(name) {
-    //		var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
-    //		var r = window.location.search.substr(1).match(reg);
-    //		if(r != null) return decodeURI(r[2]);
-    //		return null;
-    //	};
     type = sessionStorage.type;
     typeStr = sessionStorage.typeStr;
     typeEnglish = sessionStorage.typeEnglish;
@@ -29,12 +23,6 @@ $(function () {
     // version_name = sessionStorage.version_name;
     // textbook_name = sessionStorage.textbook_name;
     // chapter_name = sessionStorage.chapter_name;
-
-    // if (version_name && textbook_name && chapter_name) {
-    //     var courseP = version_name + ' - ' + textbook_name;
-    //     $("#course p").html(courseP);
-    //     $("#sectionBox p").html(chapter_name);
-    // }
 
     //根据大类以及大类的name来显示相应的页面内容
     (function () {
@@ -52,8 +40,45 @@ $(function () {
 							<span>${typeEnglish}</span>`);
         $("#title_h").html(typeStr);
     })();
-    //跳转智能记忆
 
+    //若当前页面的类别是句子相关的，则修改测试中心各选项的点击跳转路径
+    (function (type_) {
+        switch (type_) {
+            case '01':
+                console.log('type1');
+                var commonTest = $("#testList .commonTest");
+                $.each(commonTest, function (index, element) { 
+                     element.href="javascript:window.open('../html/testCenter/word_memory_test.html?testType="+(index+1)+"')";
+                });
+                break;
+            case '02':
+                console.log('type2');
+
+                break;
+            case '03':
+                console.log('type3');
+
+                break;
+            case '04':
+                console.log('type4');
+                $("#overallTest").remove();
+                break;
+            case '05':
+                console.log('type5');
+                $("#overallTest").remove();
+                break;
+            case '06':
+                console.log('type6');
+                $("#overallTest").remove();
+                break;                    
+        
+            default:
+                console.log('type1');
+                break;
+        }
+    })(type);
+
+    //跳转智能记忆
     $("#clickBook").on("click", function () {
         if (textbook_id && version_id && chapter_id) {
             if (type == 01) {
@@ -283,8 +308,8 @@ $(function () {
     //测试相关
     $("#test").on("click", function () {
         if (chapter_id && version_id && textbook_id) {
-            $("#chapterList").hide();
-            $("#selectingTextbooks").hide();
+            fnupdateTestAmount();
+
             $("#testList").toggle();
             if ($("#testList").css("display") == "block") {
                 $("#test").css("border-radius", "18px 18px 0 0 ");
@@ -294,7 +319,7 @@ $(function () {
                 $("#test").find("i").css("transform", "rotate(0deg)");
             }
         } else {
-            alert('未选择教材及章节');
+            alert('请先选择教材');
             $("#course").trigger('click');
         }
 
@@ -337,6 +362,28 @@ $(function () {
         }
     }
 
+    function fnupdateTestAmount() {
+        var type_id = type.substr(-1);
+
+        $.ajax({
+            type: "POST",
+            url: thisUrl2 + "/Areas/api/Index.ashx",
+            data: {
+                method: 'GetTestNumber',
+                user_id: username,
+                textbook_id: textbook_id,
+                type_id: type_id
+            },
+            dataType: "json",
+            success: function (data) {
+                console.log(data);
+                $("#testList span").eq(0).html(data.totalnumber);
+                $("#testList span").eq(1).html(data.newwordnumber);
+                $("#testList span").eq(2).html(data.oldwordnumber);
+            }
+        });
+    }
+
     function fnshowUnit() {
         $.ajax({
             type: "POST",
@@ -375,8 +422,7 @@ $(function () {
     //点击在学一遍按钮的事件
     function fnonceAgain() {
         var type_id = type.substr(-1);
-        console.log(username +'+'+  chapter_id +'+'+ type_id );
-
+        // console.log(username +'+'+  chapter_id +'+'+ type_id );
         $.ajax({
             type: "GET",
             url: thisUrl2 + "/Areas/api/Index.ashx",
@@ -390,7 +436,7 @@ $(function () {
             success: function (data) {
                 console.log(data);
                 if(data.msg == '成功'){
-                    $("#hintMessage").fadeIn(200).delay(1000).fadeOut(200);
+                    $("#hintMessage").stop(true , true).fadeIn(200).delay(1000).fadeOut(200);
                 }
             }
         });

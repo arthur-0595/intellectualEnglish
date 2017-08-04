@@ -13,8 +13,8 @@ $(function () {
     //选中的文章的id和文章的内容
     var thisReadId, thisReadCon;
     //认字母的听写和闯关页面
-    var href1 = "javascript:window.open('classicalVoice/wordRead.html');";
-    var href2 = "javascript:window.open('classicalVoice/recognizeWord.html');";
+    var href1 = "classicalVoice/wordRead.html";
+    var href2 = "classicalVoice/recognizeWord.html";
 
 
     var navs;
@@ -24,8 +24,8 @@ $(function () {
     var botUlCon = new Vue({
         el: '#botUl',
         data: {
-            href1: "javascript:window.open('classicalVoice/letterRead.html');",
-            href2: "javascript:window.open('classicalVoice/singleWordRead.html');",
+            href1: "classicalVoice/letterRead.html",
+            href2: "classicalVoice/singleWordRead.html",
             items: 'data'
         },
         methods: {
@@ -42,15 +42,12 @@ $(function () {
                     sessionStorage.version_name = version_name;
                     sessionStorage.textbook_id = textbook_id;
                     sessionStorage.textbook_name = textbook_name;
-                    // alert(version_id + '+' + textbook_id + '+' + chapter_id);
 
                     if (type_ == 1 || type_ == 3) {
                         if (textbook_id == 2) {
-                            window.open('classicalVoice/recognizeWord.html');
-                            // window.location = 'classicalVoice/recognizeWord.html';
+                            window.location = 'classicalVoice/recognizeWord.html';
                         } else {
-                            window.open('classicalVoice/singleWordRead.html');
-                            // window.location = 'classicalVoice/singleWordRead.html';
+                            window.location = 'classicalVoice/singleWordRead.html';
                         }
                     }
                 }
@@ -90,7 +87,7 @@ $(function () {
             },
             async: true,
             success: function (data) {
-                //				console.log(JSON.stringify(data));
+                //console.log(JSON.stringify(data));
                 navs = data;
 
                 mainleft = new Vue({
@@ -127,8 +124,8 @@ $(function () {
                         botUlCon.href1 = href1;
                         botUlCon.href2 = href2;
                     } else {
-                        botUlCon.href1 = "javascript:window.open('classicalVoice/letterRead.html');";
-                        botUlCon.href2 = "javascript:window.open('classicalVoice/singleWordRead.html');";
+                        botUlCon.href1 = "classicalVoice/letterRead.html";
+                        botUlCon.href2 = "classicalVoice/singleWordRead.html";
                     }
 
                     $("#studyTit").html(thisCon);

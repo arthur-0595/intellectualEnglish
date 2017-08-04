@@ -7,12 +7,13 @@
 	<link rel="stylesheet" href="../css/style.css" />
 	<link rel="stylesheet" href="../css/loading.css">
 	<link rel="stylesheet" href="../css/alternativeVersion.css" />
-	
+
 	<style>
-		#footer{
+		#footer {
 			line-height: 60px;
 		}
-		#hintMessage{
+
+		#hintMessage {
 			background-color: rgba(0, 0, 0, .3);
 			height: 50px;
 			line-height: 50px;
@@ -21,9 +22,10 @@
 			color: #fff;
 			border-radius: 6px;
 			position: absolute;
-			left:50%;top:50%;
+			left: 50%;
+			top: 50%;
 			display: none;
-			transform: translate(-50% , -50%);
+			transform: translate(-50%, -50%);
 		}
 	</style>
 </head>
@@ -126,21 +128,44 @@
 						<i></i>
 						<!--测试中心开始-->
 						<ul class="testList" id="testList" style="display: none;">
-							<li>已学测试</li>
-							<li>生词测试</li>
-							<li>熟词测试</li>
-							<li>五维测试</li>
+							<li>
+								<a class="commonTest" href="javascript:;">
+									已学测试
+									<span></span>
+								</a>
+							</li>
+							<li>
+								<a class="commonTest" href="javascript:;">
+									生词测试
+									<span></span>
+								</a>
+							</li>
+							<li>
+								<a class="commonTest" href="javascript:;">
+									熟词测试
+									<span></span>
+								</a>
+							</li>
+							<li id="overallTest">
+								<a href="">
+									五维测试
+								</a>
+							</li>
 						</ul>
 						<!--测试中心结束-->
 					</div>
-
+					<div>
+						<a class="testLog" href="#" title="跳转显示当前教材的所有测试记录">
+								测试记录
+							</a>
+					</div>
 					<div id="">
-						<a class="wordBook" href="#">
+						<a class="wordBook" href="#" title="跳转单词本">
 								单词本
 							</a>
 					</div>
 					<div>
-						<a class="memory" href="#">
+						<a class="memory" href="#" title="跳转记忆追踪">
 								记忆追踪
 							</a>
 					</div>
@@ -194,7 +219,7 @@
 								</div>&nbsp;
 								<span class="percentNum">49%</span>
 							</div>
-							<div class="onceAgain" id="onceAgain">
+							<div class="onceAgain userSelect" id="onceAgain" title="重置当前选择单元的所有学习记录">
 								再学一遍
 							</div>
 						</div>

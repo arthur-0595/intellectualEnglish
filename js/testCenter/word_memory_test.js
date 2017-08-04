@@ -1,12 +1,12 @@
 $(function() {
 	//获取用户ID
 	var userMessage = sessionStorage.userMessage;
-	// if(userMessage) {
+	if(userMessage) {
 		userMessage = JSON.parse(userMessage);
 		var username = userMessage[0].ID;
-	// } else {
-		// window.location = '../index.html';
-	// }
+	} else {
+		window.location = '../../index.html';
+	}
 	//当前选择的版本ID，教材ID ,选择的章节
 	var textbook_id, chapter_id, version_id;
 	var type, typeStr, textbook_name, version_name, chapter_name;
@@ -29,18 +29,14 @@ $(function() {
 	chapter_name = sessionStorage.chapter_name;
 	type = sessionStorage.type;
 
-	//	alert(Math.random()*30+1 );//1~30之间的随机数
-
 	//获取所有单词
 	fnGetAllTheWords();
 
-	//初试vue
 	var con = new Vue({
 		el: "#con",
 		data: {
 			textbook_name: textbook_name,
 			version_name: version_name,
-			chapter_name: chapter_name,
 			typeStr: typeStr,
 			minute: 5,
 			second: 0
@@ -67,15 +63,20 @@ $(function() {
 
 	//获取本章所有的单词
 	function fnGetAllTheWords() {
+		var type_id = type.substr(-1);
+		
 		$.ajax({
 			type: "POST",
-			url: thisUrl + '/Areas/Api/Interface.ashx',
+			url: thisUrl2 + '/Areas/Api/Index.ashx',
 			dataType: "json",
 			data: {
-				method: "getwords",
-				unit_id: chapter_id,
+				method: "LearnTest",
+                user_id: username,
+                textbook_id: textbook_id,
+                type_id: type_id
 			},
 			success: function(data) {
+				console.log(data);
 				wordsArr = data;
 				wordArrlength = wordsArr.length;
 
@@ -126,21 +127,21 @@ $(function() {
 			e_cHtml += `<li data-correct="${element.word_mean}" >
 							<h4>${index+1}.${element.word_name.replace(/\•/g,'')}</h4>
 							<div class="item">
-								<label data-type="${element.chinese[0].type}">
+								<label data-type="${element.meanchinese[0].type}">
 									<input type="radio" name="${element.id}"/>
-									${element.chinese[0].content}
+									${element.meanchinese[0].content}
 								</label>
-								<label data-type="${element.chinese[1].type}">
+								<label data-type="${element.meanchinese[1].type}">
 									<input type="radio" name="${element.id}"/> 
-									${element.chinese[1].content}
+									${element.meanchinese[1].content}
 								</label>
-								<label data-type="${element.chinese[2].type}">
+								<label data-type="${element.meanchinese[2].type}">
 									<input type="radio" name="${element.id}"/>
-									${element.chinese[2].content}
+									${element.meanchinese[2].content}
 								</label>
-								<label data-type="${element.chinese[3].type}">
+								<label data-type="${element.meanchinese[3].type}">
 									<input type="radio" name="${element.id}"/>
-									${element.chinese[3].content}
+									${element.meanchinese[3].content}
 								</label>
 							</div>
 						</li>`;
@@ -151,21 +152,21 @@ $(function() {
 			c_eHtml += `<li data-correct="${element.word_name.replace(/\•/g,'')}" >
 							<h4>${index+1}.${element.word_mean}</h4>
 							<div class="item">
-								<label data-type="${element.english[0].type}">
+								<label data-type="${element.meanenglish[0].type}">
 									<input type="radio" name="${element.id}"/>
-									${element.english[0].content.replace(/\•/g,'')}
+									${element.meanenglish[0].content.replace(/\•/g,'')}
 								</label>
-								<label data-type="${element.english[1].type}">
+								<label data-type="${element.meanenglish[1].type}">
 									<input type="radio" name="${element.id}"/>
-									${element.english[1].content.replace(/\•/g,'')}
+									${element.meanenglish[1].content.replace(/\•/g,'')}
 								</label>
-								<label data-type="${element.english[2].type}">
+								<label data-type="${element.meanenglish[2].type}">
 									<input type="radio" name="${element.id}"/>
-									${element.english[2].content.replace(/\•/g,'')}
+									${element.meanenglish[2].content.replace(/\•/g,'')}
 								</label>
-								<label data-type="${element.english[3].type}">
+								<label data-type="${element.meanenglish[3].type}">
 									<input type="radio" name="${element.id}"/>
-									${element.english[3].content.replace(/\•/g,'')}
+									${element.meanenglish[3].content.replace(/\•/g,'')}
 								</label>
 							</div>
 						</li>`;
@@ -176,21 +177,21 @@ $(function() {
 			listeningTestHtml += `<li data-correct="${element.word_name.replace(/\•/g,'')}" >
 							&nbsp;&nbsp;${index+1}. <button class="listenbtns" data-wordurl="${element.word_url}">听读音</button>
 							<div class="item">
-								<label data-type="${element.chinese[0].type}">
+								<label data-type="${element.meanchinese[0].type}">
 									<input type="radio" name="${element.id}"/>
-									${element.chinese[0].content}
+									${element.meanchinese[0].content}
 								</label>
-								<label data-type="${element.chinese[1].type}">
+								<label data-type="${element.meanchinese[1].type}">
 									<input type="radio" name="${element.id}"/>
-									${element.chinese[1].content}
+									${element.meanchinese[1].content}
 								</label>
-								<label data-type="${element.chinese[2].type}">
+								<label data-type="${element.meanchinese[2].type}">
 									<input type="radio" name="${element.id}"/>
-									${element.chinese[2].content}
+									${element.meanchinese[2].content}
 								</label>
-								<label data-type="${element.chinese[3].type}">
+								<label data-type="${element.meanchinese[3].type}">
 									<input type="radio" name="${element.id}"/>
-									${element.chinese[3].content}
+									${element.meanchinese[3].content}
 								</label>
 							</div>
 						</li>`;
@@ -205,22 +206,23 @@ $(function() {
 		$(".tests label").on("click", function() {
 			$(this).parents("li").css("background-color",'#eee')
 		})
+
+		sessionStorage.e_c_Arr = JSON.stringify(e_c_Arr);
+		sessionStorage.c_e_Arr = JSON.stringify(c_e_Arr);
+		sessionStorage.wordsArr = JSON.stringify(wordsArr);
 	}
 
 	//给英译汉和汉译英数组添加元素
 	function fnpushArr(arrName) {
 		for(var i = 0; i < itemNum; i++) {
 			wordArrlength--;
-			var random = parseInt(Math.random() * wordArrlength + 1);
-			arrName.push(wordsArr.splice(random, 1)[0]);
-			console.log(random);
+			arrName.push(wordsArr.splice(i, 1)[0]);
 		}
 	}
 
 	//发送成绩
 	function fnsavethisScore(thisScore_ , length){
-		var testsType = typeStr + "闯关测试(" + chapter_name + ")";
-		
+		var testsType = typeStr + "测试中心(" + version_name +'-'+ textbook_name + ")";
 		$.ajax({
 			type: "POST",
 			url: thisUrl2 + '/Areas/Api/index.ashx',
@@ -235,8 +237,9 @@ $(function() {
 			},
 			success: function(data) {
 				console.log(JSON.stringify(data) );
+
 				if(data.msg == "保存成功"){
-					window.location="score.html?score="+thisScore_;
+					window.location="../../html/testCenter/word_memory_score.html?score="+thisScore_;
 				}else{
 					alert('成绩上传失败，请重试');
 				}
