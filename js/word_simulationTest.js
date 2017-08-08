@@ -205,6 +205,10 @@ $(function() {
 		$(".tests label").on("click", function() {
 			$(this).parents("li").css("background-color",'#eee')
 		})
+
+		sessionStorage.e_c_Arr = JSON.stringify(e_c_Arr);
+		sessionStorage.c_e_Arr = JSON.stringify(c_e_Arr);
+		sessionStorage.wordsArr = JSON.stringify(wordsArr);
 	}
 
 	//给英译汉和汉译英数组添加元素

@@ -4,8 +4,9 @@
 // var thisUrl2 = 'http://192.168.2.111:8015';
 // var thisUrl2 = 'http://192.168.2.127:8090';
 
-var thisUrl = 'http://106.14.64.236:8012';
-var thisUrl2 = 'http://106.14.64.236:8012';
+var thisUrl = 'http://106.15.91.62:8012';
+var thisUrl2 = 'http://106.15.91.62:8012';
+
 //服务器地址
 var serverUrl = '';
 //若页面内存在ID为studyTime的标签，则运行倒计时函数
@@ -53,3 +54,18 @@ function timer(selector) {
 		selector.innerText = '学习时长：' + h + ' : ' + m + ' : ' + s;
 	}, 1000);
 }
+
+
+function fnWindowClose() {
+	var _t;
+	window.onbeforeunload = function () {
+		setTimeout(function () {
+			_t = setTimeout(onunloadcancel, 0)
+		}, 0);
+		fnupdateCloseWindow();
+		return "真的离开?";
+	}
+	window.onunloadcancel = function () {
+		clearTimeout(_t);
+	}
+};

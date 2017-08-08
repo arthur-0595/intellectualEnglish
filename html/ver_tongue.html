@@ -1,151 +1,171 @@
 <!DOCTYPE html>
 <html>
 
-	<head>
-		<meta charset="UTF-8">
-		<title>选择版本 - 经典口语</title>
-		<link rel="stylesheet" href="../css/style.css" />
-		<link rel="stylesheet" href="../css/ver_tongue.css" />
-	</head>
+<head>
+	<meta charset="UTF-8">
+	<title>选择版本 - 经典口语</title>
+	<link rel="stylesheet" href="../css/style.css" />
+	<link rel="stylesheet" href="../css/ver_tongue.css" />
+</head>
 
-	<body>
-		<header id="header">
-			<div class="header clearfix">
-				<a class="logo" href="home.html">
+<body>
+	<header id="header">
+		<div class="header clearfix">
+			<a class="logo" href="home.html">
 					<img src="../imgs/logo.png" />
 				</a>
-				<a class="exit" href="../index.html">
+			<a class="exit" href="../index.html">
 					退出
 				</a>
-				<a class="goHome" href="home.html">
+			<a class="goHome" href="home.html">
 					回到首页
 				</a>
-			</div>
-		</header>
-		<div class="topnav">
-			<div class="center">
-				您所在的位置： <span>智能阅读 > 经典口语</span>
-			</div>
 		</div>
-		<section>
-			<div class="main clearfix">
-				<div class="mainleft">
-					<div class="lTop">
-						<ul class="tleft" id="tleft">
-							<li class="this">旅游基本用语</li>
-							<!--<li>生活日常用语</li>
+	</header>
+	<div class="topnav">
+		<div class="center">
+			您所在的位置： <span>智能阅读 > 经典口语</span>
+		</div>
+	</div>
+	<section>
+		<div class="main clearfix">
+			<div class="mainleft">
+				<div class="lTop">
+					<ul class="tleft" id="tleft">
+						<li class="this">旅游基本用语</li>
+						<!--<li>生活日常用语</li>
 							<li>计算机常用语</li>
 							<li>二次元常用语</li>
 							<li>生活日常用语</li>-->
-						</ul>
-						<ul class="tright" id="tright">
-							<li>基本会话</li>
-							<li class="this">启程和抵达</li>
-						</ul>
-					</div>
-					<div class="lBot">
-						<div class="efficiency">
-							今日学习效率
-						</div>
-						<div class="percentage">
-							41%
-						</div>
-						<div class="onlineTime">
-							在线时长： <span>00: 20: 15</span>
-						</div>
-						<div class="validTime">
-							有效时长： <span>00: 12: 15</span>
-						</div>
-					</div>
+					</ul>
+					<ul class="tright" id="tright">
+						<li>基本会话</li>
+						<li class="this">启程和抵达</li>
+					</ul>
 				</div>
-				<div class="mainright clearfix">
-					<div class="study">
-						<div class="top" id="studytop">
-							启程和抵达
-						</div>
-						<ul class="bot clearfix" id="studybot">
-							<li>订票及座位</li>
-							<li>登记手续</li>
-							<li>误机</li>
-							<li>机内服务</li>
-							<li>不舒服的时候</li>
-							<li>填写入境卡</li>
-							<li>购买机内免税品</li>
-							<li>入境</li>
-							<li>兑换</li>
-							<li>填写入境卡</li>
-							<li>购买机内免税品</li>
-							<li>入境</li>
-							<li>兑换</li>
-						</ul>
+				<div class="lBot">
+					<div class="efficiency">
+						今日学习效率
 					</div>
-					<div class="navs">
-						<div class="category">
-							09
-							<span>Intelligent Memory</span>
-						</div>
-						<div class="title">
-							经典口语
-						</div>
-						
-						<a href="home.html"><i></i></a>
+					<div class="percentage">
+						41%
+					</div>
+					<div class="onlineTime">
+						在线时长： <span>00: 20: 15</span>
+					</div>
+					<div class="validTime">
+						有效时长： <span>00: 12: 15</span>
 					</div>
 				</div>
 			</div>
-		</section>
+			<div class="mainright clearfix">
+				<div class="study">
+					<div class="top" id="studytop">
+						启程和抵达
+					</div>
+					<ul class="bot clearfix" id="studybot">
+						<li>订票及座位</li>
+						<li>登记手续</li>
+						<li>误机</li>
+						<li>机内服务</li>
+						<li>不舒服的时候</li>
+						<li>填写入境卡</li>
+						<li>购买机内免税品</li>
+						<li>入境</li>
+						<li>兑换</li>
+						<li>填写入境卡</li>
+						<li>购买机内免税品</li>
+						<li>入境</li>
+						<li>兑换</li>
+					</ul>
+				</div>
+				<div class="navs">
+					<div class="category">
+						09
+						<span>Intelligent Memory</span>
+					</div>
+					<div class="title">
+						经典口语
+					</div>
 
-		<footer id="footer">
-			©2017SOUGOU - 京ICP证050897号 - 京公安网备11000002000025号
-		</footer>
-		
-		<div class="mode" id="mode" style="display: none;">
-			<table>
-				<caption>选择训练方式<span id="closeBox" ></span></caption>
-				<tr>
-					<th>训练方式</th>
-					<th>句子数量</th>
-					<th>学习进度</th>
-					<th>开始</th>
-				</tr>
-				<tr>
-					<td>跟读</td>
-					<td>{{total}}</td>
-					<td>{{ repeatnumber }}%</td>
-					<td>
-						<a href="javascript:window.open('spokenLanguage.html');">开始</a>
-					</td>
-				</tr>
-				<tr>
-					<td>听力理解</td>
-					<td>{{total}}</td>
-					<td>{{ listennumber }}%</td>
-					<td>
-						<a href="javascript:window.open('spokenLanguage_listen.html?thisType=2');">开始</a>
-					</td>
-				</tr>
-				<tr>
-					<td>口语表达</td>
-					<td>{{total}}</td>
-					<td>{{ oralnumber }}%</td>
-					<td>
-						<a href="javascript:window.open('spokenLanguage_listen.html?thisType=3');">开始</a>
-					</td>
-				</tr>
-				<tr>
-					<td>闯关测试</td>
-					<td>{{total*2}}</td>
-					<td>{{ score }}</td>
-					<td>
-						<a href="javascript:window.open('read_advance.html');">开始</a>
-					</td>
-				</tr>
-			</table>
+					<a href="home.html"><i></i></a>
+				</div>
+			</div>
 		</div>
+	</section>
 
-		<script src="../js/jquery-3.2.1.min.js"></script>
-		<script src="../js/vue.min.js"></script>
-		<script src="../js/common.js"></script>
-		<script src="../js/ver_tongue.js"></script>
-	</body>
+	<footer id="footer">
+		©2017SOUGOU - 京ICP证050897号 - 京公安网备11000002000025号
+	</footer>
+
+	<div class="mode" id="mode" style="display: none;">
+		<table>
+			<caption>选择训练方式<span id="closeBox"></span></caption>
+			<tr>
+				<th>训练方式</th>
+				<th>句子数量</th>
+				<th>学习进度</th>
+				<th>开始</th>
+			</tr>
+			<tr>
+				<td>跟读</td>
+				<td>{{total}}</td>
+				<td>{{ repeatnumber }}%</td>
+				<td>
+					<a href="javascript:window.open('spokenLanguage.html');">开始</a>
+				</td>
+			</tr>
+			<tr>
+				<td>听力理解</td>
+				<td>{{total}}</td>
+				<td>{{ listennumber }}%</td>
+				<td>
+					<a href="javascript:window.open('spokenLanguage_listen.html?thisType=2');">开始</a>
+				</td>
+			</tr>
+			<tr>
+				<td>口语表达</td>
+				<td>{{total}}</td>
+				<td>{{ oralnumber }}%</td>
+				<td>
+					<a href="javascript:window.open('spokenLanguage_listen.html?thisType=3');">开始</a>
+				</td>
+			</tr>
+			<tr>
+				<td>闯关测试</td>
+				<td>{{total*2}}</td>
+				<td>{{ score }}</td>
+				<td>
+					<a href="javascript:window.open('read_advance.html');">开始</a>
+				</td>
+			</tr>
+		</table>
+	</div>
+
+	<script src="../js/jquery-3.2.1.min.js"></script>
+	<script src="../js/vue.min.js"></script>
+	<script src="../js/common.js"></script>
+	<script src="../js/ver_tongue.js"></script>
+	<script>
+		//每隔五分钟发送一次通信请求
+		// fnupdateCloseWindow(username);
+		setInterval(function () {
+			fnupdateCommunication(username);
+		}, 60 * 1000);
+		function fnupdateCommunication(username_) {
+			$.ajax({
+				type: "GET",
+				url: thisUrl + "/Areas/api/Interface.ashx",
+				data: {
+					method: 'UserClose',
+					user_id: username_
+				},
+				dataType: "json",
+				success: function (data) {
+				}
+			});
+		}
+	</script>
+</body>
 
 </html>

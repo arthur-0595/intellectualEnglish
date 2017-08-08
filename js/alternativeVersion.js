@@ -13,6 +13,9 @@ $(function () {
     //当前的大类，大类的name
     var type, typeStr, typeEnglish;
 
+    //总时长
+    var login_all = sessionStorage.login_all;
+
     type = sessionStorage.type;
     typeStr = sessionStorage.typeStr;
     typeEnglish = sessionStorage.typeEnglish;
@@ -47,8 +50,8 @@ $(function () {
             case '01':
                 console.log('type1');
                 var commonTest = $("#testList .commonTest");
-                $.each(commonTest, function (index, element) { 
-                     element.href="javascript:window.open('../html/testCenter/word_memory_test.html?testType="+(index+1)+"')";
+                $.each(commonTest, function (index, element) {
+                    element.href = "javascript:window.open('../html/testCenter/word_memory_test.html?testType=" + (index + 1) + "')";
                 });
                 break;
             case '02':
@@ -70,8 +73,8 @@ $(function () {
             case '06':
                 console.log('type6');
                 $("#overallTest").remove();
-                break;                    
-        
+                break;
+
             default:
                 console.log('type1');
                 break;
@@ -105,19 +108,48 @@ $(function () {
 
         } else {
             alert("请确认已选择好课程及相关章节");
+            $("#course").trigger('click');
         }
 
     });
 
     //点击"在学一遍"按钮
-    $("#onceAgain").on('click' , function () {
-        if( chapter_id ){
+    $("#onceAgain").on('click', function () {
+        if (chapter_id) {
             fnonceAgain();
-        }else{
+        } else {
             alert('提示：请先选择教材及章节之后再次使用该功能！');
             $("#course").trigger('click');
         }
     })
+
+    //点击跳转测试记录页面需要判断是否有选择过教材及章节
+    $("#testLog").on('click', function () {
+        if (textbook_id) {
+            this.href = "javascript:window.open('testCenter/chuangguan_record.html')";
+        } else {
+            alert('提示：请先选择教材再次跳转查看测试记录！');
+            $("#course").trigger('click');
+            return false;
+        }
+    })
+
+    //点击跳转单词本页面，需要判断是否选择过教材及章节
+    $("#wordBook").on('click', function () {
+        if (chapter_id) {
+            this.href = "javascript:window.open('./wordsbook.html')";
+        } else {
+            alert('提示：请先选择教材及章节之后再次跳转查看单词本！');
+            $("#course").trigger('click');
+            return false;
+        }
+    })
+
+    //每隔五分钟发送一次通信请求
+    fnupdateCommunication(username);
+    setInterval(function () {
+        fnupdateCommunication(username);
+    }, 180 * 1000);
 
     //切换在学课程及全部课程
     $("#courseNavs>li").on("click", function () {
@@ -188,6 +220,8 @@ $(function () {
                             $("#course p").html(name);
                             //运行点击选择章节按钮
                             fnchapterList();
+                            //本课程的单词量
+                            fnupdateWordNum();
                         });
                     }
                 }
@@ -280,6 +314,8 @@ $(function () {
 
                                                             //运行点击选择章节按钮
                                                             fnchapterList();
+                                                            //本课程的单词量
+                                                            fnupdateWordNum();
                                                         })
                                                     }
                                                 }
@@ -414,6 +450,9 @@ $(function () {
 
                         fnchapterList();
                         $("#chapterList").hide();
+
+                        //获取进度
+                        fnpdatePercent();
                     });
                 }
             }
@@ -435,11 +474,104 @@ $(function () {
             dataType: "json",
             success: function (data) {
                 console.log(data);
-                if(data.msg == '成功'){
-                    $("#hintMessage").stop(true , true).fadeIn(200).delay(1000).fadeOut(200);
+                if (data.msg == '成功') {
+                    $("#hintMessage").stop(true, true).fadeIn(200).delay(1000).fadeOut(200);
                 }
             }
         });
+    }
+
+    //发送请求获取本课程的单词量，以及获取当前的进度
+    function fnupdateWordNum() {
+        $.ajax({
+            type: "POST",
+            url: thisUrl2 + "/Areas/api/Index.ashx",
+            data: {
+                method: 'GetWordsByTextBookID',
+                textbook_id: textbook_id
+            },
+            dataType: "json",
+            success: function (data) {
+                $("#courseStudyNum p").html(`${data.wordtotal}个`);
+            }
+        });
+    }
+
+    //获取进度
+    function fnpdatePercent() {
+
+        $.ajax({
+            type: "POST",
+            url: thisUrl2 + "/Areas/api/Index.ashx",
+            data: {
+                method: 'GetProgress',
+                user_id: username,
+                unit_id: chapter_id,
+                type_id: parseInt(type),
+                textbook_id: textbook_id
+            },
+            dataType: "json",
+            success: function (data) {
+                // console.log(data);
+                var coursePercentNum = '0%',
+                    unitPercent = '0%';
+                if (data.msg == '无数据') {
+                    coursePercentNum = '0%';
+                    unitPercent = '0%';
+                } else {
+                    unitPercent = parseInt(data.study_unit / data.unit_total * 100) + '%';
+                    coursePercentNum = parseInt(data.study_textbook / data.textbook_total * 100) + '%';
+                    if (data.study_unit == 0 && data.unit_total == 0) {
+                        unitPercent = '0%';
+                    }
+                }
+
+                $("#coursePercent").width(coursePercentNum);
+                $("#unitPercent").width(unitPercent);
+
+                $("#coursePercentNum").html(coursePercentNum);
+                $("#unitPercentString").html(unitPercent);
+            }
+        });
+    }
+
+    //发送后台退出页面的请求，记录时间
+    function fnupdateCommunication(username_) {
+        $.ajax({
+            type: "GET",
+            url: thisUrl + "/Areas/api/Interface.ashx",
+            data: {
+                method: 'UserClose',
+                user_id: username_
+            },
+            dataType: "json",
+            success: function (data) {
+                // console.log(data);
+                if(data.result == 1){
+                    $('#onlineTime span').html(fnupdateAllTime(data.Login_all));
+                }
+            }
+        });
+        // var ajax_ = new XMLHttpRequest();
+        // ajax_.onreadystatechange = function () {
+        // 	if (ajax_.readyState == 4) {
+        // 		if ((ajax_.status >= 200 && ajax_.status < 300) || ajax_.status == 304) {
+        // 			console.log(ajax_.responseText);
+        // 		}
+        // 	}
+        // }
+        // ajax_.open('get', thisUrl + '/Areas/api/Interface.ashx?method=UserClose&user_id='+username ? username : '' , true);
+        // ajax_.send(null);
+    }
+
+    //修改时间的函数
+    function fnupdateAllTime(login_all) {
+        var hour = parseInt(login_all/3600)<10?('0'+parseInt(login_all/3600)):parseInt(login_all/3600);
+        var minute = parseInt( ( login_all-(hour*3600) )/60 )<10?('0'+parseInt( ( login_all-(hour*3600) )/60 )):parseInt( ( login_all-(hour*3600) )/60 );
+        var seconds = parseInt( login_all-(hour*3600)-(minute*60) )<10?('0'+parseInt( login_all-(hour*3600)-(minute*60) )):parseInt( login_all-(hour*3600)-(minute*60) );
+
+        var time = `${hour} : ${minute} : ${seconds}`;
+        return time;
     }
 
 })

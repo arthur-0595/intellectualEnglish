@@ -119,11 +119,11 @@
 						</div>
 						<!--选择章节-->
 						<ul class="chapterList" id="chapterList" style="display: none;">
-							<li>Unit1</li>
-							<li>Unit2</li>
+							<!-- <li>Unit1</li>
+							<li>Unit2</li> -->
 						</ul>
 					</div>
-					<div class="test" id="test">
+					<div class="test displayNone" id="test">
 						测试中心
 						<i></i>
 						<!--测试中心开始-->
@@ -155,17 +155,17 @@
 						<!--测试中心结束-->
 					</div>
 					<div>
-						<a class="testLog" href="#" title="跳转显示当前教材的所有测试记录">
+						<a class="testLog" id="testLog" href="" title="跳转显示当前教材的所有测试记录">
 								测试记录
-							</a>
+						</a>
 					</div>
 					<div id="">
-						<a class="wordBook" href="#" title="跳转单词本">
+						<a class="wordBook" id="wordBook" href="" title="跳转单词本">
 								单词本
-							</a>
+						</a>
 					</div>
 					<div>
-						<a class="memory" href="#" title="跳转记忆追踪">
+						<a class="memory" style="display: none;" href="#" title="跳转记忆追踪">
 								记忆追踪
 							</a>
 					</div>
@@ -176,13 +176,13 @@
 						今日学习效率
 					</div>
 					<div class="percentage">
-						41%
+						36%
 					</div>
-					<div class="onlineTime">
-						在线时长： <span>00: 20: 15</span>
+					<div class="onlineTime" id="onlineTime">
+						总时长： <span>00 : 00 : 00</span>
 					</div>
-					<div class="validTime">
-						有效时长： <span>00: 12: 15</span>
+					<div class="validTime displayNone">
+						有效时长： <span>00 : 00 : 00</span>
 					</div>
 				</div>
 			</div>
@@ -202,34 +202,34 @@
 					</div>
 					<div class="bot clearfix">
 						<div class="progress">
-							<div class="speed">
+							<div class="speed displayNone">
 								速度：&nbsp;<span>120</span>&nbsp;个/小时
 							</div>
 							<div class="unitpercent">
 								单元进度：
 								<div class="percent">
-									<div class="now"></div>
+									<div class="now" id="unitPercent" style="width:0;"></div>
 								</div>&nbsp;
-								<span class="percentNum">25%</span>
+								<span class="percentNum" id="unitPercentString">0%</span>
 							</div>
 							<div class="coursepercent">
 								课程进度：
 								<div class="percent">
-									<div class="now"></div>
+									<div class="now" id="coursePercent" style="width:0;"></div>
 								</div>&nbsp;
-								<span class="percentNum">49%</span>
+								<span class="percentNum" id="coursePercentNum">0%</span>
 							</div>
 							<div class="onceAgain userSelect" id="onceAgain" title="重置当前选择单元的所有学习记录">
 								再学一遍
 							</div>
 						</div>
 						<div class="review">
-							<div class="courseStudyNum">
-								课程总复习量
+							<div class="courseStudyNum" id="courseStudyNum">
+								课程总单词量
 								<p>
-									112个
+									0个
 								</p>
-								<div class="bot">
+								<div class="bot displayNone">
 									<a class="intelligentReview" href="#">
 											智能复习
 										</a>&nbsp;&nbsp;

@@ -1,94 +1,115 @@
 <!DOCTYPE html>
 <html>
 
-	<head>
-		<meta charset="UTF-8">
-		<title>选择版本 - 经典阅读</title>
-		<link rel="stylesheet" href="../css/style.css" />
-		<link rel="stylesheet" href="../css/ver_read.css" />
-	</head>
+<head>
+	<meta charset="UTF-8">
+	<title>选择版本 - 经典阅读</title>
+	<link rel="stylesheet" href="../css/style.css" />
+	<link rel="stylesheet" href="../css/ver_read.css" />
+</head>
 
-	<body>
-		<header id="header">
-			<div class="header clearfix">
-				<a class="logo" href="#">
+<body>
+	<header id="header">
+		<div class="header clearfix">
+			<a class="logo" href="#">
 					<img src="../imgs/logo.png" />
 				</a>
-				<a class="exit" href="../index.html">
+			<a class="exit" href="../index.html">
 					退出
 				</a>
-				<a class="goHome" href="home.html">
+			<a class="goHome" href="home.html">
 					回到首页
 				</a>
+		</div>
+	</header>
+	<div class="topnav">
+		<div class="center">
+			您所在的位置： <span>智能阅读 > 经典阅读</span>
+		</div>
+	</div>
+	<section>
+		<div class="main clearfix">
+			<div class="mainleft" id="mainleft">
+				<ul id="mainleftul">
+					<li v-for="item in items" v-bind:id="item.id">
+						<div class="tit">
+							<span>+</span>
+							<b>{{item.name}}</b>
+						</div>
+						<ul class="courseA" style="display: none;">
+							<li v-for="list in item.type" v-bind:id="list.id">{{list.name}}</li>
+
+						</ul>
+					</li>
+				</ul>
 			</div>
-		</header>
-		<div class="topnav">
-			<div class="center">
-				您所在的位置： <span>智能阅读 > 经典阅读</span>
+			<div class="mainright clearfix">
+				<div class="study">
+					<div class="top">
+						<div class="tit" id="studyTit">
+							一年级（易）
+						</div>
+						<a href="javascript:window.open('newWordsNotebook.html');" id="newWords">生词本</a>
+					</div>
+					<div class="bot">
+						<ul class="clearfix" id="botUl">
+							<li class="complete">
+								<div class="pic">
+								</div>
+								第一篇
+							</li>
+							<li>
+								<div class="pic">
+								</div>
+								第二篇
+							</li>
+
+						</ul>
+					</div>
+				</div>
+				<div class="navs">
+					<div class="category">
+						08
+						<span>Intelligent Memory</span>
+					</div>
+					<div class="title">
+						经典阅读
+					</div>
+					<a href="home.html"><i></i></a>
+				</div>
 			</div>
 		</div>
-		<section>
-			<div class="main clearfix">
-				<div class="mainleft" id="mainleft">
-					<ul id="mainleftul">
-						<li v-for="item in items" v-bind:id="item.id">
-							<div class="tit">
-								<span>+</span>
-								<b>{{item.name}}</b>
-							</div>
-							<ul class="courseA" style="display: none;">
-								<li v-for="list in item.type"  v-bind:id="list.id">{{list.name}}</li>
+	</section>
 
-							</ul>
-						</li>
-					</ul>
-				</div>
-				<div class="mainright clearfix">
-					<div class="study">
-						<div class="top">
-							<div class="tit" id="studyTit">
-								一年级（易）
-							</div>
-							<a href="javascript:window.open('newWordsNotebook.html');" id="newWords">生词本</a>
-						</div>
-						<div class="bot">
-							<ul class="clearfix" id="botUl">
-								<li class="complete">
-									<div class="pic">
-									</div>
-									第一篇
-								</li>
-								<li>
-									<div class="pic">
-									</div>
-									第二篇
-								</li>
-								
-							</ul>
-						</div>
-					</div>
-					<div class="navs">
-						<div class="category">
-							08
-							<span>Intelligent Memory</span>
-						</div>
-						<div class="title">
-							经典阅读
-						</div>
-						<a href="home.html"><i></i></a>
-					</div>
-				</div>
-			</div>
-		</section>
+	<footer id="footer">
+		©2017SOUGOU - 京ICP证050897号 - 京公安网备11000002000025号
+	</footer>
 
-		<footer id="footer">
-			©2017SOUGOU - 京ICP证050897号 - 京公安网备11000002000025号
-		</footer>
+	<script src="../js/jquery-3.2.1.min.js"></script>
+	<script src="../js/vue.min.js"></script>
+	<script src="../js/common.js"></script>
+	<script src="../js/ver_read.js"></script>
+	<script>
+		//每隔五分钟发送一次通信请求
+		fnupdateCloseWindow(username);
+		setInterval(function () {
+			fnupdateCommunication(username);
+		}, 60 * 1000);
 
-		<script src="../js/jquery-3.2.1.min.js"></script>
-		<script src="../js/vue.min.js"></script>
-		<script src="../js/common.js"></script>
-		<script src="../js/ver_read.js"></script>
-	</body>
+		function fnupdateCommunication(username_) {
+			$.ajax({
+				type: "GET",
+				url: thisUrl + "/Areas/api/Interface.ashx",
+				data: {
+					method: 'UserClose',
+					user_id: username_
+				},
+				dataType: "json",
+				success: function (data) {
+				}
+			});
+		}
+	</script>
+</body>
 
 </html>

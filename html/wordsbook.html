@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>单词本</title>
+	<link rel="stylesheet" href="../css/style.css" />
+	<link rel="stylesheet" href="../css/newWordsNotebook.css" />
+	<style>
+		.delword:hover {
+			cursor: pointer;
+			color: red;
+		}
+		.pagination{
+			-webkit-user-select: none;
+			user-select:none;
+		}
+		.wrap{
+			word-wrap: break-word;
+		}
+		.section td {
+		    max-width: 240px;
+		}
+		.listen{
+			background:url(../imgs/soundY.png) no-repeat 24px 6px;
+			cursor:pointer;
+			width:80px;
+		}
+	</style>
+</head>
+
+<body>
+	<header id="header">
+		<div class="con">
+			<div class="versions">{{textbook_name}} - {{version_name}} - {{chapter_name}}</div>
+			<div class="title">单词本</div>
+			<a href="javascript:window.close();">
+				<div class="back"></div>
+			</a>
+		</div>
+	</header>
+	<div class="section">
+		<table class="tabs">
+		</table>
+		<div class="pagination">
+			<div class="startPage">首页</div>
+			<div class="previousPage">< 上一页</div>
+			<div class="currentPage"></div>
+			<div class="nextPage">下一页 ></div>
+			<div class="endPage">末页</div>
+		</div>
+	</div>
+	<audio autoplay src="" type="audio/wav" id="audioplay"></audio>
+</body>
+<script src="../js/jquery-3.2.1.min.js"></script>
+<script src="../js/vue.min.js"></script>
+<script src="../js/common.js"></script>
+<script>
+	$(function () {
+		//获取用户名
+		var userMessage = sessionStorage.userMessage;
+		if (userMessage) {
+			userMessage = JSON.parse(userMessage);
+			var username = userMessage[0].ID;
+		} else {
+			window.location = '../index.html';
+		}
+
+		var textbook_name = sessionStorage.textbook_name;
+		var version_name = sessionStorage.version_name;
+		var chapter_name = sessionStorage.chapter_name;
+		var textbook_id = sessionStorage.textbook_id;
+		var chapter_id = sessionStorage.chapter_id;
+		var type = sessionStorage.type;
+		var thisType = parseInt(type);
+		
+		var pageindex = 1;
+		var totalPage = 1;
+		var pagesize = 12;
+		var headtitle = new Vue({
+			el: '.versions',
+			data: {
+				textbook_name: textbook_name,
+				version_name: version_name,
+				chapter_name: chapter_name
+			}
+		});
+		
+		if(thisType >= 1 && thisType <= 3){ // 单词页面
+			wordsPage();			
+		}else{  // 句子页面
+			sentencePage();
+		}	
+		
+		
+		// 获取单词
+		function getAllWords(){
+			$.ajax({
+				type: 'post',
+				url:thisUrl2 + "/Areas/Api/index.ashx",
+				dataType: "json",
+				data:{
+					method:'GetWordsByUnitID',
+					textbook_id:textbook_id,
+					unit_id:chapter_id,
+					page_index:pageindex,
+					page_size:pagesize
+				},
+				success:function(res){
+					var data = res.data;
+					var totalWords = res.total;
+					totalPage = Math.ceil (totalWords / pagesize);
+					var thead = `<tr>
+							<th>编号</th>
+							<th>单词</th>
+							<th>词义</th>
+							<th>语音</th>
+						</tr>`;
+					var _html = '';
+					$.each(data, function (index, element) {
+						_html +=
+							`<tr>
+								<td>${index+1}</td>
+								<td style="width:200px" class="wordName" data-name="${element.word_name}">${element.word_name}</td>
+								<td style="max-width:300px">${element.word_mean}</td>	
+								<td class="listen" data-src="${element.word_url}"></td>
+							</tr>`;							
+					});
+					var result = thead + _html;
+					$('.tabs').html(result);
+					// 显示当前页
+					$('.currentPage').text(pageindex + '/' + totalPage);
+					// 点击播放按钮播放语音
+					$('.listen').click(function(){
+						$('#audioplay').attr('src',thisUrl2 + this.dataset.src);
+					});
+					// 去除单词中的圆点
+					var reg = /\•+/g;
+					$('.wordName').each(function(){
+						this.innerText = this.dataset.name.replace(reg,'');
+					});
+				}
+			});
+		}
+		// 获取句子
+		function getAllSentences(){
+			$.ajax({
+				type: 'post',
+				url:thisUrl2 + "/Areas/Api/index.ashx",
+				dataType: "json",
+				data:{
+					method:'GetWordsByUnitID',
+					textbook_id:textbook_id,
+					unit_id:chapter_id,
+					page_index:pageindex,
+					page_size:pagesize
+				},
+				success:function(res){
+					var data = res.data;
+					var totalWords = res.total;
+					totalPage = Math.ceil (totalWords / pagesize);
+					var thead = `<tr>
+							<th>编号</th>
+							<th>句子</th>
+							<th>释义</th>
+							<th>语音</th>
+						</tr>`;
+					var _html = '';
+					$.each(data, function (index, element) {
+						_html +=
+							`<tr>
+								<td>${index+1}</td>
+								<td>${element.sentence}</td>
+								<td>${element.sentence_mean}</td>
+								<td style="width:80px;" class="listen" data-src="${element.sentence_url}"></td>
+							</tr>`;
+					});
+					var result = thead + _html;
+					$('.tabs').html(result);
+					// 显示当前页
+					$('.currentPage').text(pageindex + '/' + totalPage);
+					// 点击播放按钮播放语音
+					$('.listen').click(function(){
+						$('#audioplay').attr('src',thisUrl2 + this.dataset.src);
+					});
+					
+				}
+			});
+		}
+		
+		
+		// 单词页面
+		function wordsPage(){
+			getAllWords();
+			// 上一页
+			$('.previousPage').on('click',function(){
+				if(pageindex > 1){
+					pageindex--;
+					getAllWords();
+				}
+			});
+			
+			// 首页			
+			$('.startPage').on('click',function(){
+				pageindex = 1;
+				getAllWords();
+			});
+			
+			// 下一页
+			$('.nextPage').on('click',function(){
+				if(pageindex < totalPage){
+					pageindex++;
+					getAllWords();
+				}
+			});
+			
+			// 最后一页
+			$('.endPage').on('click',function(){
+				pageindex = totalPage;
+				getAllWords();
+			})
+		}
+		
+		
+		// 句子页面
+		function sentencePage(){
+			getAllSentences();
+			// 上一页
+			$('.previousPage').on('click',function(){
+				if(pageindex > 1){
+					pageindex--;
+					getAllSentences();
+				}
+			});
+			
+			// 首页			
+			$('.startPage').on('click',function(){
+				pageindex = 1;
+				getAllSentences();
+			});
+			
+			// 下一页
+			$('.nextPage').on('click',function(){
+				if(pageindex < totalPage){
+					pageindex++;
+					getAllSentences();
+				}
+			});
+			
+			// 最后一页
+			$('.endPage').on('click',function(){
+				pageindex = totalPage;
+				getAllSentences();
+			})
+		}
+		
+	})
+</script>
+
+</html>

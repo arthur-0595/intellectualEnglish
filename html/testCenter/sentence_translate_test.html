@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>句子翻译测试</title>
+		<link rel="stylesheet" href="../../css/style.css" />
+		<link rel="stylesheet" href="../../css/sentence_listen.css" />
+	</head>
+
+	<body>
+		<section id="sectionBox">
+			<div class="main">
+				<div class="titleBox" id="titleBox">
+					<div class="versions">剑桥国际少儿英语 - 第一册 - UnitA</div>
+					<div class="title">句子翻译测试</div>
+					<a href="javascript:window.close();" class="exit" id="exit"></a>
+				</div>
+				<div class="sentence" id="sentence">
+					<div class="thisSentence">
+						<div class="thisSentence_con" id="thisSentence_con" style="user-select: none;">我有一个农场</div>
+						<div class="listening" id="listening" style="display: none;">
+							听语音<span></span>
+						</div>
+					</div>
+					<div class="answer clearfix">
+						<!--<div class="answerArr clearfix correct">-->
+						<div class="answerArr" id="answerArr">
+							<span class="ans_null"></span>
+							<span class="ans_word">yellow</span>
+							<span class="ans_null"></span>
+							<span class="ans_null"></span>
+							<span class="punctuation">
+								.
+							</span>
+						</div>
+						<div class="clear" id="clear" style="display: block;">
+							清除
+							<span></span>
+						</div>
+						<div class="reset" id="reset" style="display: none;">
+							重组
+							<span></span>
+						</div>
+					</div>
+					<div class="progressBar">
+						<div class="thisprogress"></div>
+					</div>
+					<ul class="items clearfix" id="items"  style="display: block;">
+						<li>received</li>
+						<li class="actived">She</li>
+						<li>eight-year</li>
+					</ul>
+					<div class="interpret" id="interpret" style="display: none;">
+						{{thisinterpret}}
+					</div>
+				</div>
+				<div class="btns">
+					<button class="enter" id="enter">
+						<i></i>&nbsp;
+						(Enter)
+					</button>
+				</div>
+				<div class="otherInformation">
+					<div class="studyTime" id="studyTime">学习时长：00 : 00 : 00 </div>
+					<div class="thisStudy">本次学习【生词：<span id="newWord">5</span>　熟词：<span id="familiarWords">12</span>　复习：<span id="review">6</span>】</div>
+				</div>
+			</div>
+		</section>
+		<div class="masking" id="masking" style="display: none;">
+			<div class="reminder">
+				<h4>学习完成，现在开始进行模拟测试！</h4>
+				<button class="btnsOk">确定</button>
+			</div>
+		</div>
+		<audio autoplay src="{{audioplaySrc}}" type="audio/wav" id="audioplay">
+		</audio>
+		
+		<script src="../../js/jquery-3.2.1.min.js"></script>
+		<script src="../../js/vue.min.js"></script>
+		<script src="../../js/common.js"></script>
+		<!--<script src="../../js/sentence_interpret.js"></script>-->
+	</body>
+
+</html>

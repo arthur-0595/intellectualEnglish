@@ -51,11 +51,10 @@
 			var usernameVal, passwordVal;
 
 			var username = localStorage.username;
-			var password = localStorage.password;
 
 			if (username) {
 				$("#username").val(username);
-				$("#password").val(password);
+				$("#password").focus();
 			}
 
 			$("#loginBtn").on("click", function () {
@@ -74,10 +73,10 @@
 					success: function (data) {
 						sessionStorage.userMessage = JSON.stringify(data.info);
 						sessionStorage.changeUserAvatar = JSON.stringify(data.piclist);
+						sessionStorage.login_all = data.Login_all;
 
 						if (data.result == 2) {
 							localStorage.username = usernameVal;
-							localStorage.password = passwordVal;
 
 							window.location = 'html/home.html';
 						} else if (data.result == 1) {

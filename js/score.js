@@ -1,7 +1,7 @@
-$(function() {
+$(function () {
 	//获取用户ID
 	var userMessage = sessionStorage.userMessage;
-	if(userMessage) {
+	if (userMessage) {
 		userMessage = JSON.parse(userMessage);
 		var username = userMessage[0].ID;
 	} else {
@@ -15,10 +15,10 @@ $(function() {
 	//包涵所有中文释义的数组以及包涵所有英文单词的数组
 	var itemNum;
 
-	$.getUrlParam = function(name) {
+	$.getUrlParam = function (name) {
 		var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
 		var r = window.location.search.substr(1).match(reg);
-		if(r != null) return decodeURI(r[2]);
+		if (r != null) return decodeURI(r[2]);
 		return null;
 	};
 	var urlScore = $.getUrlParam('score');
@@ -28,6 +28,10 @@ $(function() {
 	var e_c_Arr = [],
 		c_e_Arr = [],
 		listeningTest = [];
+	e_c_Arr = JSON.parse(sessionStorage.e_c_Arr);
+	c_e_Arr = JSON.parse(sessionStorage.c_e_Arr);
+	wordsArr = JSON.parse(sessionStorage.wordsArr);
+
 
 	textbook_id = sessionStorage.textbook_id;
 	version_id = sessionStorage.version_id;
@@ -37,12 +41,9 @@ $(function() {
 	version_name = sessionStorage.version_name;
 	chapter_name = sessionStorage.chapter_name;
 	type = sessionStorage.type;
-	
-	var correctArr = JSON.parse( sessionStorage.correctArr ) ;
-//	alert(typeof correctArr);
 
-	//	alert(Math.random()*30+1 );//1~30之间的随机数
-	//初试vue
+	var correctArr = JSON.parse(sessionStorage.correctArr);
+
 	var con = new Vue({
 		el: "#con",
 		data: {
@@ -52,43 +53,16 @@ $(function() {
 			typeStr: typeStr
 		}
 	})
-	
-	//获取所有单词
-	fnGetAllTheWords();
 
-	//获取本章所有的单词
-	function fnGetAllTheWords() {
-		$.ajax({
-			type: "POST",
-			url: thisUrl + '/Areas/Api/Interface.ashx',
-			dataType: "json",
-			data: {
-				method: "getwords",
-				unit_id: chapter_id,
-			},
-			success: function(data) {
-				wordsArr = data;
-				wordArrlength = wordsArr.length;
 
-				//前两类各自下面题目的数量
-				itemNum = parseInt(wordArrlength / 3);
-
-				fnshowtopic();
-			}
-		});
-	}
+	fnshowtopic();
 
 	function fnshowtopic() {
-		//给e_c_Arr数组添加元素
-		fnpushArr(e_c_Arr);
-		//给c_e_Arr数组添加元素
-		fnpushArr(c_e_Arr);
-
 		var e_cHtml = '',
 			c_eHtml = '',
 			listeningTestHtml = '';
 
-		$.each(e_c_Arr, function(index, element) {
+		$.each(e_c_Arr, function (index, element) {
 			e_cHtml += `<li data-correct="${element.word_mean}" class="correct">
 							<h4>${index+1}.${element.word_name.replace(/\•/g,'')}</h4>
 							<ul class="item">
@@ -114,7 +88,7 @@ $(function() {
 		});
 		$("#e_c .tests").html(e_cHtml);
 
-		$.each(c_e_Arr, function(index, element) {
+		$.each(c_e_Arr, function (index, element) {
 			c_eHtml += `<li data-correct="${element.word_name.replace(/\•/g,'')}" class=" ">
 							<h4>${index+1}.${element.word_mean}</h4>
 							<ul class="item">
@@ -140,7 +114,7 @@ $(function() {
 		});
 		$("#c_e .tests").html(c_eHtml);
 
-		$.each(wordsArr, function(index, element) {
+		$.each(wordsArr, function (index, element) {
 			listeningTestHtml += `<li data-correct="${element.word_mean}"  class="error">
 							&nbsp;&nbsp;${index+1}. <button class="listenbtns" data-wordurl="${element.word_url}">听读音</button>
 							<ul class="item">
@@ -166,54 +140,27 @@ $(function() {
 		});
 		$("#listeningTest .tests").html(listeningTestHtml);
 		//点击听语音按钮
-		$("#listeningTest li button").on("click", function() {
+		$("#listeningTest li button").on("click", function () {
 			var playerSrc = thisUrl2 + this.dataset.wordurl;
 			$("#audioplay").attr("src", playerSrc);
-		})
+		});
 		//通过修改class来标注选项的对错
 		var liA = $(".item > li");
-		$.each(liA, function(index , element) {
-			if(element.dataset.type == 1){
-				$(element).find('i').attr('class',"yes");
-			}else{
-				$(element).find('i').attr('class',"no");
+		$.each(liA, function (index, element) {
+			if (element.dataset.type == 1) {
+				$(element).find('i').attr('class', "yes");
+			} else {
+				$(element).find('i').attr('class', "no");
 			}
 		});
 		//对应题目的状态标识出来
-		$(".tests>li").attr('class','error');
-		$.each(correctArr, function(index , element) {
-			$(".tests>li").eq(correctArr[index]).attr('class','correct');
+		$(".tests>li").attr('class', 'error');
+		$.each(correctArr, function (index, element) {
+			$(".tests>li").eq(correctArr[index]).attr('class', 'correct');
 		});
-	}
 
-	//给英译汉和汉译英数组添加元素
-	function fnpushArr(arrName) {
-		for(var i = 0; i < itemNum; i++) {
-			wordArrlength--;
-			var random = parseInt(Math.random() * wordArrlength + 1);
-			arrName.push(wordsArr.splice(random, 1)[0]);
-		}
+		sessionStorage.e_c_Arr = undefined;
+		sessionStorage.c_e_Arr = undefined;
+		sessionStorage.wordsArr = undefined;
 	}
-
 })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
