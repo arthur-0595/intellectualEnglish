@@ -13,9 +13,6 @@ $(function () {
     //当前的大类，大类的name
     var type, typeStr, typeEnglish;
 
-    //总时长
-    var login_all = sessionStorage.login_all;
-
     type = sessionStorage.type;
     typeStr = sessionStorage.typeStr;
     typeEnglish = sessionStorage.typeEnglish;
@@ -56,7 +53,7 @@ $(function () {
                 break;
             case '02':
                 console.log('type2');
-
+                
                 break;
             case '03':
                 console.log('type3');
@@ -412,7 +409,7 @@ $(function () {
             },
             dataType: "json",
             success: function (data) {
-                console.log(data);
+                // console.log(data);
                 $("#testList span").eq(0).html(data.totalnumber);
                 $("#testList span").eq(1).html(data.newwordnumber);
                 $("#testList span").eq(2).html(data.oldwordnumber);
