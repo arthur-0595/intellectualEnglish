@@ -1,136 +1,85 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="UTF-8">
-		<title>智能默写测试</title>
-		<link rel="stylesheet" href="../../css/style.css" />
-		<link rel="stylesheet" href="../../css/classicalVoice/recognizeWord.css" />
-		<style>
-			section .content .item{
-				width:480px;
-				height:70px;
-				float:left;	
-				margin-left:50px;
-				margin-top:50px;
-				font-size:16px;
-			}
-			section .content .item .num{
-				display:block;
-				width:390px;
-				height:30px;
-				line-height:30px;
-				color:#333;
-				font-size:16px;
-			}
-			section .content .item .line{	
-				display: block;
-				width: 390px;
-				height:36px;
-			    border: 1px solid #ccc;
-				font-size:16px;
-				text-align:left;
-				line-height:36px;
-				padding-left:10px;
-				border-radius:4px;
-				color:#333;
-				margin-left:0;
-			}
-			section .content .item .line:focus{
-				border:1px solid rgba(0,0,255,.4);
-				box-shadow:0 0 10px #57B3FF;
-			}
-		</style>
-	</head>
-	<body>
-		<header class="header">
-			<div class="top" id="top">
-				<p class="title">剑桥国际少儿英语 - 第一册 - UnitA</p>
-				<p class="countdown">
-					<!--剩余时间：<span>0{{minute}}</span>分<span>{{second}}</span>秒-->
-					剩余时间：05分00秒
-				</p>
-			</div>
-		</header>
-		<section>
-			<div class="content">
-				<ul class="clearfix" id="contentUl">
-					<li class="item">
-						<span class="num">1. 擅长</span>
-						<input type="text" class="line" placeholder="输入单词"/>						
-					</li>
-					<li class="item">
-						<span class="num">2. adj.每日的，日常的</span>
-						<input type="text" class="line" placeholder="输入单词"/>						
-					</li>
-					<li class="item">
-						<span class="num">3. n.博客</span>
-						<input type="text" class="line" placeholder="输入单词"/>						
-					</li>
-					<li class="item">
-						<span class="num">3. adj.n 德国人，德语</span>
-						<input type="text" class="line" placeholder="输入单词"/>						
-					</li>
-					<li class="item">
-						<span class="num">1. 擅长</span>
-						<input type="text" class="line" placeholder="输入单词"/>						
-					</li>
-					<li class="item">
-						<span class="num">2. adj.每日的，日常的</span>
-						<input type="text" class="line" placeholder="输入单词"/>						
-					</li>
-					<li class="item">
-						<span class="num">3. n.博客</span>
-						<input type="text" class="line" placeholder="输入单词"/>						
-					</li>
-					<li class="item">
-						<span class="num">3. adj.n 德国人，德语</span>
-						<input type="text" class="line" placeholder="输入单词"/>						
-					</li>
-					<li class="item">
-						<span class="num">1. 擅长</span>
-						<input type="text" class="line" placeholder="输入单词"/>						
-					</li>
-					<li class="item">
-						<span class="num">2. adj.每日的，日常的</span>
-						<input type="text" class="line" placeholder="输入单词"/>						
-					</li>
-					<li class="item">
-						<span class="num">3. n.博客</span>
-						<input type="text" class="line" placeholder="输入单词"/>						
-					</li>
-					<li class="item">
-						<span class="num">3. adj.n 德国人，德语</span>
-						<input type="text" class="line" placeholder="输入单词"/>						
-					</li>
-					<li class="item">
-						<span class="num">1. 擅长</span>
-						<input type="text" class="line" placeholder="输入单词"/>						
-					</li>
-					<li class="item">
-						<span class="num">2. adj.每日的，日常的</span>
-						<input type="text" class="line" placeholder="输入单词"/>						
-					</li>
-					<li class="item">
-						<span class="num">3. n.博客</span>
-						<input type="text" class="line" placeholder="输入单词"/>						
-					</li>
-					<li class="item">
-						<span class="num">3. adj.n 德国人，德语</span>
-						<input type="text" class="line" placeholder="输入单词"/>						
-					</li>
-				</ul>
-			</div>
-			<div class="btn clearfix">
-				<div class="commit" id="commit">交卷</div>
-				<a href="javascript:window.close();"><div class="quit">退出</div></a>
-			</div>			
-		</section>
-		
-		
-		<script src="../../js/jquery-3.2.1.min.js"></script>
-		<script src="../../js/common.js"></script>
-		<script src="../../js/vue.min.js"></script>
-		<!--<script src="../../js/classicalVoice/recognizeWord.js"></script>-->
-	</body>
-</html>
 
+<head>
+	<meta charset="UTF-8">
+	<title>智能默写测试</title>
+	<link rel="stylesheet" href="../../css/style.css" />
+	<link rel="stylesheet" href="../../css/loading.css">
+	<link rel="stylesheet" href="../../css/classicalVoice/recognizeWord.css" />
+	<style>
+		section .content .item {
+			width: 480px;
+			height: 70px;
+			float: left;
+			margin-left: 50px;
+			margin-top: 50px;
+			font-size: 16px;
+		}
+
+		section .content .item .num {
+			display: block;
+			width: 390px;
+			height: 30px;
+			line-height: 30px;
+			color: #333;
+			font-size: 16px;
+		}
+
+		section .content .item .line {
+			display: block;
+			width: 390px;
+			height: 36px;
+			border: 1px solid #ccc;
+			font-size: 16px;
+			text-align: left;
+			line-height: 36px;
+			padding-left: 10px;
+			border-radius: 4px;
+			color: #333;
+			margin-left: 0;
+		}
+
+		section .content .item .line:focus {
+			border: 1px solid rgba(0, 0, 255, .4);
+			box-shadow: 0 0 10px #57B3FF;
+		}
+	</style>
+</head>
+
+<body>
+	<header class="header">
+		<div class="top" id="top">
+			<p class="title">{{version_name}} - {{textbook_name}}</p>
+			<p class="countdown">
+				剩余时间：0{{minute}}分{{second}}秒
+			</p>
+		</div>
+	</header>
+	<section>
+		<div class="content">
+			<ul class="clearfix" id="contentUl">
+				<li class="item" v-for="(item,index) in items">
+					<span class="num">{{index+1}}. {{item.word_mean}}</span>
+					<input type="text" class="line"
+					 v-bind:id="item.word_name.replace(/\•/g,'')"
+					 placeholder="输入单词" />
+				</li>
+			</ul>
+		</div>
+		<div class="btn clearfix">
+			<div class="commit" id="commit">交卷</div>
+			<a href="javascript:window.close();">
+				<div class="quit">退出</div>
+			</a>
+		</div>
+	</section>
+
+	<script src="../../js/jquery-3.2.1.min.js"></script>
+	<script src="../../js/common.js"></script>
+	<script src="../../js/vue.min.js"></script>
+	<script src="../../js/loading.js"></script>
+	<script src="../../js/testCenter/word_write_test.js"></script>
+</body>
+
+</html>

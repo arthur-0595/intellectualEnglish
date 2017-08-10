@@ -15,19 +15,19 @@
 			margin-top: 50px;
 			font-size: 16px;
 		}
-		
+
 		section .content .item .num {
-			width:390px;
-			height:30px;			
+			width: 390px;
+			height: 30px;
 			color: #333;
 			line-height: 30px;
 			font-size: 16px;
-			margin-left:4px;
+			margin-left: 4px;
 		}
-		
+
 		section .content .item .line {
 			width: 390px;
-			height:36px;
+			height: 36px;
 			border: 1px solid #ccc;
 			font-size: 16px;
 			text-align: left;
@@ -37,17 +37,18 @@
 			border-radius: 4px;
 			color: #333;
 		}
+
 		section .content .item .error {
 			color: #ff1919;
 			border: 1px solid #ff1919;
 			font-size: 16px;
 		}
-		
+
 		section .content .item .correct {
 			color: #57b3ff;
 			font-size: 16px;
 		}
-		
+
 		section .content .item .correctLetter {
 			color: #333;
 			font-size: 16px;
@@ -59,121 +60,91 @@
 <body>
 	<header class="header">
 		<div class="top">
-			<p class="title" id="title">剑桥国际少儿英语 - 第一册 - UnitA</p>
+			<p class="title" id="title">{{version_name}} - {{textbook_name}}</p>
 		</div>
 	</header>
 	<section id="section">
-		<div class="score" id="score">考试得分:&nbsp;&nbsp;88分</div>
+		<div class="score" id="score">考试得分:&nbsp;&nbsp;<span>88</span>分</div>
 		<div class="content">
-			<ul class="clearfix">
-				<li class="item">
-					<p class="num">1. adj.每日的，日常的</p>
-					<input type="text" class="line correct" value="at" disabled/>
-					<p class="correctLetter">at</p>
+			<ul class="clearfix" id="contentUl">
+				<li class="item" v-for="(item,index) in items">
+					<p class="num">{{index+1}}. {{item.word_mean}}</p>
+					<input type="text" v-bind:class="item.status==0?'line correct':'line error'" v-bind:value="item.myValue" disabled/>
+					<p class="correctLetter">{{item.word_name}}</p>
 				</li>
-				<li class="item">
+				<!-- <li class="item">
 					<p class="num">2. 擅长</p>
 					<input type="text" class="line error" value="home" disabled/>
 					<p class="correctLetter">harm</p>
-				</li>
-				<li class="item">
-					<p class="num">1. adj.每日的，日常的</p>
-					<input type="text" class="line correct" value="at" disabled/>
-					<p class="correctLetter">at</p>
-				</li>
-				<li class="item">
-					<p class="num">2. 擅长</p>
-					<input type="text" class="line error" value="home" disabled/>
-					<p class="correctLetter">harm</p>
-				</li>
-				<li class="item">
-					<p class="num">1. adj.每日的，日常的</p>
-					<input type="text" class="line correct" value="at" disabled/>
-					<p class="correctLetter">at</p>
-				</li>
-				<li class="item">
-					<p class="num">2. 擅长</p>
-					<input type="text" class="line error" value="home" disabled/>
-					<p class="correctLetter">harm</p>
-				</li>
-				<li class="item">
-					<p class="num">1. adj.每日的，日常的</p>
-					<input type="text" class="line correct" value="at" disabled/>
-					<p class="correctLetter">at</p>
-				</li>
-				<li class="item">
-					<p class="num">2. 擅长</p>
-					<input type="text" class="line error" value="home" disabled/>
-					<p class="correctLetter">harm</p>
-				</li>
-				<li class="item">
-					<p class="num">1. adj.每日的，日常的</p>
-					<input type="text" class="line correct" value="at" disabled/>
-					<p class="correctLetter">at</p>
-				</li>
-				<li class="item">
-					<p class="num">2. 擅长</p>
-					<input type="text" class="line error" value="home" disabled/>
-					<p class="correctLetter">harm</p>
-				</li>
-				<li class="item">
-					<p class="num">1. adj.每日的，日常的</p>
-					<input type="text" class="line correct" value="at" disabled/>
-					<p class="correctLetter">at</p>
-				</li>
-				<li class="item">
-					<p class="num">2. 擅长</p>
-					<input type="text" class="line error" value="home" disabled/>
-					<p class="correctLetter">harm</p>
-				</li>
-				<li class="item">
-					<p class="num">1. adj.每日的，日常的</p>
-					<input type="text" class="line correct" value="at" disabled/>
-					<p class="correctLetter">at</p>
-				</li>
-				<li class="item">
-					<p class="num">2. 擅长</p>
-					<input type="text" class="line error" value="home" disabled/>
-					<p class="correctLetter">harm</p>
-				</li>
-				<li class="item">
-					<p class="num">1. adj.每日的，日常的</p>
-					<input type="text" class="line correct" value="at" disabled/>
-					<p class="correctLetter">at</p>
-				</li>
-				<li class="item">
-					<p class="num">2. 擅长</p>
-					<input type="text" class="line error" value="home" disabled/>
-					<p class="correctLetter">harm</p>
-				</li>
-				<li class="item">
-					<p class="num">1. adj.每日的，日常的</p>
-					<input type="text" class="line correct" value="at" disabled/>
-					<p class="correctLetter">at</p>
-				</li>
-				<li class="item">
-					<p class="num">2. 擅长</p>
-					<input type="text" class="line error" value="home" disabled/>
-					<p class="correctLetter">harm</p>
-				</li>
+				</li> -->
 			</ul>
 		</div>
 		<div class="btn clearfix">
-			<a href="JavaScript:;">
+			<a href="JavaScript:window.history.back();">
 				<div class="commit">重新测试</div>
 			</a>
 			<a href="javascript:window.close();" style="color:#333">
 				<div class="quit">退出</div>
 			</a>
 		</div>
-
 	</section>
+	<audio autoplay src="" type="audio/wav" id="audioplay">
+	</audio>
 
 
 	<script src="../../js/jquery-3.2.1.min.js"></script>
 	<script src="../../js/common.js"></script>
 	<script src="../../js/vue.min.js"></script>
-	<!--<script src="../../js/classicalVoice/recognizeWordResult.js"></script>-->
-	</body>
+	<script>
+		$(function () {
+			//获取用户ID
+			var userMessage = sessionStorage.userMessage;
+			if (userMessage) {
+				userMessage = JSON.parse(userMessage);
+				var username = userMessage[0].ID;
+			} else {
+				window.location = '../index.html';
+			}
+			//当前选择的版本ID，教材ID ,选择的章节
+			var textbook_id, chapter_id, version_id;
+			var type, typeStr, textbook_name, version_name, chapter_name;
+
+			$.getUrlParam = function (name) {
+				var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+				var r = window.location.search.substr(1).match(reg);
+				if (r != null) return decodeURI(r[2]);
+				return null;
+			};
+			var urlScore = $.getUrlParam('score');
+			$("#score span").html(urlScore);
+
+			textbook_id = sessionStorage.textbook_id;
+			version_id = sessionStorage.version_id;
+			chapter_id = sessionStorage.chapter_id;
+			typeStr = sessionStorage.typeStr;
+			textbook_name = sessionStorage.textbook_name;
+			version_name = sessionStorage.version_name;
+			chapter_name = sessionStorage.chapter_name;
+
+			var correctArr = JSON.parse(sessionStorage.correctArr);
+
+			var title = new Vue({
+				el: "#title",
+				data: {
+					textbook_name: textbook_name,
+					version_name: version_name
+				}
+			})
+
+			var contentUl = new Vue({
+				el: "#contentUl",
+				data: {
+					items: correctArr
+				}
+			})
+
+		})
+	</script>
+</body>
 
 </html>

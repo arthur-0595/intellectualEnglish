@@ -43,21 +43,25 @@ $(function () {
 
     //若当前页面的类别是句子相关的，则修改测试中心各选项的点击跳转路径
     (function (type_) {
+        var commonTest = $("#testList .commonTest");
         switch (type_) {
             case '01':
                 console.log('type1');
-                var commonTest = $("#testList .commonTest");
                 $.each(commonTest, function (index, element) {
                     element.href = "javascript:window.open('../html/testCenter/word_memory_test.html?testType=" + (index + 1) + "')";
                 });
                 break;
             case '02':
                 console.log('type2');
-                
+                $.each(commonTest, function (index, element) {
+                    element.href = "javascript:window.open('../html/testCenter/word_listen_test.html?testType=" + (index + 1) + "')";
+                });
                 break;
             case '03':
                 console.log('type3');
-
+                $.each(commonTest, function (index, element) {
+                    element.href = "javascript:window.open('../html/testCenter/word_write_test.html?testType=" + (index + 1) + "')";
+                });
                 break;
             case '04':
                 console.log('type4');
@@ -544,7 +548,7 @@ $(function () {
             dataType: "json",
             success: function (data) {
                 // console.log(data);
-                if(data.result == 1){
+                if (data.result == 1) {
                     $('#onlineTime span').html(fnupdateAllTime(data.Login_all));
                 }
             }
@@ -563,9 +567,9 @@ $(function () {
 
     //修改时间的函数
     function fnupdateAllTime(login_all) {
-        var hour = parseInt(login_all/3600)<10?('0'+parseInt(login_all/3600)):parseInt(login_all/3600);
-        var minute = parseInt( ( login_all-(hour*3600) )/60 )<10?('0'+parseInt( ( login_all-(hour*3600) )/60 )):parseInt( ( login_all-(hour*3600) )/60 );
-        var seconds = parseInt( login_all-(hour*3600)-(minute*60) )<10?('0'+parseInt( login_all-(hour*3600)-(minute*60) )):parseInt( login_all-(hour*3600)-(minute*60) );
+        var hour = parseInt(login_all / 3600) < 10 ? ('0' + parseInt(login_all / 3600)) : parseInt(login_all / 3600);
+        var minute = parseInt((login_all - (hour * 3600)) / 60) < 10 ? ('0' + parseInt((login_all - (hour * 3600)) / 60)) : parseInt((login_all - (hour * 3600)) / 60);
+        var seconds = parseInt(login_all - (hour * 3600) - (minute * 60)) < 10 ? ('0' + parseInt(login_all - (hour * 3600) - (minute * 60))) : parseInt(login_all - (hour * 3600) - (minute * 60));
 
         var time = `${hour} : ${minute} : ${seconds}`;
         return time;

@@ -10,8 +10,6 @@ $(function () {
 	//当前选择的版本ID，教材ID ,选择的章节
 	var textbook_id, chapter_id, version_id;
 	var type, typeStr, textbook_name, version_name, chapter_name;
-	//audio播放路径
-	var audioPlayerSrc;
 	//本章所有的单词
 	var wordsArr, wordArrlength;
 
@@ -68,12 +66,6 @@ $(function () {
 		el:"#contentUl",
 		data:{
 			items:''
-		},
-		methods: {
-			fnListenInput:function (audioSrc){
-				audioPlayerSrc = thisUrl2 + audioSrc;
-				$("#audioplay").attr('src' , audioPlayerSrc);
-			}
 		}
 	})
 
@@ -165,11 +157,10 @@ $(function () {
 		console.log(correctArr);
 		sessionStorage.correctArr = JSON.stringify(correctArr);
 		var thisScore = Math.round((scoreNum / liArr.length) * 100);
-		// console.log('分数：'+thisScore);
+		console.log('分数：'+thisScore);
 		//得到分数，并发送
 		fnsavethisScore(thisScore, liArr.length);
 	})
-
 	function fnshowtopic(wordsArr_) {
 		contentUl.items = wordsArr_;
 
