@@ -71,10 +71,6 @@ $(function() {
 			},
 			success: function(data) {
 				console.log(JSON.stringify(data));
-				if(!data[0].sentence){
-					alert('没有可学习的内容，请联系客服人员！');	
-					window.close();
-				}
 				if(data[0]) {
 					thisSentence = data[0];
 
@@ -82,9 +78,12 @@ $(function() {
 					audioplaySrc = thisUrl2 + thisSentence.sentence_url;
 					//获取到数据之后更新对应的句子相关内容
 					fnUpdateAll(thisSentence);
-				} else {
+				} else if(data == 2){
 					alert('学习完毕，下面进行测试');
 					fnthisunitAllSen();
+				} else if(data == 3){
+					alert('没有可学习的内容，请联系客服人员！');	
+					window.close();
 				}
 			}
 		});
@@ -131,6 +130,11 @@ $(function() {
 			fnupdateNext();
 			
 		} else if(typeNum == 666) { //该值为666表示当前处于测试状态
+			if(myVal.length < 1){
+				$("#hint").stop(true,true).fadeIn(200).delay(1500).fadeOut(200);
+				$("#input").focus();
+            	return false;
+			}
 			var thisStatus;
 			if(fndisposeSen(myVal) == fndisposeSen(sentenceArr[num].sentence)) {
 				thisStatus = 1;
@@ -204,7 +208,7 @@ $(function() {
 
 					fntestshowSen(sentenceArr[0]);
 				} else {
-					alert('单词获取失败，请尝试刷新！');
+					alert('句子获取失败，请尝试刷新！');
 				}
 
 			}
@@ -227,21 +231,19 @@ $(function() {
 			});
 			var thisScore = Math.round((Nnum / testsArr.length) * 100);
 			//			alert(thisScore);
-
-			window.location = "sentence_test.html?score=" + thisScore;
+			fnsavethisScore(thisScore, testsArr.length);
 		}
 	}
 
 	//听写测试载入对应单词
 	function fntestshowSen(wordObj) {
-		$("#input").val("").attr('disabled', false);
-		$("#input")[0].focus();
+		$("#input").val("").attr('disabled', false).focus();
+		// $("#input")[0];
 
 		word.sentence_mean = wordObj.sentence_mean;
 		word.sentence = wordObj.sentence;
 
 		$("#thisStudy").html('进度：' + (num + 1) + '/' + sentenceArrLength);
-
 		typeNum = 666;
 	}
 
@@ -251,7 +253,32 @@ $(function() {
 		}else{
 			return sentence_;
 		}
-		
+	}
+
+	function fnsavethisScore(thisScore_, length) {
+		var testsType = typeStr + "闯关测试(" + version_name + '-' + textbook_name + ")";
+		// console.log(testsType);
+		$.ajax({
+			type: "POST",
+			url: thisUrl2 + '/Areas/Api/index.ashx',
+			dataType: "json",
+			data: {
+				method: "SaveTestRecord",
+				user_id: username,
+				textbook_id: textbook_id,
+				test_type: testsType,
+				test_score: thisScore_,
+				test_number: length
+			},
+			success: function (data) {
+				// console.log(JSON.stringify(data));
+				if (data.msg == "保存成功") {
+					window.location = "sentence_test.html?score=" + thisScore_;
+				} else {
+					alert('成绩上传失败，请重试');
+				}
+			}
+		});
 	}
 
 })

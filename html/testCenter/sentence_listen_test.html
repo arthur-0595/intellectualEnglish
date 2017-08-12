@@ -3,84 +3,79 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>例句听力测试</title>
+    <title>例句听力测试中心</title>
     <link rel="stylesheet" href="../../css/style.css" />
     <link rel="stylesheet" href="../../css/sentence_listen.css" />
     <style>
         .sentence .thisSentence .listening,
-        .sentence .clear{
-            position: absolute;right: 0;top: 50%;
+        .sentence .clear {
+            position: absolute;
+            right: 0;
+            top: 50%;
         }
     </style>
 </head>
 
 <body>
-<section id="sectionBox">
-    <div class="main">
-        <div class="titleBox" id="titleBox">
-            <div class="versions">剑桥国际少儿英语 - 第一册 - UnitA</div>
-            <div class="title">例句听力测试</div>
-            <a href="javascript:window.close();" class="exit" id="exit"></a>
-        </div>
-        <div class="sentence" id="sentence">
-            <div class="thisSentence">
-                <div class="thisSentence_con" id="thisSentence_con" style="display: none;"></div>
-                <div class="listening" id="listening">
-                    听语音<span></span>
-                </div>
+    <section id="sectionBox">
+        <div class="main userSelect">
+            <div class="titleBox" id="titleBox">
+                <div class="versions">{{version_name}} - {{textbook_name}}</div>
+                <div class="title">{{typeStr}}测试</div>
+                <a href="javascript:window.close();" class="exit" id="exit"></a>
             </div>
-            <div class="answer clearfix">
-                <!--<div class="answerArr clearfix correct">-->
-                <div class="answerArr" id="answerArr">
-                    <span class="ans_null"></span>
-                    <span class="ans_word">yellow</span>
-                    <span class="ans_null"></span>
-                    <span class="ans_null"></span>
-							<span class="punctuation">
-								.
-							</span>
+            <div class="sentence" id="sentence">
+                <div class="thisSentence">
+                    <div class="thisSentence_con" id="thisSentence_con" style="display: none;"></div>
+                    <div class="listening" id="listening">
+                        听语音<span></span>
+                    </div>
                 </div>
-                <div class="clear" id="clear" style="display: block;">
-                    清除
-                    <span></span>
+                <div class="answer clearfix">
+                    <!--<div class="answerArr clearfix correct">-->
+                    <div class="answerArr" id="answerArr">
+                        <!-- <span class="ans_null"></span>
+                        <span class="ans_word">yellow</span>
+                        <span class="punctuation">
+                            .
+                        </span> -->
+                    </div>
+                    <div class="clear" id="clear" style="display: block;">
+                        清除
+                        <span></span>
+                    </div>
                 </div>
-            </div>
-            <ul class="items clearfix" id="items"  style="display: block;">
-                <li>received</li>
+                <ul class="items clearfix" id="items" style="display: block;">
+                    <!-- <li>received</li>
                 <li class="actived">She</li>
-                <li>eight-year</li>
-            </ul>
-            <div class="interpret" id="interpret" style="display: none;">
-                {{thisinterpret}}
+                <li>eight-year</li> -->
+                </ul>
+                <div class="interpret" id="interpret" style="display: none;">
+                    {{thisinterpret}}
+                </div>
             </div>
-        </div>
-        <div class="btns">
-            <button class="enter" id="enter">
+            <div class="btns">
+                <button class="enter" id="enter">
                 <i></i>&nbsp;
                 (Enter)
             </button>
-        </div>
-        <div class="otherInformation">
-            <div class="studyTime" id="studyTime">学习时长：00 : 00 : 00 </div>
-            <div class="thisStudy" id="thisStudy">
-                进度： 4/30
+            </div>
+            <div class="otherInformation">
+                <div class="studyTime" id="studyTime">学习时长：00 : 00 : 00 </div>
+                <div class="thisStudy" id="thisStudy">
+                    进度： 4/30
+                </div>
             </div>
         </div>
-    </div>
-</section>
-<div class="masking" id="masking" style="display: none;">
-    <div class="reminder">
-        <h4>学习完成，现在开始进行模拟测试！</h4>
-        <button class="btnsOk">确定</button>
-    </div>
-</div>
-<audio autoplay src="{{audioplaySrc}}" type="audio/wav" id="audioplay">
-</audio>
+    </section>
+    <div class="hint" id="hint">一点都不会吗？</div>
+    <audio autoplay src="" type="audio/wav" id="audioplay">
+    </audio>
 
-<script src="../../js/jquery-3.2.1.min.js"></script>
-<script src="../../js/vue.min.js"></script>
-<script src="../../js/common.js"></script>
-<!--<script src="../../js/sentence_listen_test.js"></script>-->
+    <script src="../../js/jquery-3.2.1.min.js"></script>
+    <script src="../../js/vue.min.js"></script>
+    <script src="../../js/common.js"></script>
+    <script src="../../js/testCenter/sentence_listen_test.js"></script>
 </body>
 
 </html>

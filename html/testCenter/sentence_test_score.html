@@ -171,156 +171,43 @@
 <body>
 <header class="header">
     <div class="top">
-        <p class="title" id="title">剑桥国际少儿英语 - 第一册 - UnitA</p>
+        <p class="title" id="title">{{version_name}} - {{textbook_name}}</p>
     </div>
 </header>
 <section id="section">
-    <div class="score" id="score">考试得分:&nbsp;&nbsp;86分</div>
+    <div class="score" id="score">考试得分:&nbsp;&nbsp;{{score}}分</div>
     <div class="content">
         <ul class="clearfix">
-            <li class="item">
-                <span class="num">1.</span>
-                <span class="correctSentence">She was born in April!</span>
-                <span class="status"></span>
-                <p class="mySentence">She is born in April!</p>
-                <p class="chineseMean">她是在四月份出生的！</p>
+            <li class="item" v-for="(item,index) in items">
+                <span class="num">{{index+1}}.</span>
+                <span class="correctSentence">{{item.this_name}}</span>
+                <span v-bind:class="item.status==2?'status':'status correctImg'"></span>
+                <p v-bind:class="item.status==2?'mySentence':'mySentence correct'">{{item.myVal}}</p>
+                <p class="chineseMean">{{item.this_mean}}</p>
             </li>
-            <li class="item">
-                <span class="num">1.</span>
-                <span class="correctSentence">That sounds good!!</span>
-                <span class="status correctImg"></span>
-                <p class="mySentence correct">That sounds good!</p>
-                <p class="chineseMean">那听起来不错！</p>
-            </li>
-            <li class="item">
-                <span class="num">1.</span>
-                <span class="correctSentence">She was born in April!</span>
-                <span class="status"></span>
-                <p class="mySentence">She is born in April!</p>
-                <p class="chineseMean">她是在四月份出生的！</p>
-            </li>
-            <li class="item">
+            <!-- <li class="item">
                 <span class="num">1.</span>
                 <span class="correctSentence">That sounds good!!</span>
                 <span class="status correctImg"></span>
                 <p class="mySentence correct">That sounds good!</p>
                 <p class="chineseMean">那听起来不错！</p>
-            </li>
-            <li class="item">
-                <span class="num">1.</span>
-                <span class="correctSentence">She was born in April!</span>
-                <span class="status"></span>
-                <p class="mySentence">She is born in April!</p>
-                <p class="chineseMean">她是在四月份出生的！</p>
-            </li>
-            <li class="item">
-                <span class="num">1.</span>
-                <span class="correctSentence">That sounds good!!</span>
-                <span class="status correctImg"></span>
-                <p class="mySentence correct">That sounds good!</p>
-                <p class="chineseMean">那听起来不错！</p>
-            </li>
-            <li class="item">
-                <span class="num">1.</span>
-                <span class="correctSentence">She was born in April!</span>
-                <span class="status"></span>
-                <p class="mySentence">She is born in April!</p>
-                <p class="chineseMean">她是在四月份出生的！</p>
-            </li>
-            <li class="item">
-                <span class="num">1.</span>
-                <span class="correctSentence">That sounds good!!</span>
-                <span class="status correctImg"></span>
-                <p class="mySentence correct">That sounds good!</p>
-                <p class="chineseMean">那听起来不错！</p>
-            </li>
-            <li class="item">
-                <span class="num">1.</span>
-                <span class="correctSentence">She was born in April!</span>
-                <span class="status"></span>
-                <p class="mySentence">She is born in April!</p>
-                <p class="chineseMean">她是在四月份出生的！</p>
-            </li>
-            <li class="item">
-                <span class="num">1.</span>
-                <span class="correctSentence">That sounds good!!</span>
-                <span class="status correctImg"></span>
-                <p class="mySentence correct">That sounds good!</p>
-                <p class="chineseMean">那听起来不错！</p>
-            </li>
-            <li class="item">
-                <span class="num">1.</span>
-                <span class="correctSentence">She was born in April!</span>
-                <span class="status"></span>
-                <p class="mySentence">She is born in April!</p>
-                <p class="chineseMean">她是在四月份出生的！</p>
-            </li>
-            <li class="item">
-                <span class="num">1.</span>
-                <span class="correctSentence">That sounds good!!</span>
-                <span class="status correctImg"></span>
-                <p class="mySentence correct">That sounds good!</p>
-                <p class="chineseMean">那听起来不错！</p>
-            </li>
-            <li class="item">
-                <span class="num">1.</span>
-                <span class="correctSentence">She was born in April!</span>
-                <span class="status"></span>
-                <p class="mySentence">She is born in April!</p>
-                <p class="chineseMean">她是在四月份出生的！</p>
-            </li>
-            <li class="item">
-                <span class="num">1.</span>
-                <span class="correctSentence">That sounds good!!</span>
-                <span class="status correctImg"></span>
-                <p class="mySentence correct">That sounds good!</p>
-                <p class="chineseMean">那听起来不错！</p>
-            </li>
-            <li class="item">
-                <span class="num">1.</span>
-                <span class="correctSentence">She was born in April!</span>
-                <span class="status"></span>
-                <p class="mySentence">She is born in April!</p>
-                <p class="chineseMean">她是在四月份出生的！</p>
-            </li>
-            <li class="item">
-                <span class="num">1.</span>
-                <span class="correctSentence">That sounds good!!</span>
-                <span class="status correctImg"></span>
-                <p class="mySentence correct">That sounds good!</p>
-                <p class="chineseMean">那听起来不错！</p>
-            </li>
-            <li class="item">
-                <span class="num">1.</span>
-                <span class="correctSentence">She was born in April!</span>
-                <span class="status"></span>
-                <p class="mySentence">She is born in April!</p>
-                <p class="chineseMean">她是在四月份出生的！</p>
-            </li>
-            <li class="item">
-                <span class="num">1.</span>
-                <span class="correctSentence">That sounds good!!</span>
-                <span class="status correctImg"></span>
-                <p class="mySentence correct">That sounds good!</p>
-                <p class="chineseMean">那听起来不错！</p>
-            </li>
+            </li> -->
         </ul>
     </div>
     <div class="btn clearfix">
-        <a href="#">
+        <a href="javascript:window.history.back();">
             <div class="commit">重新测试</div>
         </a>
-        <a href="#" style="color:#333">
+        <a href="javascript:window.close();" style="color:#333">
             <div class="quit">退出</div>
         </a>
     </div>
-
 </section>
-
 
 <script src="../../js/jquery-3.2.1.min.js"></script>
 <script src="../../js/common.js"></script>
 <script src="../../js/vue.min.js"></script>
+<script src="../../js/testCenter/sentence_test_score.js"></script>
 </body>
 
 </html>

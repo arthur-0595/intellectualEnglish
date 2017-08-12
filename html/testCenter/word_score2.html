@@ -103,7 +103,7 @@
 				userMessage = JSON.parse(userMessage);
 				var username = userMessage[0].ID;
 			} else {
-				window.location = '../index.html';
+				window.location = '../../index.html';
 			}
 			//当前选择的版本ID，教材ID ,选择的章节
 			var textbook_id, chapter_id, version_id;
@@ -127,6 +127,7 @@
 			chapter_name = sessionStorage.chapter_name;
 
 			var correctArr = JSON.parse(sessionStorage.correctArr);
+			console.log(correctArr);
 
 			var title = new Vue({
 				el: "#title",

@@ -129,7 +129,7 @@ $(function () {
 				type_id: type_id
 			},
 			success: function (data) {
-				console.log(data);
+				// console.log(data);
 				wordsArr = data;
 				wordArrlength = wordsArr.length;
 
@@ -162,7 +162,7 @@ $(function () {
 			}
 			correctArr.push(newObj);
 		});
-		console.log(correctArr);
+		// console.log(correctArr);
 		sessionStorage.correctArr = JSON.stringify(correctArr);
 		var thisScore = Math.round((scoreNum / liArr.length) * 100);
 		// console.log('分数：'+thisScore);
@@ -196,7 +196,7 @@ $(function () {
 				test_number: length
 			},
 			success: function (data) {
-				console.log(JSON.stringify(data));
+				// console.log(JSON.stringify(data));
 
 				if (data.msg == "保存成功") {
 					window.location = "../../html/testCenter/word_score2.html?score=" + thisScore_;

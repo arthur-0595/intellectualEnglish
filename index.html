@@ -95,6 +95,13 @@
 					}
 				});
 			})
+			//监听回车时间，模拟点击登录按钮
+			document.onkeyup = function (event) {
+				var e = event || window.event || arguments.callee.caller.arguments[0];
+				if (e && e.keyCode == 13) {
+					$("#loginBtn").trigger('click');
+				}
+			};
 
 			$("#delUsername").on("click", function () {
 				$("#username").val("");

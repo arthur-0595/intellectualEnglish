@@ -63,6 +63,7 @@
 					<span class="num">{{index+1}}. {{item.word_mean}}</span>
 					<input type="text" class="line"
 					 v-bind:id="item.word_name.replace(/\•/g,'')"
+					 v-bind:data-mean="item.word_mean"
 					 placeholder="输入单词" />
 				</li>
 			</ul>

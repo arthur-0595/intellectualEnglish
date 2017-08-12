@@ -29,6 +29,7 @@ function fnupdateDoT(data_, boxId, temId) {
 	boxId.innerHTML = resultText;
 }
 
+//enter键盘按键代号13，Ctrl为17，Shift为16
 function enter_key(callback) {
 	document.onkeyup = function (event) {
 		var e = event || window.event || arguments.callee.caller.arguments[0];

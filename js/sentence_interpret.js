@@ -40,7 +40,6 @@ $(function() {
 	});
 
 	fnUpdatesentence();
-
 //	$("#listening").on("click", function() {
 //		$("#audioplay").attr("src", audioplaySrc);
 //	});
@@ -69,13 +68,8 @@ $(function() {
 				type: thistype
 			},
 			success: function(data) {
-				console.log(JSON.stringify(data));
-				if(!data[0].sentence){
-					alert('没有可学习的内容，请联系客服人员！');	
-					window.close();
-				}
+				// console.log('返回的数据'+JSON.stringify(data));
 				if(data[0]) {
-					//console.log(JSON.stringify(data));
 					thisSentence = data[0];
 
 					var processorSentence = fnprocessor(thisSentence.sentence);
@@ -88,10 +82,12 @@ $(function() {
 //					$("#audioplay").attr("src", audioplaySrc);
 					//获取到数据之后更新对应的句子相关内容
 					fnUpdateAll(thisSentence, thisSentenceArr, sentenceInTheRightOrderArr);
-
-				} else {
+				} else if(data == 2){
 					alert('学习完毕，下面进行测试');
 					window.location="sentence_interpret_test.html"
+				}else if(data == 3){
+					alert('没有可学习的内容，请联系客服人员！');
+					window.close();
 				}
 
 			}

@@ -40,6 +40,15 @@ $(function() {
 
 	fnGetAllTheWords();
 
+	document.onkeyup = function (event) {
+		var e = event || window.event || arguments.callee.caller.arguments[0];
+		if (e && e.keyCode == 13) {
+			$("#enter").trigger('click');
+		}else if(e && e.keyCode == 17){
+			$("#voice").trigger('click');
+		}
+	};
+
 	function fnGetAllTheWords() {
 		$.ajax({
 			type: "POST",

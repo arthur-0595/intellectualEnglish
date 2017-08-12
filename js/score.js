@@ -42,7 +42,7 @@ $(function () {
 	chapter_name = sessionStorage.chapter_name;
 	type = sessionStorage.type;
 
-	var correctArr = JSON.parse(sessionStorage.correctArr);
+	var liObjArr = JSON.parse( sessionStorage.liObjArr) ;
 
 	var con = new Vue({
 		el: "#con",
@@ -64,17 +64,18 @@ $(function () {
 
 		$.each(e_c_Arr, function (index, element) {
 			e_cHtml += `<li data-correct="${element.word_mean}" class="correct">
-							<h4>${index+1}.${element.word_name.replace(/\•/g,'')}</h4>
+							
+							<h4>${index+1}.${element.word_name.replace(/\•/g,'')} <span class="unsel" style="margin-left:40px;"></span></h4>
 							<ul class="item">
 								<li  data-type="${element.chinese[0].type}">
 									<i class="yes"></i>
 									${element.chinese[0].content}
 								</li>
-								<li data-type="${element.chinese[1].type}">
+								<li data-type="${element.chinese[1].type}" >
 									<i class="no"></i>
 									${element.chinese[1].content}
 								</li>
-								<li data-type="${element.chinese[2].type}">
+								<li data-type="${element.chinese[2].type}" >
 									<i class="no"></i>
 									${element.chinese[2].content}
 								</li>
@@ -90,7 +91,7 @@ $(function () {
 
 		$.each(c_e_Arr, function (index, element) {
 			c_eHtml += `<li data-correct="${element.word_name.replace(/\•/g,'')}" class=" ">
-							<h4>${index+1}.${element.word_mean}</h4>
+							<h4>${index+1}.${element.word_mean} <span class="unsel" style="margin-left:40px;"></span></h4>
 							<ul class="item">
 								<li data-type="${element.english[0].type}">
 									<i class=""></i>
@@ -117,6 +118,7 @@ $(function () {
 		$.each(wordsArr, function (index, element) {
 			listeningTestHtml += `<li data-correct="${element.word_mean}"  class="error">
 							&nbsp;&nbsp;${index+1}. <button class="listenbtns" data-wordurl="${element.word_url}">听读音</button>
+							<span class="unsel" style="margin-left:40px;"></span>
 							<ul class="item">
 								<li data-type="${element.chinese[0].type}">
 									<i class=""></i>
@@ -145,22 +147,28 @@ $(function () {
 			$("#audioplay").attr("src", playerSrc);
 		});
 		//通过修改class来标注选项的对错
-		var liA = $(".item > li");
-		$.each(liA, function (index, element) {
-			if (element.dataset.type == 1) {
-				$(element).find('i').attr('class', "yes");
-			} else {
-				$(element).find('i').attr('class', "no");
+		console.log(liObjArr);
+		var bigLiAll = $(".tests > li > ul");  // 每个 item
+		bigLiAll.each(function(){
+			$(this).find('li i').attr('class',"no");
+			$(this).parent().attr('class','error');
+		});
+		$.each(liObjArr, function(index , element) {
+			bigLiAll.eq(element.liIndex).find('li').eq(element.answerIndex)
+				.find('i').attr('class',"yes");
+			if(element.myCheckedIndex >= 0){
+				bigLiAll.eq(element.liIndex).find('li').eq(element.myCheckedIndex)
+				.css('background','#eee');	
+			}else{
+				bigLiAll.eq(element.liIndex).parent().find('.unsel').text('未作答');
 			}
-		});
-		//对应题目的状态标识出来
-		$(".tests>li").attr('class', 'error');
-		$.each(correctArr, function (index, element) {
-			$(".tests>li").eq(correctArr[index]).attr('class', 'correct');
-		});
+			if(element.isCorrect){
+				bigLiAll.eq(element.liIndex).parent().attr('class','correct');
+			}
+		});	
 
-		sessionStorage.e_c_Arr = undefined;
-		sessionStorage.c_e_Arr = undefined;
-		sessionStorage.wordsArr = undefined;
+//		sessionStorage.e_c_Arr = undefined;
+//		sessionStorage.c_e_Arr = undefined;
+//		sessionStorage.wordsArr = undefined;
 	}
 })

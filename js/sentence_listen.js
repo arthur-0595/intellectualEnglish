@@ -57,6 +57,17 @@ $(function() {
 		$("#thisSentence_con").show();
 	});
 
+	document.onkeyup = function (event) {
+		var e = event || window.event || arguments.callee.caller.arguments[0];
+		if (e && e.keyCode == 17) {
+			$("#listening").trigger('click');
+		}else if(e && e.keyCode == 16){
+			$("#reset").trigger('click');
+		}else if(e && e.keyCode == 13){
+			$("#enter").trigger('click');
+		}
+	};
+
 	function fnUpdatesentence() {
 		// console.log(chapter_id +'+'+ thistype);
 		$.ajax({
@@ -71,10 +82,6 @@ $(function() {
 			},
 			success: function(data) {
 				console.log(data);
-				if(data == 3){
-					alert('没有可学习的内容，请联系客服人员！');	
-					window.close();
-				}
 				if(data[0]) {
 					thisSentence = data[0];
 
@@ -92,6 +99,9 @@ $(function() {
 				} else if(data == 2){
 					alert('学习完毕，下面进行测试');
 					window.location="sentence_listen_test.html"
+				} else if(data == 3){
+					alert('没有可学习的内容，请联系客服人员！');	
+					window.close();
 				}
 
 			}

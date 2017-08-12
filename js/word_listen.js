@@ -34,7 +34,6 @@ $(function() {
 	chapter_name = sessionStorage.chapter_name;
 	type = sessionStorage.type;
 
-	//初试vue
 	var titleBox = new Vue({
 		el: "#titleBox",
 		data: {
@@ -44,6 +43,16 @@ $(function() {
 			typeStr: typeStr
 		}
 	})
+
+	document.onkeyup = function (event) {
+		var e = event || window.event || arguments.callee.caller.arguments[0];
+		if (e && e.keyCode == 13) {
+			$("#enter").trigger('click');
+		}else if(e && e.keyCode == 17){
+			$("#voice").trigger('click');
+		}
+	};
+
 	//获取当前要听写的单词
 	fnupdateWord();
 

@@ -66,18 +66,27 @@ $(function () {
             case '04':
                 console.log('type4');
                 $("#overallTest").remove();
+                $.each(commonTest, function (index, element) {
+                    element.href = "javascript:window.open('../html/testCenter/sentence_listen_test.html?testType=" + (index + 1) + "')";
+                });
                 break;
             case '05':
                 console.log('type5');
                 $("#overallTest").remove();
+                $.each(commonTest, function (index, element) {
+                    element.href = "javascript:window.open('../html/testCenter/sentence_translate_test.html?testType=" + (index + 1) + "')";
+                });
                 break;
             case '06':
                 console.log('type6');
                 $("#overallTest").remove();
+                $.each(commonTest, function (index, element) {
+                    element.href = "javascript:window.open('../html/testCenter/sentence_write_test.html?testType=" + (index + 1) + "')";
+                });
                 break;
-
             default:
                 console.log('type1');
+                return false;
                 break;
         }
     })(type);
@@ -417,8 +426,18 @@ $(function () {
                 $("#testList span").eq(0).html(data.totalnumber);
                 $("#testList span").eq(1).html(data.newwordnumber);
                 $("#testList span").eq(2).html(data.oldwordnumber);
+                //根据span里面的值来确定是否可以点击跳转
+                fnclickTestA();
             }
         });
+    }
+    //根据span里面的值来确定是否可以点击跳转
+    function fnclickTestA() {
+        $("#testList .commonTest").on('click' ,function () {
+            if( $(this).find('span').text() < 10 ){
+                return false;
+            }
+        })
     }
 
     function fnshowUnit() {

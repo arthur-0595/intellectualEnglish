@@ -147,6 +147,13 @@ $(function() {
 		});
 	}
 
+	document.onkeyup = function (event) {
+		var e = event || window.event || arguments.callee.caller.arguments[0];
+		if (e && e.keyCode == 17) {
+			$("#voice").trigger('click');
+		}
+	};
+
 	//点击认识或不认识
 	$("#theFirstTime>button").on('click', function(ev) {
 		ev.stopPropagation();

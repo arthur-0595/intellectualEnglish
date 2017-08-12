@@ -5,30 +5,56 @@ $(function () {
         userMessage = JSON.parse(userMessage);
         var username = userMessage[0].ID;
     } else {
-        window.location = '../index.html';
+        window.location = '../../index.html';
     }
     //当前选择的版本ID，教材ID ,选择的章节
     var textbook_id, chapter_id, version_id;
     var type, typeStr, textbook_name, version_name, chapter_name;
-    //当前语音文件播放路径
+    //audio播放路径
     var audioplaySrc;
-    //当前例句大类的类型
-    var thistype = 2; //1听力2翻译3默写
-    //当前听力的句子变量,由句子的每个单个项组成的数组,顺序没打乱时的数组
-    var thisSentence, thisSentenceArr, sentenceInTheRightOrderArr;
-    //当前测试所有句子的数组，数组长度，以及构建的一个作为测试结果的数组缓存下来
-    var dataArr,
-        dataArrLength,
+    //所有的要测试的句子的数组，数组的长度，以及声明一个作为测试结果的数组
+    var sentenceArr,
+        sentenceArrlength,
         testResultArr = [];
-    var num = 0; //用来记录当前题目
+    //当前要测试的句子,以及当前句子所有单个单词组成的数组，然后保留一份顺序没打乱时的数组
+    var thisSentence, thisSentenceArr, sentenceInTheRightOrderArr;
+    //声明一个记录当前题目的变量
+    var num = 0;
+    var typeMethod;
+
+    //根据URL传过来的测试类别，分别赋予typeMethod不同的值
+    (function () {
+        $.getUrlParam = function (name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) return decodeURI(r[2]);
+            return null;
+        };
+        var testType = $.getUrlParam('testType');
+        switch (testType) {
+            case '1':
+                typeMethod = 'LearnTest';
+                console.log('已学测试');
+                break;
+            case '2':
+                typeMethod = 'NewWordTest';
+                console.log('生词测试');
+                break;
+            case '3':
+                typeMethod = 'OldWordTest';
+                console.log('熟词测试');
+                break;
+            default:
+                typeMethod = 'LearnTest';
+                break;
+        }
+    })();
 
     textbook_id = sessionStorage.textbook_id;
     version_id = sessionStorage.version_id;
-    chapter_id = sessionStorage.chapter_id;
     typeStr = sessionStorage.typeStr;
     textbook_name = sessionStorage.textbook_name;
     version_name = sessionStorage.version_name;
-    chapter_name = sessionStorage.chapter_name;
     type = sessionStorage.type;
 
     var titleBox = new Vue({
@@ -36,16 +62,15 @@ $(function () {
         data: {
             textbook_name: textbook_name,
             version_name: version_name,
-            chapter_name: chapter_name,
             typeStr: typeStr
         }
-    });
+    })
 
     fnUpdatesentence();
 
-//  $("#listening").on("click", function () {
-//      $("#audioplay").attr("src", audioplaySrc);
-//  });
+    // $("#listening").on("click", function () {
+    //     $("#audioplay").attr("src", audioplaySrc);
+    // });
 
     $("#clear").on("click", function () {
         $("span.ans_word").html('').attr('class', 'ans_null');
@@ -53,7 +78,6 @@ $(function () {
             .css('cursor', 'pointer');
         fnclickItems();
     });
-
     //键盘按键模拟点击事件
     document.onkeyup = function (event) {
         var e = event || window.event || arguments.callee.caller.arguments[0];
@@ -65,38 +89,43 @@ $(function () {
     };
 
     function fnUpdatesentence() {
+        var type_id = type.substr(-1);
         $.ajax({
             type: "POST",
-            url: thisUrl + "/Areas/Api/Interface.ashx",
-            dataType: "json",
+            url: thisUrl + "/Areas/api/index.ashx",
             data: {
-                method: 'getSentence',
-                unit_id: chapter_id,
-                type: thistype
+                method: typeMethod,
+                user_id: username,
+                textbook_id: textbook_id,
+                type_id: type_id
             },
+            dataType: "json",
             success: function (data) {
+                // console.log(data);
                 if (data[0]) {
-                    dataArr = data;
-                    dataArrLength = data.length;
+                    sentenceArr = data;
+                    sentenceArrlength = data.length;
 
-                    fnArrEvent(dataArr[0]);
+                    fnupdateSentenceArr(sentenceArr[0]);
                 }
             }
         });
     }
 
-    function fnArrEvent(arr_o) {
-        $("#thisStudy").html(`进度： ${num + 1}/${dataArrLength}`);
+    function fnupdateSentenceArr(obj_) {
+        $("#thisStudy").html(`进度： ${num + 1}/${sentenceArrlength}`);
 
-        thisSentence = arr_o;
+        thisSentence = obj_;
         var processorSentence = fnprocessor(thisSentence.sentence);
         //将句子切割成数组
         thisSentenceArr = processorSentence.split(' ');
-        sentenceInTheRightOrderArr = processorSentence.split(' ');
-        console.log(thisSentenceArr);
+        sentenceInTheRightOrderArr = processorSentence.split(' ');//保留顺序未打乱时的数组
+        // console.log('顺序未打乱时：'+thisSentenceArr);
+
         //自动播放语音文件
-//      audioplaySrc = thisUrl2 + thisSentence.sentence_url;
-//      $("#audioplay").attr("src", audioplaySrc);
+        // audioplaySrc = thisUrl2 + thisSentence.sentence_url;
+        // $("#audioplay").attr("src", audioplaySrc);
+
         //获取到数据之后更新对应的句子相关内容
         fnUpdateAll(thisSentence, thisSentenceArr, sentenceInTheRightOrderArr);
     }
@@ -119,12 +148,12 @@ $(function () {
         thisSentenceArr_.sort(function () {
             return (0.5 - Math.random());
         });
-        console.log(thisSentenceArr_);
+        // console.log('顺序打乱时'+thisSentenceArr_);
 
         //把处理过后的数组的每一项填到下面的选项中
         var items_html = '';
         $.each(thisSentenceArr_, function (index, element) {
-            if (!re.test(element)) {
+            if (!re.test($.trim(element) )) {
                 items_html += `<li id="${element}">${element}</li>`;
             }
         });
@@ -139,21 +168,21 @@ $(function () {
 
     function fncontrast() {
         if($("span.ans_word").length == 0){
-            $("#hint").fadeIn(200).delay(1500).fadeOut(200);
+            $("#hint").stop(true,true).fadeIn(200).delay(1500).fadeOut(200);
             return false;
         }
-
+        
         num++;
         //首先获取下面正确选项的答案组成字符串
         var botString = '';
         botString = fnprocessor2(thisSentence.sentence);
-        // console.log(botString);
+        // console.log('正确答案'+botString);
         //获取上面回答的选项内容组成字符串
         var topString = '';
         $.each($("span.ans_word"), function (index, element) {
             topString += element.innerHTML;
         });
-        // console.log(topString);
+        // console.log('我的回答'+topString);
         //对本次回答的答案进行判断
         var answerType = 1;
         if (botString == topString) {
@@ -167,7 +196,6 @@ $(function () {
             thisanswerSentence += element.innerHTML + ' ';
         });
         //构建当前题目相关信息的对象
-//      alert(thisSentence.sentence_mean);
         var newObj = {
             index: num,
             this_name: thisSentence.sentence,
@@ -177,11 +205,11 @@ $(function () {
         };
         testResultArr.push(newObj);
 
-        if (num + 1 <= dataArrLength) {
+        if (num + 1 <= sentenceArrlength) {
             fnupdateNext();
         } else {
             alert('测试结束，公布答案');
-            console.log(JSON.stringify(testResultArr));
+            // console.log(JSON.stringify(testResultArr));
             sessionStorage.testResultArr = JSON.stringify(testResultArr);
             
             var Nnum = 0;
@@ -191,7 +219,7 @@ $(function () {
 				}
 			});
 			var thisScore = Math.round( (Nnum/testResultArr.length)*100 );
-            
+            // console.log('测试分数：'+thisScore);
             fnsavethisScore(thisScore, testResultArr.length);
         }
 
@@ -199,7 +227,7 @@ $(function () {
 
     //更新下一个例句的相关内容
     function fnupdateNext() {
-        fnArrEvent(dataArr[num]);
+        fnupdateSentenceArr(sentenceArr[num]);
     }
 
     function fnrecallEvent() {
@@ -240,7 +268,7 @@ $(function () {
                 fncontrast();
             })
 
-//      $("#audioplay").attr("src", audioplaySrc);
+        // $("#audioplay").attr("src", audioplaySrc);
         fnUpdateAll(thisSentence, thisSentenceArr, sentenceInTheRightOrderArr);
     }
 
@@ -261,9 +289,10 @@ $(function () {
         return sentence_;
     }
 
-    function fnsavethisScore(thisScore_, length) {
-		var testsType = typeStr + "闯关测试(" + version_name + '-' + textbook_name + ")";
-		// console.log(testsType);
+    //发送成绩
+	function fnsavethisScore(thisScore_, length) {
+		var testsType = typeStr + "测试中心(" + version_name + '-' + textbook_name + ")";
+		console.log(testsType);
 		$.ajax({
 			type: "POST",
 			url: thisUrl2 + '/Areas/Api/index.ashx',
@@ -277,13 +306,14 @@ $(function () {
 				test_number: length
 			},
 			success: function (data) {
-				// console.log(JSON.stringify(data));
+				console.log(JSON.stringify(data));
+
 				if (data.msg == "保存成功") {
-					window.location = 'sentence_test.html?score='+thisScore_;
+					window.location = "sentence_test_score.html?score=" + thisScore_;
 				} else {
 					alert('成绩上传失败，请重试');
 				}
 			}
 		});
 	}
-});
+})

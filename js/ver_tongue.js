@@ -16,11 +16,11 @@ $(function() {
 	var mode = new Vue({
 		el: "#mode",
 		data: {
-			total: 20,
-			repeatnumber: 8,
-			listennumber: 10,
-			oralnumber: 12,
-			score: 66
+			total: 0,
+			repeatnumber: 0,
+			listennumber: 0,
+			oralnumber: 0,
+			score: 0
 		}
 	});
 	//点击关闭弹出菜单
@@ -76,6 +76,7 @@ $(function() {
 			},
 			async: true,
 			success: function(data) {
+				console.log(data);
 				if(data) {
 					var htmlR = '';
 					$.each(data, function(index, element) {
@@ -138,6 +139,7 @@ $(function() {
 	}
 
 	function fnupdateMode(id_) {
+		alert(id_);
 		$.ajax({
 			type: "post",
 			url: thisUrl2 + "/Areas/api/Index.ashx",

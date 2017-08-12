@@ -5,6 +5,7 @@
 		<meta charset="UTF-8">
 		<title>五维测试</title>
 		<link rel="stylesheet" href="../../css/style.css" />
+		<link rel="stylesheet" href="../../css/loading.css" />
 		<link rel="stylesheet" href="../../css/word_simulationTest.css" />
 		<style>
 			.testOther{
@@ -60,11 +61,10 @@
 	<body>
 		<header id="header">
 			<div class="con" id="con">
-				<div class="versions">剑桥国际少儿英语 - 第一册 - UnitA</div>
-				<div class="title">智能记忆测试</div>
+				<div class="versions" id="versions">剑桥国际少儿英语 - 第一册 - UnitA</div>
+				<div class="title" id="title">智能记忆测试</div>
 				<div class="timeRemaining">
-					<!--剩余时间：<span>0{{minute}}</span>分<span>{{second}}</span>秒-->
-					剩余时间：03分20秒
+					剩余时间：<span id="timeRemaining">5分00秒</span>
 				</div>
 			</div>
 		</header>
@@ -73,154 +73,6 @@
 				<h3>【英译汉】 请根据所显示的英文单词，选择一个正确的中文词义</h3>
 				<div class="con">
 					<ul class="tests clearfix">
-						 <li>
-							<h4>1.basketball</h4>
-							<div class="item">
-								<label>
-									<input type="radio" name="1"/>
-									篮球
-								</label>
-								<label>
-									<input type="radio" name="1"/>
-									早餐
-								</label>
-								<label>
-									<input type="radio" name="1"/>
-									足球
-								</label>
-								<label>
-									<input type="radio" name="1"/>
-									羽毛球
-								</label>
-							</div>
-						</li> 
-						<li>
-							<h4>1.basketball</h4>
-							<div class="item">
-								<label>
-									<input type="radio" name="1"/>
-									篮球
-								</label>
-								<label>
-									<input type="radio" name="1"/>
-									早餐
-								</label>
-								<label>
-									<input type="radio" name="1"/>
-									足球
-								</label>
-								<label>
-									<input type="radio" name="1"/>
-									羽毛球
-								</label>
-							</div>
-						</li> 
-						<li>
-							<h4>1.basketball</h4>
-							<div class="item">
-								<label>
-									<input type="radio" name="1"/>
-									篮球
-								</label>
-								<label>
-									<input type="radio" name="1"/>
-									早餐
-								</label>
-								<label>
-									<input type="radio" name="1"/>
-									足球
-								</label>
-								<label>
-									<input type="radio" name="1"/>
-									羽毛球
-								</label>
-							</div>
-						</li> 
-						<li>
-							<h4>1.basketball</h4>
-							<div class="item">
-								<label>
-									<input type="radio" name="1"/>
-									篮球
-								</label>
-								<label>
-									<input type="radio" name="1"/>
-									早餐
-								</label>
-								<label>
-									<input type="radio" name="1"/>
-									足球
-								</label>
-								<label>
-									<input type="radio" name="1"/>
-									羽毛球
-								</label>
-							</div>
-						</li> 
-						<li>
-							<h4>1.basketball</h4>
-							<div class="item">
-								<label>
-									<input type="radio" name="1"/>
-									篮球
-								</label>
-								<label>
-									<input type="radio" name="1"/>
-									早餐
-								</label>
-								<label>
-									<input type="radio" name="1"/>
-									足球
-								</label>
-								<label>
-									<input type="radio" name="1"/>
-									羽毛球
-								</label>
-							</div>
-						</li> 
-						<li>
-							<h4>1.basketball</h4>
-							<div class="item">
-								<label>
-									<input type="radio" name="1"/>
-									篮球
-								</label>
-								<label>
-									<input type="radio" name="1"/>
-									早餐
-								</label>
-								<label>
-									<input type="radio" name="1"/>
-									足球
-								</label>
-								<label>
-									<input type="radio" name="1"/>
-									羽毛球
-								</label>
-							</div>
-						</li> 
-						<li>
-							<h4>1.basketball</h4>
-							<div class="item">
-								<label>
-									<input type="radio" name="1"/>
-									篮球
-								</label>
-								<label>
-									<input type="radio" name="1"/>
-									早餐
-								</label>
-								<label>
-									<input type="radio" name="1"/>
-									足球
-								</label>
-								<label>
-									<input type="radio" name="1"/>
-									羽毛球
-								</label>
-							</div>
-						</li> 
-						
 					</ul>
 				</div>
 			</li>
@@ -228,7 +80,7 @@
 				<h3>【汉译英】 请根据所显示的中文词义，选择一个正确的英文单词</h3>
 				<div class="con">
 					<ul class="tests clearfix">
-						 <li>
+						 <!--<li>
 							<h4>1.另一个</h4>
 							<div class="item">
 								<label>
@@ -248,205 +100,14 @@
 									others
 								</label>
 							</div>
-						</li> 
-						<li>
-							<h4>1.另一个</h4>
-							<div class="item">
-								<label>
-									<input type="radio" name="1"/>
-									other
-								</label>
-								<label>
-									<input type="radio" name="1"/>
-									another
-								</label>
-								<label>
-									<input type="radio" name="1"/>
-									the other
-								</label>
-								<label>
-									<input type="radio" name="1"/>
-									others
-								</label>
-							</div>
-						</li> 
-						<li>
-							<h4>1.另一个</h4>
-							<div class="item">
-								<label>
-									<input type="radio" name="1"/>
-									other
-								</label>
-								<label>
-									<input type="radio" name="1"/>
-									another
-								</label>
-								<label>
-									<input type="radio" name="1"/>
-									the other
-								</label>
-								<label>
-									<input type="radio" name="1"/>
-									others
-								</label>
-							</div>
-						</li> 
-						<li>
-							<h4>1.另一个</h4>
-							<div class="item">
-								<label>
-									<input type="radio" name="1"/>
-									other
-								</label>
-								<label>
-									<input type="radio" name="1"/>
-									another
-								</label>
-								<label>
-									<input type="radio" name="1"/>
-									the other
-								</label>
-								<label>
-									<input type="radio" name="1"/>
-									others
-								</label>
-							</div>
-						</li> 
-						<li>
-							<h4>1.另一个</h4>
-							<div class="item">
-								<label>
-									<input type="radio" name="1"/>
-									other
-								</label>
-								<label>
-									<input type="radio" name="1"/>
-									another
-								</label>
-								<label>
-									<input type="radio" name="1"/>
-									the other
-								</label>
-								<label>
-									<input type="radio" name="1"/>
-									others
-								</label>
-							</div>
-						</li> 
-						<li>
-							<h4>1.另一个</h4>
-							<div class="item">
-								<label>
-									<input type="radio" name="1"/>
-									other
-								</label>
-								<label>
-									<input type="radio" name="1"/>
-									another
-								</label>
-								<label>
-									<input type="radio" name="1"/>
-									the other
-								</label>
-								<label>
-									<input type="radio" name="1"/>
-									others
-								</label>
-							</div>
-						</li> 
-						<li>
-							<h4>1.另一个</h4>
-							<div class="item">
-								<label>
-									<input type="radio" name="1"/>
-									other
-								</label>
-								<label>
-									<input type="radio" name="1"/>
-									another
-								</label>
-								<label>
-									<input type="radio" name="1"/>
-									the other
-								</label>
-								<label>
-									<input type="radio" name="1"/>
-									others
-								</label>
-							</div>
-						</li> 
-						<li>
-							<h4>1.另一个</h4>
-							<div class="item">
-								<label>
-									<input type="radio" name="1"/>
-									other
-								</label>
-								<label>
-									<input type="radio" name="1"/>
-									another
-								</label>
-								<label>
-									<input type="radio" name="1"/>
-									the other
-								</label>
-								<label>
-									<input type="radio" name="1"/>
-									others
-								</label>
-							</div>
-						</li> 
-						<li>
-							<h4>1.另一个</h4>
-							<div class="item">
-								<label>
-									<input type="radio" name="1"/>
-									other
-								</label>
-								<label>
-									<input type="radio" name="1"/>
-									another
-								</label>
-								<label>
-									<input type="radio" name="1"/>
-									the other
-								</label>
-								<label>
-									<input type="radio" name="1"/>
-									others
-								</label>
-							</div>
-						</li> 
-						<li>
-							<h4>1.另一个</h4>
-							<div class="item">
-								<label>
-									<input type="radio" name="1"/>
-									other
-								</label>
-								<label>
-									<input type="radio" name="1"/>
-									another
-								</label>
-								<label>
-									<input type="radio" name="1"/>
-									the other
-								</label>
-								<label>
-									<input type="radio" name="1"/>
-									others
-								</label>
-							</div>
-						</li> 
-						
-					</ul>
+						</li> -->
 				</div>
 			</li>
 			<li id="listeningTest">
 				<h3>【听力】 请单击“听读音”按钮，根据所听到的英文读音，选择一个正确的中文词义</h3>
 				<div class="con">
 					<ul class="tests clearfix">
-						 <li>
+						 <!--<li>
 							&nbsp;&nbsp;01. <button class="listenbtns">听读音</button>
 							<div class="item">
 								<label>
@@ -466,234 +127,30 @@
 									感谢
 								</label>
 							</div>
-						</li> 
-						<li>
-							&nbsp;&nbsp;01. <button class="listenbtns">听读音</button>
-							<div class="item">
-								<label>
-									<input type="radio" name="1"/>
-									你好
-								</label>
-								<label>
-									<input type="radio" name="1"/>
-									打扰一下
-								</label>
-								<label>
-									<input type="radio" name="1"/>
-									抱歉
-								</label>
-								<label>
-									<input type="radio" name="1"/>
-									感谢
-								</label>
-							</div>
-						</li> 
-						<li>
-							&nbsp;&nbsp;01. <button class="listenbtns">听读音</button>
-							<div class="item">
-								<label>
-									<input type="radio" name="1"/>
-									你好
-								</label>
-								<label>
-									<input type="radio" name="1"/>
-									打扰一下
-								</label>
-								<label>
-									<input type="radio" name="1"/>
-									抱歉
-								</label>
-								<label>
-									<input type="radio" name="1"/>
-									感谢
-								</label>
-							</div>
-						</li> 
-						<li>
-							&nbsp;&nbsp;01. <button class="listenbtns">听读音</button>
-							<div class="item">
-								<label>
-									<input type="radio" name="1"/>
-									你好
-								</label>
-								<label>
-									<input type="radio" name="1"/>
-									打扰一下
-								</label>
-								<label>
-									<input type="radio" name="1"/>
-									抱歉
-								</label>
-								<label>
-									<input type="radio" name="1"/>
-									感谢
-								</label>
-							</div>
-						</li> 
-						<li>
-							&nbsp;&nbsp;01. <button class="listenbtns">听读音</button>
-							<div class="item">
-								<label>
-									<input type="radio" name="1"/>
-									你好
-								</label>
-								<label>
-									<input type="radio" name="1"/>
-									打扰一下
-								</label>
-								<label>
-									<input type="radio" name="1"/>
-									抱歉
-								</label>
-								<label>
-									<input type="radio" name="1"/>
-									感谢
-								</label>
-							</div>
-						</li> 
-						<li>
-							&nbsp;&nbsp;01. <button class="listenbtns">听读音</button>
-							<div class="item">
-								<label>
-									<input type="radio" name="1"/>
-									你好
-								</label>
-								<label>
-									<input type="radio" name="1"/>
-									打扰一下
-								</label>
-								<label>
-									<input type="radio" name="1"/>
-									抱歉
-								</label>
-								<label>
-									<input type="radio" name="1"/>
-									感谢
-								</label>
-							</div>
-						</li> 
+						</li> -->
 					</ul>
 				</div>
 			</li>
-			<li id="c_e">
+			<li id="listenWrite">
 				<h3>【听写】 根据单词读音写出单词，点击输入框自动读音</h3>
 				<div class="con">
 					<ul class="testOther clearfix">
-						 <li class="item_listen" >
+						 <!--<li class="item_listen" >
 					 		<span class="mark">21.</span>
 							<input type="text" class="wordInput"/>						
-						</li> 
-						<li class="item_listen" >
-					 		<span class="mark">21.</span>
-							<input type="text" class="wordInput"/>						
-						</li> 
-						<li class="item_listen" >
-					 		<span class="mark">21.</span>
-							<input type="text" class="wordInput"/>						
-						</li> 
-						<li class="item_listen" >
-					 		<span class="mark">21.</span>
-							<input type="text" class="wordInput"/>						
-						</li>
-						<li class="item_listen" >
-					 		<span class="mark">21.</span>
-							<input type="text" class="wordInput"/>						
-						</li> 
-						<li class="item_listen" >
-					 		<span class="mark">21.</span>
-							<input type="text" class="wordInput"/>						
-						</li> 
-						<li class="item_listen" >
-					 		<span class="mark">21.</span>
-							<input type="text" class="wordInput"/>						
-						</li> 
-						<li class="item_listen" >
-					 		<span class="mark">21.</span>
-							<input type="text" class="wordInput"/>						
-						</li>
-						<li class="item_listen" >
-					 		<span class="mark">21.</span>
-							<input type="text" class="wordInput"/>						
-						</li> 
-						<li class="item_listen" >
-					 		<span class="mark">21.</span>
-							<input type="text" class="wordInput"/>						
-						</li> 
-						<li class="item_listen" >
-					 		<span class="mark">21.</span>
-							<input type="text" class="wordInput"/>						
-						</li> 
-						<li class="item_listen" >
-					 		<span class="mark">21.</span>
-							<input type="text" class="wordInput"/>						
-						</li>
+						</li> -->
 					</ul>
 				</div>
 			</li>
-			<li id="c_e">
+			<li id="wordWrite">
 				<h3>【默写】 根据单词词义写出单词</h3>
 				<div class="con">
 					<ul class="testOther clearfix">
-						<li class="item_listen" >
+						<!--<li class="item_listen" >
 					 		<span class="mark" >30.</span>
 							<input type="text" class="wordInput"/>	
 							<sapn class="word_mean">n.答案</sapn>
-						</li>
-						<li class="item_listen" >
-					 		<span class="mark" >30.</span>
-							<input type="text" class="wordInput"/>	
-							<sapn class="word_mean">n.答案</sapn>
-						</li>
-						<li class="item_listen" >
-					 		<span class="mark" >30.</span>
-							<input type="text" class="wordInput"/>	
-							<sapn class="word_mean">n.答案</sapn>
-						</li>
-						<li class="item_listen" >
-					 		<span class="mark" >30.</span>
-							<input type="text" class="wordInput"/>	
-							<sapn class="word_mean">n.答案</sapn>
-						</li>
-						<li class="item_listen" >
-					 		<span class="mark" >30.</span>
-							<input type="text" class="wordInput"/>	
-							<sapn class="word_mean">n.答案</sapn>
-						</li>
-						<li class="item_listen" >
-					 		<span class="mark" >30.</span>
-							<input type="text" class="wordInput"/>	
-							<sapn class="word_mean">n.答案</sapn>
-						</li>
-						<li class="item_listen" >
-					 		<span class="mark" >30.</span>
-							<input type="text" class="wordInput"/>	
-							<sapn class="word_mean">n.答案</sapn>
-						</li>
-						<li class="item_listen" >
-					 		<span class="mark" >30.</span>
-							<input type="text" class="wordInput"/>	
-							<sapn class="word_mean">n.答案</sapn>
-						</li>
-						<li class="item_listen" >
-					 		<span class="mark" >30.</span>
-							<input type="text" class="wordInput"/>	
-							<sapn class="word_mean">n.答案</sapn>
-						</li>
-						<li class="item_listen" >
-					 		<span class="mark" >30.</span>
-							<input type="text" class="wordInput"/>	
-							<sapn class="word_mean">n.答案</sapn>
-						</li>
-						<li class="item_listen" >
-					 		<span class="mark" >30.</span>
-							<input type="text" class="wordInput"/>	
-							<sapn class="word_mean">n.答案</sapn>
-						</li>
-						<li class="item_listen" >
-					 		<span class="mark" >30.</span>
-							<input type="text" class="wordInput"/>	
-							<sapn class="word_mean">n.答案</sapn>
-						</li>
+						</li>-->
 					</ul>
 				</div>
 			</li>
@@ -712,8 +169,8 @@
 		
 		<script src="../../js/jquery-3.2.1.min.js"></script>
 		<script src="../../js/common.js"></script>
-		<script src="../../js/vue.min.js"></script>
-		<!--<script src="../../js/word_simulationTest.js"></script>-->
+		<script src="../../js/loading.js"></script>
+		<script src="../../js/testCenter/wuwei_test.js"></script>
 	</body>
 
 </html>

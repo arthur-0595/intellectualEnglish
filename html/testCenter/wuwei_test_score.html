@@ -30,7 +30,7 @@
 			.item_listen p.answer{
 				height: 30px;
 			    line-height: 30px;
-			    margin-left: 58px;
+			    margin-left: 68px;
 			    margin-top: 3px;
 			    color: #57b4ff;
 			    font-size: 16px;
@@ -85,6 +85,18 @@
 			    margin-left: 20px;
 			    font-size: 16px;
 			}
+			.noWord{				
+			    display: none;
+			    width: 52px;
+			    height: 30px;
+			    position: absolute;
+			    right: 43px;
+			    top: 6px;
+			    color: #ff1313;
+			    font-weight: 700;
+			    line-height: 30px;
+			}
+			    
 			 
 		</style>
 	</head>
@@ -92,7 +104,7 @@
 	<body>
 		<header id="header">
 			<div class="con" id="con">
-				<div class="versions">剑桥国际少儿英语 - 第一册 - UnitA</div>
+				<div class="versions" id="versions">剑桥国际少儿英语 - 第一册 - UnitA</div>
 				<div class="title">五维测试分数</div>
 				<!--<div class="timeRemaining">
 					剩余时间：<span>0</span>分<span>50</span>秒
@@ -102,13 +114,13 @@
 		<ul class="section">
 			<div class="score">
 				考试得分：<span id="thisScore">88</span>分
-				<a href="javascript:window.close();" class="next" id="next">继续</a>
+				<a href="wuwei_test.html" class="next" id="next">再测一次</a>
 			</div>
 			<li id="e_c">
 				<h3>【英译汉】 请根据所显示的英文单词，选择一个正确的中文词义</h3>
 				<div class="con">
 					<ul class="tests clearfix">
-						 <li class="correct">
+						 <!--<li class="correct">
 							<h4>1.fdgasfhasfsa hfgjfa sagfdxg5</h4>
 							<ul class="item">
 								<li>
@@ -129,29 +141,7 @@
 								</li>
 							</ul>
 							<span class="status"></span>
-						</li>
-						<li class="error"> 
-							<h4>1.fdgasfhasfsa hfgjfa sagfdxg5</h4>
-							<ul class="item">
-								<li>
-									<i></i>
-									我是答案1
-								</li>
-								<li>
-									<i></i>
-									我是答案2
-								</li>
-								<li>
-									<i></i>
-									我是答案3
-								</li>
-								<li>
-									<i></i>
-									我是答案4
-								</li>
-							</ul>
-							<span class="status"></span>
-						</li> 
+						</li> -->
 					</ul>
 				</div>
 			</li>
@@ -159,7 +149,7 @@
 				<h3>【汉译英】 请根据所显示的中文词义，选择一个正确的英文单词</h3>
 				<div class="con">
 					<ul class="tests clearfix">
-						 <li>
+						 <!--<li>
 							<h4>1.fdgasfhasfsa hfgjfa sagfdxg5</h4>
 							<ul class="item">
 								<li>
@@ -180,7 +170,7 @@
 								</li>
 							</ul>
 							<span class="status"></span>
-						</li> 
+						</li> -->
 					</ul>
 				</div>
 			</li>
@@ -188,7 +178,7 @@
 				<h3>【听力】 请单击“听读音”按钮，根据所听到的英文读音，选择一个正确的中文词义</h3>
 				<div class="con">
 					<ul class="tests clearfix">
-						 <li>
+						 <!--<li>
 							&nbsp;&nbsp;01. <button class="listenbtns">听读音</button>
 							<ul class="item">
 								<li>
@@ -209,246 +199,40 @@
 								</li>
 							</ul>
 							<span class="status correct"></span>
-						</li> 
-						<li>
-							&nbsp;&nbsp;01. <button class="listenbtns">听读音</button>
-							<ul class="item">
-								<li>
-									<i></i>
-									我是答案1
-								</li>
-								<li>
-									<i></i>
-									我是答案2
-								</li>
-								<li>
-									<i></i>
-									我是答案3
-								</li>
-								<li>
-									<i></i>
-									我是答案4
-								</li>
-							</ul>
-							<span class="status correct"></span>
-						</li> 
-						<li>
-							&nbsp;&nbsp;01. <button class="listenbtns">听读音</button>
-							<ul class="item">
-								<li>
-									<i></i>
-									我是答案1
-								</li>
-								<li>
-									<i></i>
-									我是答案2
-								</li>
-								<li>
-									<i></i>
-									我是答案3
-								</li>
-								<li>
-									<i></i>
-									我是答案4
-								</li>
-							</ul>
-							<span class="status correct"></span>
-						</li> 
-						<li>
-							&nbsp;&nbsp;01. <button class="listenbtns">听读音</button>
-							<ul class="item">
-								<li>
-									<i></i>
-									我是答案1
-								</li>
-								<li>
-									<i></i>
-									我是答案2
-								</li>
-								<li>
-									<i></i>
-									我是答案3
-								</li>
-								<li>
-									<i></i>
-									我是答案4
-								</li>
-							</ul>
-							<span class="status correct"></span>
-						</li> 
-						<li>
-							&nbsp;&nbsp;01. <button class="listenbtns">听读音</button>
-							<ul class="item">
-								<li>
-									<i></i>
-									我是答案1
-								</li>
-								<li>
-									<i></i>
-									我是答案2
-								</li>
-								<li>
-									<i></i>
-									我是答案3
-								</li>
-								<li>
-									<i></i>
-									我是答案4
-								</li>
-							</ul>
-							<span class="status correct"></span>
-						</li> 
+						</li> -->
+						
 					</ul>
 				</div>
 			</li>
-			<li>
+			<li id="listenWrite">
 				<h3>【听写】 根据单词读音写出单词，点击输入框自动读音</h3>
 				<div class="con">
 					<ul class="testOther clearfix">
-						 <li class="item_listen clearfix">
+						 <!--<li class="item_listen clearfix">
 						 	<div>
 						 		<span class="mark" id="mark">21.</span>
 								<input type="text" class="wordInput error" value="answer"/>
 						 	</div>
 					 		<p class="answer">error</p>	
 					 		<span class="status"></span>
-						</li> 
-						<li class="item_listen clearfix">
-						 	<div>
-						 		<span class="mark" id="mark">21.</span>
-								<input type="text" class="wordInput correct" value="Germen"/>
-						 	</div>
-					 		<p class="answer">Germen</p>	
-					 		<span class="status correct"></span>
-						</li> 
-						<li class="item_listen clearfix">
-						 	<div>
-						 		<span class="mark" id="mark">21.</span>
-								<input type="text" class="wordInput error" value="answer"/>
-						 	</div>
-					 		<p class="answer">error</p>	
-					 		<span class="status"></span>
-						</li> 
-						<li class="item_listen clearfix">
-						 	<div>
-						 		<span class="mark" id="mark">21.</span>
-								<input type="text" class="wordInput correct" value="Germen"/>
-						 	</div>
-					 		<p class="answer">Germen</p>	
-					 		<span class="status correct"></span>
-						</li> 
-						<li class="item_listen clearfix">
-						 	<div>
-						 		<span class="mark" id="mark">21.</span>
-								<input type="text" class="wordInput error" value="answer"/>
-						 	</div>
-					 		<p class="answer">error</p>	
-					 		<span class="status"></span>
-						</li> 
-						<li class="item_listen clearfix">
-						 	<div>
-						 		<span class="mark" id="mark">21.</span>
-								<input type="text" class="wordInput correct" value="Germen"/>
-						 	</div>
-					 		<p class="answer">Germen</p>	
-					 		<span class="status correct"></span>
-						</li> 
-						<li class="item_listen clearfix">
-						 	<div>
-						 		<span class="mark" id="mark">21.</span>
-								<input type="text" class="wordInput error" value="answer"/>
-						 	</div>
-					 		<p class="answer">error</p>	
-					 		<span class="status"></span>
-						</li> 
-						<li class="item_listen clearfix">
-						 	<div>
-						 		<span class="mark" id="mark">21.</span>
-								<input type="text" class="wordInput correct" value="Germen"/>
-						 	</div>
-					 		<p class="answer">Germen</p>	
-					 		<span class="status correct"></span>
-						</li> 
+						</li> -->
 												
 					</ul>
 				</div>
 			</li>
-			<li>
+			<li id="wordWrite">
 				<h3>【默写】 根据单词词义写出单词</h3>
 				<div class="con">
 					<ul class="testOther clearfix">
-						<li class="item_listen clearfix">
+						<!--<li class="item_listen clearfix">
 							<div>
 						 		<span class="mark">30.</span>
 								<input type="text" class="wordInput correct" value="Germen"/>	
 								<sapn class="word_mean">n.答案</sapn>
 						 	</div>
 					 		<p class="answer">Germen</p>	
-					 		<span class="status correct"></span>					 		
-						</li> 
-						<li class="item_listen clearfix">
-							<div>
-						 		<span class="mark">30.</span>
-								<input type="text" class="wordInput error" value="Error"/>	
-								<sapn class="word_mean">n.答案</sapn>
-						 	</div>
-					 		<p class="answer">Error</p>	
-					 		<span class="status error"></span>					 		
-						</li> 
-						<li class="item_listen clearfix">
-							<div>
-						 		<span class="mark">30.</span>
-								<input type="text" class="wordInput correct" value="Germen"/>	
-								<sapn class="word_mean">n.答案</sapn>
-						 	</div>
-					 		<p class="answer">Germen</p>	
-					 		<span class="status correct"></span>					 		
-						</li> 
-						<li class="item_listen clearfix">
-							<div>
-						 		<span class="mark">30.</span>
-								<input type="text" class="wordInput error" value="Error"/>	
-								<sapn class="word_mean">n.答案</sapn>
-						 	</div>
-					 		<p class="answer">Error</p>	
-					 		<span class="status error"></span>					 		
-						</li> 
-						<li class="item_listen clearfix">
-							<div>
-						 		<span class="mark">30.</span>
-								<input type="text" class="wordInput correct" value="Germen"/>	
-								<sapn class="word_mean">n.答案</sapn>
-						 	</div>
-					 		<p class="answer">Germen</p>	
-					 		<span class="status correct"></span>					 		
-						</li> 
-						<li class="item_listen clearfix">
-							<div>
-						 		<span class="mark">30.</span>
-								<input type="text" class="wordInput error" value="Error"/>	
-								<sapn class="word_mean">n.答案</sapn>
-						 	</div>
-					 		<p class="answer">Error</p>	
-					 		<span class="status error"></span>					 		
-						</li> 
-						<li class="item_listen clearfix">
-							<div>
-						 		<span class="mark">30.</span>
-								<input type="text" class="wordInput correct" value="Germen"/>	
-								<sapn class="word_mean">n.答案</sapn>
-						 	</div>
-					 		<p class="answer">Germen</p>	
-					 		<span class="status correct"></span>					 		
-						</li> 
-						<li class="item_listen clearfix">
-							<div>
-						 		<span class="mark">30.</span>
-								<input type="text" class="wordInput error" value="Error"/>	
-								<sapn class="word_mean">n.答案</sapn>
-						 	</div>
-					 		<p class="answer">Error</p>	
-					 		<span class="status error"></span>					 		
-						</li> 
+					 		<i class="status correct"></i>					 		
+						</li> -->
 					</ul>
 				</div>
 			</li>
@@ -465,6 +249,7 @@
 		<script src="../../js/jquery-3.2.1.min.js"></script>
 		<script src="../../js/common.js"></script>
 		<script src="../../js/vue.min.js"></script>
+		<script src="../../js/testCenter/wuwei_test_score.js"></script>
 	</body>
 
 </html>

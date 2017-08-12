@@ -36,6 +36,7 @@
 	background-color: #eee;
 }
 .tests .item>li{
+	overflow: hidden;
 	display: block;
 	height: 42px;
 	line-height: 42px;

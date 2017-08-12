@@ -31,7 +31,6 @@ $(function () {
     chapter_name = sessionStorage.chapter_name;
     type = sessionStorage.type;
 
-    //初试vue
     var titleBox = new Vue({
         el: "#titleBox",
         data: {
@@ -54,6 +53,17 @@ $(function () {
             .css('cursor', 'pointer');
         fnclickItems();
     });
+
+    document.onkeyup = function (event) {
+		var e = event || window.event || arguments.callee.caller.arguments[0];
+		if (e && e.keyCode == 17) {
+			$("#listening").trigger('click');
+		}else if(e && e.keyCode == 16){
+			$("#clear").trigger('click');
+		}else if(e && e.keyCode == 13){
+			$("#enter").trigger('click');
+		}
+	};
 
     function fnUpdatesentence() {
         $.ajax({
@@ -129,6 +139,11 @@ $(function () {
     }
 
     function fncontrast() {
+        if($("span.ans_word").length == 0){
+            $("#hint").fadeIn(200).delay(1500).fadeOut(200);
+            return false;
+        }
+        
         num++;
         //首先获取下面正确选项的答案组成字符串
         var botString = '';
@@ -176,8 +191,8 @@ $(function () {
 				}
 			});
 			var thisScore = Math.round( (Nnum/testResultArr.length)*100 );
-			
-            window.location = 'sentence_test.html?score='+thisScore;
+            
+            fnsavethisScore(thisScore, testResultArr.length);
         }
 
     }
@@ -245,5 +260,31 @@ $(function () {
         sentence_ = sentence_.replace(/\s+/g, '');
         return sentence_;
     }
+
+    function fnsavethisScore(thisScore_, length) {
+		var testsType = typeStr + "闯关测试(" + version_name + '-' + textbook_name + ")";
+		// console.log(testsType);
+		$.ajax({
+			type: "POST",
+			url: thisUrl2 + '/Areas/Api/index.ashx',
+			dataType: "json",
+			data: {
+				method: "SaveTestRecord",
+				user_id: username,
+				textbook_id: textbook_id,
+				test_type: testsType,
+				test_score: thisScore_,
+				test_number: length
+			},
+			success: function (data) {
+				// console.log(JSON.stringify(data));
+				if (data.msg == "保存成功") {
+					window.location = 'sentence_test.html?score='+thisScore_;
+				} else {
+					alert('成绩上传失败，请重试');
+				}
+			}
+		});
+	}
 
 });

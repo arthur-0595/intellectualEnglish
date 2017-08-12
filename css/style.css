@@ -144,8 +144,26 @@ footer{
 	width: 200px;
 	box-shadow: inset 0 25px 25px 0 rgba(255,255,255,.2);
 }
+
+/*--禁止选中复制的类--*/
 .userSelect{
     user-select: none;
 }
 
+/*--窗口正中间弹出文字提示的类<div class="hint" id="hint">一点都不会吗？</div>  --*/
+.hint{
+	height: 50px;
+	border-radius: 6px;
+	background-color: rgba(0,0,0,.3);
+	color: #fff;
+	font-size: 20px;
+	line-height: 50px;
+	text-align: center;
+	padding: 0 25px;
+	position: absolute;
+	left: 50%;top: 50%;
+	transform: translate(-50% , -50%);
+	z-index: 10;
+	display: none;
+}
 

@@ -76,6 +76,7 @@ $(function() {
 				unit_id: chapter_id,
 			},
 			success: function(data) {
+				console.log(data)
 				wordsArr = data;
 				wordArrlength = wordsArr.length;
 
@@ -89,24 +90,39 @@ $(function() {
 
 	//点击交卷按钮
 	var scoreNum = 0;
-	var correctArr = [];
-	$("#submitTheAnswer").on("click", function() {
+	var liObjArr = [];
+	$("#submitTheAnswer").on("click", function () {
 		//获取每一题，判定每一题下面的四个选项若某一项被选中并且其父级盒子label的自定义属性type为1时，则该题正确
 		//所有题遍历结束之后计算分数并且跳转页面，分数通过传值来传递，并且缓存对应的正确的题目的数组，以方面在成绩单页面显示对应的正确题目
 		var liArr = $(".tests>li");
-		$.each(liArr, function(index , element) {
-			$.each( $(element).find("input") , function(index_ , element_) {
-				if(element_.checked == true){
-//					alert($(element_).parent()[0].dataset.type);
-					if( $(element_).parent()[0].dataset.type == 1 ){
-						scoreNum++;
-						correctArr.push(index);
-					}
+		$.each(liArr, function (index, element) {	
+			var myCheckedIndex = -2,answerIndex = -1,isCorrect = false,liInputObj = {};			
+			$.each( $(element).find("input"), function (index_, element_) {	
+				this.index = index_;
+				if(element_.dataset.type === "1"){
+					answerIndex = index_;
 				}
-			});
+				if(element_.checked){
+					myCheckedIndex = index_;
+				};
+				if(myCheckedIndex === answerIndex){
+					isCorrect = true;
+				}else{
+					isCorrect = false;
+				}
+			});			
+			liInputObj.myCheckedIndex = myCheckedIndex;
+			liInputObj.answerIndex = answerIndex;
+			liInputObj.isCorrect = isCorrect;
+			liInputObj.liIndex = index;
+			liObjArr.push(liInputObj);
 		});
-		console.log(correctArr);
-		sessionStorage.correctArr = JSON.stringify(correctArr);
+		$.each(liObjArr,function(index,element){
+			if(element.isCorrect){
+				scoreNum++;
+			}
+		});
+		sessionStorage.liObjArr = JSON.stringify(liObjArr);
 		var thisScore = Math.round( (scoreNum/liArr.length)*100 );
 		//得到分数，并发送
 		fnsavethisScore(thisScore , liArr.length);
@@ -126,20 +142,20 @@ $(function() {
 			e_cHtml += `<li data-correct="${element.word_mean}" >
 							<h4>${index+1}.${element.word_name.replace(/\•/g,'')}</h4>
 							<div class="item">
-								<label data-type="${element.chinese[0].type}">
-									<input type="radio" name="${element.id}"/>
+								<label>
+									<input type="radio" name="${element.id}"  data-type="${element.chinese[0].type}"/>
 									${element.chinese[0].content}
 								</label>
-								<label data-type="${element.chinese[1].type}">
-									<input type="radio" name="${element.id}"/> 
+								<label>
+									<input type="radio" name="${element.id}"  data-type="${element.chinese[1].type}"/> 
 									${element.chinese[1].content}
 								</label>
-								<label data-type="${element.chinese[2].type}">
-									<input type="radio" name="${element.id}"/>
+								<label>
+									<input type="radio" name="${element.id}"  data-type="${element.chinese[2].type}"/>
 									${element.chinese[2].content}
 								</label>
-								<label data-type="${element.chinese[3].type}">
-									<input type="radio" name="${element.id}"/>
+								<label>
+									<input type="radio" name="${element.id}"  data-type="${element.chinese[3].type}"/>
 									${element.chinese[3].content}
 								</label>
 							</div>
@@ -151,20 +167,20 @@ $(function() {
 			c_eHtml += `<li data-correct="${element.word_name.replace(/\•/g,'')}" >
 							<h4>${index+1}.${element.word_mean}</h4>
 							<div class="item">
-								<label data-type="${element.english[0].type}">
-									<input type="radio" name="${element.id}"/>
+								<label>
+									<input type="radio" name="${element.id}"  data-type="${element.english[0].type}"/>
 									${element.english[0].content.replace(/\•/g,'')}
 								</label>
-								<label data-type="${element.english[1].type}">
-									<input type="radio" name="${element.id}"/>
+								<label>
+									<input type="radio" name="${element.id}"  data-type="${element.english[1].type}"/>
 									${element.english[1].content.replace(/\•/g,'')}
 								</label>
-								<label data-type="${element.english[2].type}">
-									<input type="radio" name="${element.id}"/>
+								<label>
+									<input type="radio" name="${element.id}" data-type="${element.english[2].type}"/>
 									${element.english[2].content.replace(/\•/g,'')}
 								</label>
-								<label data-type="${element.english[3].type}">
-									<input type="radio" name="${element.id}"/>
+								<label>
+									<input type="radio" name="${element.id}" data-type="${element.english[3].type}"/>
 									${element.english[3].content.replace(/\•/g,'')}
 								</label>
 							</div>
@@ -173,27 +189,27 @@ $(function() {
 		$("#c_e .tests").html(c_eHtml);
 
 		$.each(wordsArr, function(index, element) {
-			listeningTestHtml += `<li data-correct="${element.word_name.replace(/\•/g,'')}" >
-							&nbsp;&nbsp;${index+1}. <button class="listenbtns" data-wordurl="${element.word_url}">听读音</button>
-							<div class="item">
-								<label data-type="${element.chinese[0].type}">
-									<input type="radio" name="${element.id}"/>
-									${element.chinese[0].content}
-								</label>
-								<label data-type="${element.chinese[1].type}">
-									<input type="radio" name="${element.id}"/>
-									${element.chinese[1].content}
-								</label>
-								<label data-type="${element.chinese[2].type}">
-									<input type="radio" name="${element.id}"/>
-									${element.chinese[2].content}
-								</label>
-								<label data-type="${element.chinese[3].type}">
-									<input type="radio" name="${element.id}"/>
-									${element.chinese[3].content}
-								</label>
-							</div>
-						</li>`;
+			listeningTestHtml += `<li data-correct="${element.word_name.replace(/\•/g,'')}">
+					&nbsp;&nbsp;${index+1}. <button class="listenbtns" data-url="${element.word_url}">听读音</button>
+					<div class="item">
+						<label>
+							<input type="radio" name="${element.id}"  data-type="${element.chinese[0].type}"/>
+							${element.chinese[0].content}
+						</label>
+						<label>
+							<input type="radio" name="${element.id}" data-type="${element.chinese[1].type}"/>
+							${element.chinese[1].content}
+						</label>
+						<label>
+							<input type="radio" name="${element.id}" data-type="${element.chinese[2].type}"/>
+							${element.chinese[2].content}
+						</label>
+						<label>
+							<input type="radio" name="${element.id}" data-type="${element.chinese[3].type}"/>
+							${element.chinese[3].content}
+						</label>
+					</div>
+				</li>`;
 		});
 		$("#listeningTest .tests").html(listeningTestHtml);
 		//点击听语音按钮
