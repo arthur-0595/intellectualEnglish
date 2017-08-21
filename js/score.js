@@ -22,6 +22,8 @@ $(function () {
 		return null;
 	};
 	var urlScore = $.getUrlParam('score');
+	var testType = $.getUrlParam('testType');
+
 	$("#thisScore").html(urlScore);
 
 	//三个类的数组
@@ -54,6 +56,9 @@ $(function () {
 		}
 	})
 
+	if (testType == 'review') {
+		con.chapter_name = '智能记忆'
+	}
 
 	fnshowtopic();
 

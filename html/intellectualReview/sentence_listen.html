@@ -3,24 +3,24 @@
 
 	<head>
 		<meta charset="UTF-8">
-		<title>例句翻译</title>
-		<link rel="stylesheet" href="../css/style.css" />
-		<link rel="stylesheet" href="../css/loading.css" />
-		<link rel="stylesheet" href="../css/sentence_listen.css" />
+		<title>例句听力复习</title>
+		<link rel="stylesheet" href="../../css/style.css" />
+		<link rel="stylesheet" href="../../css/loading.css" />
+		<link rel="stylesheet" href="../../css/sentence_listen.css" />
 	</head>
 
 	<body>
 		<section id="sectionBox">
 			<div class="main">
 				<div class="titleBox" id="titleBox">
-					<div class="versions">{{version_name}} - {{textbook_name}} - {{chapter_name}}</div>
-					<div class="title">{{typeStr}}</div>
+					<div class="versions">剑桥国际少儿英语 - 第一册 - UnitH</div>
+					<div class="title">例句听力</div>
 					<a href="javascript:window.close();" class="exit" id="exit"></a>
 				</div>
 				<div class="sentence" id="sentence">
 					<div class="thisSentence">
-						<div class="thisSentence_con" id="thisSentence_con" style="user-select: none;"></div>
-						<div class="listening" id="listening" style="display: none;">
+						<div class="thisSentence_con" id="thisSentence_con"></div>
+						<div class="listening" id="listening">
 							听语音<span></span>
 						</div>
 					</div>
@@ -76,14 +76,14 @@
 				<button class="btnsOk">确定</button>
 			</div>
 		</div>
-		<audio autoplay src="" type="audio/wav" id="audioplay">
+		<audio autoplay src="{{audioplaySrc}}" type="audio/wav" id="audioplay">
 		</audio>
 		
-		<script src="../js/jquery-3.2.1.min.js"></script>
-		<script src="../js/vue.min.js"></script>
-		<script src="../js/common.js"></script>
-		<script src="../js/loading.js"></script>
-		<script src="../js/sentence_interpret.js"></script>
+		<script src="../../js/jquery-3.2.1.min.js"></script>
+		<script src="../../js/vue.min.js"></script>
+		<script src="../../js/common.js"></script>
+		<script src="../../js/loading.js"></script>
+		<!--<script src="../../js/sentence_listen.js"></script>-->
 	</body>
 
 </html>

@@ -119,7 +119,7 @@ $(function(){
 		// 听力
 		$.each(listeningTest,function( index,element ){
 			listen_test_html += `<li data-correct="${element.word_mean}"  class="error">
-							&nbsp;&nbsp;${index+1}. <button class="listenbtns" data-wordurl="${element.word_url}">听读音</button>
+							&nbsp;&nbsp;${index+1}. <button class="listenbtns" data-url="${element.word_url}">听读音</button>
 							<span class="unsel" style="margin-left:40px;"></span>
 							<ul class="item">
 								<li data-type="${element.meanchinese[0].type}">
@@ -176,15 +176,21 @@ $(function(){
 		
 		// 点击语音按钮播放语音
 		$('#listeningTest li button').on('click',function(){
-			$('#audioplay').attr('src',thisUrl2 + this.dataset.wordurl);
+			$('#audioplay').attr('src',thisUrl2 + this.dataset.url);
 		});		
 		// 点击input框听读音
 		$('#listenWrite li input').on('click',function(){
 			$('#audioplay').attr('src',thisUrl2 + this.dataset.url);
 		});	
+		// 按“Ctrl”键听读音
+		$('#listenWrite li input').on('keyup',function(event){
+			if(event.keyCode === 17){
+				$('#audioplay').attr('src',thisUrl2 + this.dataset.url);
+			}		
+		});	
 		
 		//通过修改class来标注选项的对错
-		console.log(liObjArr);
+//		console.log(liObjArr);
 		var bigLiAll = $(".tests > li > ul");  // 每个 item
 		bigLiAll.each(function(){
 			$(this).find('li i').attr('class',"no");
@@ -205,9 +211,8 @@ $(function(){
 		});			
 		// 给对应的input框添加样式
 		var wordInput = $('.wordInput');
-		console.log(wordObjArr);
-		$.each(wordObjArr,function(index , element){
-			
+//		console.log(wordObjArr);
+		$.each(wordObjArr,function(index , element){			
 			if(element.myWord === ""){							
 				wordInput.eq(index).parent().find('.noWord').text('未作答').show();
 			}else{

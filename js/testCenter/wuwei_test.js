@@ -48,7 +48,7 @@ $(function(){
 			if (onlyTime <= 0) {
 				clearInterval(timer);
 				alert('倒计时结束，显示测试分数');
-				$("#commit").trigger("click");
+				$("#submitTheAnswer").trigger("click");
 			};
 		}, 1000);
 	}
@@ -216,7 +216,15 @@ $(function(){
 		// 点击input框听读音
 		$('#listenWrite li input').on('click',function(){
 			$('#audioplay').attr('src',thisUrl2 + this.dataset.url);
+		});
+		
+		// 按“Ctrl”键听读音
+		$('#listenWrite li input').on('keyup',function(event){
+			if(event.keyCode === 17){
+				$('#audioplay').attr('src',thisUrl2 + this.dataset.url);
+			}		
 		});	
+		
 		
 		//关闭loading插件
 		removeLoading('test');

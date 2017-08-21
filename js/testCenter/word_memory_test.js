@@ -265,7 +265,7 @@ $(function () {
 
 		//点击听语音按钮
 		$("#listeningTest li button").on("click", function () {
-			var playerSrc = thisUrl2 + this.dataset.wordurl;
+			var playerSrc = thisUrl2 + this.dataset.url;
 			$("#audioplay").attr("src", playerSrc);
 		})
 		//点击选中选项事件

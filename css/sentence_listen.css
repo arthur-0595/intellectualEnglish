@@ -165,7 +165,7 @@ section{
 	margin-bottom: 12px;
 }
 .sentence .progressBar div{
-	width: 50%;height: 100%;
+	width: 0%;height: 100%;
 	background-color: #ff7b57;
 }
 .sentence .items{

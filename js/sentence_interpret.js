@@ -18,6 +18,15 @@ $(function() {
 	var thisSentence, thisSentenceArr, sentenceInTheRightOrderArr;
 	//当前正确或者错误的状态值
 	var typeNum = 2;
+	
+	//当前单词是不是一个以前听过的单词
+	var thisNewOrOld = 0; //默认没听过
+	//该单词是生词还是熟词
+	var sentenceState = 1;
+	//声明三个变量，生词熟词已经复习
+	var newWordNum = 0,
+		oldWordNum = 0,
+		reviewWordNum = 0;
 
 	textbook_id = sessionStorage.textbook_id;
 	version_id = sessionStorage.version_id;
@@ -28,7 +37,6 @@ $(function() {
 	chapter_name = sessionStorage.chapter_name;
 	type = sessionStorage.type;
 
-	//初试vue
 	var titleBox = new Vue({
 		el: "#titleBox",
 		data: {
@@ -40,9 +48,6 @@ $(function() {
 	});
 
 	fnUpdatesentence();
-//	$("#listening").on("click", function() {
-//		$("#audioplay").attr("src", audioplaySrc);
-//	});
 
 	$("#clear").on("click", function() {
 		$("span.ans_word").html('').attr('class', 'ans_null');
@@ -53,13 +58,37 @@ $(function() {
 
 	$("#reset").unbind().on("click", function() {
 		fnclickresetBtn();
-//		$("#thisSentence_con").show();
 	});
 
+	document.onkeyup = function (event) {
+		var e = event || window.event || arguments.callee.caller.arguments[0];
+		if (e && e.keyCode == 16) {
+			$("#reset").trigger('click');
+		} else if (e && e.keyCode == 13) {
+			$("#enter").trigger('click');
+		}
+	};
+
 	function fnUpdatesentence() {
+		$('body').loading({
+			loadingWidth: 120,
+			title: '',
+			name: 'test',
+			discription: '加载中，请稍候：）',
+			direction: 'column',
+			type: 'origin',
+			// originBg:'#71EA71',
+			originDivWidth: 40,
+			originDivHeight: 40,
+			originWidth: 6,
+			originHeight: 6,
+			smallLoading: false,
+			loadingMaskBg: 'rgba(0,0,0,0.2)'
+		});
+
 		$.ajax({
 			type: "POST",
-			url: thisUrl + "/Areas/Api/Interface.ashx",
+			url: thisUrl + "/Areas/api/Interface.ashx",
 			dataType: "json",
 			data: {
 				method: 'Sentence',
@@ -68,18 +97,29 @@ $(function() {
 				type: thistype
 			},
 			success: function(data) {
-				// console.log('返回的数据'+JSON.stringify(data));
+				// console.log(data)
 				if(data[0]) {
 					thisSentence = data[0];
+					
+					//如果该单词的记忆强度大于0，则计算本次的复习次数+1
+					if (thisSentence.Sentranslate_per > 0) {
+						thisNewOrOld = 1;
+					} else {
+						thisNewOrOld = 0;
+					}
+
+					//根据记忆强度设置该单词的记忆强度条的长度
+					var atPresentNum = thisSentence.Sentranslate_per + '%';
+					$("#thisprogress").css('width', atPresentNum);
+					$("#progressBar").attr('title', '记忆强度' + atPresentNum);
 
 					var processorSentence = fnprocessor(thisSentence.sentence);
 					//将句子切割成数组
 					thisSentenceArr = processorSentence.split(' ');
 					sentenceInTheRightOrderArr = processorSentence.split(' ');
-					console.log(thisSentenceArr);
+					// console.log(thisSentenceArr);
 					//自动播放语音文件
 					audioplaySrc = thisUrl2 + thisSentence.sentence_url;
-//					$("#audioplay").attr("src", audioplaySrc);
 					//获取到数据之后更新对应的句子相关内容
 					fnUpdateAll(thisSentence, thisSentenceArr, sentenceInTheRightOrderArr);
 				} else if(data == 2){
@@ -117,8 +157,9 @@ $(function() {
 		thisSentenceArr_.sort(function() {
 			return(0.5 - Math.random());
 		});
-		console.log(thisSentenceArr_);
+		// console.log(thisSentenceArr_);
 
+		var thisSentenceArr_ = fnsenProcessor(thisSentenceArr_);
 		//把处理过后的数组的每一项填到下面的选项中
 		var items_html = '';
 		$.each(thisSentenceArr_, function(index, element) {
@@ -127,6 +168,10 @@ $(function() {
 			}
 		});
 		$("#items").show().html(items_html);
+
+		//关闭loading插件
+		removeLoading('test');
+
 		//答案选项的点击事件
 		fnclickItems();
 
@@ -142,15 +187,14 @@ $(function() {
 			//首先获取下面正确选项的答案组成字符串
 			var botString = '';
 			botString = fnprocessor2(thisSentence.sentence);
-			console.log(botString);
+			// console.log(botString);
 			//获取上面回答的选项内容组成字符串
 			var topString = '';
 			$.each($("span.ans_word"), function(index, element) {
 				topString += element.innerHTML;
 			});
-			console.log(topString);
+			// console.log(topString);
 
-//			$("#thisSentence_con").show();
 			$("#clear").hide();
 			$("#reset").show();
 			$("#items").html(thisSentence.sentence);
@@ -182,8 +226,7 @@ $(function() {
 					.css("cursor", 'pointer')
 					.on('click', function() {
 						fnclickresetBtn();
-//						$("#thisSentence_con").show();
-					});
+					});								
 				//改变enter按钮的状态和颜色，取消其点击事件
 				$("#enter").css({
 					backgroundColor: '#999',
@@ -195,7 +238,10 @@ $(function() {
 				$("#audioplay").attr("src", audioplaySrc);
 
 				fnestimateType();
-
+				
+				//校验错误，则该句子作为一个生句+1
+				sentenceState++;
+				
 				typeNum = 2;
 			}
 		} else if(typeNum <= 0) {
@@ -205,7 +251,31 @@ $(function() {
 	}
 	//更新下一个例句的相关内容
 	function fnupdateNext() {
-		var sentenceType = 1;
+		$('body').loading({
+			loadingWidth: 120,
+			title: '',
+			name: 'test',
+			discription: '加载中，请稍候：）',
+			direction: 'column',
+			type: 'origin',
+			// originBg:'#71EA71',
+			originDivWidth: 40,
+			originDivHeight: 40,
+			originWidth: 6,
+			originHeight: 6,
+			smallLoading: false,
+			loadingMaskBg: 'rgba(0,0,0,0.2)'
+		});
+		
+		if (thisNewOrOld == 0 && sentenceState == 1) { //熟词
+			oldWordNum++;
+		} else if (thisNewOrOld == 0 && sentenceState > 1) { //生词
+			newWordNum++;
+		} else if (thisNewOrOld == 1) {
+			reviewWordNum++;
+		}
+		fnUpdateThisStudyMessage();
+
 		$.ajax({
 			type: "POST",
 			url: thisUrl + "/Areas/api/Interface.ashx",
@@ -213,24 +283,37 @@ $(function() {
 			data: {
 				method: 'getnextSentence',
 				id: thisSentence.id,
-				neworold_word: sentenceType,
+				neworold_word: sentenceState,
 				user_id: username,
 				unit_id: chapter_id,
 				type: thistype
 			},
 			success: function(data) {
 				if(data[0]) {
-					console.log(JSON.stringify(data));
+					// console.log(data);
 					thisSentence = data[0];
+					//如果该单词的记忆强度大于0，则计算本次的复习次数+1
+					if (thisSentence.Sentranslate_per > 0) {
+						thisNewOrOld = 1;
+					} else {
+						thisNewOrOld = 0;
+					}
+					//将单词状态重新归为1，熟词
+					sentenceState = 1;
+
+					//根据记忆强度设置该单词的记忆强度条的长度
+					var atPresentNum = thisSentence.Sentranslate_per + '%';
+					$("#thisprogress").css('width', atPresentNum);
+					$(".progressBar").attr('title', '记忆强度' + atPresentNum);
+					
 
 					var processorSentence = fnprocessor(thisSentence.sentence);
 					//将句子切割成数组
 					thisSentenceArr = processorSentence.split(' ');
 					sentenceInTheRightOrderArr = processorSentence.split(' ');
-					console.log(thisSentenceArr);
+					// console.log(thisSentenceArr);
 					//自动播放语音文件
 					audioplaySrc = thisUrl2 + thisSentence.sentence_url;
-//					$("#audioplay").attr("src", audioplaySrc);
 					//获取到数据之后更新对应的句子相关内容
 					fnUpdateAll(thisSentence, thisSentenceArr, sentenceInTheRightOrderArr);
 				} else {
@@ -295,7 +378,6 @@ $(function() {
 				fncontrast();
 			})
 
-//		$("#audioplay").attr("src", audioplaySrc);
 		fnUpdateAll(thisSentence, thisSentenceArr, sentenceInTheRightOrderArr);
 	}
 
@@ -314,6 +396,10 @@ $(function() {
 		sentence_ = sentence_.replace(/\!+/g, '');
 		sentence_ = sentence_.replace(/\s+/g, '');
 		return sentence_;
+	}
+	//更新本次学习的生词熟词以及复习的数量
+	function fnUpdateThisStudyMessage() {
+		$("#thisStudy").html(`本次学习【生句：${newWordNum} 个&nbsp;  熟句：${oldWordNum} 个 &nbsp; 复习：${reviewWordNum} 个】`);
 	}
 
 });

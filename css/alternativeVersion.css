@@ -259,6 +259,21 @@ li.myCourses tbody #studyRate tr .rate .thisrate {
 
 .title3 {
 	width: 100px;
+	position: relative;
+}
+.title3 span{
+	 font-family: consolas;
+	position: absolute;
+	right: -5px;
+	top: -5px;
+	width: 16px;
+	height: 16px;
+	display: block;
+	border-radius: 8px;
+	line-height: 14px;
+	background-color: #ccc;
+	color: #000;
+	cursor: pointer;
 }
 
 .selectingTextbooks ul li.allCourses {
@@ -612,6 +627,7 @@ section .mainright .study {
 	width: 164px;
 	height: 10px;
 	background-color: #ccc;
+	overflow: hidden;
 }
 
 .study .progress .unitpercent .now {
@@ -630,6 +646,9 @@ section .mainright .study {
 	display: inline-block;
 	font-size: 12px;
 	color: #333;
+}
+.study .progress .speed span{
+	font-size: 14px;
 }
 
 .study .progress .onceAgain {

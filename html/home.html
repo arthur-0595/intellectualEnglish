@@ -139,12 +139,12 @@
     </script>
     <!--dot模版结束-->
 
+    <script src="../js/jquery-3.2.1.min.js"></script>
     <script src="../js/common.js"></script>
-    <script type="text/javascript" src="../js/jquery-3.2.1.min.js"></script>
     <script src="../js/doT.min.js"></script>
     <script>
         var message
-            // 获取用户信息
+        // 获取用户信息
         var userMessage = sessionStorage.userMessage;
         if (userMessage) {
             userMessage = JSON.parse(userMessage);
@@ -155,7 +155,7 @@
 
         fnupdateMeMessage(userMessage[0]);
         //点击大类跳转选择版本页面
-        $("#navs>li").on("click", function() {
+        $("#navs>li").on("click", function () {
             var index = $(this).index() + 1;
             var typeStr = $(this).find("h3").html();
             var typeEnglish = $(this).find("p").html();
@@ -185,7 +185,7 @@
             var resultText = tempFn(data_);
             message.innerHTML = resultText;
         }
-        $('.personal').click(function() {
+        $('.personal').click(function () {
             window.location = 'personalCenter.html'
         });
     </script>

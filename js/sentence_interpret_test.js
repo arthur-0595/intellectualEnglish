@@ -78,7 +78,7 @@ $(function () {
                 if (data[0]) {
                     dataArr = data;
                     dataArrLength = data.length;
-
+					
                     fnArrEvent(dataArr[0]);
                 }
             }

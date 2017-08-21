@@ -42,6 +42,7 @@ $(function () {
     })();
 
     //若当前页面的类别是句子相关的，则修改测试中心各选项的点击跳转路径
+    //根据当前选择的类别修改智能复习和测试复习的点击跳转链接
     (function (type_) {
         var commonTest = $("#testList .commonTest");
         switch (type_) {
@@ -50,18 +51,24 @@ $(function () {
                 $.each(commonTest, function (index, element) {
                     element.href = "javascript:window.open('../html/testCenter/word_memory_test.html?testType=" + (index + 1) + "')";
                 });
+
+                $("#testReview").attr('href' , "javascript:window.open('../html/word_simulationTest.html?testType=review')");
                 break;
             case '02':
                 console.log('type2');
                 $.each(commonTest, function (index, element) {
                     element.href = "javascript:window.open('../html/testCenter/word_listen_test.html?testType=" + (index + 1) + "')";
                 });
+
+                $("#testReview").attr('href' , "javascript:window.open('../html/testCenter/word_listen_test.html?testType=review')");
                 break;
             case '03':
                 console.log('type3');
                 $.each(commonTest, function (index, element) {
                     element.href = "javascript:window.open('../html/testCenter/word_write_test.html?testType=" + (index + 1) + "')";
                 });
+
+                $("#testReview").attr('href' , "javascript:window.open('../html/testCenter/word_write_test.html?testType=review')");
                 break;
             case '04':
                 console.log('type4');
@@ -69,6 +76,8 @@ $(function () {
                 $.each(commonTest, function (index, element) {
                     element.href = "javascript:window.open('../html/testCenter/sentence_listen_test.html?testType=" + (index + 1) + "')";
                 });
+
+                $("#testReview").attr('href' , "javascript:window.open('../html/testCenter/sentence_listen_test.html?testType=review')");
                 break;
             case '05':
                 console.log('type5');
@@ -76,6 +85,8 @@ $(function () {
                 $.each(commonTest, function (index, element) {
                     element.href = "javascript:window.open('../html/testCenter/sentence_translate_test.html?testType=" + (index + 1) + "')";
                 });
+
+                $("#testReview").attr('href' , "javascript:window.open('../html/testCenter/sentence_translate_test.html?testType=review')");
                 break;
             case '06':
                 console.log('type6');
@@ -83,6 +94,8 @@ $(function () {
                 $.each(commonTest, function (index, element) {
                     element.href = "javascript:window.open('../html/testCenter/sentence_write_test.html?testType=" + (index + 1) + "')";
                 });
+
+                $("#testReview").attr('href' , "javascript:window.open('../html/testCenter/sentence_write_test.html?testType=review')");
                 break;
             default:
                 console.log('type1');
@@ -91,12 +104,12 @@ $(function () {
         }
     })(type);
 
-    //跳转智能记忆
+    //跳转智能记忆   
     $("#clickBook").on("click", function () {
         if (textbook_id && version_id && chapter_id) {
             if (type == 01) {
                 // window.location = 'word_memory.html';
-                window.open('word_memory.html');
+                window.open('word_memory.html');              
             } else if (type == 02) {
                 // window.location = 'word_listen.html';
                 window.open('word_listen.html');
@@ -113,23 +126,73 @@ $(function () {
                 // window.location = 'sentence_write.html';
                 window.open('sentence_write.html');
             } else {
-                alert("相关页面开发未完成");
+                $("#maskingVal").text("相关页面开发未完成!")
+                    .parents("#masking").fadeIn(200)
+                    .find('#btnsOk').off().on('click', function () {
+                        $(this).parents('#masking').fadeOut(200);
+                        return false;
+                    });
             }
 
         } else {
-            alert("请确认已选择好课程及相关章节");
-            $("#course").trigger('click');
+            $("#maskingVal").text("请先选择教材和章节哦：）")
+                .parents("#masking").fadeIn(200)
+                .find('#btnsOk').off().on('click', function () {
+                    $(this).parents('#masking').fadeOut(200);
+                    $("#course").trigger('click');
+                });
         }
 
     });
-
+    
+    // 智能复习
+    var intelligentReview = $('#intelligentReview');
+    intelligentReview.on("click", function (event) {
+    	event.preventDefault()
+		if (textbook_id && version_id && chapter_id) {
+		    if (type == 01) {
+		        window.open('../html/intellectualReview/intellectual_memory.html');          
+		    } else if (type == 02) {
+		       window.open('../html/intellectualReview/intellectual_listen.html'); 
+		    } else if (type == 03) {
+		        window.open('../html/intellectualReview/intellectual_write.html'); 
+		    } else if (type == 04) {
+		        window.open('../html/intellectualReview/sentence_listen.html');
+		    } else if (type == 05) {
+		        window.open('../html/intellectualReview/sentence_translate.html');
+		    } else if (type == 06) {
+		        window.open('../html/intellectualReview/sentence_test.html');
+		    } 
+		    else {
+		        $("#maskingVal").text("相关页面开发未完成!")
+		            .parents("#masking").fadeIn(200)
+		            .find('#btnsOk').off().on('click', function () {
+		                $(this).parents('#masking').fadeOut(200);
+		                return false;
+		            });
+		    }
+		
+		} else {
+		    $("#maskingVal").text("请先选择教材和章节哦：）")
+		        .parents("#masking").fadeIn(200)
+		        .find('#btnsOk').off().on('click', function () {
+		            $(this).parents('#masking').fadeOut(200);
+		            $("#course").trigger('click');
+		        });
+		}
+	});
+	
     //点击"在学一遍"按钮
     $("#onceAgain").on('click', function () {
         if (chapter_id) {
             fnonceAgain();
         } else {
-            alert('提示：请先选择教材及章节之后再次使用该功能！');
-            $("#course").trigger('click');
+            $("#maskingVal").text("请先选择教材和章节哦：）")
+                .parents("#masking").fadeIn(200)
+                .find('#btnsOk').off().on('click', function () {
+                    $(this).parents('#masking').fadeOut(200);
+                    $("#course").trigger('click');
+                });
         }
     })
 
@@ -138,8 +201,12 @@ $(function () {
         if (textbook_id) {
             this.href = "javascript:window.open('testCenter/chuangguan_record.html')";
         } else {
-            alert('提示：请先选择教材再次跳转查看测试记录！');
-            $("#course").trigger('click');
+            $("#maskingVal").text("请先选择教材和章节哦：）")
+                .parents("#masking").fadeIn(200)
+                .find('#btnsOk').off().on('click', function () {
+                    $(this).parents('#masking').fadeOut(200);
+                    $("#course").trigger('click');
+                });
             return false;
         }
     })
@@ -149,8 +216,77 @@ $(function () {
         if (chapter_id) {
             this.href = "javascript:window.open('./wordsbook.html')";
         } else {
-            alert('提示：请先选择教材及章节之后再次跳转查看单词本！');
-            $("#course").trigger('click');
+            $("#maskingVal").text("请先选择教材和章节哦：）")
+                .parents("#masking").fadeIn(200)
+                .find('#btnsOk').off().on('click', function () {
+                    $(this).parents('#masking').fadeOut(200);
+                    $("#course").trigger('click');
+                });
+            return false;
+        }
+    })
+
+    //点击跳转记忆追踪页面，需要判断是否选择过教材及章节
+    $("#memory").on('click', function () {
+        if (chapter_id) {
+            if (this.dataset.num == 0) {
+                $("#maskingVal").text("可复习的单词数为0，快去学习吧：）")
+                    .parents("#masking").fadeIn(200)
+                    .find('#btnsOk').off().on('click', function () {
+                        $(this).parents('#masking').fadeOut(200);
+                    });
+            } else {
+                this.href = "javascript:window.open('./traceMemory.html?type=" + type + "')";
+            }
+        } else {
+            $("#maskingVal").text("请先选择教材和章节哦：）")
+                .parents("#masking").fadeIn(200)
+                .find('#btnsOk').off().on('click', function () {
+                    $(this).parents('#masking').fadeOut(200);
+                    $("#course").trigger('click');
+                });
+            return false;
+        }
+    })
+
+    //点击"测试复习"按钮
+    $("#testReview").on('click', function () {
+        if (chapter_id) {
+            if (this.dataset.num == 0) {
+                $("#maskingVal").text("可复习的单词数为0，快去学习吧：）")
+                    .parents("#masking").fadeIn(200)
+                    .find('#btnsOk').off().on('click', function () {
+                        $(this).parents('#masking').fadeOut(200);
+                    });
+            }
+        } else {
+            $("#maskingVal").text("请先选择教材和章节哦：）")
+                .parents("#masking").fadeIn(200)
+                .find('#btnsOk').off().on('click', function () {
+                    $(this).parents('#masking').fadeOut(200);
+                    $("#course").trigger('click');
+                });
+            return false;
+        }
+    })
+
+    //点击"测试复习"按钮
+    $("#intelligentReview").on('click', function () {
+        if (chapter_id) {
+            if (this.dataset.num == 0) {
+                $("#maskingVal").text("可复习的单词数为0，快去学习吧：）")
+                    .parents("#masking").fadeIn(200)
+                    .find('#btnsOk').off().on('click', function () {
+                        $(this).parents('#masking').fadeOut(200);
+                    });
+            }
+        } else {
+            $("#maskingVal").text("请先选择教材和章节哦：）")
+                .parents("#masking").fadeIn(200)
+                .find('#btnsOk').off().on('click', function () {
+                    $(this).parents('#masking').fadeOut(200);
+                    $("#course").trigger('click');
+                });
             return false;
         }
     })
@@ -204,7 +340,7 @@ $(function () {
 								<td class="StudycourseName">${element.version_name} - ${element.textbook_name}</td>
 								<td>两个小时前</td>
 								<td>
-									<a href="javascript:;">查看</a>
+									<a href="javascript:;" class="studySchedule">查看</a>
 									<div class="studyRateBox"></div>
 								</td>
 								<td class="startStudy">学习</td>
@@ -233,6 +369,29 @@ $(function () {
                             //本课程的单词量
                             fnupdateWordNum();
                         });
+
+                        //点击查看所有学习进度
+                        $(".studySchedule").off().on('click', function () {
+                            $('body').loading({
+                                loadingWidth: 120,
+                                title: '',
+                                name: 'test',
+                                discription: '',
+                                direction: 'column',
+                                type: 'origin',
+                                // originBg:'#71EA71',
+                                originDivWidth: 40,
+                                originDivHeight: 40,
+                                originWidth: 6,
+                                originHeight: 6,
+                                smallLoading: false,
+                                loadingMaskBg: 'rgba(0,0,0,0.2)'
+                            });
+
+                            $(".studyRateBox").html('');
+                            var thisTextbookid = $(this).parents('tr')[0].dataset.textbookid;
+                            fnupdateMyStudySchedule(thisTextbookid, $(this).next()[0]);
+                        })
                     }
                 }
             });
@@ -365,8 +524,12 @@ $(function () {
                 $("#test").find("i").css("transform", "rotate(0deg)");
             }
         } else {
-            alert('请先选择教材');
-            $("#course").trigger('click');
+            $("#maskingVal").text("请先选择教材哦：）")
+                .parents("#masking").fadeIn(200)
+                .find('#btnsOk').off().on('click', function () {
+                    $(this).parents('#masking').fadeOut(200);
+                    $("#course").trigger('click');
+                });
         }
 
     })
@@ -403,7 +566,6 @@ $(function () {
                 $("#sectionBox").find("i").css("transform", "rotate(0deg)");
             }
         } else {
-            alert('未选择版本及教材');
             $("#course").trigger('click');
         }
     }
@@ -433,8 +595,8 @@ $(function () {
     }
     //根据span里面的值来确定是否可以点击跳转
     function fnclickTestA() {
-        $("#testList .commonTest").on('click' ,function () {
-            if( $(this).find('span').text() < 10 ){
+        $("#testList .commonTest").on('click', function () {
+            if ($(this).find('span').text() < 10) {
                 return false;
             }
         })
@@ -519,7 +681,22 @@ $(function () {
 
     //获取进度
     function fnpdatePercent() {
-
+        $('body').loading({
+            loadingWidth: 120,
+            title: '',
+            name: 'test',
+            discription: '',
+            direction: 'column',
+            type: 'origin',
+            // originBg:'#71EA71',
+            originDivWidth: 40,
+            originDivHeight: 40,
+            originWidth: 6,
+            originHeight: 6,
+            smallLoading: false,
+            loadingMaskBg: 'rgba(0,0,0,0.2)'
+        });
+        // console.log(chapter_id + '+' + parseInt(type) + '+' + textbook_id);
         $.ajax({
             type: "POST",
             url: thisUrl2 + "/Areas/api/Index.ashx",
@@ -536,8 +713,7 @@ $(function () {
                 var coursePercentNum = '0%',
                     unitPercent = '0%';
                 if (data.msg == '无数据') {
-                    coursePercentNum = '0%';
-                    unitPercent = '0%';
+                    alert('这本书没有内容，请联系管理员！');
                 } else {
                     unitPercent = parseInt(data.study_unit / data.unit_total * 100) + '%';
                     coursePercentNum = parseInt(data.study_textbook / data.textbook_total * 100) + '%';
@@ -551,6 +727,15 @@ $(function () {
 
                 $("#coursePercentNum").html(coursePercentNum);
                 $("#unitPercentString").html(unitPercent);
+
+                $("#memory").html('记忆追踪(' + data.Memorytracking_count + ')')
+                    .attr('data-num', data.Memorytracking_count);
+                $("#intelligentReview").html('智能复习(' + data.Review_count + ')')
+                    .attr('data-num', data.Review_count);
+                $("#testReview").html('测试复习(' + data.Review_count + ')')
+                    .attr('data-num', data.Review_count);
+                //关闭loading插件
+                removeLoading('test');
             }
         });
     }
@@ -567,8 +752,19 @@ $(function () {
             dataType: "json",
             success: function (data) {
                 // console.log(data);
+                var thisStudy = data.study_words + data.study_sentence;
+                //定义每小时应该学习的数量为40
+                var oneHourStudyNum = 40;
                 if (data.result == 1) {
+                    //今日学习速度
+                    var todaySpeed = Math.round(thisStudy / (data.Login_today / 3600));
+
                     $('#onlineTime span').html(fnupdateAllTime(data.Login_all));
+                    $('#validTime span').html(fnupdateAllTime(data.Login_today));
+                    $("#speed span").html(todaySpeed);
+                    //今日学习效率
+                    var todayPercentage = Math.round(todaySpeed / oneHourStudyNum * 100) > 100 ? 100 : Math.round(todaySpeed / oneHourStudyNum * 100);
+                    $("#percentage").html(todayPercentage + '%');
                 }
             }
         });
@@ -584,14 +780,31 @@ $(function () {
         // ajax_.send(null);
     }
 
-    //修改时间的函数
-    function fnupdateAllTime(login_all) {
-        var hour = parseInt(login_all / 3600) < 10 ? ('0' + parseInt(login_all / 3600)) : parseInt(login_all / 3600);
-        var minute = parseInt((login_all - (hour * 3600)) / 60) < 10 ? ('0' + parseInt((login_all - (hour * 3600)) / 60)) : parseInt((login_all - (hour * 3600)) / 60);
-        var seconds = parseInt(login_all - (hour * 3600) - (minute * 60)) < 10 ? ('0' + parseInt(login_all - (hour * 3600) - (minute * 60))) : parseInt(login_all - (hour * 3600) - (minute * 60));
+    function fnupdateMyStudySchedule(textbookid_, thisdom_) {
+        $.ajax({
+            type: "GET",
+            url: thisUrl + "/Areas/api/Interface.ashx",
+            data: {
+                method: 'studyprogress',
+                user_id: username,
+                textbookid: textbookid_
+            },
+            dataType: "json",
+            success: function (data) {
+                // console.log(data);
+                var tempFn = doT.template($("#template").html());
+                var resultText = tempFn(data);
+                thisdom_.innerHTML = resultText;
 
-        var time = `${hour} : ${minute} : ${seconds}`;
-        return time;
+                //关闭loading插件
+                removeLoading('test');
+
+                //关闭学习进度页面
+                $("#closeBtn").on('click', function () {
+                    thisdom_.innerHTML = '';
+                })
+            }
+        });
     }
 
 })

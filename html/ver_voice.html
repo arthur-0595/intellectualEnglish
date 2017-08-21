@@ -28,6 +28,16 @@
 </head>
 
 <body>
+	<!-- 机器人-->
+	<div id="robbot">
+		<span id="robbotSpan"></span>
+		<div id="dialog">
+			<span id="closeDialog">x</span>
+			<p id="todayStudyTime"></p>
+			<p id="todayWords"></p>
+			<p id="todaySentences"></p>
+		</div>
+	</div>
     <header id="header">
         <div class="header clearfix">
             <a class="logo" href="#">
@@ -109,26 +119,6 @@
     <script src="../js/common.js"></script>
     <script src="../js/loading.js"></script>
     <script src="../js/ver_voice.js"></script>
-    <script>
-		//每隔五分钟发送一次通信请求
-		// fnupdateCloseWindow(username);
-		setInterval(function () {
-			fnupdateCommunication(username);
-        }, 60 * 1000);
-        function fnupdateCommunication(username_) {
-			$.ajax({
-				type: "GET",
-				url: thisUrl + "/Areas/api/Interface.ashx",
-				data: {
-					method: 'UserClose',
-					user_id: username_
-				},
-				dataType: "json",
-				success: function (data) {
-				}
-			});
-		}
-	</script>
 </body>
 
 </html>

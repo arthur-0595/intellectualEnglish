@@ -1,7 +1,7 @@
-$(function() {
+$(function () {
 	//获取用户名
 	var userMessage = sessionStorage.userMessage;
-	if(userMessage) {
+	if (userMessage) {
 		userMessage = JSON.parse(userMessage);
 		var username = userMessage[0].ID;
 	} else {
@@ -23,8 +23,33 @@ $(function() {
 			score: 0
 		}
 	});
+
+	//每隔五分钟发送一次通信请求
+	fnupdateCommunication(username);
+	setInterval(function () {
+		fnupdateCommunication(username);
+	}, 60 * 1000);
+
+	function fnupdateCommunication(username_) {
+		$.ajax({
+			type: "GET",
+			url: thisUrl + "/Areas/api/Interface.ashx",
+			data: {
+				method: 'UserClose',
+				user_id: username_
+			},
+			dataType: "json",
+			success: function (data) {
+				// console.log(data);
+				if (data.result == 1) {
+                    $('#onlineTime span').html(fnupdateAllTime(data.Login_all));
+                }
+			}
+		});
+	}
+
 	//点击关闭弹出菜单
-	$("#closeBox").on('click', function() {
+	$("#closeBox").on('click', function () {
 		$("#mode").finish().toggle();
 	});
 
@@ -39,15 +64,15 @@ $(function() {
 				f_id: bigType
 			},
 			async: true,
-			success: function(data) {
-				if(data) {
+			success: function (data) {
+				if (data) {
 					var html_ = '';
-					$.each(data, function(index, element) {
+					$.each(data, function (index, element) {
 						html_ += `<li id="${element.id}">${element.spoke_name}</li>`;
 					});
 					$("#tleft").html(html_);
 					//给点击大类的按钮绑定事件
-					$("#tleft>li").on("click", function() {
+					$("#tleft>li").on("click", function () {
 						$("#tleft>li").attr('class', '');
 						$(this).attr('class', 'this');
 
@@ -75,17 +100,17 @@ $(function() {
 				f_id: id_
 			},
 			async: true,
-			success: function(data) {
-				console.log(data);
-				if(data) {
+			success: function (data) {
+				// console.log(data);
+				if (data) {
 					var htmlR = '';
-					$.each(data, function(index, element) {
+					$.each(data, function (index, element) {
 						htmlR += `<li id="${element.id}">${element.spoke_name}</li>`;
 					});
 					$("#tright").html(htmlR);
 
 					//给点击小类的按钮绑定事件
-					$("#tright>li").on("click", function() {
+					$("#tright>li").on("click", function () {
 						$("#tright>li").attr('class', '');
 						$(this).attr('class', 'this');
 
@@ -113,15 +138,15 @@ $(function() {
 				f_id: id_
 			},
 			async: true,
-			success: function(data) {
-				if(data) {
+			success: function (data) {
+				if (data) {
 					var htmlbot = '';
-					$.each(data, function(index, element) {
+					$.each(data, function (index, element) {
 						htmlbot += `<li id="${element.id}">${element.spoke_name}</li>`;
 					});
 					$("#studybot").html(htmlbot)
 						.find('li')
-						.on('click', function() {
+						.on('click', function () {
 							var thisId = $(this).attr('id');
 
 							chapter_id = thisId;
@@ -139,7 +164,6 @@ $(function() {
 	}
 
 	function fnupdateMode(id_) {
-		alert(id_);
 		$.ajax({
 			type: "post",
 			url: thisUrl2 + "/Areas/api/Index.ashx",
@@ -150,14 +174,21 @@ $(function() {
 				type_id: id_
 			},
 			async: true,
-			success: function(data) {
-				if(data[0]) {
+			success: function (data) {
+				// console.log(data);
+				if (data[0]) {
 					console.log(data);
 					mode.total = data[0].total;
-					mode.repeatnumber = parseInt((data[0].repeatnumber/data[0].total)*100) ;
-					mode.listennumber = parseInt((data[0].listennumber/data[0].total)*100);
-					mode.oralnumber = parseInt((data[0].oralnumber/data[0].total)*100);
+					mode.repeatnumber = parseInt((data[0].repeatnumber / data[0].total) * 100);
+					mode.listennumber = parseInt((data[0].listennumber / data[0].total) * 100);
+					mode.oralnumber = parseInt((data[0].oralnumber / data[0].total) * 100);
 					mode.score = data[0].score;
+				}else if(data.msg == '无数据'){
+					mode.total = 0;
+					mode.repeatnumber = 0;
+					mode.listennumber = 0;
+					mode.oralnumber = 0;
+					mode.score = 0;
 				}
 			}
 		});

@@ -13,7 +13,7 @@
 		}
 		.toTop{
 			width:0;height:0;
-			border-bottom:40px solid rgba(0,0,0,.3);
+			border-bottom:44px solid rgba(0,0,0,.4);
 			border-right:32px solid transparent;
 			border-left:32px solid transparent;
 			position:fixed;
@@ -23,16 +23,19 @@
 			cursor: pointer;			
 		}
 		.toTop:hover{
-			border-bottom:40px solid rgba(0,0,0,.6);
+			border-bottom:44px solid rgba(0,0,0,.6);
 		}
-		.toTop::after{
-			content:'TOP';
-			display: inline-block;
-			width:20px;
-			height:20px;
-			margin-top:17px;
-			margin-left:-12px;			
+		.toTop::after {
+		    content: 'TOP';
+		    display: inline-block;
+		    width: 20px;
+		    height: 20px;
+		    margin-top: 21px;
+		    margin-left: -16px;
+		    font-weight: 700;
+		    font-size: 15px;
 		}
+		
 		
 	</style>
 </head>
@@ -60,7 +63,7 @@
 				<td style="width:200px">2017-08-04</td>
 				<td style="width:100px">27</td>
 				<td style="min-width:500px">不会吧，就这水平，还不赶快加把劲！</td>
-			</tr> -->
+			</tr>-->
 			
 		</table>
 		<span class="toTop" id="toTop"></span>
@@ -103,12 +106,12 @@
 					$.each(data,function(index,element){
 						tbody += `<tr>
 								<td style="width:400px">${element.test_type}</td>
-								<td style="width:200px">${element.test_time.slice(0,10)}</td>
+								<td style="width:200px">${element.test_time.split('T').join(' ')}</td>
 								<td style="width:100px">${element.test_score}</td>
 								<td style="min-width:500px">${element.test_explain}</td>
 							</tr>`;
 					});
-					$('.tabs').append(tbody);					
+					$('.tabs').append(tbody);				
 				}
 			});
 		}

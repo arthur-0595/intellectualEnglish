@@ -77,6 +77,27 @@ $(function () {
         }
     })
 
+    //每隔五分钟发送一次通信请求
+    fnupdateCommunication(username);
+    setInterval(function () {
+        fnupdateCommunication(username);
+    }, 60 * 1000);
+
+    function fnupdateCommunication(username_) {
+        $.ajax({
+            type: "GET",
+            url: thisUrl + "/Areas/api/Interface.ashx",
+            data: {
+                method: 'UserClose',
+                user_id: username_
+            },
+            dataType: "json",
+            success: function (data) {
+                // console.log(data);
+            }
+        });
+    }
+
     function fnupdateList() {
         $.ajax({
             type: "get",
@@ -166,8 +187,7 @@ $(function () {
             },
             async: true,
             success: function (data) {
-                console.log(JSON.stringify(data));
-
+                // console.log(JSON.stringify(data));
                 botUlCon.items = data;
 
                 removeLoading('test');

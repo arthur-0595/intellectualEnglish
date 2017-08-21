@@ -44,10 +44,13 @@
 		©2017SOUGOU - 京ICP证050897号 - 京公安网备11000002000025号
 	</footer>
 
-	<script src="js/common.js"></script>
 	<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+	<script src="js/common.js"></script>
 	<script>
 		$(function () {
+			$(":input").removeAttr('onpaste');
+			window.oncontextmenu = null;
+
 			var usernameVal, passwordVal;
 
 			var username = localStorage.username;

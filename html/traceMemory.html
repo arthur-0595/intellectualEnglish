@@ -1,43 +1,72 @@
 <!DOCTYPE html>
 <html>
 
-	<head>
-		<meta charset="UTF-8">
-		<title>记忆追踪</title>
-		<link rel="stylesheet" href="../css/style.css" />
-		<link rel="stylesheet" href="../css/traceMemory.css" />
-	</head>
+<head>
+	<meta charset="UTF-8">
+	<title>记忆追踪</title>
+	<link rel="stylesheet" href="../css/style.css" />
+	<link rel="stylesheet" href="../css/loading.css">
+	<link rel="stylesheet" href="../css/traceMemory.css" />
+</head>
 
-	<body>
-		<header id="header">
-			<div class="con">
-				<div class="versions">旅游基本用语 - 基本会话 - 问候及初次见面</div>
-				<div class="title">记忆追踪</div>
+<body id="bodyHtml">
+	<header id="header">
+		<div class="con">
+			<div class="versions" id="versions"></div>
+			<div class="title">记忆追踪</div>
+			<a href="javascript:window.close();">
 				<div class="back"></div>
+			</a>
+		</div>
+	</header>
+	<div class="section" id="section">
+		<div class="sectionBox">
+			<p>本课程有
+				<span id="allWords">4</span> 个生句,其中
+				<span id="studyWords">3</span> 个需要
+				<i>立刻复习</i>
+			</p>
+			<div class="sentenceA" id="sentenceA">
+				<span>dhgsdfasf</span>
+				<span>dhgsdfasf</span>
+				<span>dhgsdfasf</span>
+				<span>dhgsdfasf</span>
+				<span>dhgsdfasf</span>
+				<span>dhgsdfasf</span>
+				<span>dhgsdfasf</span>
+				<span>dhgsdfasf</span>
+				<span class="no">dhgsdfasf</span>
+				<span class="no">dhgsdfasf</span>
+				<span class="no">dhgsdfasf</span>
 			</div>
-		</header>
-		<div class="section">
-			<div class="sectionBox">
-				<span>本课程有4个生句</span>
-				<div class="sentenceA">
-					<span>The study found that sixteen babies born by C-section had higher DNA-methylation rates immediately after they were born than the other babies</span>
-					<span>The study found that sixteen babies born</span>
-					<span>by C-section had higher DNA-methylation rates immediately after they were born than the other babies.The study found</span>
-					<span>that sixteen babies born by C-section had higher DNA-methylation rates immediately after they were born than</span>
-				</div>
-			</div>
-			<div class="start">
-				<a href="javascript:alert('清除成功');" class="EnterTheAnswer" id="EnterTheAnswer">
+		</div>
+		<div class="start">
+			<a href="" class="EnterTheAnswer" id="EnterTheAnswer">
 					智能复习
 				</a>
-			</div>
 		</div>
-		
-		<div class="hint">
-			<span>翻译：</span>
-			<i>张三上天啦张三上天啦张三上天啦张三上天啦张三上天啦张三上天啦张三上天啦张三上天啦张三上天啦</i>
+	</div>
+	<div class="thisPageHint" id="thisPageHint" style="display:none;">
+		<div class="translate" id="translate">翻译：
+			<i>啊啊</i>
 		</div>
-		
-	</body>
+		<div class="thisStudyNum" id="thisStudyNum">
+			学习次数：5 错误次数：3
+		</div>
+		<div class="memoryNum" id="memoryNum">
+			记忆强度：28%
+		</div>
+		<div class="studyTimeOver" id="studyTimeOver">
+			距离记忆点：2：12：26
+		</div>
+	</div>
+	<audio autoplay src="" type="audio/wav" id="audioplay">
+	</audio>
+
+	<script src="../js/jquery-3.2.1.min.js"></script>
+	<script src="../js/common.js"></script>
+	<script src="../js/loading.js"></script>
+	<script src="../js/traceMemory.js"></script>
+</body>
 
 </html>

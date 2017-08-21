@@ -1,15 +1,15 @@
-$(function() {
+$(function () {
 	//获取用户ID
 	var userMessage = sessionStorage.userMessage;
-	if(userMessage) {
+	if (userMessage) {
 		userMessage = JSON.parse(userMessage);
 		var username = userMessage[0].ID;
 	} else {
 		window.location = '../index.html';
 	}
 	//当前选择的版本ID，教材ID ,选择的章节
-	var textbook_id, chapter_id,version_id;
-	var type,typeStr,textbook_name,version_name,chapter_name;
+	var textbook_id, chapter_id, version_id;
+	var type, typeStr, textbook_name, version_name, chapter_name;
 	//当前语音文件播放路径
 	var audioplaySrc;
 	//该单元下所有单词
@@ -44,12 +44,28 @@ $(function() {
 		var e = event || window.event || arguments.callee.caller.arguments[0];
 		if (e && e.keyCode == 13) {
 			$("#enter").trigger('click');
-		}else if(e && e.keyCode == 17){
+		} else if (e && e.keyCode == 17) {
 			$("#voice").trigger('click');
 		}
 	};
 
 	function fnGetAllTheWords() {
+		$('body').loading({
+			loadingWidth: 120,
+			title: '',
+			name: 'test',
+			discription: '',
+			direction: 'column',
+			type: 'origin',
+			// originBg:'#71EA71',
+			originDivWidth: 40,
+			originDivHeight: 40,
+			originWidth: 6,
+			originHeight: 6,
+			smallLoading: false,
+			loadingMaskBg: 'rgba(0,0,0,0.2)'
+		});
+
 		$.ajax({
 			type: "POST",
 			url: thisUrl + '/Areas/Api/Interface.ashx',
@@ -58,7 +74,7 @@ $(function() {
 				method: "getwords",
 				unit_id: chapter_id,
 			},
-			success: function(data) {
+			success: function (data) {
 				wordsArr = data;
 				wordArrlength = wordsArr.length;
 
@@ -68,17 +84,20 @@ $(function() {
 	}
 	//载入对应单词
 	function fnshowthisWord(wordObj) {
-		$("#thisStudy").html('进度：'+(num+1)+'/'+wordArrlength);
-		
-		$("#wordinput").val("").attr('disabled',false);
+		$("#thisStudy").html('进度：' + (num + 1) + '/' + wordArrlength);
+
+		$("#wordinput").val("").attr('disabled', false);
 		$("#wordinput")[0].focus();
 		$("#answer").hide();
 		$("#status").hide();
-		
+
 		$("#translate").html(wordObj.word_mean);
 
 		var thisWordName = wordObj.word_name.replace(/\•/g, '');
 		$("#answer").html(thisWordName);
+
+		//关闭loading插件
+		removeLoading('test');
 
 		//设置播放路径，绑定听语音事件
 		audioplaySrc = thisUrl2 + wordObj.word_url;
@@ -87,57 +106,57 @@ $(function() {
 		numEnt = 2;
 	}
 	//听语音按钮
-	$("#voice").on("click", function() {
+	$("#voice").on("click", function () {
 		$("#audioplay").attr("src", audioplaySrc);
 	})
 	//enter按钮
-	$("#enter").on("click", function() {
-		if(numEnt == 2) {
+	$("#enter").on("click", function () {
+		if (numEnt == 2) {
 			numEnt--;
-			
+
 			$("#answer").show();
 			$("#status").show();
 
 			//输入的内容和正确答案进行对比
-			var inputVal = $.trim( $("#wordinput").val() );
-			if(inputVal == $("#answer").html()) {//输入正确
+			var inputVal = $.trim($("#wordinput").val());
+			if (inputVal == $("#answer").html()) { //输入正确
 				$("#audioplay").attr("src", audioplaySrc);
-				
+
 				$("#answer").css("color", "#57b3ff");
 				$("#status").attr("class", "status correct");
 				$("#wordinput").attr("disabled", true);
-				
+
 				numEnt--;
-			} else {//输入错误
+			} else { //输入错误
 				$("#answer").css("color", "#ff1919");
 				$("#status").attr("class", "status");
 				$("#wordinput").attr("disabled", true);
-								
+
 			}
-		}else if(numEnt == 1){
+		} else if (numEnt == 1) {
 			$("#wordinput").val("").attr('disabled', false);
 			$("#wordinput")[0].focus();
-			
+
 			numEnt = 2;
-			
-		}else if(numEnt <= 0){
+
+		} else if (numEnt <= 0) {
 			fnnextWord();
 		}
 	})
 
 	function fnnextWord() {
 		num++;
-		if(num < wordArrlength){
+		if (num < wordArrlength) {
 			fnshowthisWord(wordsArr[num]);
-		}else if(num >= wordArrlength){
+		} else if (num >= wordArrlength) {
 			alert("记忆强化完成，下面开始测试");
 			fnintensifycomplete();
-			window.location="word_simulationTest.html";
+			window.location = "word_simulationTest.html";
 		}
-		
+
 	}
-	
-	function fnintensifycomplete(){
+
+	function fnintensifycomplete() {
 		$.ajax({
 			type: "POST",
 			url: thisUrl + '/Areas/Api/Interface.ashx',
@@ -147,7 +166,7 @@ $(function() {
 				unit_id: chapter_id,
 				user_id: username
 			},
-			success: function(data) {
+			success: function (data) {
 				alert(data.result);
 			}
 		});

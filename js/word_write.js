@@ -16,11 +16,17 @@ $(function() {
 	//当前听写的单词的ID和状态
 	var thiswordId ,
 		thiswordState = 1;//默认熟词，不为1则为生词
+	//当前单词是不是一个以前听过的单词
+	var thisNewOrOld = 0;//默认没听过
 	//要测试的所有单词数组
 	var wordArr , wordArrLength;
 	var num = 0;
 	//保存测试结果的数组
 	var testsArr = [];
+	//声明三个变量，生词熟词已经复习
+	var newWordNum = 0,
+		oldWordNum = 0,
+		reviewWordNum = 0;
 	
 	var numEnt;
 
@@ -33,7 +39,6 @@ $(function() {
 	chapter_name = sessionStorage.chapter_name;
 	type = sessionStorage.type;
 
-	//初试vue
 	var titleBox = new Vue({
 		el: "#titleBox",
 		data: {
@@ -75,6 +80,11 @@ $(function() {
 			fnsendWordState(thiswordId , thiswordState)
 			
 		}else if(numEnt == 666){//该值为666表示当前处于测试状态
+			if (inputVal.length == 0) {
+				$("#hint").fadeIn(200).delay(1500).fadeOut(200);
+				// $("#thisStudy").html('进度：' + (num + 1) + '/' + wordArrLength);
+				return false;
+			}
 			var thisWordName = wordArr[num].word_name.replace(/\•/g, '');
 
 			var thisStatus;
@@ -91,7 +101,6 @@ $(function() {
 				myVal: inputVal,
 				status: thisStatus
 			}
-//			alert(JSON.stringify(newObj) );
 			//构建测试的单词对象保存进数组，然后载入下一个单词
 			testsArr.push(newObj);
 			
@@ -101,6 +110,15 @@ $(function() {
 	})
 	
 	function fnsendWordState(word_id , word_state){
+		if (thisNewOrOld == 0 && word_state == 1) { //熟词
+			oldWordNum++;
+		} else if(thisNewOrOld == 0 && word_state > 1){ //生词
+			newWordNum++;
+		} else if(thisNewOrOld == 1){
+			reviewWordNum++;
+		}
+		fnUpdateThisStudyMessage();
+		
 		$.ajax({
 			type:"POST",
 			url:thisUrl2+"/Areas/Api/index.ashx",
@@ -108,7 +126,8 @@ $(function() {
 			data: {
 				method: 'UpdateWriteState',
 				id: word_id,
-				word_state: word_state
+				word_state: word_state,
+				userid: username
 			},
 			success: function(data) {
 //				console.log(JSON.stringify(data));
@@ -142,13 +161,24 @@ $(function() {
 				}else if(data.status == 0){
 					alert('警告，错误信息，请尝试刷新，若该问题依然存在请联系相关客服！');
 				}
-				
 			}
 		});
 	}
 
 	//听写载入对应单词
 	function fnshowthisWord(wordObj) {
+		if(wordObj.write_percent > 0){
+			thisNewOrOld = 1;
+		}else{
+			thisNewOrOld = 0;
+		}
+		//将单词状态重新归为1，熟词
+		thiswordState = 1;
+		//根据记忆强度设置该单词的记忆强度条的长度
+		var atPresentNum = wordObj.write_percent+'%';
+		$("#atPresent").css('width',atPresentNum);
+		$("#schedule").attr('title' , '记忆强度'+atPresentNum);
+		
 		$("#wordinput").val("").attr('disabled',false);
 		$("#wordinput")[0].focus();
 		$("#answer").hide();
@@ -191,7 +221,6 @@ $(function() {
 				}
 			});
 			var thisScore = Math.round( (Nnum/testsArr.length)*100 );
-//			alert(thisScore);
 			
 			window.location="sentence_test.html?score="+thisScore;
 		}
@@ -228,6 +257,16 @@ $(function() {
 			}
 		});
 	}
+
+	//更新本次学习的生词熟词以及复习的数量
+	function fnUpdateThisStudyMessage() {
+		$("#thisStudy").html(`本次学习【生词：${newWordNum} 个&nbsp;  熟词：${oldWordNum} 个 &nbsp; 复习：${reviewWordNum} 个】`);
+	}
+	
+	//显示测试的进度
+//	function fnuodateTestNum(num_, arrLength_) {
+//		$("#thisStudy").html(`进度： ${num_}/${arrLength_}`);
+//	}
 
 })
 

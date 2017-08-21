@@ -1,4 +1,4 @@
-$(function() {
+$(function () {
     //获取用户名
     var userMessage = sessionStorage.userMessage;
     if (userMessage) {
@@ -17,6 +17,26 @@ $(function() {
     var mainleft;
     fnupdateList();
 
+    //每隔五分钟发送一次通信请求
+    fnupdateCommunication(username);
+    setInterval(function () {
+        fnupdateCommunication(username);
+    }, 60 * 1000);
+
+    //发送到后台的通讯请求
+    function fnupdateCommunication(username_) {
+        $.ajax({
+            type: "GET",
+            url: thisUrl + "/Areas/api/Interface.ashx",
+            data: {
+                method: 'UserClose',
+                user_id: username_
+            },
+            dataType: "json",
+            success: function (data) {}
+        });
+    }
+
 
     function fnupdateList() {
         $.ajax({
@@ -27,7 +47,7 @@ $(function() {
                 method: 'getreadtype'
             },
             async: true,
-            success: function(data) {
+            success: function (data) {
                 //				console.log(JSON.stringify(data));
                 navs = data;
 
@@ -38,7 +58,7 @@ $(function() {
                     }
                 });
 
-                $("#mainleftul>li .tit").on('click', function() {
+                $("#mainleftul>li .tit").on('click', function () {
                     if ($(this).parent().find('ul')[0].style.display != 'none') {
                         return false;
                     } else {
@@ -50,7 +70,7 @@ $(function() {
                     }
                 })
 
-                $(".courseA li").on('click', function() {
+                $(".courseA li").on('click', function () {
                     var thisId = $(this).attr('id');
                     var thisCon = $(this).html();
 
@@ -77,8 +97,8 @@ $(function() {
                 user_id: username
             },
             async: true,
-            success: function(data) {
-                console.log(JSON.stringify(data));
+            success: function (data) {
+                // console.log(JSON.stringify(data));
                 fnshowReadList(data);
             }
         });
@@ -86,7 +106,7 @@ $(function() {
 
     function fnshowReadList(data_) {
         var html_ = '';
-        $.each(data_, function(index, element) {
+        $.each(data_, function (index, element) {
             var status;
             if (element.allow == 1) {
                 status = 'complete';
@@ -103,7 +123,7 @@ $(function() {
 
         $("#botUl").html(html_)
             .find('li')
-            .on('click', function() {
+            .on('click', function () {
                 var index = $(this).index();
 
                 chapter_name = $(this).find('span').html();

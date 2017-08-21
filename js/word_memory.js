@@ -20,6 +20,14 @@ $(function () {
 	var thiswordId;
 	//两次》一次》跳转
 	var num = 2;
+	//当前单词是不是一个以前听过的单词
+	var thisNewOrOld = 0; //默认没听过
+	//该单词是生词还是熟词
+	var wordState = 1;
+	//声明三个变量，生词熟词已经复习
+	var newWordNum = 0 ,
+		oldWordNum = 0 ,
+		reviewWordNum = 0;
 
 	//	$.getUrlParam = function(name) {
 	//		var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
@@ -53,6 +61,22 @@ $(function () {
 	};
 
 	function fnstudyStart() {
+		$('body').loading({
+            loadingWidth: 120,
+            title: '',
+            name: 'test',
+            discription: '',
+            direction: 'column',
+            type: 'origin',
+            // originBg:'#71EA71',
+            originDivWidth: 40,
+            originDivHeight: 40,
+            originWidth: 6,
+            originHeight: 6,
+            smallLoading: false,
+            loadingMaskBg: 'rgba(0,0,0,0.2)'
+        });
+
 		$.ajax({
 			type: "POST",
 			url: thisUrl + '/Areas/Api/Interface.ashx',
@@ -63,19 +87,52 @@ $(function () {
 				unit_id: chapter_id
 			},
 			success: function (data) {
+				console.log(data);
 				if (data.result.length >= 1) {
 					var thisWord = data.result[0];
 					//赋值当前单词题目的ID
 					thiswordId = thisWord.id;
 					var thisWordName = thisWord.word_name.replace(/\•/g, '');
-					$("#thisWord").html(`<sub id="soundmark">${thisWord.phonogram}</sub> ${thisWordName}`);
+					
+					//如果该单词的记忆强度大于0，则计算本次的复习次数+1
+					if (thisWord.memory_percent > 0) {
+						thisNewOrOld = 1;
+					} else {
+						thisNewOrOld = 0;
+					}
 
+					// 单词难度系数
+					var wordNameLen = thisWordName.length;
+					var diffMark = $('.difficulty');
+					if(wordNameLen > 0 && wordNameLen < 3){
+						diffMark.css('background','url(../imgs/difficulty1.png) no-repeat center').attr('title','难度系数(1)');
+					}else if(wordNameLen >= 3 && wordNameLen < 6){
+						diffMark.css('background','url(../imgs/difficulty2.png) no-repeat center').attr('title','难度系数(2)');
+					}else if(wordNameLen >= 6 && wordNameLen < 9){
+						diffMark.css('background','url(../imgs/difficulty3.png) no-repeat center').attr('title','难度系数(3)');
+					}else if(wordNameLen >= 9 && wordNameLen < 12){
+						diffMark.css('background','url(../imgs/difficulty4.png) no-repeat center').attr('title','难度系数(4)');
+					}else if(wordNameLen >= 12 && wordNameLen < 15){
+						diffMark.css('background','url(../imgs/difficulty5.png) no-repeat center').attr('title','难度系数(5)');
+					}else{
+						diffMark.css('background','url(../imgs/difficulty6.png) no-repeat center').attr('title','难度系数(6)');
+					}
+					
+					$("#thisWord").html(`<sub id="soundmark">${thisWord.phonogram}</sub>${thisWordName}`);
 					var answerHTML = `<h3>${thisWord.word_mean}</h3>
 						<div class="illustrate">
 							<p>${thisWord.sentence}</p>
 							<p>${thisWord.sentence_mean}</p>
 						</div>`;
 					$("#answer").html(answerHTML);
+					//显示记忆强度
+					var atPresentNum = thisWord.memory_percent+'%';
+					$("#atPresent").css('width' , atPresentNum);
+					$("#schedule").attr('title','记忆强度'+atPresentNum);
+
+					//关闭loading插件
+                    removeLoading('test');
+					
 					//设置播放路径，绑定听语音事件
 					audioplaySrc = thisUrl2 + thisWord.word_url;
 					$("#audioplay").attr("src", audioplaySrc);
@@ -141,6 +198,9 @@ $(function () {
 			$("#countDown").hide();
 			$("#answer").show();
 
+			//点击不认识，则该句子作为一个生句+1
+			wordState++;
+
 			fnshowstrengthenMemory();
 		}
 	})
@@ -160,6 +220,9 @@ $(function () {
 			clearInterval(timer);
 			$("#countDown").hide();
 			$("#answer").show();
+
+			//点击不认识，则该句子作为一个生句+1
+			wordState++;
 
 			fnshowstrengthenMemory();
 		}
@@ -190,6 +253,31 @@ $(function () {
 	})
 
 	function fnnextWords(thisstate) {
+		$('body').loading({
+            loadingWidth: 120,
+            title: '',
+            name: 'test',
+            discription: '',
+            direction: 'column',
+            type: 'origin',
+            // originBg:'#71EA71',
+            originDivWidth: 40,
+            originDivHeight: 40,
+            originWidth: 6,
+            originHeight: 6,
+            smallLoading: false,
+            loadingMaskBg: 'rgba(0,0,0,0.2)'
+		});
+
+		if (thisNewOrOld == 0 && wordState == 1) { //熟词
+			oldWordNum++;
+		} else if (thisNewOrOld == 0 && wordState > 1) { //生词
+			newWordNum++;
+		} else if (thisNewOrOld == 1) {
+			reviewWordNum++;
+		}
+		fnUpdateThisStudyMessage();
+		
 		//显示认识或不认识
 		$(".btns").hide();
 		$("#theFirstTime").show();
@@ -208,11 +296,39 @@ $(function () {
 				neworold_word: thisstate
 			},
 			success: function (data) {
+				// console.log(data);
 				if (data.result.length >= 1) {
 					var thisWord = data.result[0];
 					//赋值当前单词题目的ID
 					thiswordId = thisWord.id;
 					var thisWordName = thisWord.word_name.replace(/\•/g, '');
+
+					//如果该单词的记忆强度大于0，则计算本次的复习次数+1
+					if (thisWord.memory_percent > 0) {
+						thisNewOrOld = 1;
+					} else {
+						thisNewOrOld = 0;
+					}
+					//将单词状态重新归为1，熟词
+					wordState = 1;
+					
+					// 单词难度系数
+					var wordNameLen = thisWordName.length;
+					var diffMark = $('.difficulty');
+					if(wordNameLen > 0 && wordNameLen < 3){
+						diffMark.css('background','url(../imgs/difficulty1.png) no-repeat center').attr('title','难度系数(1)');
+					}else if(wordNameLen >= 3 && wordNameLen < 6){
+						diffMark.css('background','url(../imgs/difficulty2.png) no-repeat center').attr('title','难度系数(2)');
+					}else if(wordNameLen >= 6 && wordNameLen < 9){
+						diffMark.css('background','url(../imgs/difficulty3.png) no-repeat center').attr('title','难度系数(3)');
+					}else if(wordNameLen >= 9 && wordNameLen < 12){
+						diffMark.css('background','url(../imgs/difficulty4.png) no-repeat center').attr('title','难度系数(4)');
+					}else if(wordNameLen >= 12 && wordNameLen < 15){
+						diffMark.css('background','url(../imgs/difficulty5.png) no-repeat center').attr('title','难度系数(5)');
+					}else{
+						diffMark.css('background','url(../imgs/difficulty6.png) no-repeat center').attr('title','难度系数(6)');
+					}
+					
 					$("#thisWord").html(`<sub id="soundmark">${thisWord.phonogram}</sub> ${thisWordName}`);
 
 					var answerHTML = `<h3>${thisWord.word_mean}</h3>
@@ -221,6 +337,14 @@ $(function () {
 							<p>${thisWord.sentence_mean}</p>
 						</div>`;
 					$("#answer").html(answerHTML);
+					//显示记忆强度
+					var atPresentNum = thisWord.memory_percent+'%';
+					$("#atPresent").css('width' , atPresentNum);
+					$("#schedule").attr('title','记忆强度'+atPresentNum);
+
+					//关闭loading插件
+                    removeLoading('test');
+					
 					//设置播放路径，绑定听语音事件
 					audioplaySrc = thisUrl2 + thisWord.word_url;
 					$("#audioplay").attr("src", audioplaySrc);
@@ -262,5 +386,12 @@ $(function () {
 				//				alert(data.msg);
 			}
 		});
+	}
+
+	//更新本次学习的生词熟词以及复习的数量
+	function fnUpdateThisStudyMessage() {
+		$("#newWord").html(newWordNum);
+		$("#familiarWords").html(oldWordNum);
+		$("#review").html(reviewWordNum);
 	}
 })

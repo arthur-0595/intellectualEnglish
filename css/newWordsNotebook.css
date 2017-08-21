@@ -64,6 +64,9 @@ header .con .back{
 .section tr{
 	height: 42px;
 }
+.section tr:hover{
+	background-color: #ddd;
+}
 .section td{
 	border:1px solid #eee;
 	font-size:14px;
