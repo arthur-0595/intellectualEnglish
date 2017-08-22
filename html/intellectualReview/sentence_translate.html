@@ -150,7 +150,7 @@
 				function fnUpdatesentence() {
 					$.ajax({
 						type: "GET",
-						url: 'http://192.168.2.127:8090/Areas/api/Interface.ashx',
+						url: thisUrl + '/Areas/api/Interface.ashx',
 						dataType: "json",
 						data: {
 							method: 'SenReview',
@@ -320,7 +320,7 @@
 			
 					$.ajax({
 						type: "GET",
-						url: 'http://192.168.2.127:8090/Areas/api/Interface.ashx',
+						url: thisUrl + '/Areas/api/Interface.ashx',
 						dataType: "json",
 						data: {
 							method: 'SenUpper',
