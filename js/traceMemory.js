@@ -63,6 +63,7 @@ function fnUpdateSection() {
 }
 
 function fnajaxWord(method_) {
+    // console.log(method_+'+'+username+'+'+type_+'+'+textbook_id);
     $.ajax({
         type: 'POST',
         url: thisUrl + "/Areas/api/Interface.ashx",
@@ -97,6 +98,7 @@ function fnwordUpdate(data_) {
 }
 
 function fnajaxSen(method_) {
+    // console.log(method_+'+'+username+'+'+type_+'+'+textbook_id);
     $.ajax({
         type: 'POST',
         url: thisUrl + "/Areas/api/Interface.ashx",

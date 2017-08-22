@@ -13,32 +13,6 @@ $(function () {
 	//本章所有的单词
 	var wordsArr, wordArrlength;
 
-	$.getUrlParam = function (name) {
-		var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
-		var r = window.location.search.substr(1).match(reg);
-		if (r != null) return decodeURI(r[2]);
-		return null;
-	};
-	var testType = $.getUrlParam('testType');
-	var typeMethod;
-	switch (testType) {
-		case '1':
-			typeMethod = 'LearnTest';
-			console.log('已学测试');
-			break;
-		case '2':
-			typeMethod = 'NewWordTest';
-			console.log('生词测试');
-			break;
-		case '3':
-			typeMethod = 'OldWordTest';
-			console.log('熟词测试');
-			break;
-		default:
-			typeMethod = 'LearnTest';
-			break;
-	}
-
 	textbook_id = sessionStorage.textbook_id;
 	version_id = sessionStorage.version_id;
 	chapter_id = sessionStorage.chapter_id;
@@ -47,9 +21,6 @@ $(function () {
 	version_name = sessionStorage.version_name;
 	chapter_name = sessionStorage.chapter_name;
 	type = sessionStorage.type;
-	
-	//获取所有单词
-	fnGetAllTheWords();
 
 	var top = new Vue({
 		el: "#top",
@@ -62,10 +33,50 @@ $(function () {
 		}
 	})
 
+	$.getUrlParam = function (name) {
+		var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+		var r = window.location.search.substr(1).match(reg);
+		if (r != null) return decodeURI(r[2]);
+		return null;
+	};
+	var testType = $.getUrlParam('testType');
+	var typeMethod;
+	switch (testType) {
+		case '1':
+			typeMethod = 'LearnTest';
+			console.log('已学测试');
+			//获取所有单词
+			fnGetAllTheWords();
+			break;
+		case '2':
+			typeMethod = 'NewWordTest';
+			console.log('生词测试');
+			//获取所有单词
+			fnGetAllTheWords();
+			break;
+		case '3':
+			typeMethod = 'OldWordTest';
+			console.log('熟词测试');
+			//获取所有单词
+			fnGetAllTheWords();
+			break;
+		case 'review':
+			$('title').html('智能默写测试复习');
+			//当前类别为复习测试，获取本教材所有可复习的单词
+			fnGetAllTestWords();
+			break;
+		default:
+			typeMethod = 'LearnTest';
+			break;
+	}
+
+	//获取所有单词
+	fnGetAllTheWords();
+
 	var contentUl = new Vue({
-		el:"#contentUl",
-		data:{
-			items:''
+		el: "#contentUl",
+		data: {
+			items: ''
 		}
 	})
 
@@ -130,6 +141,45 @@ $(function () {
 		});
 	}
 
+	function fnGetAllTestWords() {
+		$('body').loading({
+			loadingWidth: 120,
+			title: '',
+			name: 'test',
+			discription: '加载中，请稍候：）',
+			direction: 'column',
+			type: 'origin',
+			// originBg:'#71EA71',
+			originDivWidth: 40,
+			originDivHeight: 40,
+			originWidth: 6,
+			originHeight: 6,
+			smallLoading: false,
+			loadingMaskBg: 'rgba(0,0,0,0.2)'
+		});
+
+		var type_id = type.substr(-1);
+
+		$.ajax({
+			type: "POST",
+			url: thisUrl + '/Areas/Api/Interface.ashx',
+			dataType: "json",
+			data: {
+				method: 'TestReview',
+				user_id: username,
+				textbookid: textbook_id,
+				wordtype: type_id
+			},
+			success: function (data) {
+				// console.log(data);
+				wordsArr = data;
+				wordArrlength = wordsArr.length;
+
+				fnshowtopic(wordsArr);
+			}
+		});
+	}
+
 	//点击交卷按钮
 	var scoreNum = 0;
 	var correctArr;
@@ -138,19 +188,19 @@ $(function () {
 		var liArr = $("#contentUl input.line");
 		$.each(liArr, function (index, element) {
 			var status;
-			if(element.value == element.id){
+			if (element.value == element.id) {
 				status = 0;
 				scoreNum++;
-			}else{
+			} else {
 				status = 1;
 			}
 
 			var newObj = {
-				id : index,
-				status : status,
-				word_name : element.id,
-				word_mean : element.dataset.mean,
-				myValue : element.value
+				id: index,
+				status: status,
+				word_name: element.id,
+				word_mean: element.dataset.mean,
+				myValue: element.value
 			}
 			correctArr.push(newObj);
 		});
@@ -159,8 +209,14 @@ $(function () {
 		var thisScore = Math.round((scoreNum / liArr.length) * 100);
 		// console.log('分数：'+thisScore);
 		//得到分数，并发送
-		fnsavethisScore(thisScore, liArr.length);
+		if(testType == 'review'){
+			window.location = "../../html/testCenter/word_score2.html?score=" + thisScore;
+		}else{
+			fnsavethisScore(thisScore, liArr.length);
+		}
+		
 	})
+
 	function fnshowtopic(wordsArr_) {
 		contentUl.items = wordsArr_;
 

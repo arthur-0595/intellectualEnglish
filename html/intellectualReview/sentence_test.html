@@ -18,14 +18,14 @@
 	<section id="sectionBox">
 		<div class="main userSelect">
 			<div class="titleBox" id="titleBox">
-				<div class="versions">人教社PEP版三年级起点 - 五下(修订) - Unit(1)</div>
+				<div class="versions" id="versions">人教社PEP版三年级起点 - 五下(修订) - Unit(1)</div>
 				<div class="title">例句默写</div>
 				<a href="javascript:window.close();" class="exit" id="exit"></a>
 			</div>
 			<div class="word" id="word">
-				<h3 id="translate" style="user-select: none;">{{sentence_mean}}</h3>
+				<h3 id="translate" style="user-select: none;"></h3>
 				<div class="answer" id="answer" style="user-select: none;">
-					{{sentence}}
+					
 				</div>
 				<div class="inputBox">
 					<input type="text" id="input" />
@@ -45,7 +45,7 @@
 			<div class="otherInformation">
 				<div class="studyTime" id="studyTime">学习时长：00 : 00 : 00 </div>
 				<div class="thisStudy" id="thisStudy">
-					本次学习【生句：0 个&nbsp; 熟句：0 个 &nbsp; 复习：0 个】
+					复习数: 0  个
 				</div>
 			</div>
 		</div>
@@ -64,7 +64,192 @@
 	<script src="../../js/vue.min.js"></script>
 	<script src="../../js/common.js"></script>
 	<script src="../../js/loading.js"></script>
-	<!--<script src="../js/sentence_write.js"></script>-->
+	<script>
+		$(function () {
+			//获取用户ID
+			var userMessage = sessionStorage.userMessage;
+			if (userMessage) {
+				userMessage = JSON.parse(userMessage);
+				var username = userMessage[0].ID;
+			} else {
+				window.location = '../../index.html';
+			}
+			//当前选择的版本ID，教材ID ,选择的章节
+			var textbook_id, chapter_id, version_id;
+			var type, typeStr, textbook_name, version_name, chapter_name;
+			//当前例句大类的类型
+			var sen_type = 6; //1听力2翻译3默写
+			//当前听力的句子变量,由句子的每个单个项组成的数组,顺序没打乱时的数组
+			var thisSentence, thisSentenceArr;
+			//当前正确或者错误的状态值
+			var typeNum = 2;
+			//要测试的所有句子的数组，以及当前句子的计数
+			var sentenceArr, sentenceArrLength, num = 0;
+			//保存测试结果的数组
+			var testsArr = [];
+		
+			var thisState = 1; //默认熟词，不为1则为生词
+			//当前单词是不是一个以前听过的单词
+			var thisNewOrOld = 0; //默认没听过
+			//声明三个变量，生词熟词已经复习
+			var newWordNum = 0,
+				oldWordNum = 0,
+				reviewWordNum = 0;
+		
+			textbook_id = sessionStorage.textbook_id;
+			version_id = sessionStorage.version_id;
+			chapter_id = sessionStorage.chapter_id;
+			typeStr = sessionStorage.typeStr;
+			textbook_name = sessionStorage.textbook_name;
+			version_name = sessionStorage.version_name;
+			chapter_name = sessionStorage.chapter_name;
+			type = sessionStorage.type;
+		
+			$("#versions").html(version_name + ' - ' + textbook_name + ' - ' + chapter_name);
+		
+			fnUpdatesentence();
+		
+			$("#enter").on('click', function () {
+				fnclickEnter();
+			})
+		
+			function fnUpdatesentence() {		
+				$.ajax({
+					type: "GET",
+					url: 'http://192.168.2.127:8090/Areas/api/Interface.ashx',
+					dataType: "json",
+					data: {
+						method: 'SenReview',
+						user_id: username,
+						sentype: sen_type,
+						textbookid: textbook_id
+					},
+					success: function (data) {
+						// console.log(data);
+						if (data[0]) {
+							thisSentence = data[0];
+							//如果该单词的记忆强度大于0，则计算本次的复习次数+1
+							if (thisSentence.percent > 0) {
+								thisNewOrOld = 1;
+							} else {
+								thisNewOrOld = 0;
+							}
+							fnUpdateThisStudyMessage();
+							
+							//根据记忆强度设置该单词的记忆强度条的长度
+							var atPresentNum = thisSentence.percent + '%';
+							$("#thisprogress").css('width', atPresentNum);
+							$("#progressBar").attr('title', '记忆强度' + atPresentNum);
+		
+							//获取到数据之后更新对应的句子相关内容
+							fnUpdateAll(thisSentence);
+						} 
+						else{
+							alert('句子复习完了哦！');
+							window.close();
+						}
+					}
+				});
+			}
+		
+			function fnUpdateAll(senObj) {
+				$("#status").hide();
+				$("#input").val("").attr('disabled', false).css('color', '#333');
+				$("#input")[0].focus();
+				$("#answer").attr("class", "answer");				
+				typeNum = 2;
+				word.sentence_mean = senObj.sentence_mean;
+				word.sentence = senObj.sentence;
+				$('#translate').html(senObj.sentence_mean);
+				$("#answer").html(word.sentence);
+				document.getElementById('input').focus();
+			}
+		
+			function fnclickEnter() {
+				var myVal = $.trim($("#input").val());
+				if (myVal.length < 1) {
+					$("#hint").stop(true, true).fadeIn(200).delay(1500).fadeOut(200);
+					$("#input").focus();
+					return false;
+				}
+				if (typeNum == 2) {
+					var answer = $.trim(thisSentence.sentence);
+					typeNum--;
+					if (fndisposeSen(myVal) == fndisposeSen(answer)) {
+						$("#status").show().attr("class", "status correct");
+						$("#answer").attr("class", "answer show");
+						$("#input").attr("disabled", true).css('color', '#57B3FF');
+		
+						typeNum--;
+					} else {
+						$("#status").show().attr("class", "status ");
+						$("#answer").attr("class", "answer show");
+						$("#input").attr("disabled", true).css('color', '#ff1919');
+		
+						thisState++; //只要答错一次该值就加1，后台接收只要该值不为1则为生词
+					};
+				} else if (typeNum == 1) {
+					$("#status").hide();
+					$("#input").val("").attr('disabled', false).css('color', '#333');
+					$("#input")[0].focus();
+		
+					typeNum = 2;
+				} else if (typeNum == 0) {
+					fnupdateNext();
+		
+				} else if (typeNum == 666) { //该值为666表示当前处于测试状态
+					var thisStatus;
+					if (fndisposeSen(myVal) == fndisposeSen(sentenceArr[num].sentence)) {
+						thisStatus = 1;
+					} else {
+						thisStatus = 0;
+					}
+				}
+			}
+		
+			function fnupdateNext() {				
+				if (thisNewOrOld == 0 && thisState == 1) { //熟词
+					oldWordNum++;
+				} else if (thisNewOrOld == 0 && thisState > 1) { //生词
+					newWordNum++;
+				} else if (thisNewOrOld == 1) {
+					reviewWordNum++;
+				}
+				fnUpdateThisStudyMessage();
+		
+				$.ajax({
+					type: "GET",
+					url: 'http://192.168.2.127:8090/Areas/api/Interface.ashx',
+					dataType: "json",
+					data: {
+						method: 'SenUpper',
+						id: thisSentence.id,
+						sentype:sen_type,
+						trueornot:thisState							
+					},
+					success: function(data) {
+						if(data === 1) {
+							fnUpdatesentence();
+						}
+					}
+				});
+			}
+			
+			function fndisposeSen(sentence_) {
+				if (typeof sentence_ == 'string') {
+					return sentence_.replace('.', '');
+				} else {
+					return sentence_;
+				}
+			}
+							
+			//更新本次学习的生词熟词以及复习的数量
+			function fnUpdateThisStudyMessage() {
+				$("#thisStudy").html('复习数：' + reviewWordNum + ' 个');
+			}
+		
+		})
+	</script>
 </body>
 
 </html>

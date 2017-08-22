@@ -23,13 +23,13 @@
 		<section id="sectionBox">
 			<div class="main">
 				<div class="titleBox" id="titleBox">
-					<div class="versions">人教社PEP版三年级起点 - 五下(修订) - Unit(1)</div>
+					<div class="versions" id="versions">人教社PEP版三年级起点 - 五下(修订) - Unit(1)</div>
 					<div class="title">智能听写</div>
 					<a href="javascript:window.close();" class="exit" id="exit"></a>
 				</div>
 				<div class="word" id="word">
 					<div class="translateBox">
-						<h3 id="translate" style="display: none;user-select: none;">{{word_mean}}</h3>
+						<h3 id="translate" style="display: none;user-select: none;"></h3>
 					</div>
 					<div class="inputBox">
 						<input id="wordinput" type="text" autofocus/>
@@ -37,9 +37,9 @@
 						<div class="status correct" id="status" style="display: none;"></div>
 					</div>
 					<div class="answer" id="answer" style="display: none;user-select: none;">
-						{{word_name}}
+						
 					</div>
-					<div class="schedule" id="schedule">
+					<div class="schedule" id="schedule" style="overflow:hidden;">
 						<div class="atPresent" id="atPresent"></div>
 					</div>
 				</div>
@@ -52,7 +52,7 @@
 				<div class="otherInformation">
 					<div class="studyTime" id="studyTime">学习时长：00 : 00 : 00 </div>
 					<div class="thisStudy" id="thisStudy">
-						本次学习【生词：0 个&nbsp;  熟词：0 个 &nbsp; 复习：0 个】
+						复习数： 0  个
 					</div>
 				</div>
 			</div>
@@ -70,7 +70,196 @@
 		<script src="../../js/jquery-3.2.1.min.js"></script>
 		<script src="../../js/vue.min.js"></script>
 		<script src="../../js/common.js"></script>
-		<!--<script src="../js/word_listen.js"></script>-->
+		<script>
+			$(function () {
+				//获取用户ID
+				var userMessage = sessionStorage.userMessage;
+				if (userMessage) {
+					userMessage = JSON.parse(userMessage);
+					var username = userMessage[0].ID;
+				} else {
+					window.location = '../../index.html';
+				}
+				//当前选择的版本ID，教材ID ,选择的章节
+				var textbook_id, chapter_id, version_id;
+				var type, typeStr, textbook_name, version_name, chapter_name;
+				//当前语音文件播放路径
+				var audioplaySrc;
+				//当前听写的单词
+				var thisListenWord;
+				//当前听写的单词的ID和状态
+				var thiswordId,
+					thiswordState; //默认熟词，不为1则为生词
+				//当前单词是不是一个以前听过的单词
+				var thisNewOrOld = 0;//默认没听过
+				//要测试的所有单词数组
+				var wordArr, wordArrLength;
+				var num = 0;
+				//保存测试结果的数组
+				var testsArr = [];
+				//声明三个变量，生词熟词已经复习
+				var newWordNum = 0,
+					oldWordNum = 0,
+					reviewWordNum = 0;
+			
+				var numEnt;
+				
+				var word_type = 2;
+			
+				textbook_id = sessionStorage.textbook_id;
+				version_id = sessionStorage.version_id;
+				chapter_id = sessionStorage.chapter_id;
+				typeStr = sessionStorage.typeStr;
+				textbook_name = sessionStorage.textbook_name;
+				version_name = sessionStorage.version_name;
+				chapter_name = sessionStorage.chapter_name;
+				type = sessionStorage.type;
+			
+				$("#versions_h").html(version_name + ' - ' + textbook_name + ' - ' + chapter_name);
+			
+				document.onkeyup = function (event) {
+					var e = event || window.event || arguments.callee.caller.arguments[0];
+					if (e && e.keyCode == 13) {
+						$("#enter").trigger('click');
+					} else if (e && e.keyCode == 17) {
+						$("#voice").trigger('click');
+					}
+				};
+			
+				//获取当前要听写的单词
+				fnupdateWord();
+			
+				//听语音按钮
+				$("#voice").on("click", function () {
+					$("#audioplay").attr("src", audioplaySrc);
+				})
+				//enter按钮
+				$("#enter").on("click", function () {
+					var inputVal = $.trim($("#wordinput").val());			
+					if (numEnt == 2) {
+						numEnt--;			
+						$("#translate").show();
+						$("#answer").show();			
+						if (inputVal == $("#answer").html()) {
+							$("#status").show().attr("class", "status correct");
+							$("#answer").attr("class", "answer");
+							$("#wordinput").attr("disabled", true);			
+							numEnt--;
+						} else {
+							$("#status").show().attr("class", "status error");
+							$("#answer").attr("class", "answer error");
+							$("#wordinput").attr("disabled", true);			
+							thiswordState++;
+						}
+					} else if (numEnt == 1) {
+						$("#wordinput").val("").attr('disabled', false);
+						$("#wordinput")[0].focus();			
+						numEnt = 2;
+					} else if (numEnt <= 0) {						
+						fnsendWordState(thiswordState);
+			
+					} 
+					else if (numEnt == 666) { //该值为666表示当前处于测试状态
+						if (inputVal.length == 0) {
+							$("#hint").fadeIn(200).delay(1500).fadeOut(200);							
+							return false;
+						}			
+						var thisWordName = wordArr[num].word_name.replace(/\•/g, '');			
+						var thisStatus;
+						if (inputVal == thisWordName) {
+							thisStatus = 1;
+						} else {
+							thisStatus = 0;
+						}
+					}
+			
+				});
+				
+				function fnupdateWord() {
+					$.ajax({
+						type:'GET',
+				 		url:'http://192.168.2.127:8090/Areas/api/Interface.ashx',
+				 		dataType:'json',
+				 		data:{
+				 			method:'Review',
+				 			user_id:username,
+				 			wordtype:word_type,
+				 			textbookid:textbook_id				 			
+				 		},
+						success: function (data) {
+							console.log(data);
+							if (data[0]) {
+								fnshowthisWord(data[0]);
+							} 
+							else{
+								alert('单词复习完毕！');
+								window.close();
+							}
+						}
+					});
+				}
+				
+				//听写载入对应单词
+				function fnshowthisWord(wordObj) {
+					if(wordObj.percent > 0){
+						thisNewOrOld = 1;
+					}else{
+						thisNewOrOld = 0;
+					}
+					//将单词状态重新归为1，熟词
+					thiswordState = 1;
+					//根据记忆强度设置该单词的记忆强度条的长度
+					var atPresentNum = wordObj.percent+'%';
+					$("#atPresent").css('width',atPresentNum);
+					$("#schedule").attr('title' , '记忆强度'+atPresentNum);			
+					$("#wordinput").val("").attr('disabled', false);
+					$("#wordinput")[0].focus();
+					$("#answer").hide();
+					$("#status").hide();
+					$("#translate").hide();			
+					$("#translate").html(wordObj.word_mean);			
+					var thisWordName = wordObj.word_name.replace(/\•/g, '');
+					$("#answer").html(thisWordName);			
+					//设置播放路径，绑定听语音事件
+					audioplaySrc = thisUrl2 + wordObj.word_url;
+					$("#audioplay").attr("src", audioplaySrc);			
+					numEnt = 2;			
+					thisWordId = wordObj.id;
+				}
+			
+				function fnsendWordState(word_state) {
+					if (thisNewOrOld == 0 && word_state == 1) { //熟词
+						oldWordNum++;
+					} else if(thisNewOrOld == 0 && word_state > 1){ //生词
+						newWordNum++;
+					} else if(thisNewOrOld == 1){
+						reviewWordNum++;
+					}
+					fnUpdateThisStudyMessage();			
+					$.ajax({
+						type:'GET',
+						url: 'http://192.168.2.127:8090/Areas/api/Interface.ashx',
+						dataType:'json',
+						data:{
+							method:'Upper',
+							id:thisWordId,
+							trueornot:word_state,
+							wordtype:word_type
+						},
+						success:function(data){
+							console.log(data)
+							if(data === 1){								
+								fnupdateWord();								
+							}
+						}
+					});
+				}																	
+				//更新本次学习的生词熟词以及复习的数量
+				function fnUpdateThisStudyMessage() {
+					$("#thisStudy").html('复习数：'+reviewWordNum + ' 个');
+				}
+			})
+		</script>
 	</body>
 
 </html>
