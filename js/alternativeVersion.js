@@ -17,12 +17,6 @@ $(function () {
     typeStr = sessionStorage.typeStr;
     typeEnglish = sessionStorage.typeEnglish;
 
-    // version_id = sessionStorage.version_id;
-    // textbook_id = sessionStorage.textbook_id;
-    // chapter_id = sessionStorage.chapter_id;
-    // version_name = sessionStorage.version_name;
-    // textbook_name = sessionStorage.textbook_name;
-    // chapter_name = sessionStorage.chapter_name;
     (function () {
         $('body').loading({
             loadingWidth: 120,
