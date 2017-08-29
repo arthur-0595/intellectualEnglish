@@ -69,6 +69,8 @@ $(function () {
                     $("#sectionBox p").html(chapter_name);
                     //获取到最后一次学习的记录之后直接获取该章节的学习进度
                     fnpdatePercent();
+                    //获取课程总单词量
+                    fnupdateWordNum();
                 }
             }
         });
@@ -786,6 +788,8 @@ $(function () {
                     //今日学习效率
                     var todayPercentage = Math.round(todaySpeed / oneHourStudyNum * 100) > 100 ? 100 : Math.round(todaySpeed / oneHourStudyNum * 100);
                     $("#percentage").html(todayPercentage + '%');
+
+                    fnupdateStudyTime(data.Login_all , data.Login_today);
                 }
             }
         });
@@ -799,6 +803,15 @@ $(function () {
         // }
         // ajax_.open('get', thisUrl + '/Areas/api/Interface.ashx?method=UserClose&user_id='+username ? username : '' , true);
         // ajax_.send(null);
+    }
+
+    function fnupdateStudyTime(time1_, time2_) {
+        setInterval(function () {
+            time1_++;
+            time2_++;
+            $('#onlineTime span').html(fnupdateAllTime(time1_));
+            $('#validTime span').html(fnupdateAllTime(time2_));
+        }, 1000);
     }
 
     function fnupdateMyStudySchedule(textbookid_, thisdom_) {

@@ -123,11 +123,21 @@ $(function() {
 					//获取到数据之后更新对应的句子相关内容
 					fnUpdateAll(thisSentence, thisSentenceArr, sentenceInTheRightOrderArr);
 				} else if(data == 2){
-					alert('学习完毕，下面进行测试');
-					window.location="sentence_interpret_test.html"
+					$("#alertBox").show().find('h4').text('学习完毕，下面进行测试');
+					$('#btnOk').on('click',function(){				
+						$("#alertBox").hide();
+						window.location="sentence_interpret_test.html"
+					});
+					//alert('学习完毕，下面进行测试');
+					//window.location="sentence_interpret_test.html"
 				}else if(data == 3){
-					alert('没有可学习的内容，请联系客服人员！');
-					window.close();
+					$("#alertBox").show().find('h4').text('没有可学习的内容，请联系客服人员！');
+					$('#btnOk').on('click',function(){				
+						$("#alertBox").hide();
+						window.close();
+					});
+					//alert('没有可学习的内容，请联系客服人员！');
+					//window.close();
 				}
 
 			}
@@ -317,8 +327,12 @@ $(function() {
 					//获取到数据之后更新对应的句子相关内容
 					fnUpdateAll(thisSentence, thisSentenceArr, sentenceInTheRightOrderArr);
 				} else {
-					alert('学习完毕，下面进行测试');
-					window.location="sentence_interpret_test.html"
+					removeLoading();
+					$("#alertBox").show().find('h4').text('学习完毕，下面进行测试');
+					$('#btnOk').on('click',function(){				
+						$("#alertBox").hide();
+						window.location="sentence_interpret_test.html"
+					});
 				}
 
 			}

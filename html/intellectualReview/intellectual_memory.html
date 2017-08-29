@@ -85,6 +85,12 @@
 				</div>
 			</div>
 		</section>
+		<div class="masking" id="alertBox" style="display: none;">
+			<div class="reminder">
+				<h4>学习完成，现在开始进行模拟测试！</h4>
+				<button class="btnsOk" id="btnOk">确定</button>
+			</div>
+		</div>
 		<audio autoplay src="" type="audio/wav" id="audioplay">
 		</audio>
 
@@ -194,8 +200,13 @@
 								$("#theFirstTime").show();
 								
 							 }else{
-								alert('单词复习完毕！');
-								window.close();
+//								alert('单词复习完毕！');
+//								window.close();
+								$("#alertBox").show().find('h4').text('单词复习完毕！');
+								$('#btnOk').on('click',function(){
+									$("#alertBox").hide();
+									window.close();
+								});
 							}
 						}
 				 	});

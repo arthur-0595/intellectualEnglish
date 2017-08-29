@@ -149,9 +149,10 @@ $(function () {
 		if (num < wordArrlength) {
 			fnshowthisWord(wordsArr[num]);
 		} else if (num >= wordArrlength) {
-			alert("记忆强化完成，下面开始测试");
+			alertBox('记忆强化完成，下面开始测试','word_simulationTest.html');
+			//alert("记忆强化完成，下面开始测试");
 			fnintensifycomplete();
-			window.location = "word_simulationTest.html";
+			//window.location = "word_simulationTest.html";
 		}
 
 	}
@@ -167,7 +168,7 @@ $(function () {
 				user_id: username
 			},
 			success: function (data) {
-				alert(data.result);
+				//alert(data.result);
 			}
 		});
 	}

@@ -61,7 +61,7 @@
 			<ul class="clearfix" id="contentUl">
 				<li class="item" v-for="(item,index) in items">
 					<span class="num">{{index+1}}.</span>
-					<input type="text" class="line" v-bind:id="item.word_name.replace(/\•/g,'')" v-bind:data-mean="item.word_mean" v-on:click="fnListenInput(item.word_url)"
+					<input type="text" class="line" v-bind:id="item.word_name.replace(/\•/g,'')" v-bind:data-mean="item.word_mean" v-on:focus="fnListenInput(item.word_url)"
 					    placeholder="输入单词" />
 				</li>
 			</ul>
@@ -73,6 +73,12 @@
 			</a>
 		</div>
 	</section>
+	<div class="masking" id="alertBox" style="display: none;">
+		<div class="reminder">
+			<h4>学习完成，现在开始进行模拟测试！</h4>
+			<button class="btnsOk" id="btnOk">确定</button>
+		</div>
+	</div>
 	<audio autoplay src="" type="audio/wav" id="audioplay">
 	</audio>
 

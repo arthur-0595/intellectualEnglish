@@ -172,7 +172,7 @@ footer{
 	position: fixed;
     left: 16px;
     bottom: 25%;
-    z-index: 1000;
+    z-index: 4;
     width:200px;
 	height:223px;
 	cursor: pointer;

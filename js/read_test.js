@@ -81,7 +81,10 @@ $(function() {
 			async: true,
 			success: function(data) {
 				if(data != 1){
-					alert('本次交卷提交失败');
+					$("#alertBox").show().find('h4').text('本次交卷提交失败');
+					$('#btnOk').on('click',function(){				
+						$("#alertBox").hide();
+					});
 				}
 			}
 		});
@@ -98,8 +101,6 @@ $(function() {
 			},
 			async: true,
 			success: function(data) {
-				console.log(data);
-
 				var sectionBoxId = new Vue({
 					el: "#sectionBoxId",
 					data: {

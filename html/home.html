@@ -87,11 +87,11 @@
         <div class="message" id="message">
             <div class="me clearfix">
                 <div class="pic">
-                    <img src="../imgs/personalCenter/2.png" />
+                    <img src="../imgs/personalCenter/1.png" />
                 </div>
                 <div class="name">
-                    <h3 id="myname">李强 <span>LV19</span></h3>
-                    <span id="username" class="username">qqq555sss</span>
+                    <h3 id="myname">xx <span id="Grade">LV0</span></h3>
+                    <span id="username" class="username">0</span>
                 </div>
                 <p class="personal" style="position: absolute;right: 14px;top: 14px;cursor:pointer;">
                     <img src="../imgs/home/set.png" alt="">
@@ -99,12 +99,12 @@
             </div>
             <div class="experience clearfix">
                 <div class="integral" id="integral">
-                    到期时间：<span>452665</span>
+                    到期时间：<span>0</span>
                 </div>
-                <div>金币总数：<span>246454</span></div>
-                <div>今日金币：<span>254</span></div>
-                <div>已学单词：<span>545</span></div>
-                <div>已学生词：<span>4556</span></div>
+                <div>金币总数：<span id="Integral">0</span></div>
+                <div>今日金币：<span id="Today_Integral">0</span></div>
+                <div>已学单词：<span id="Learn_words">0</span></div>
+                <div>已学句子：<span id="New_words">0</span></div>
             </div>
         </div>
     </section>
@@ -120,7 +120,7 @@
                 <img src="{{=(thisUrl + it.S_picurl)}}" />
             </div>
             <div class="name">
-                <h3 id="myname">{{=it.S_name}} <span>LV{{=it.Grade}}</span></h3>
+                <h3 id="myname">{{=it.S_name}} <span id="Grade">LV{{=it.Grade}}</span></h3>
                 <span id="username" class="username">{{=it.S_code}}</span>
             </div>
             <p class="personal" style="position: absolute;right: 14px;top: 14px;cursor:pointer;">
@@ -131,10 +131,10 @@
             <div class="integral" id="integral">
                 到期时间：<span>{{=it.S_longtime.substr(0,10)}}</span>
             </div>
-            <div>积分总数：<span>{{=it.Integral}}</span></div>
-            <div>今日积分：<span>{{=it.Today_Integral}}</span></div>
-            <div>已学单词：<span>{{=it.Learn_words}}</span></div>
-            <div>已学生词：<span>{{=it.New_words}}</span></div>
+            <div>积分总数：<span id="Integral">{{=it.Integral}}</span></div>
+            <div>今日积分：<span id="Today_Integral">{{=it.Today_Integral}}</span></div>
+            <div>已学单词：<span id="Learn_words">{{=it.Learn_words}}</span></div>
+            <div>已学句子：<span id="New_words">{{=it.New_words}}</span></div>
         </div>
     </script>
     <!--dot模版结束-->
@@ -148,12 +148,15 @@
         var userMessage = sessionStorage.userMessage;
         if (userMessage) {
             userMessage = JSON.parse(userMessage);
+            var username = userMessage[0].ID;
         } else {
             window.location = '../index.html';
         }
         var changeUserAvatar = sessionStorage.changeUserAvatar;
 
         fnupdateMeMessage(userMessage[0]);
+        fnupdateMessage();
+
         //点击大类跳转选择版本页面
         $("#navs>li").on("click", function () {
             var index = $(this).index() + 1;
@@ -176,7 +179,7 @@
 
         })
 
-        //dot模版函数
+        // dot模版函数
         function fnupdateMeMessage(data_) {
             message = document.getElementById('message');
             // 1. 编译模板函数
@@ -185,9 +188,32 @@
             var resultText = tempFn(data_);
             message.innerHTML = resultText;
         }
+
+        function fnupdateMessage() {
+            $.ajax({
+                type: "GET",
+                url: thisUrl + "/Areas/api/Interface.ashx",
+                data: {
+                    method: 'UserInte',
+                    user_id: username
+                },
+                dataType: "json",
+                success: function (data) {
+                    // console.log(data);
+                    $("#Grade").html("LV"+data.Grade);
+                    $("#Integral").html(data.Integral);
+                    $("#Today_Integral").html(data.Today_Integral);
+                    $("#Learn_words").html(data.Learn_words);
+                    $("#New_words").html(data.New_words);
+                }
+            });
+        }
+
         $('.personal').click(function () {
             window.location = 'personalCenter.html'
         });
+
+        
     </script>
 </body>
 

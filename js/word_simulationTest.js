@@ -75,8 +75,13 @@ $(function () {
 
 			if (onlyTime <= 0) {
 				clearInterval(timer);
-				alert('倒计时结束');
-				$("#submitTheAnswer").trigger("click");
+				$("#alertBox").show().find('h4').text('倒计时结束');
+				$('#btnOk').on('click',function(){
+					$("#alertBox").hide();
+					$("#submitTheAnswer").trigger("click");
+				});
+				//alert('倒计时结束');
+				//$("#submitTheAnswer").trigger("click");
 			};
 		}, 1000);
 	}
@@ -331,7 +336,11 @@ $(function () {
 				if (data.msg == "保存成功") {
 					window.location = "score.html?score=" + thisScore_;
 				} else {
-					alert('成绩上传失败，请重试');
+					$("#alertBox").show().find('h4').text('成绩上传失败，请重试');
+					$('#btnOk').on('click',function(){
+						$("#alertBox").hide();
+					});
+					//alert('成绩上传失败，请重试');
 				}
 			}
 		});

@@ -11,12 +11,12 @@ var thisUrl2 = 'http://106.15.91.62:8012';
 var serverUrl = '';
 //若页面内存在ID为studyTime的标签，则运行倒计时函数
 var studyTime = document.getElementById('studyTime');
-if (studyTime) {
+if(studyTime) {
 	timer(studyTime);
 }
 //若页面内存在ID为enter的表现，则点击回车按钮时模拟该标签的点击事件
 var enter = document.getElementById('enter');
-if (enter) {
+if(enter) {
 	enter_key();
 }
 //禁用粘贴功能
@@ -32,7 +32,7 @@ if (enter) {
 $(":input").attr('onpaste', 'return false');
 
 //禁用鼠标右键事件
-window.oncontextmenu = function () {
+window.oncontextmenu = function() {
 	return false;
 }
 
@@ -47,9 +47,9 @@ function fnupdateDoT(data_, boxId, temId) {
 
 //enter键盘按键代号13，Ctrl为17，Shift为16
 function enter_key(callback) {
-	document.onkeyup = function (event) {
+	document.onkeyup = function(event) {
 		var e = event || window.event || arguments.callee.caller.arguments[0];
-		if (e && e.keyCode == 13) {
+		if(e && e.keyCode == 13) {
 			$("#enter").trigger('click');
 		}
 	};
@@ -58,7 +58,7 @@ function enter_key(callback) {
 function timer(selector) {
 	// 设置学习时长
 	var oldTime = Date.now();
-	setInterval(function () {
+	setInterval(function() {
 		// 获取学习总毫秒数
 		var durationTime = Date.now() - oldTime;
 		// 转化为时，分，秒
@@ -72,17 +72,16 @@ function timer(selector) {
 	}, 1000);
 }
 
-
 function fnWindowClose() {
 	var _t;
-	window.onbeforeunload = function () {
-		setTimeout(function () {
+	window.onbeforeunload = function() {
+		setTimeout(function() {
 			_t = setTimeout(onunloadcancel, 0)
 		}, 0);
 		fnupdateCloseWindow();
 		return "真的离开?";
 	}
-	window.onunloadcancel = function () {
+	window.onunloadcancel = function() {
 		clearTimeout(_t);
 	}
 };
@@ -99,17 +98,17 @@ function fnupdateAllTime(login_all) {
 
 // 机器人 	
 var robbotBox = document.getElementById('robbot');
-if (robbotBox) {
+if(robbotBox) {
 	//获取用户名
 	var userMessage = sessionStorage.userMessage;
 	userMessage = JSON.parse(userMessage);
 	var username = userMessage[0].ID;
 
 	var isShow = false;
-	$(document.body).on('click', function (event) {
+	$(document.body).on('click', function(event) {
 		var target = event.target;
-		if (!isShow) {
-			if (target.id === 'robbotSpan') {
+		if(!isShow) {
+			if(target.id === 'robbotSpan') {
 				robbotGetStudyTime();
 				$('#dialog').animate({
 					'left': '187px',
@@ -118,7 +117,7 @@ if (robbotBox) {
 				isShow = true;
 			}
 		} else {
-			if (target.id !== 'dialog' && target.id !== 'todayStudyTime' && target.id !== 'todayWords' &&
+			if(target.id !== 'dialog' && target.id !== 'todayStudyTime' && target.id !== 'todayWords' &&
 				target.id !== 'todaySentences') {
 				$('#dialog').animate({
 					'left': '-187px',
@@ -129,7 +128,7 @@ if (robbotBox) {
 		}
 	});
 
-	if ($(document.body).width() >= 1200) {
+	if($(document.body).width() >= 1200) {
 		$('#robbot').css({
 			'left': '16px',
 			'bottom': '25%'
@@ -140,9 +139,9 @@ if (robbotBox) {
 			'bottom': '25%'
 		});
 	}
-	$(window).resize(function () {
+	$(window).resize(function() {
 		var docWidth = $(document.body).width();
-		if (docWidth >= 1200) {
+		if(docWidth >= 1200) {
 			$('#robbot').css({
 				'left': '16px',
 				'bottom': '25%'
@@ -155,8 +154,6 @@ if (robbotBox) {
 		}
 	});
 
-
-
 	function robbotGetStudyTime() {
 		$.ajax({
 			type: 'GET',
@@ -166,7 +163,7 @@ if (robbotBox) {
 				method: 'robot',
 				user_id: username
 			},
-			success: function (data) {
+			success: function(data) {
 				var todayWords = data[0].study_words;
 				var todaySentences = data[0].study_sentence;
 				var thisStudyTime = Number(data[0].Login_today); // 转化为时分秒
@@ -187,10 +184,24 @@ if (robbotBox) {
 function fnsenProcessor(arr) {
 	var reg = /^[A-z\'\-A-z]+$/;
 	var newArr = [];
-	for (var i = 0, len = arr.length; i < len; i++) {
-		if (reg.test(arr[i])) {
+	for(var i = 0, len = arr.length; i < len; i++) {
+		if(reg.test(arr[i])) {
 			newArr.push(arr[i]);
 		}
 	}
 	return newArr;
+}
+
+// 学习结束弹框
+function alertBox(text, location) {
+	var el = document.getElementById('alertBox');
+	var btnOk = document.getElementById('btnOk');
+	var h4 = document.querySelector('.reminder>h4');
+	el.style.display = "block";
+	h4.innerText = text;
+	btnOk.onclick = function() {
+		window.location = location;
+	}	
+	//关闭loading插件
+	removeLoading('test');
 }

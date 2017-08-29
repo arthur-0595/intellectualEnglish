@@ -93,7 +93,6 @@ $(function () {
         //将句子切割成数组
         thisSentenceArr = processorSentence.split(' ');
         sentenceInTheRightOrderArr = processorSentence.split(' ');
-        console.log(thisSentenceArr);
         //自动播放语音文件
 //      audioplaySrc = thisUrl2 + thisSentence.sentence_url;
 //      $("#audioplay").attr("src", audioplaySrc);
@@ -180,19 +179,19 @@ $(function () {
         if (num + 1 <= dataArrLength) {
             fnupdateNext();
         } else {
-            alert('测试结束，公布答案');
-            console.log(JSON.stringify(testResultArr));
-            sessionStorage.testResultArr = JSON.stringify(testResultArr);
-            
-            var Nnum = 0;
-			$.each(testResultArr, function(index , element) {
-				if(element.status == 1){
-					Nnum++;
-				}
+        	$("#alertBox").show().find('h4').text('测试完成，点击查看分数');
+			$('#btnOk').on('click',function(){				
+				$("#alertBox").hide();
+	            sessionStorage.testResultArr = JSON.stringify(testResultArr);	            
+	            var Nnum = 0;
+				$.each(testResultArr, function(index , element) {
+					if(element.status == 1){
+						Nnum++;
+					}
+				});
+				var thisScore = Math.round( (Nnum/testResultArr.length)*100 );	            
+	            fnsavethisScore(thisScore, testResultArr.length);				
 			});
-			var thisScore = Math.round( (Nnum/testResultArr.length)*100 );
-            
-            fnsavethisScore(thisScore, testResultArr.length);
         }
 
     }
@@ -239,8 +238,6 @@ $(function () {
             .on("click", function () {
                 fncontrast();
             })
-
-//      $("#audioplay").attr("src", audioplaySrc);
         fnUpdateAll(thisSentence, thisSentenceArr, sentenceInTheRightOrderArr);
     }
 
@@ -281,7 +278,11 @@ $(function () {
 				if (data.msg == "保存成功") {
 					window.location = 'sentence_test.html?score='+thisScore_;
 				} else {
-					alert('成绩上传失败，请重试');
+					$("#alertBox").show().find('h4').text('成绩上传失败，请重试');
+					$('#btnOk').on('click',function(){				
+						$("#alertBox").hide();
+					});
+					//alert('成绩上传失败，请重试');
 				}
 			}
 		});

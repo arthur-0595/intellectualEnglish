@@ -59,7 +59,11 @@ $(function() {
 		if(n > 0) {
 			fnclickEnter();
 		} else { //若未选择任何一个选项，
-			alert('未选择任何一个选项');
+			$("#alertBox").show().find('h4').text('未选择任何一个选项');
+			$('#btnOk').on('click',function(){				
+				$("#alertBox").hide();
+			});
+			//alert('未选择任何一个选项');
 		}
 	});
 
@@ -174,9 +178,7 @@ $(function() {
 			audioplaySrc: audioplaySrc
 		};
 		thisTestArr.push(newObj);
-
-		console.log(thisTestArr);
-
+		
 		if(thisListenNum < spokenLanguageArrlength) {
 			if(thisListenNum < 9) {
 				fnupdateItem(spokenLanguageArr[thisListenNum]);
@@ -185,18 +187,21 @@ $(function() {
 				fnupdateSpoken(spokenLanguageArr[thisListenNum]);
 			}
 		} else {
-			alert('测试完成,点击确定查看分数');
-			sessionStorage.thisTestArr = JSON.stringify(thisTestArr);	
-			var Nnum = 0;
-			$.each(thisTestArr, function(index , element) {
-				if(element.status == 1){
-					Nnum++;
-				}
-			});
-			var thisScore = Math.round( (Nnum/thisTestArr.length)*100 );
-			fnsavescore(thisScore);
-			
-			window.location = 'read_advance_answer.html?score='+thisScore;
+			//alert('测试完成,点击确定查看分数');
+			$("#alertBox").show().find('h4').text('测试完成,点击查看分数');
+			$('#btnOk').on('click',function(){				
+				$("#alertBox").hide();
+				sessionStorage.thisTestArr = JSON.stringify(thisTestArr);	
+				var Nnum = 0;
+				$.each(thisTestArr, function(index , element) {
+					if(element.status == 1){
+						Nnum++;
+					}
+				});
+				var thisScore = Math.round( (Nnum/thisTestArr.length)*100 );
+				fnsavescore(thisScore);				
+				window.location = 'read_advance_answer.html?score='+thisScore;
+			});			
 		}
 	}
 	

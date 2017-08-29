@@ -146,14 +146,17 @@ $(function () {
 					fnsavecourse();
 
 				} else if (data.result == 0) {
-					alert("单词获取失败，请重试！");
-					window.location = 'alternativeVersion.html';
+//					alert("单词获取失败，请重试！");
+//					window.location = 'alternativeVersion.html';
+					alertBox('单词获取失败，请重试！','alternativeVersion.html');
 				} else if (data.result == 2) {
-					alert("记忆结束，下面开始单词强化！");
-					window.location = 'word_strengthen_memory.html';
+					alertBox('记忆结束，下面开始单词强化！','word_strengthen_memory.html');
+//					alert("记忆结束，下面开始单词强化！");
+//					window.location = 'word_strengthen_memory.html';
 				} else if (data.result == 3) {
-					alert("检测到您已经学习完毕，下面开始测试！");
-					window.location = "word_simulationTest.html";
+					alertBox('学习完毕，下面开始测试！','word_simulationTest.html');
+//					alert("检测到您已经学习完毕，下面开始测试！");
+//					window.location = "word_simulationTest.html";
 				}
 			}
 		});
@@ -357,11 +360,19 @@ $(function () {
 					fnsavecourse();
 
 				} else if (data.result == 0) {
-					alert("单词获取失败，请联系客服人员！");
-					window.close();
+					$("#alertBox").show().find('h4').text('单词获取失败，请联系客服人员！');
+					$('#btnOk').on('click',function(){
+						$("#alertBox").hide();	
+						window.close();
+					});
+					//window.close();
+//					alert("单词获取失败，请联系客服人员！");
+//					window.close();
 				} else if (data.result == 2) {
-					alert("记忆结束，下面开始单词强化！");
-					window.location = 'word_strengthen_memory.html';
+					alertBox("记忆结束，下面开始单词强化！",'word_strengthen_memory.html');
+						
+//					alert("记忆结束，下面开始单词强化！");
+//					window.location = 'word_strengthen_memory.html';
 				}
 			}
 

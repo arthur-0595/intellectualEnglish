@@ -83,8 +83,12 @@ $(function () {
 
 			if (onlyTime <= 0) {
 				clearInterval(timer);
-				alert('倒计时结束，显示测试分数');
-				$("#submitTheAnswer").trigger("click");
+				$("#alertBox").show().find('h4').text('倒计时结束，显示测试分数');
+				$('#btnOk').on('click',function(){
+					$("#alertBox").hide();
+					$("#submitTheAnswer").trigger("click");
+				});
+				
 			};
 		}, 1000);
 	}
@@ -307,7 +311,10 @@ $(function () {
 				if (data.msg == "保存成功") {
 					window.location = "../../html/testCenter/word_memory_score.html?score=" + thisScore_;
 				} else {
-					alert('成绩上传失败，请重试');
+					$("#alertBox").show().find('h4').text('成绩上传失败，请重试');
+					$('#btnOk').on('click',function(){
+						$("#alertBox").hide();
+					});
 				}
 			}
 		});

@@ -122,7 +122,6 @@ $(function () {
 				myVal: inputVal,
 				status: thisStatus
 			}
-			// console.log(JSON.stringify(newObj) );
 			//构建测试的单词对象保存进数组，然后载入下一个单词
 			testsArr.push(newObj);
 
@@ -152,7 +151,6 @@ $(function () {
 				userid: username
 			},
 			success: function (data) {
-				// console.log(JSON.stringify(data));
 				if (data.msg == '更改成功') {
 					fnupdateWord();
 				}
@@ -175,13 +173,21 @@ $(function () {
 				if (data[0]) {
 					fnshowthisWord(data[0]);
 				} else if (data.msg == "听写完毕") {
-					alert('听写完毕，下面进入测试！');
-					//获取要测试的所有单词
-					fnthisunitAllWord();
+					$("#alertBox").show().find('h4').text('听写完毕，下面进入测试！');
+					$('#btnOk').on('click',function(){
+						$("#alertBox").hide();
+						fnthisunitAllWord();
+					});
 				} else if (data.msg == "无数据") {
-					alert('注意，没有新的单词数据，请联系相关客服！');
+					$("#alertBox").show().find('h4').text('注意，没有新的单词数据，请联系相关客服！');
+					$('#btnOk').on('click',function(){
+						$("#alertBox").hide();
+					});
 				} else if (data.status == 0) {
-					alert('警告，错误信息，请尝试刷新，若该问题依然存在请联系相关客服！');
+					$("#alertBox").show().find('h4').text('警告，错误信息，请尝试刷新，若该问题依然存在请联系相关客服！');
+					$('#btnOk').on('click',function(){
+						$("#alertBox").hide();
+					});
 				}
 			}
 		});
@@ -215,9 +221,7 @@ $(function () {
 		//设置播放路径，绑定听语音事件
 		audioplaySrc = thisUrl2 + wordObj.word_url;
 		$("#audioplay").attr("src", audioplaySrc);
-
 		numEnt = 2;
-
 		thiswordId = wordObj.id;
 	}
 
@@ -237,25 +241,23 @@ $(function () {
 	//下一个
 	function fnnextWord() {
 		num++;
-		// fnuodateTestNum(num , wordArrLength);
-
 		if (num < wordArrLength) {
 			fntestshowWord(wordArr[num]);
 
 		} else if (num >= wordArrLength) {
-			alert('测试完成');
-			// console.log(JSON.stringify(testsArr) );
-			sessionStorage.wordTestsArr = JSON.stringify(testsArr);
-			var Nnum = 0;
-			$.each(testsArr, function (index, element) {
-				if (element.status == 1) {
-					Nnum++;
-				}
+			$("#alertBox").show().find('h4').text('测试完成，点击查看分数');
+			$('#btnOk').on('click',function(){
+				$("#alertBox").hide();
+				sessionStorage.wordTestsArr = JSON.stringify(testsArr);
+				var Nnum = 0;
+				$.each(testsArr, function (index, element) {
+					if (element.status == 1) {
+						Nnum++;
+					}
+				});
+				var thisScore = Math.round((Nnum / testsArr.length) * 100);
+				window.location = "sentence_test.html?score=" + thisScore;
 			});
-			var thisScore = Math.round((Nnum / testsArr.length) * 100);
-			// alert(thisScore);
-
-			window.location = "sentence_test.html?score=" + thisScore;
 		}
 	}
 
@@ -265,8 +267,6 @@ $(function () {
 		$("#status").hide();
 		$("#translate").hide();
 		$("#schedule").hide();
-
-
 		$.ajax({
 			type: "POST",
 			url: thisUrl2 + "/Areas/Api/index.ashx",
@@ -277,15 +277,16 @@ $(function () {
 				unit_id: chapter_id
 			},
 			success: function (data) {
-				//console.log(JSON.stringify(data));
 				if (data[0]) {
 					wordArr = data;
 					wordArrLength = wordArr.length;
-
 					fntestshowWord(wordArr[0]);
 				} else {
-					alert('单词获取失败，请联系客服人员！');
-					window.close();
+					$("#alertBox").show().find('h4').text('单词获取失败，请联系客服人员！');
+					$('#btnOk').on('click',function(){
+						$("#alertBox").hide();
+						window.close();
+					});
 				}
 
 			}

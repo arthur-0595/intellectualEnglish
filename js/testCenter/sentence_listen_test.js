@@ -112,7 +112,6 @@ $(function () {
                 if (data[0]) {
                     sentenceArr = data;
                     sentenceArrlength = data.length;
-
                     fnupdateSentenceArr(sentenceArr[0]);
                 }
             }
@@ -136,7 +135,6 @@ $(function () {
                 if (data[0]) {
                     sentenceArr = data;
                     sentenceArrlength = data.length;
-
                     fnupdateSentenceArr(sentenceArr[0]);
                 }
             }
@@ -202,7 +200,6 @@ $(function () {
             $("#hint").stop(true, true).fadeIn(200).delay(1500).fadeOut(200);
             return false;
         }
-
         num++;
         //首先获取下面正确选项的答案组成字符串
         var botString = '';
@@ -239,23 +236,24 @@ $(function () {
         if (num + 1 <= sentenceArrlength) {
             fnupdateNext();
         } else {
-            alert('测试结束，公布答案');
-            // console.log(JSON.stringify(testResultArr));
-            sessionStorage.testResultArr = JSON.stringify(testResultArr);
-
-            var Nnum = 0;
-            $.each(testResultArr, function (index, element) {
-                if (element.status == 1) {
-                    Nnum++;
-                }
-            });
-            var thisScore = Math.round((Nnum / testResultArr.length) * 100);
-            // console.log('测试分数：'+thisScore);
-            if (testType == 'review') {
-                window.location = "sentence_test_score.html?score=" + thisScore;
-            } else {
-                fnsavethisScore(thisScore, testResultArr.length);
-            }
+            $("#alertBox").show().find('h4').text('测试结束，公布答案');
+			$('#btnOk').on('click',function(){
+				$("#alertBox").hide();
+				sessionStorage.testResultArr = JSON.stringify(testResultArr);
+	            var Nnum = 0;
+	            $.each(testResultArr, function (index, element) {
+	                if (element.status == 1) {
+	                    Nnum++;
+	                }
+	            });
+	            var thisScore = Math.round((Nnum / testResultArr.length) * 100);
+	            if (testType == 'review') {
+	                window.location = "sentence_test_score.html?score=" + thisScore;
+	            } else {
+	                fnsavethisScore(thisScore, testResultArr.length);
+	            }
+			});
+            
         }
 
     }
@@ -269,16 +267,13 @@ $(function () {
         $("span.ans_word").unbind()
             .on('click', function () {
                 var topVal = this.innerHTML;
-
                 $(this).html('').attr('class', 'ans_null');
-
                 $.each($("#items>li"), function (index, element) {
                     if (element.id == topVal) {
                         $(element).attr('class', '')
                             .css("cursor", 'pointer');
                     }
                 });
-
                 fnclickItems();
             })
     }
@@ -292,7 +287,6 @@ $(function () {
             $("#items>li").on("selectstart", function () {
                 return false;
             })
-
             fnrecallEvent();
         })
     }
@@ -341,12 +335,13 @@ $(function () {
                 test_number: length
             },
             success: function (data) {
-                // console.log(JSON.stringify(data));
-
                 if (data.msg == "保存成功") {
                     window.location = "sentence_test_score.html?score=" + thisScore_;
                 } else {
-                    alert('成绩上传失败，请重试');
+                    $("#alertBox").show().find('h4').text('成绩上传失败，请重试');
+					$('#btnOk').on('click',function(){
+						$("#alertBox").hide();
+					});
                 }
             }
         });

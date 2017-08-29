@@ -153,13 +153,26 @@ $(function() {
 				if(data[0]){
 					fnshowthisWord(data[0]);
 				}else if(data.msg == "默写完毕"){
-					alert('听写完毕，下面进入测试！');
+					$("#alertBox").show().find('h4').text('听写完毕，下面进入测试！');
+					$('#btnOk').on('click',function(){
+						$("#alertBox").hide();
+						fnthisunitAllWord();
+					});
+					//alert('听写完毕，下面进入测试！');
 					//获取要测试的所有单词
-					fnthisunitAllWord();
+					//fnthisunitAllWord();
 				}else if(data.msg == "无数据"){
-					alert('注意，没有新的单词数据，请联系相关客服！');
+					$("#alertBox").show().find('h4').text('注意，没有新的单词数据，请联系相关客服！');
+					$('#btnOk').on('click',function(){
+						$("#alertBox").hide();
+					});
+					//alert('注意，没有新的单词数据，请联系相关客服！');
 				}else if(data.status == 0){
-					alert('警告，错误信息，请尝试刷新，若该问题依然存在请联系相关客服！');
+					$("#alertBox").show().find('h4').text('警告，错误信息，请尝试刷新，若该问题依然存在请联系相关客服！');
+					$('#btnOk').on('click',function(){
+						$("#alertBox").hide();
+					});
+					//alert('警告，错误信息，请尝试刷新，若该问题依然存在请联系相关客服！');
 				}
 			}
 		});
@@ -211,18 +224,19 @@ $(function() {
 			fntestshowWord(wordArr[num]);
 			
 		}else if(num >= wordArrLength){
-			alert('测试完成');
-			console.log(JSON.stringify(testsArr) );
-			sessionStorage.wordTestsArr = JSON.stringify(testsArr);
-			var Nnum = 0;
-			$.each(testsArr, function(index , element) {
-				if(element.status == 1){
-					Nnum++;
-				}
+			$("#alertBox").show().find('h4').text('测试完成，点击查看分数');
+			$('#btnOk').on('click',function(){
+				$("#alertBox").hide();
+				sessionStorage.wordTestsArr = JSON.stringify(testsArr);
+				var Nnum = 0;
+				$.each(testsArr, function(index , element) {
+					if(element.status == 1){
+						Nnum++;
+					}
+				});
+				var thisScore = Math.round( (Nnum/testsArr.length)*100 );				
+				window.location="sentence_test.html?score="+thisScore;
 			});
-			var thisScore = Math.round( (Nnum/testsArr.length)*100 );
-			
-			window.location="sentence_test.html?score="+thisScore;
 		}
 	}
 	
@@ -243,15 +257,16 @@ $(function() {
 				unit_id: chapter_id
 			},
 			success: function(data) {
-//				console.log(JSON.stringify(data));
 				if(data[0]){
 					wordArr = data;
-					wordArrLength = wordArr.length;
-					
+					wordArrLength = wordArr.length;					
 					fntestshowWord(wordArr[0]);
 				}else{
-					alert('单词获取失败，请联系客服人员！');
-					window.close();
+					$("#alertBox").show().find('h4').text('单词获取失败，请联系客服人员！');
+					$('#btnOk').on('click',function(){
+						$("#alertBox").hide();
+						window.close();
+					});
 				}
 				
 			}
@@ -262,11 +277,6 @@ $(function() {
 	function fnUpdateThisStudyMessage() {
 		$("#thisStudy").html(`本次学习【生词：${newWordNum} 个&nbsp;  熟词：${oldWordNum} 个 &nbsp; 复习：${reviewWordNum} 个】`);
 	}
-	
-	//显示测试的进度
-//	function fnuodateTestNum(num_, arrLength_) {
-//		$("#thisStudy").html(`进度： ${num_}/${arrLength_}`);
-//	}
 
 })
 

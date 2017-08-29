@@ -77,11 +77,15 @@ $(function() {
 				if(data[0]) {
 					spokenLanguageArr = data;
 					spokenLanguageArrlength = data.length;
-
 					fnshowthisWord(spokenLanguageArr[0]);
 				}else{
-					alert('学习完毕');
-					window.close();
+					$("#alertBox").show().find('h4').text('学习完成!');
+					$('#btnOk').on('click',function(){
+						$("#alertBox").hide();
+						window.close();
+					});
+					//alert('学习完毕');
+					//window.close();
 					// window.location='ver_tongue.html'
 				}
 			}
@@ -99,7 +103,6 @@ $(function() {
 		if(thisListenNum < spokenLanguageArrlength) {
 			//下面显示进度
 			$("#thisStudy").html(`进度： ${thisListenNum+1}/${spokenLanguageArrlength}`);
-
 			//显示认识或不认识
 			$(".btns").hide();
 			$("#theFirstTime").show();
@@ -108,8 +111,13 @@ $(function() {
 
 			fnshowthisWord(spokenLanguageArr[thisListenNum]);
 		} else {
-			alert('学习完成');
-			window.location='ver_tongue.html'
+			$("#alertBox").show().find('h4').text('学习完成!');
+			$('#btnOk').on('click',function(){
+				$("#alertBox").hide();
+				window.location='ver_tongue.html'
+			});
+			//alert('学习完成');
+			//window.location='ver_tongue.html'
 		}
 	}
 	//载入当前句子的内容
@@ -123,9 +131,6 @@ $(function() {
 		}
 		audioplaySrc = thisUrl2 + obj_.sentence_url;
 		$("#audioplay").attr('src', audioplaySrc);
-
-		console.log(obj_.sentence_url);
-		console.log(audioplaySrc);
 		thisSenId = obj_.id;
 	}
 	//发送认识或者不认识的信息给后台
@@ -142,7 +147,7 @@ $(function() {
 			},
 			async: true,
 			success: function(data) {
-				console.log(data);
+				
 			}
 		});
 	}
@@ -157,7 +162,6 @@ $(function() {
 	//点击认识或不认识
 	$("#theFirstTime>button").on('click', function(ev) {
 		ev.stopPropagation();
-
 		var index = $(this).index();
 		if(index == 0) {
 			$(".btns").hide();
@@ -180,7 +184,6 @@ $(function() {
 	//点击是或否
 	$("#secondTime>button").on("click", function(ev) {
 		ev.stopPropagation();
-
 		var index = $(this).index();
 		if(index == 0) { //是
 			clearInterval(timer);
@@ -230,7 +233,6 @@ $(function() {
 		timer = setInterval(function() {
 			numT--;
 			$("#countDownTime").html(numT);
-
 			if(numT <= 0) {
 				clearInterval(timer);
 				$("#countDown").hide();

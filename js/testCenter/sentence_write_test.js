@@ -131,7 +131,10 @@ $(function () {
 
                     fntestshowSen(sentenceArr[0]);
                 } else {
-                    alert('句子获取失败，请尝试刷新！');
+                    $("#alertBox").show().find('h4').text('获取句子失败，请尝试刷新');
+					$('#btnOk').on('click',function(){
+						$("#alertBox").hide();
+					});  
                 }
             }
         });
@@ -157,7 +160,10 @@ $(function () {
 
                     fntestshowSen(sentenceArr[0]);
                 } else {
-                    alert('句子获取失败，请尝试刷新！');
+                    $("#alertBox").show().find('h4').text('获取句子失败，请尝试刷新');
+					$('#btnOk').on('click',function(){
+						$("#alertBox").hide();
+					}); 
                 }
             }
         });
@@ -168,22 +174,23 @@ $(function () {
         if (num < sentenceArrLength) {
             fntestshowSen(sentenceArr[num]);
         } else if (num >= sentenceArrLength) {
-            alert('测试完成');
-            // console.log(testsArr);
-            sessionStorage.testResultArr = JSON.stringify(testsArr);
-            var Nnum = 0;
-            $.each(testsArr, function (index, element) {
-                if (element.status == 1) {
-                    Nnum++;
-                }
-            });
-            var thisScore = Math.round((Nnum / testsArr.length) * 100);
-            // console.log(thisScore);
-            if (testType == 'review') {
-                window.location = "sentence_test_score.html?score=" + thisScore;
-            } else {
-                fnsavethisScore(thisScore, testsArr.length);
-            }
+        	$("#alertBox").show().find('h4').text('测试结束，公布答案');
+			$('#btnOk').on('click',function(){
+				$("#alertBox").hide();
+				sessionStorage.testResultArr = JSON.stringify(testsArr);
+	            var Nnum = 0;
+	            $.each(testsArr, function (index, element) {
+	                if (element.status == 1) {
+	                    Nnum++;
+	                }
+	            });
+	            var thisScore = Math.round((Nnum / testsArr.length) * 100);
+	            if (testType == 'review') {
+	                window.location = "sentence_test_score.html?score=" + thisScore;
+	            } else {
+	                fnsavethisScore(thisScore, testsArr.length);
+	            }
+			});            
         }
     }
 
@@ -227,7 +234,10 @@ $(function () {
                 if (data.msg == "保存成功") {
                     window.location = "sentence_test_score.html?score=" + thisScore_;
                 } else {
-                    alert('成绩上传失败，请重试');
+                    $("#alertBox").show().find('h4').text('成绩上传失败，请重试');
+					$('#btnOk').on('click',function(){
+						$("#alertBox").hide();
+					}); 
                 }
             }
         });

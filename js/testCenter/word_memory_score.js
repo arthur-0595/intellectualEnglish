@@ -62,7 +62,7 @@ $(function() {
 		$.each(e_c_Arr, function(index, element) {
 			e_cHtml += `<li data-correct="${element.word_mean}" class="correct">
 							
-							<h4>${index+1}.${element.word_name.replace(/\•/g,'')} <span class="unsel" style="margin-left:40px;"></span></h4>
+							<h4>${index+1}.${element.word_name.replace(/\•/g,'')}</h4>
 							<ul class="item">
 								<li  data-type="${element.meanchinese[0].type}">
 									<i class="yes"></i>
@@ -88,7 +88,7 @@ $(function() {
 
 		$.each(c_e_Arr, function(index, element) {
 			c_eHtml += `<li data-correct="${element.word_name.replace(/\•/g,'')}" class=" ">
-							<h4>${index+1}.${element.word_mean} <span class="unsel" style="margin-left:40px;"></span></h4>
+							<h4>${index+1}.${element.word_mean} </h4>
 							<ul class="item">
 								<li data-type="${element.meanenglish[0].type}">
 									<i class=""></i>
@@ -115,7 +115,7 @@ $(function() {
 		$.each(wordsArr, function(index, element) {
 			listeningTestHtml += `<li data-correct="${element.word_mean}"  class="error">
 							&nbsp;&nbsp;${index+1}. <button class="listenbtns" data-wordurl="${element.word_url}">听读音</button>
-							<span class="unsel" style="margin-left:40px;"></span>
+							
 							<ul class="item">
 								<li data-type="${element.meanchinese[0].type}">
 									<i class=""></i>
@@ -157,7 +157,7 @@ $(function() {
 				bigLiAll.eq(element.liIndex).find('li').eq(element.myCheckedIndex)
 				.css('background','#eee');	
 			}else{
-				bigLiAll.eq(element.liIndex).parent().find('.unsel').text('未作答');
+				bigLiAll.eq(element.liIndex).parent().find('.unsel').text('');
 			}
 			if(element.isCorrect){
 				bigLiAll.eq(element.liIndex).parent().attr('class','correct');

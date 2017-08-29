@@ -93,7 +93,6 @@ $(function () {
 				// console.log(data);
 				if (data[0]) {
 					thisSentence = data[0];
-
 					//如果该单词的记忆强度大于0，则计算本次的复习次数+1
 					if (thisSentence.SenWrite_per > 0) {
 						thisNewOrOld = 1;
@@ -108,11 +107,21 @@ $(function () {
 					//获取到数据之后更新对应的句子相关内容
 					fnUpdateAll(thisSentence);
 				} else if (data == 2) {
-					alert('学习完毕，下面进行测试');
-					fnthisunitAllSen();
+					$("#alertBox").show().find('h4').text('学习完毕，下面进行测试');
+					$('#btnOk').on('click',function(){
+						$("#alertBox").hide();
+						fnthisunitAllSen();
+					});
+					//alert('学习完毕，下面进行测试');
+					//fnthisunitAllSen();
 				} else if (data == 3) {
-					alert('没有可学习的内容，请联系客服人员！');
-					window.close();
+					$("#alertBox").show().find('h4').text('没有可学习的内容，请联系客服人员！');
+					$('#btnOk').on('click',function(){
+						$("#alertBox").hide();
+						window.close();
+					});
+					//alert('没有可学习的内容，请联系客服人员！');
+					//window.close();
 				}
 			}
 		});
@@ -123,11 +132,9 @@ $(function () {
 		$("#input").val("").attr('disabled', false).css('color', '#333');
 		$("#input")[0].focus();
 		$("#answer").attr("class", "answer");
-
 		typeNum = 2;
 		word.sentence_mean = senObj.sentence_mean;
 		word.sentence = senObj.sentence;
-
 		document.getElementById('input').focus();
 		//关闭loading插件
 		removeLoading('test');
@@ -228,7 +235,6 @@ $(function () {
 			success: function (data) {
 				if (data[0]) {
 					thisSentence = data[0];
-
 					//如果该单词的记忆强度大于0，则计算本次的复习次数+1
 					if (thisSentence.SenWrite_per > 0) {
 						thisNewOrOld = 1;
@@ -239,13 +245,14 @@ $(function () {
 					var atPresentNum = thisSentence.SenWrite_per + '%';
 					$("#thisprogress").css('width', atPresentNum);
 					$("#progressBar").attr('title', '记忆强度' + atPresentNum);
-
 					//获取到数据之后更新对应的句子相关内容
 					fnUpdateAll(thisSentence);
 				} else {
-					alert('学习完毕，下面进行测试');
-
-					fnthisunitAllSen();
+					$("#alertBox").show().find('h4').text('学习完毕，下面进行测试');
+					$('#btnOk').on('click',function(){
+						$("#alertBox").hide();
+						fnthisunitAllSen();
+					});
 				}
 			}
 		});
@@ -270,13 +277,14 @@ $(function () {
 				if (data[0]) {
 					sentenceArr = data;
 					sentenceArrLength = sentenceArr.length;
-
 					//关闭loading插件
 					removeLoading('test');
-
 					fntestshowSen(sentenceArr[0]);
 				} else {
-					alert('句子获取失败，请尝试刷新！');
+					$("#alertBox").show().find('h4').text('句子获取失败，请尝试刷新！');
+					$('#btnOk').on('click',function(){
+						$("#alertBox").hide();
+					});
 				}
 
 			}
@@ -288,26 +296,25 @@ $(function () {
 		if (num < sentenceArrLength) {
 			fntestshowSen(sentenceArr[num]);
 		} else if (num >= sentenceArrLength) {
-			alert('测试完成');
-			// console.log(JSON.stringify(testsArr));
-			sessionStorage.testResultArr = JSON.stringify(testsArr);
-			var Nnum = 0;
-			$.each(testsArr, function (index, element) {
-				if (element.status == 1) {
-					Nnum++;
-				}
+			$("#alertBox").show().find('h4').text('测试完成，点击查看分数');
+			$('#btnOk').on('click',function(){
+				$("#alertBox").hide();
+				sessionStorage.testResultArr = JSON.stringify(testsArr);
+				var Nnum = 0;
+				$.each(testsArr, function (index, element) {
+					if (element.status == 1) {
+						Nnum++;
+					}
+				});
+				var thisScore = Math.round((Nnum / testsArr.length) * 100);
+				fnsavethisScore(thisScore, testsArr.length);
 			});
-			var thisScore = Math.round((Nnum / testsArr.length) * 100);
-			//			alert(thisScore);
-			fnsavethisScore(thisScore, testsArr.length);
 		}
 	}
 
 	//听写测试载入对应单词
 	function fntestshowSen(wordObj) {
 		$("#input").val("").attr('disabled', false).focus();
-		// $("#input")[0];
-
 		word.sentence_mean = wordObj.sentence_mean;
 		word.sentence = wordObj.sentence;
 
@@ -325,7 +332,6 @@ $(function () {
 
 	function fnsavethisScore(thisScore_, length) {
 		var testsType = typeStr + "闯关测试(" + version_name + '-' + textbook_name + ")";
-		// console.log(testsType);
 		$.ajax({
 			type: "POST",
 			url: thisUrl2 + '/Areas/Api/index.ashx',
@@ -339,11 +345,13 @@ $(function () {
 				test_number: length
 			},
 			success: function (data) {
-				// console.log(JSON.stringify(data));
 				if (data.msg == "保存成功") {
 					window.location = "sentence_test.html?score=" + thisScore_;
 				} else {
-					alert('成绩上传失败，请重试');
+					$("#alertBox").show().find('h4').text('成绩上传失败，请重试');
+					$('#btnOk').on('click',function(){
+						$("#alertBox").hide();
+					});
 				}
 			}
 		});

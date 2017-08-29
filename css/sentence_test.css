@@ -105,11 +105,14 @@ header .con .back{
 }
 .section .con li.correct:after{
 	content: '';
-	width: 23px;height: 23px;
-	display: block;
-	background: url(../imgs/hintYes.png) no-repeat center;
-	position: absolute;
-	right: 8px;top: 4px;
+    width: 18px;
+    height: 18px;
+    display: block;
+    background: url(../imgs/hintYes.png) no-repeat center;
+    position: absolute;
+    right: 8px;
+    top: 8px;
+    background-size: 80% 80%;
 }
 .section .con li.error{
 	background-color: #eee;
@@ -119,11 +122,12 @@ header .con .back{
 }
 .section .con li.error:after{
 	content: '';
-	width: 23px;height: 23px;
+	width: 18px;height: 18px;
 	display: block;
 	background: url(../imgs/hintNo.png) no-repeat center;
 	position: absolute;
-	right: 8px;top: 4px;
+	right: 8px;top: 8px;
+	background-size: 80% 80%;
 }
 
 

@@ -127,10 +127,8 @@ $(function(){
 				way_id: type
 			},
 			success:function(data){
-				console.log(data);
 				spokenLanguageArr = data;
-				spokenLanguageArrlength = data.length;
-				
+				spokenLanguageArrlength = data.length;				
 				fnUpdateSen(spokenLanguageArr[0]);
 			}
 		});
@@ -141,16 +139,20 @@ $(function(){
 		if(num < spokenLanguageArrlength){
 			fnUpdateSen(spokenLanguageArr[num]);
 		}else{
-			alert('学习完成');
-			window.close();
+			$("#alertBox").show().find('h4').text('学习完成!');
+			$('#btnOk').on('click',function(){
+				$("#alertBox").hide();
+				window.close();
+			});
+			//alert('学习完成');
+			//window.close();
 			// window.location = 'ver_tongue.html';
 		}
 	}
 	//加载数组内当前项的内容到页面
 	function fnUpdateSen(obj_){
 		con.thisEnglish = obj_.sentence;
-		con.thisChinese = obj_.sentence_mean;
-		
+		con.thisChinese = obj_.sentence_mean;		
 		audioplaySrc = thisUrl2 + obj_.sentence_url;
 		audioplay.thisSrc = audioplaySrc;
 	}

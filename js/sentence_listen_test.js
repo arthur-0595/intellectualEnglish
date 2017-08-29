@@ -180,21 +180,20 @@ $(function () {
         if (num + 1 <= dataArrLength) {
             fnupdateNext();
         } else {
-            alert('测试结束，公布答案');
-            console.log(JSON.stringify(testResultArr));
-            sessionStorage.testResultArr = JSON.stringify(testResultArr);
-            
-            var Nnum = 0;
-			$.each(testResultArr, function(index , element) {
-				if(element.status == 1){
-					Nnum++;
-				}
-			});
-			var thisScore = Math.round( (Nnum/testResultArr.length)*100 );
-            
-            fnsavethisScore(thisScore, testResultArr.length);
+        	$("#alertBox").show().find('h4').text('测试结束，公布答案');
+			$('#btnOk').on('click',function(){				
+				$("#alertBox").hide();
+				sessionStorage.testResultArr = JSON.stringify(testResultArr);            
+	            var Nnum = 0;
+				$.each(testResultArr, function(index , element) {
+					if(element.status == 1){
+						Nnum++;
+					}
+				});
+				var thisScore = Math.round( (Nnum/testResultArr.length)*100 );	            
+	            fnsavethisScore(thisScore, testResultArr.length);
+			});            
         }
-
     }
 
     //更新下一个例句的相关内容
@@ -281,7 +280,10 @@ $(function () {
 				if (data.msg == "保存成功") {
 					window.location = 'sentence_test.html?score='+thisScore_;
 				} else {
-					alert('成绩上传失败，请重试');
+					$("#alertBox").show().find('h4').text('成绩上传失败，请重试');
+					$('#btnOk').on('click',function(){				
+						$("#alertBox").hide();
+					});
 				}
 			}
 		});

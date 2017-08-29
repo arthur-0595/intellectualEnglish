@@ -72,7 +72,13 @@ $(function () {
 			break;
 	}
 
-
+	document.onkeyup = function (event) {
+		var e = event || window.event || arguments.callee.caller.arguments[0];
+		if (e && e.keyCode == 17) {
+			// $("#voice").trigger('click');
+			fnplayer();
+		}
+	};
 
 	var contentUl = new Vue({
 		el: "#contentUl",
@@ -80,12 +86,16 @@ $(function () {
 			items: ''
 		},
 		methods: {
-			fnListenInput: function (audioSrc) {
-				audioPlayerSrc = thisUrl2 + audioSrc;
-				$("#audioplay").attr('src', audioPlayerSrc);
-			}
+			fnListenInput:fnplayer
 		}
 	})
+
+	function fnplayer(audioSrc) {
+		if(audioSrc){
+			audioPlayerSrc = thisUrl2 + audioSrc;
+		}
+		$("#audioplay").attr('src', audioPlayerSrc);
+	}
 
 	//倒计时
 	function fnsetInterval() {
@@ -101,8 +111,11 @@ $(function () {
 
 			if (onlyTime <= 0) {
 				clearInterval(timer);
-				alert('倒计时结束，显示测试分数');
-				$("#commit").trigger("click");
+				$("#alertBox").show().find('h4').text('倒计时结束，显示测试分数');
+				$('#btnOk').on('click',function(){
+					$("#alertBox").hide();
+					$("#commit").trigger("click");
+				});
 			};
 		}, 1000);
 	}
@@ -139,10 +152,8 @@ $(function () {
 				type_id: type_id
 			},
 			success: function (data) {
-				// console.log(data);
 				wordsArr = data;
 				wordArrlength = wordsArr.length;
-
 				fnshowtopic(wordsArr);
 			}
 		});
@@ -178,10 +189,8 @@ $(function () {
 				wordtype: type_id
 			},
 			success: function (data) {
-				console.log(data);
 				wordsArr = data;
 				wordArrlength = wordsArr.length;
-
 				fnshowtopic(wordsArr);
 			}
 		});
@@ -211,21 +220,18 @@ $(function () {
 			}
 			correctArr.push(newObj);
 		});
-		// console.log(correctArr);
 		sessionStorage.correctArr = JSON.stringify(correctArr);
 		var thisScore = Math.round((scoreNum / liArr.length) * 100);
-		// console.log('分数：'+thisScore);
 		//得到分数，并发送
-		if(testType == 'review'){
+		if (testType == 'review') {
 			window.location = "../../html/testCenter/word_score2.html?score=" + thisScore;
-		}else{
+		} else {
 			fnsavethisScore(thisScore, liArr.length);
 		}
 	})
 
 	function fnshowtopic(wordsArr_) {
 		contentUl.items = wordsArr_;
-
 		//关闭loading插件
 		removeLoading('test');
 		//加载完成之后开启倒计时
@@ -249,12 +255,13 @@ $(function () {
 				test_number: length
 			},
 			success: function (data) {
-				// console.log(JSON.stringify(data));
-
 				if (data.msg == "保存成功") {
 					window.location = "../../html/testCenter/word_score2.html?score=" + thisScore_;
 				} else {
-					alert('成绩上传失败，请重试');
+					$("#alertBox").show().find('h4').text('成绩上传失败，请重试');
+					$('#btnOk').on('click',function(){
+						$("#alertBox").hide();
+					});
 				}
 			}
 		});
