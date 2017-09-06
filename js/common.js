@@ -182,14 +182,15 @@ if(robbotBox) {
 }
 //句子听力和句子翻译功能用来处理打乱的数组函数
 function fnsenProcessor(arr) {
-	var reg = /^[A-z\'\-A-z]+$/;
-	var newArr = [];
-	for(var i = 0, len = arr.length; i < len; i++) {
-		if(reg.test(arr[i])) {
-			newArr.push(arr[i]);
-		}
-	}
-	return newArr;
+	// var reg = /^[A-z\'\-A-z]+$/;
+	// var newArr = [];
+	// for(var i = 0, len = arr.length; i < len; i++) {
+	// 	if(reg.test(arr[i])) {
+	// 		newArr.push(arr[i]);
+	// 	}
+	// }
+	// return newArr;
+	return arr;
 }
 
 // 学习结束弹框
@@ -205,3 +206,33 @@ function alertBox(text, location) {
 	//关闭loading插件
 	removeLoading('test');
 }
+
+// 判断底部的出现位置
+var footer = document.querySelector('footer');
+if(footer){
+	if(document.body.clientHeight > 840){
+		footer.style.position = 'fixed';
+		footer.style.left = 0;
+		footer.style.bottom = 0;
+		footer.style.lineHeight = '60px';
+	}
+}
+function showFooter(){	
+	if(footer){		
+		window.onresize = function(){
+			var bodyHeight = document.body.clientHeight;
+			if( bodyHeight <= 840 ){
+				footer.style.position = 'static';
+			}else{
+				footer.style.position = 'fixed';
+				footer.style.left = 0;
+				footer.style.bottom = 0;
+				footer.style.lineHeight = '60px';
+			}
+		}
+	}else{
+		return;
+	}
+}
+showFooter();
+

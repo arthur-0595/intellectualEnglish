@@ -171,7 +171,11 @@ li.myCourses thead tr td:nth-child(3) {
 li.myCourses thead tr td:nth-child(4) {
 	width: 160px;
 }
-
+li.myCourses tbody{
+	display: block;
+	overflow-y: scroll;
+	max-height: 440px;
+}
 li.myCourses tbody tr {
 	border-bottom: 1px solid #eee;
 	font-size: 14px;
@@ -181,15 +185,21 @@ li.myCourses tbody tr {
 }
 
 li.myCourses tbody tr td:nth-child(1) {
+	width: 546px;
 	text-align: left;
 	padding-left: 20px;
 }
+li.myCourses tbody tr td:nth-child(2) {
+	width: 220px;
+}
 
 li.myCourses tbody tr td:nth-child(3) {
+	width: 160px;
 	position: relative;
 }
 
 li.myCourses tbody tr td:nth-child(4) {
+	width: 160px;
 	color: #999;
 }
 
@@ -351,14 +361,20 @@ li.allCourses .main ul li:active {
 
 li.allCourses .main ul:nth-child(1) {
 	width: 260px;
+	max-height: 440px;
+	overflow: auto;
 }
 
 li.allCourses .main ul:nth-child(2) {
 	width: 404px;
+	max-height: 440px;
+	overflow: auto;
 }
 
 li.allCourses .main ul:nth-child(3) {
 	width: 416px;
+	max-height: 440px;
+	overflow: auto;
 }
 
 

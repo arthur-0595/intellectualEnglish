@@ -140,7 +140,7 @@ $(function () {
 				} else if (data == 3) {
 					$("#alertBox").show().find('h4').text('没有可学习的内容，请联系客服人员！');
 					$('#btnOk').on('click',function(){						
-						window.close();
+						window.location="../alternativeVersion.html";
 						$("#alertBox").hide();
 					});
 				}

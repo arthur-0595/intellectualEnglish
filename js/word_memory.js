@@ -363,14 +363,11 @@ $(function () {
 					$("#alertBox").show().find('h4').text('单词获取失败，请联系客服人员！');
 					$('#btnOk').on('click',function(){
 						$("#alertBox").hide();	
-						window.close();
+						window.location="../html/alternativeVersion.html"
 					});
-					//window.close();
 //					alert("单词获取失败，请联系客服人员！");
-//					window.close();
 				} else if (data.result == 2) {
 					alertBox("记忆结束，下面开始单词强化！",'word_strengthen_memory.html');
-						
 //					alert("记忆结束，下面开始单词强化！");
 //					window.location = 'word_strengthen_memory.html';
 				}

@@ -81,6 +81,9 @@
 						S_password: passwordVal
 					},
 					success: function (data) {
+						// console.log(data);
+						sessionStorage.token = data.token;
+						
 						sessionStorage.userMessage = JSON.stringify(data.info);
 						sessionStorage.changeUserAvatar = JSON.stringify(data.piclist);
 						// sessionStorage.login_all = data.Login_all;

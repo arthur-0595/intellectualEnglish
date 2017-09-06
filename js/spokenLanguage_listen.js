@@ -114,7 +114,7 @@ $(function() {
 			$("#alertBox").show().find('h4').text('学习完成!');
 			$('#btnOk').on('click',function(){
 				$("#alertBox").hide();
-				window.location='ver_tongue.html'
+				window.close();
 			});
 			//alert('学习完成');
 			//window.location='ver_tongue.html'

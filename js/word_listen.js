@@ -285,7 +285,7 @@ $(function () {
 					$("#alertBox").show().find('h4').text('单词获取失败，请联系客服人员！');
 					$('#btnOk').on('click',function(){
 						$("#alertBox").hide();
-						window.close();
+						window.location="../alternativeVersion.html";
 					});
 				}
 

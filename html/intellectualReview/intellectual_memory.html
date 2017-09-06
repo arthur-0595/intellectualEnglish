@@ -25,7 +25,7 @@
 				<div class="titleBox">
 					<div class="versions" id="versions_h">人教社PEP版三年级起点 - 五下(修订) - Unit(1)</div>
 					<div class="title" id="title_h">智能记忆 - 词义记忆</div>
-					<a href="javascript:window.close();" class="exit" id="exit"></a>
+					<a class="exit" href="../alternativeVersion.html" id="exit"></a>
 				</div>
 				<div class="word">
 					<div class="difficulty" id="difficulty"></div>
@@ -153,6 +153,26 @@
 					}
 				};
 				
+				// 复习中异常关闭页面提示
+//				$('#exit').on('click',function(){
+//					self.close();//关闭当前窗口
+//					self.opener.location.reload();
+//					//self.opener.location.href = window.opener.location.href;//刷新父窗口 	 
+////					$("#alertBox").show().find('h4').text('真的要离开此页面吗？');
+////					$('#btnOk').on('click',function(e){
+////						e.preventDefault();
+////						e.cancelBubble = true;						
+////						$("#alertBox").hide();						
+////						
+////					});
+//				});
+//				
+//				// 异常关闭浏览器窗口提示
+//				window.onbeforeunload = function () {	
+//					return '真的要离开吗？';
+//					window.opener.location.reload();
+//			    };
+				
 				function fnstudyStart(){
 				 	$.ajax({
 				 		type:'GET',
@@ -200,12 +220,10 @@
 								$("#theFirstTime").show();
 								
 							 }else{
-//								alert('单词复习完毕！');
-//								window.close();
 								$("#alertBox").show().find('h4').text('单词复习完毕！');
 								$('#btnOk').on('click',function(){
 									$("#alertBox").hide();
-									window.close();
+									window.location="../alternativeVersion.html";
 								});
 							}
 						}
@@ -342,7 +360,10 @@
 				// 显示复习单词数
 				function fnUpdateThisStudyMessage(){
 					$('#thisStudy').html('复习数： '+reviewWordNum+' 个');
-				}								
+				}	
+				
+				
+				
 			})
 				
 				

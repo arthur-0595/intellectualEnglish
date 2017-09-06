@@ -9,11 +9,6 @@
 	<link rel="stylesheet" href="../css/alternativeVersion.css" />
 
 	<style>
-		#footer {
-			line-height: 60px;
-			margin-top: 150px;
-		}
-
 		#hintMessage {
 			background-color: rgba(0, 0, 0, .3);
 			height: 50px;
@@ -78,7 +73,11 @@
 						</ul>
 						<ul class="mainBot" id="mainBot">
 							<li class="myCourses" style="display: block;">
-								<table id="myCourses">
+								<table>
+									<colgroup>
+										<col style="width: 80px;" />
+										<col />
+									</colgroup>
 									<thead>
 										<tr class="clearfix">
 											<td>课程名称</td>
@@ -87,8 +86,14 @@
 											<td>学习</td>
 										</tr>
 									</thead>
+								</table>
+								<table id="myCourses">
+									<colgroup>
+										<col style="width: 80px;" />
+										<col />
+									</colgroup>
 									<tbody>
-										<!--<tr>
+										<!-- <tr>
 												<td>语音训练第三期</td>
 												<td>两个小时前</td>
 												<td>
@@ -96,7 +101,7 @@
 													<div class="studyRateBox"></div>
 												</td>
 												<td>学习</td>
-											</tr>-->
+												</tr> -->
 
 									</tbody>
 								</table>
@@ -160,7 +165,7 @@
 								</a>
 							</li>
 							<li id="overallTest">
-								<a href="javascript:window.open('testCenter/wuwei_test.html')">
+								<a href="testCenter/wuwei_test.html">
 									五维测试
 								</a>
 							</li>
@@ -272,7 +277,7 @@
 	<span id="hintMessage">
 		本章学习记录已清除，开始学习吧！
 	</span>
-	<footer id="footer">
+	<footer>
 		©2017SOUGOU - 京ICP证050897号 - 京公安网备11000002000025号
 	</footer>
 	<div class="masking" id="masking" style="display: none;">

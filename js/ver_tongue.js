@@ -40,10 +40,18 @@ $(function () {
 			},
 			dataType: "json",
 			success: function (data) {
-				// console.log(data);
-				if (data.result == 1) {
-                    $('#onlineTime span').html(fnupdateAllTime(data.Login_all));
-                }
+				if (data && data.result == 1) {
+					var thisToken = data.token;
+					var loginToken = sessionStorage.token;
+					if (thisToken !== loginToken) {
+						alert("账号已在其他设备登录，请检查或者及时联系管理员");
+						window.location = '../index.html';
+					}
+					// console.log(data);
+					if (data.result == 1) {
+						$('#onlineTime span').html(fnupdateAllTime(data.Login_all));
+					}
+				}
 			}
 		});
 	}
@@ -183,7 +191,7 @@ $(function () {
 					mode.listennumber = parseInt((data[0].listennumber / data[0].total) * 100);
 					mode.oralnumber = parseInt((data[0].oralnumber / data[0].total) * 100);
 					mode.score = data[0].score;
-				}else if(data.msg == '无数据'){
+				} else if (data.msg == '无数据') {
 					mode.total = 0;
 					mode.repeatnumber = 0;
 					mode.listennumber = 0;

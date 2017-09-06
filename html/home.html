@@ -109,7 +109,7 @@
         </div>
     </section>
 
-    <footer id="footer">
+    <footer>
         ©2017SOUGOU - 京ICP证050897号 - 京公安网备11000002000025号
     </footer>
 
@@ -200,11 +200,18 @@
                 dataType: "json",
                 success: function (data) {
                     // console.log(data);
-                    $("#Grade").html("LV"+data.Grade);
+                    $("#Grade").html("LV" + data.Grade);
                     $("#Integral").html(data.Integral);
                     $("#Today_Integral").html(data.Today_Integral);
                     $("#Learn_words").html(data.Learn_words);
                     $("#New_words").html(data.New_words);
+
+                    var thisToken = data.token;
+                    var loginToken = sessionStorage.token;
+                    if (thisToken !== loginToken) {
+                        alert("账号已在其他设备登录，请检查或者及时联系管理员");
+                        window.location = '../index.html';
+                    }
                 }
             });
         }
@@ -212,8 +219,6 @@
         $('.personal').click(function () {
             window.location = 'personalCenter.html'
         });
-
-        
     </script>
 </body>
 
