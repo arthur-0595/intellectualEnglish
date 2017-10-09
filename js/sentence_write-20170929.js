@@ -29,6 +29,11 @@ $(function () {
 		oldWordNum = 0,
 		reviewWordNum = 0;
 
+	//是否是学前测试
+	var beforeLearning = 1;//默认不是学前测试
+	//是否是直接进入测试
+	var countTest = 0;//默认是经过了学习之后进入的
+
 	textbook_id = sessionStorage.textbook_id;
 	version_id = sessionStorage.version_id;
 	chapter_id = sessionStorage.chapter_id;
@@ -90,7 +95,7 @@ $(function () {
 				type: thistype
 			},
 			success: function (data) {
-				// console.log(data);
+				console.log(data);
 				if (data[0]) {
 					thisSentence = data[0];
 					//如果该单词的记忆强度大于0，则计算本次的复习次数+1
@@ -106,7 +111,11 @@ $(function () {
 
 					//获取到数据之后更新对应的句子相关内容
 					fnUpdateAll(thisSentence);
+					countTest++;
 				} else if (data == 2) {
+					//关闭loading插件
+					removeLoading('test');
+					
 					$("#alertBox").show().find('h4').text('学习完毕，下面进行测试');
 					$('#btnOk').on('click',function(){
 						$("#alertBox").hide();
@@ -115,6 +124,9 @@ $(function () {
 					//alert('学习完毕，下面进行测试');
 					//fnthisunitAllSen();
 				} else if (data == 3) {
+					//关闭loading插件
+					removeLoading('test');
+
 					$("#alertBox").show().find('h4').text('没有可学习的内容，请联系客服人员！');
 					$('#btnOk').on('click',function(){
 						$("#alertBox").hide();
@@ -122,6 +134,16 @@ $(function () {
 					});
 					//alert('没有可学习的内容，请联系客服人员！');
 					//window.close();
+				} else if (data == 4) {
+					//关闭loading插件
+					removeLoading('test');
+
+					$("#alertBox").show().find('h4').text('先开始学前测试一下吧：）');
+					$('#btnOk').on('click',function(){
+						$("#alertBox").hide();
+						beforeLearning = 0;//学前测试变量改为对应的状态
+						fnthisunitAllSen();
+					});
 				}
 			}
 		});
@@ -182,8 +204,8 @@ $(function () {
 
 			var newObj = {
 				index: sentenceArr[num].id,
-				this_name: sentenceArr[num].sentence,
-				this_mean: sentenceArr[num].sentence_mean,
+				this_name: $.trim(sentenceArr[num].sentence),
+				this_mean: $.trim(sentenceArr[num].sentence_mean),
 				myVal: myVal,
 				status: thisStatus
 			}
@@ -331,7 +353,16 @@ $(function () {
 	}
 
 	function fnsavethisScore(thisScore_, length) {
-		var testsType = typeStr + "闯关测试(" + version_name + '-' + textbook_name + ")";
+		var stringLearnType;
+		if(beforeLearning == 0){
+			stringLearnType = "学前测试";
+		}else{
+			stringLearnType = "闯关测试";
+		}
+		var testsType = typeStr + stringLearnType +"(" + version_name + '-' + textbook_name + ")";
+
+		var typeId = parseInt(type);
+
 		$.ajax({
 			type: "POST",
 			url: thisUrl2 + '/Areas/Api/index.ashx',
@@ -342,7 +373,11 @@ $(function () {
 				textbook_id: textbook_id,
 				test_type: testsType,
 				test_score: thisScore_,
-				test_number: length
+				test_number: length,
+				study_type: typeId,
+				type: beforeLearning,
+				unit_id: chapter_id,
+				count: countTest
 			},
 			success: function (data) {
 				if (data.msg == "保存成功") {

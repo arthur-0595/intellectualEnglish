@@ -104,7 +104,7 @@ $(function () {
 				type: thistype
 			},
 			success: function (data) {
-				// console.log(data);
+				console.log(data);
 				if (data[0]) {
 					thisSentence = data[0];
 
@@ -131,17 +131,28 @@ $(function () {
 					fnUpdateAll(thisSentence, thisSentenceArr, sentenceInTheRightOrderArr);
 
 				} else if (data == 2) {
-					removeLoading();
+					//关闭loading插件
+					removeLoading('test');
 					$("#alertBox").show().find('h4').text('学习完毕，下面进行测试');
-					$('#btnOk').on('click',function(){							
-						window.location = "sentence_listen_test.html"
+					$('#btnOk').on('click', function () {
+						window.location = "sentence_listen_test.html?countTest=0"
 						$("#alertBox").hide();
 					});
 				} else if (data == 3) {
+					//关闭loading插件
+					removeLoading('test');
 					$("#alertBox").show().find('h4').text('没有可学习的内容，请联系客服人员！');
-					$('#btnOk').on('click',function(){						
-						window.location="../alternativeVersion.html";
+					$('#btnOk').on('click', function () {
+						window.location = "../alternativeVersion.html";
 						$("#alertBox").hide();
+					});
+				} else if (data == 4) {
+					//关闭loading插件
+					removeLoading('test');
+					$("#alertBox").show().find('h4').text('先开始学前测试一下吧：）');
+					$('#btnOk').on('click', function () {
+						$("#alertBox").hide();
+						window.location = "sentence_listen_test.html?beforeLearning=0";
 					});
 				}
 
@@ -331,7 +342,7 @@ $(function () {
 				} else {
 					removeLoading();
 					$("#alertBox").show().find('h4').text('学习完毕，下面进行测试');
-					$('#btnOk').on('click',function(){						
+					$('#btnOk').on('click', function () {
 						window.location = "sentence_listen_test.html";
 						$("#alertBox").hide();
 					});

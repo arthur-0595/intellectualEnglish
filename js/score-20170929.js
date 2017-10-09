@@ -25,6 +25,26 @@ $(function () {
 	var testType = $.getUrlParam('testType');
 
 	$("#thisScore").html(urlScore);
+	
+	 // 根据测试分数显示gif动画
+    if(urlScore<=60){
+		$('#gifImg').css('background','url(../imgs/14.gif) no-repeat center center');
+	}else if(urlScore>60 && urlScore <=80){
+		$('#gifImg').css('background','url(../imgs/114.gif) no-repeat center center');
+	}else if(urlScore>80 && urlScore <=99){
+		$('#gifImg').css('background','url(../imgs/112.gif) no-repeat center center');
+	}else if(urlScore==100){
+		$('#gifImg').css('background','url(../imgs/113.gif) no-repeat center center');
+	}	
+	// gif停留5秒消失
+	var totalNum = 5;
+	setInterval(function(){
+		totalNum--;
+		if(totalNum<=0){
+			$('#gifImg').hide(200);
+			return;
+		}
+	},1000);
 
 	//三个类的数组
 	var e_c_Arr = [],
@@ -68,24 +88,23 @@ $(function () {
 			listeningTestHtml = '';
 
 		$.each(e_c_Arr, function (index, element) {
-			e_cHtml += `<li data-correct="${element.word_mean}" class="correct">
-							
+			e_cHtml += `<li data-correct="${element.word_mean}" class="">							
 							<h4>${index+1}.${element.word_name.replace(/\•/g,'')}</h4>
 							<ul class="item">
 								<li  data-type="${element.chinese[0].type}">
-									<i class="yes"></i>
+									<i class=""></i>
 									${element.chinese[0].content}
 								</li>
 								<li data-type="${element.chinese[1].type}" >
-									<i class="no"></i>
+									<i class=""></i>
 									${element.chinese[1].content}
 								</li>
 								<li data-type="${element.chinese[2].type}" >
-									<i class="no"></i>
+									<i class=""></i>
 									${element.chinese[2].content}
 								</li>
 								<li data-type="${element.chinese[3].type}">
-									<i class="yes"></i>
+									<i class=""></i>
 									${element.chinese[3].content}
 								</li>
 							</ul>
@@ -121,7 +140,7 @@ $(function () {
 		$("#c_e .tests").html(c_eHtml);
 
 		$.each(wordsArr, function (index, element) {
-			listeningTestHtml += `<li data-correct="${element.word_mean}"  class="error">
+			listeningTestHtml += `<li data-correct="${element.word_mean}"  class="">
 							&nbsp;&nbsp;${index+1}. <button class="listenbtns" data-wordurl="${element.word_url}">听读音</button>
 							
 							<ul class="item">
@@ -155,22 +174,25 @@ $(function () {
 		console.log(liObjArr);
 		var bigLiAll = $(".tests > li > ul");  // 每个 item
 		bigLiAll.each(function(){
-			$(this).find('li i').attr('class',"no");
 			$(this).parent().attr('class','error');
 		});
 		$.each(liObjArr, function(index , element) {
 			bigLiAll.eq(element.liIndex).find('li').eq(element.answerIndex)
-				.find('i').attr('class',"yes");
-			if(element.myCheckedIndex >= 0){
+				.find('i').attr('class',"yes");				
+			if(element.myCheckedIndex >= 0){ // 选了的情况下
 				bigLiAll.eq(element.liIndex).find('li').eq(element.myCheckedIndex)
-				.css('background','#eee');	
-			}else{
-				bigLiAll.eq(element.liIndex).parent().find('.unsel').text('');
+				.css('background','#bbb');
+				if(!element.isCorrect){
+					bigLiAll.eq(element.liIndex).find('li').eq(element.myCheckedIndex)
+					.css('background','#bbb').find('i').addClass('no');
+				}
 			}
 			if(element.isCorrect){
 				bigLiAll.eq(element.liIndex).parent().attr('class','correct');
 			}
 		});	
+		
+		
 
 //		sessionStorage.e_c_Arr = undefined;
 //		sessionStorage.c_e_Arr = undefined;

@@ -21,6 +21,10 @@ $(function () {
         dataArrLength,
         testResultArr = [];
     var num = 0; //用来记录当前题目
+    //是否是学前测试
+	var beforeLearning = 1;//默认不是学前测试
+	//是否是直接进入测试
+	var countTest = 1;//默认是经过了学习之后进入的
 
     textbook_id = sessionStorage.textbook_id;
     version_id = sessionStorage.version_id;
@@ -40,6 +44,24 @@ $(function () {
             typeStr: typeStr
         }
     });
+
+    $.getUrlParam = function (name) {
+		var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+		var r = window.location.search.substr(1).match(reg);
+		if (r != null) return decodeURI(r[2]);
+		return null;
+	};
+	var beforeLearningType = $.getUrlParam('beforeLearning');
+	var countTestType = $.getUrlParam('countTest');
+
+	//如果检测到有该参数，则说明是学前测试，在传分数的时候要把对应的状态值传过去
+	if(beforeLearningType){
+		beforeLearning = beforeLearningType;
+	}
+	//如果检测到有该参数，则没有经过学习直接进入测试，在传分数的时候把状态值传过去
+	if(countTestType){
+		countTest = countTestType;
+	}
 
     fnUpdatesentence();
 
@@ -118,7 +140,7 @@ $(function () {
         thisSentenceArr_.sort(function () {
             return (0.5 - Math.random());
         });
-        console.log(thisSentenceArr_);
+        // console.log(thisSentenceArr_);
 
         //把处理过后的数组的每一项填到下面的选项中
         var items_html = '';
@@ -259,8 +281,15 @@ $(function () {
     }
 
     function fnsavethisScore(thisScore_, length) {
-		var testsType = typeStr + "闯关测试(" + version_name + '-' + textbook_name + ")";
-		// console.log(testsType);
+        var stringLearnType;
+		if(beforeLearning == 0){
+			stringLearnType = "学前测试";
+		}else{
+			stringLearnType = "闯关测试";
+		}
+        var testsType = typeStr + stringLearnType +"(" + version_name + '-' + textbook_name + ")";
+        var typeId = parseInt(type);
+
 		$.ajax({
 			type: "POST",
 			url: thisUrl2 + '/Areas/Api/index.ashx',
@@ -271,7 +300,11 @@ $(function () {
 				textbook_id: textbook_id,
 				test_type: testsType,
 				test_score: thisScore_,
-				test_number: length
+                test_number: length,
+                study_type: typeId,
+				type: beforeLearning,
+				unit_id: chapter_id,
+				count: countTest
 			},
 			success: function (data) {
 				// console.log(JSON.stringify(data));

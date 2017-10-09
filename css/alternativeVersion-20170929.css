@@ -430,6 +430,27 @@ li.allCourses .main ul:nth-child(3) {
 	color: #666;
 	line-height: 85px;
 	cursor: pointer;
+	position: relative;
+}
+.chapterList li span{
+	width: 200px;
+	height: 16px;
+	line-height: 16px;
+	position: absolute;
+	top: 2px;left: 50%;
+	transform: translateX(-50%);
+	font-size: 14px;
+	color: #666;
+}
+.chapterList li i{
+	width: 200px;
+	height: 16px;
+	line-height: 16px;
+	position: absolute;
+	bottom: 2px;left: 50%;
+	transform: translateX(-50%);
+	font-size: 14px;
+	color: #666;
 }
 
 .chapterList li:hover {

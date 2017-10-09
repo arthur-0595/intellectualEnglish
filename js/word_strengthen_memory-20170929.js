@@ -37,6 +37,7 @@ $(function () {
 	version_name = sessionStorage.version_name;
 	chapter_name = sessionStorage.chapter_name;
 	type = sessionStorage.type;
+	$("#versions_h").html(version_name + ' - ' + textbook_name + ' - ' + chapter_name);
 
 	fnGetAllTheWords();
 
@@ -119,7 +120,7 @@ $(function () {
 
 			//输入的内容和正确答案进行对比
 			var inputVal = $.trim($("#wordinput").val());
-			if (inputVal == $("#answer").html()) { //输入正确
+			if (inputVal == $.trim($("#answer").html()) ) { //输入正确
 				$("#audioplay").attr("src", audioplaySrc);
 
 				$("#answer").css("color", "#57b3ff");
@@ -136,6 +137,7 @@ $(function () {
 		} else if (numEnt == 1) {
 			$("#wordinput").val("").attr('disabled', false);
 			$("#wordinput")[0].focus();
+			$("#answer").hide();
 
 			numEnt = 2;
 
@@ -149,7 +151,7 @@ $(function () {
 		if (num < wordArrlength) {
 			fnshowthisWord(wordsArr[num]);
 		} else if (num >= wordArrlength) {
-			alertBox('记忆强化完成，下面开始测试','word_simulationTest.html');
+			alertBox('记忆强化完成，下面开始测试','word_simulationTest.html?countTest=1');
 			//alert("记忆强化完成，下面开始测试");
 			fnintensifycomplete();
 			//window.location = "word_simulationTest.html";

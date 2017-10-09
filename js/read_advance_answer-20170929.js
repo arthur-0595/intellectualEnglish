@@ -25,6 +25,27 @@ $(function() {
 	var urlScore = $.getUrlParam('score');
 	$("#thisScore").html(urlScore);
 	
+	 // 根据测试分数显示gif动画
+    if(urlScore<=60){
+		$('#gifImg').css('background','url(../imgs/14.gif) no-repeat center center');
+	}else if(urlScore>60 && urlScore <=80){
+		$('#gifImg').css('background','url(../imgs/114.gif) no-repeat center center');
+	}else if(urlScore>80 && urlScore <=99){
+		$('#gifImg').css('background','url(../imgs/112.gif) no-repeat center center');
+	}else if(urlScore==100){
+		$('#gifImg').css('background','url(../imgs/113.gif) no-repeat center center');
+	}	
+	// gif停留5秒消失
+	var totalNum = 5;
+	setInterval(function(){
+		totalNum--;
+		if(totalNum<=0){
+			$('#gifImg').hide(200);
+			return;
+		}
+	},1000);
+	
+	
 	textbook_id = sessionStorage.textbook_id;
 	version_id = sessionStorage.version_id;
 	chapter_id = sessionStorage.chapter_id;

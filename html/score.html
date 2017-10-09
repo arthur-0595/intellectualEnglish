@@ -4,12 +4,14 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>模拟测试分数</title>
-		<link rel="stylesheet" href="../css/style.css" />
+		<link rel="stylesheet" href="../css/style-20170929.css" />
 		<link rel="stylesheet" href="../css/word_simulationTest.css" />
 		<link rel="stylesheet" href="../css/score.css" />
 	</head>
 
 	<body>
+		<!-- 鼓励gif动画-->
+				<div id="gifImg"></div>
 		<header id="header">
 			<div class="con" id="con">
 				<div class="versions">{{version_name}} - {{textbook_name}} - {{chapter_name}}</div>
@@ -22,7 +24,8 @@
 		<ul class="section">
 			<div class="score">
 				考试得分：<span id="thisScore">88</span>分
-				<a href="alternativeVersion.html" class="next" id="next">继续</a>
+				<a href="../html/alternativeVersion.html" class="next" id="next">返回</a>
+				
 			</div>
 			<li id="e_c">
 				<h3>【英译汉】 请根据所显示的英文单词，选择一个正确的中文词义</h3>
@@ -136,7 +139,7 @@
 		</ul>
 		<div class="submitBox">
 			<div class="back">
-				<a href="javascript:window.close();" class="next">退出</a>
+				<a href="../html/alternativeVersion.html" class="quit" id="quit">退出</a>
 			</div>
 		</div>
 		<audio autoplay src="" type="audio/wav" id="audioplay">
@@ -144,9 +147,9 @@
 		
 		
 		<script src="../js/jquery-3.2.1.min.js"></script>
-		<script src="../js/common.js"></script>
+		<script src="../js/common-20170929.js"></script>
 		<script src="../js/vue.min.js"></script>
-		<script src="../js/score.js"></script>
+		<script src="../js/score-20170929.js"></script>
 	</body>
 
 </html>

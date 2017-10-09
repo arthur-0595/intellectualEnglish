@@ -141,7 +141,7 @@ $(function () {
 						$("#audioplay").attr("src", audioplaySrc);
 					})
 
-					//					fnclickBtns();
+					//fnclickBtns();
 					//保存在学课程信息
 					fnsavecourse();
 
@@ -154,7 +154,11 @@ $(function () {
 //					alert("记忆结束，下面开始单词强化！");
 //					window.location = 'word_strengthen_memory.html';
 				} else if (data.result == 3) {
-					alertBox('学习完毕，下面开始测试！','word_simulationTest.html');
+					alertBox('学习完毕，下面开始测试！','word_simulationTest.html?countTest=0');
+//					alert("检测到您已经学习完毕，下面开始测试！");
+//					window.location = "word_simulationTest.html";
+				} else if (data.result == 4) {
+					alertBox('先来学前测试一下吧：）','word_simulationTest.html?beforeLearning=0');
 //					alert("检测到您已经学习完毕，下面开始测试！");
 //					window.location = "word_simulationTest.html";
 				}

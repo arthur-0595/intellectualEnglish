@@ -95,10 +95,10 @@ $(function () {
 			if (onlyTime <= 0) {
 				clearInterval(timer);
 				$("#alertBox").show().find('h4').text('倒计时结束，显示测试分数');
-				$('#btnOk').on('click',function(){
+				$('#btnOk').on('click', function () {
 					$("#alertBox").hide();
 					$("#commit").trigger("click");
-				});				
+				});
 			};
 		}, 1000);
 	}
@@ -184,10 +184,10 @@ $(function () {
 	}
 
 	//点击交卷按钮
-	var scoreNum = 0;
-	var correctArr;
 	$("#commit").on("click", function () {
-		correctArr = [];
+		var scoreNum = 0;
+		var correctArr = [];
+		
 		var liArr = $("#contentUl input.line");
 		$.each(liArr, function (index, element) {
 			var status;
@@ -212,12 +212,12 @@ $(function () {
 		var thisScore = Math.round((scoreNum / liArr.length) * 100);
 		// console.log('分数：'+thisScore);
 		//得到分数，并发送
-		if(testType == 'review'){
+		if (testType == 'review') {
 			window.location = "../../html/testCenter/word_score2.html?score=" + thisScore;
-		}else{
+		} else {
 			fnsavethisScore(thisScore, liArr.length);
 		}
-		
+
 	})
 
 	function fnshowtopic(wordsArr_) {
@@ -231,7 +231,26 @@ $(function () {
 
 	//发送成绩
 	function fnsavethisScore(thisScore_, length) {
+		//显示正在加载的图标
+		$('body').loading({
+			loadingWidth: 120,
+			title: '',
+			name: 'test',
+			discription: '加载中，请稍候：）',
+			direction: 'column',
+			type: 'origin',
+			// originBg:'#71EA71',
+			originDivWidth: 40,
+			originDivHeight: 40,
+			originWidth: 6,
+			originHeight: 6,
+			smallLoading: false,
+			loadingMaskBg: 'rgba(0,0,0,0.2)'
+		});
 		var testsType = typeStr + "测试中心(" + version_name + '-' + textbook_name + ")";
+		var typeId = parseInt(type);
+		var beforeLearning = 2,
+			countTest = 0;
 		// console.log(testsType);
 		$.ajax({
 			type: "POST",
@@ -243,7 +262,11 @@ $(function () {
 				textbook_id: textbook_id,
 				test_type: testsType,
 				test_score: thisScore_,
-				test_number: length
+				test_number: length,
+				study_type: typeId,
+				type: beforeLearning,
+				unit_id: chapter_id,
+				count: countTest
 			},
 			success: function (data) {
 				console.log(JSON.stringify(data));
@@ -251,10 +274,12 @@ $(function () {
 				if (data.msg == "保存成功") {
 					window.location = "../../html/testCenter/word_score2.html?score=" + thisScore_;
 				} else {
+					//关闭loading插件
+					removeLoading('test');
 					$("#alertBox").show().find('h4').text('成绩上传失败，请重试');
-					$('#btnOk').on('click',function(){
+					$('#btnOk').on('click', function () {
 						$("#alertBox").hide();
-					});	
+					});
 				}
 			}
 		});

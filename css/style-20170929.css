@@ -58,7 +58,13 @@ header {
 	margin: 0 auto;
 }
 header .logo{
+	width: 330px;
+	height: 60px;
 	float: left;
+}
+header .logo img{
+	width: 100%;
+	height: 100%;
 }
 header a{
 	float: right;
@@ -104,7 +110,7 @@ footer{
 	background-color: rgba(0,0,0,.4);
 	position: absolute;
 	left: 0;top: 0;
-	z-index: 5;
+	z-index: 99999;
 }
 .masking .reminder{
 	width: 344px;height: 230px;
@@ -207,4 +213,15 @@ footer{
 	line-height:24px;
 	font-weight:700;
 	font-size:14px;
+}
+
+/* 分数鼓励动画*/
+#gifImg{
+	width:800px;
+	height:800px;
+	position: absolute;
+	top:50%;left:50%;
+	transform: translate(-50%,-50%);
+	/*background:url(../imgs/14.gif) no-repeat center center;*/
+	z-index:2;
 }

@@ -4,7 +4,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>测试结果</title>
-	<link rel="stylesheet" href="../../css/style.css" />
+	<link rel="stylesheet" href="../../css/style-20170929.css" />
 	<link rel="stylesheet" href="../../css/classicalVoice/recognizeWordResult.css" />
 	<style>
 		section .content .item {
@@ -58,6 +58,9 @@
 </head>
 
 <body>
+	<!-- 鼓励gif动画-->
+	<div id="gifImg"></div>
+
 	<header class="header">
 		<div class="top">
 			<p class="title" id="title">{{version_name}} - {{textbook_name}}</p>
@@ -93,7 +96,7 @@
 
 
 	<script src="../../js/jquery-3.2.1.min.js"></script>
-	<script src="../../js/common.js"></script>
+	<script src="../../js/common-20170929.js"></script>
 	<script src="../../js/vue.min.js"></script>
 	<script>
 		$(function () {
@@ -143,6 +146,26 @@
 					items: correctArr
 				}
 			})
+
+			// 根据测试分数显示gif动画
+			if (urlScore <= 60) {
+				$('#gifImg').css('background', 'url(../../imgs/14.gif) no-repeat center center');
+			} else if (urlScore > 60 && urlScore <= 80) {
+				$('#gifImg').css('background', 'url(../../imgs/114.gif) no-repeat center center');
+			} else if (urlScore > 80 && urlScore <= 99) {
+				$('#gifImg').css('background', 'url(../../imgs/112.gif) no-repeat center center');
+			} else if (urlScore == 100) {
+				$('#gifImg').css('background', 'url(../../imgs/113.gif) no-repeat center center');
+			}
+			// gif停留5秒消失
+			var totalNum = 5;
+			setInterval(function () {
+				totalNum--;
+				if (totalNum <= 0) {
+					$('#gifImg').hide(200);
+					return;
+				}
+			}, 1000);
 
 		})
 	</script>

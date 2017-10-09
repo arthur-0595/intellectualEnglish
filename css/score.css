@@ -56,14 +56,15 @@
 	position: relative;
 	top: 2px;
 }
+
 .tests .item>li i.yes{
 	background: url(../imgs/blueYes.png) no-repeat center;
 	border: 1px solid #57b4ff;
 }
-/*.tests .item>li i.no{
+.tests .item>li i.no{
 	background: url(../imgs/redNo.png) no-repeat center;
 	border: 1px solid #ff1313;
-}*/
+}
 .tests>li.correct h4{
 	color: #57b4ff;
 }

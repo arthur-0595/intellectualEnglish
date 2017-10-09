@@ -4,8 +4,10 @@
 <head>
 	<meta charset="UTF-8">
 	<title>登陆页-智能英语</title>
-	<link rel="stylesheet" href="css/style.css" />
+	<link rel="stylesheet" href="css/style-20170929.css" />
 	<link rel="stylesheet" href="css/login.css" />
+	<link rel="stylesheet" href="css/common.css" />
+	<link rel="stylesheet" href="css/loading.css" />
 </head>
 
 <body>
@@ -37,15 +39,41 @@
 					<i id="showPassword"></i>
 				</div>
 				<button class="loginBtn" id="loginBtn">登陆</button>
+				<div id="activate" class="flipInX">
+					激活账号
+				</div>
 			</div>
 		</div>
 	</section>
+	<div id="dialogBg"></div>
+	<div id="dialog" class="animated">
+		<img class="dialogIco" width="50" height="50" src="./imgs/ico.png" alt="" />
+		<div class="dialogTop">
+			<a href="javascript:;" class="claseDialogBtn">关闭</a>
+		</div>
+		<form action="" method="post" id="editForm">
+			<ul class="editInfos">
+				<li><label><font color="#ff0000">* </font>用户名：<input type="text" id="userVal" name="" required value="" class="ipt" maxlength="30"/></label></li>
+				<li><label><font color="#ff0000">* </font>激活码：<input type="text" id="activateVal" name="" required value="" class="ipt" maxlength="30"/></label></li>
+				<!-- <li><label><font color="#ff0000">* </font>地址：<input type="text" name="" required value="" class="ipt" /></label></li> -->
+				<li><input type="text" id="submitBtn" value="确认提交" class="submitBtn" /></li>
+			</ul>
+		</form>
+		<span id="hintCon"></span>
+	</div>
 	<footer id="footer">
 		©2017SOUGOU - 京ICP证050897号 - 京公安网备11000002000025号
 	</footer>
+	<div class="masking" id="masking" style="display: none;">
+		<div class="reminder">
+			<h4 id="maskingVal">请先选择教材哦：）</h4>
+			<button class="btnsOk" id="btnsOk">确定</button>
+		</div>
+	</div>
 
-	<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
-	<script src="js/common.js"></script>
+	<script type="text/javascript" src="./js/jquery-3.2.1.min.js"></script>
+	<script src="./js/common-20170929.js"></script>
+	<script src="./js/loading.js"></script>
 	<script>
 		$(function () {
 			$(":input").removeAttr('onpaste');
@@ -83,7 +111,7 @@
 					success: function (data) {
 						// console.log(data);
 						sessionStorage.token = data.token;
-						
+
 						sessionStorage.userMessage = JSON.stringify(data.info);
 						sessionStorage.changeUserAvatar = JSON.stringify(data.piclist);
 						// sessionStorage.login_all = data.Login_all;
@@ -96,7 +124,7 @@
 							$("#remind").html("用户名或密码错误,请检查");
 							$("#password").val('');
 						} else if (data.result == 3) {
-							$("#remind").html("账号已过期");
+							$("#remind").html("账号已过期,您可以使用激活码来重新激活账号");
 							$("#password").val('');
 						} else if (data.result == 0) {
 							$("#remind").html("登录失败，请联系客服");
@@ -125,6 +153,90 @@
 			})
 			$("#showPassword").on("mouseup", function () {
 				$("#password").attr("type", "password");
+			})
+
+
+			//弹出输入框插件
+			var w, h, className;
+
+			function getSrceenWH() {
+				w = $(window).width();
+				h = $(window).height();
+				$('#dialogBg').width(w).height(h);
+			}
+
+			window.onresize = function () {
+				getSrceenWH();
+			}
+			$(window).resize();
+
+			getSrceenWH();
+
+			//显示弹框
+			$('#activate').click(function () {
+				className = $(this).attr('class');
+				$('#dialogBg').fadeIn(300);
+				$('#dialog').removeAttr('class').addClass('animated ' + className + '').fadeIn();
+			});
+
+			//关闭弹窗
+			$('.claseDialogBtn').click(function () {
+				$('#dialogBg').fadeOut(100, function () {
+					$('#dialog').addClass('bounceOutUp').fadeOut(0);
+				});
+			});
+
+			$('#submitBtn').on('click', function () {
+				//显示正在加载的图标
+				$('body').loading({
+					loadingWidth: 120,
+					title: '',
+					name: 'test',
+					discription: '加载中，请稍候：）',
+					direction: 'column',
+					type: 'origin',
+					// originBg:'#71EA71',
+					originDivWidth: 40,
+					originDivHeight: 40,
+					originWidth: 6,
+					originHeight: 6,
+					smallLoading: false,
+					loadingMaskBg: 'rgba(0,0,0,0.2)'
+				});
+
+				var userVal = $.trim($('#userVal').val());
+				var activateVal = $.trim($('#activateVal').val());
+				$.ajax({
+					type: "GET",
+					url: thisUrl + "/Areas/api/Interface.ashx",
+					data: {
+						method: 'UserActivate',
+						S_code: userVal,
+						activate_code: activateVal
+					},
+					dataType: "json",
+					success: function (data) {
+						//关闭loading插件
+						removeLoading('test');
+
+						if (data && data.result == '0') {
+							$('#hintCon').html('激活失败,请检查');
+						} else if (data && data.result == '1') {
+							$("#maskingVal").text("恭喜你,激活成功,请重新登陆：）")
+								.parents("#masking").fadeIn(200)
+								.find('#btnsOk').off().on('click', function () {
+									$(this).parents('#masking').fadeOut(200);
+									$('#dialogBg').fadeOut(100, function () {
+										$('#dialog').addClass('bounceOutUp').fadeOut(0);
+									});
+								});
+						} else if (data && data.result == '2') {
+							$('#hintCon').html('激活码错误或已被用过');
+						} else if (data && data.result == '3') {
+							$('#hintCon').html('账号未过期，无需激活');
+						}
+					}
+				});
 			})
 		})
 	</script>

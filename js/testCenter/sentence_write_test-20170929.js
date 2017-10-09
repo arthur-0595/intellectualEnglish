@@ -63,7 +63,7 @@ $(function () {
         case 'review':
             $('title').html('例句默写测试复习');
             fnUpdatesentenceTest();
-            break;    
+            break;
         default:
             typeMethod = 'LearnTest';
             break;
@@ -99,8 +99,8 @@ $(function () {
         }
         var newObj = {
             index: sentenceArr[num].id,
-            this_name: sentenceArr[num].sentence,
-            this_mean: sentenceArr[num].sentence_mean,
+            this_name: $.trim(sentenceArr[num].sentence),
+            this_mean: $.trim(sentenceArr[num].sentence_mean),
             myVal: myVal,
             status: thisStatus
         }
@@ -132,9 +132,9 @@ $(function () {
                     fntestshowSen(sentenceArr[0]);
                 } else {
                     $("#alertBox").show().find('h4').text('获取句子失败，请尝试刷新');
-					$('#btnOk').on('click',function(){
-						$("#alertBox").hide();
-					});  
+                    $('#btnOk').on('click', function () {
+                        $("#alertBox").hide();
+                    });
                 }
             }
         });
@@ -161,9 +161,9 @@ $(function () {
                     fntestshowSen(sentenceArr[0]);
                 } else {
                     $("#alertBox").show().find('h4').text('获取句子失败，请尝试刷新');
-					$('#btnOk').on('click',function(){
-						$("#alertBox").hide();
-					}); 
+                    $('#btnOk').on('click', function () {
+                        $("#alertBox").hide();
+                    });
                 }
             }
         });
@@ -174,23 +174,23 @@ $(function () {
         if (num < sentenceArrLength) {
             fntestshowSen(sentenceArr[num]);
         } else if (num >= sentenceArrLength) {
-        	$("#alertBox").show().find('h4').text('测试结束，公布答案');
-			$('#btnOk').on('click',function(){
-				$("#alertBox").hide();
-				sessionStorage.testResultArr = JSON.stringify(testsArr);
-	            var Nnum = 0;
-	            $.each(testsArr, function (index, element) {
-	                if (element.status == 1) {
-	                    Nnum++;
-	                }
-	            });
-	            var thisScore = Math.round((Nnum / testsArr.length) * 100);
-	            if (testType == 'review') {
-	                window.location = "sentence_test_score.html?score=" + thisScore;
-	            } else {
-	                fnsavethisScore(thisScore, testsArr.length);
-	            }
-			});            
+            $("#alertBox").show().find('h4').text('测试结束，公布答案');
+            $('#btnOk').on('click', function () {
+                $("#alertBox").hide();
+                sessionStorage.testResultArr = JSON.stringify(testsArr);
+                var Nnum = 0;
+                $.each(testsArr, function (index, element) {
+                    if (element.status == 1) {
+                        Nnum++;
+                    }
+                });
+                var thisScore = Math.round((Nnum / testsArr.length) * 100);
+                if (testType == 'review') {
+                    window.location = "sentence_test_score.html?score=" + thisScore;
+                } else {
+                    fnsavethisScore(thisScore, testsArr.length);
+                }
+            });
         }
     }
 
@@ -215,7 +215,27 @@ $(function () {
 
     //发送成绩
     function fnsavethisScore(thisScore_, length) {
+        //显示正在加载的图标
+        $('body').loading({
+            loadingWidth: 120,
+            title: '',
+            name: 'test',
+            discription: '加载中，请稍候：）',
+            direction: 'column',
+            type: 'origin',
+            // originBg:'#71EA71',
+            originDivWidth: 40,
+            originDivHeight: 40,
+            originWidth: 6,
+            originHeight: 6,
+            smallLoading: false,
+            loadingMaskBg: 'rgba(0,0,0,0.2)'
+        });
         var testsType = typeStr + "测试中心(" + version_name + '-' + textbook_name + ")";
+        var typeId = parseInt(type);
+        var beforeLearning = 2,
+            countTest = 0;
+            
         // console.log(testsType);
         $.ajax({
             type: "POST",
@@ -227,17 +247,23 @@ $(function () {
                 textbook_id: textbook_id,
                 test_type: testsType,
                 test_score: thisScore_,
-                test_number: length
+                test_number: length,
+                study_type: typeId,
+                type: beforeLearning,
+                unit_id: chapter_id,
+                count: countTest
             },
             success: function (data) {
                 // console.log(JSON.stringify(data));
                 if (data.msg == "保存成功") {
                     window.location = "sentence_test_score.html?score=" + thisScore_;
                 } else {
+                    //关闭loading插件
+                    removeLoading('test');
                     $("#alertBox").show().find('h4').text('成绩上传失败，请重试');
-					$('#btnOk').on('click',function(){
-						$("#alertBox").hide();
-					}); 
+                    $('#btnOk').on('click', function () {
+                        $("#alertBox").hide();
+                    });
                 }
             }
         });

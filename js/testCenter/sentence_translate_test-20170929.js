@@ -24,11 +24,9 @@ $(function () {
 
     textbook_id = sessionStorage.textbook_id;
     version_id = sessionStorage.version_id;
-    chapter_id = sessionStorage.chapter_id;
     typeStr = sessionStorage.typeStr;
     textbook_name = sessionStorage.textbook_name;
     version_name = sessionStorage.version_name;
-    chapter_name = sessionStorage.chapter_name;
     type = sessionStorage.type;
 
     var titleBox = new Vue({
@@ -65,17 +63,13 @@ $(function () {
             fnUpdatesentence();
             break;
         case 'review':
-            $('title').html('例句听力测试复习');
+            $('title').html('例句翻译测试复习');
             fnUpdatesentenceTest();
             break;
         default:
             typeMethod = 'LearnTest';
             break;
     }
-
-    $("#listening").on("click", function () {
-        $("#audioplay").attr("src", audioplaySrc);
-    });
 
     $("#clear").on("click", function () {
         $("span.ans_word").html('').attr('class', 'ans_null');
@@ -86,9 +80,7 @@ $(function () {
     //键盘按键模拟点击事件
     document.onkeyup = function (event) {
         var e = event || window.event || arguments.callee.caller.arguments[0];
-        if (e && e.keyCode == 17) {
-            $("#listening").trigger('click');
-        } else if (e && e.keyCode == 16) {
+        if (e && e.keyCode == 16) {
             $("#clear").trigger('click');
         } else if (e && e.keyCode == 13) {
             $("#enter").trigger('click');
@@ -135,6 +127,7 @@ $(function () {
                 if (data[0]) {
                     sentenceArr = data;
                     sentenceArrlength = data.length;
+
                     fnupdateSentenceArr(sentenceArr[0]);
                 }
             }
@@ -152,16 +145,16 @@ $(function () {
         // console.log('顺序未打乱时：'+thisSentenceArr);
 
         //自动播放语音文件
-        audioplaySrc = thisUrl2 + thisSentence.sentence_url;
-        $("#audioplay").attr("src", audioplaySrc);
+        // audioplaySrc = thisUrl2 + thisSentence.sentence_url;
+        // $("#audioplay").attr("src", audioplaySrc);
 
         //获取到数据之后更新对应的句子相关内容
         fnUpdateAll(thisSentence, thisSentenceArr, sentenceInTheRightOrderArr);
     }
 
     function fnUpdateAll(thisSentence_, thisSentenceArr_, sentenceInTheRightOrderArr_) {
-        $("#thisSentence_con").html(thisSentence_.sentence);
-        $("#interpret").html(thisSentence_.sentence_mean);
+        $("#thisSentence_con").html(thisSentence_.sentence_mean);
+        $("#interpret").html(thisSentence_.sentence);
         var re = /\,|\.|\!|\?/g;
         //趁数组还没有进行随机打乱的时候，填充上面答案列表的内容
         var answerArr_html = '';
@@ -200,6 +193,7 @@ $(function () {
             $("#hint").stop(true, true).fadeIn(200).delay(1500).fadeOut(200);
             return false;
         }
+
         num++;
         //首先获取下面正确选项的答案组成字符串
         var botString = '';
@@ -237,23 +231,22 @@ $(function () {
             fnupdateNext();
         } else {
             $("#alertBox").show().find('h4').text('测试结束，公布答案');
-			$('#btnOk').on('click',function(){
-				$("#alertBox").hide();
-				sessionStorage.testResultArr = JSON.stringify(testResultArr);
-	            var Nnum = 0;
-	            $.each(testResultArr, function (index, element) {
-	                if (element.status == 1) {
-	                    Nnum++;
-	                }
-	            });
-	            var thisScore = Math.round((Nnum / testResultArr.length) * 100);
-	            if (testType == 'review') {
-	                window.location = "sentence_test_score.html?score=" + thisScore;
-	            } else {
-	                fnsavethisScore(thisScore, testResultArr.length);
-	            }
-			});
-            
+            $('#btnOk').on('click', function () {
+                $("#alertBox").hide();
+                sessionStorage.testResultArr = JSON.stringify(testResultArr);
+                var Nnum = 0;
+                $.each(testResultArr, function (index, element) {
+                    if (element.status == 1) {
+                        Nnum++;
+                    }
+                });
+                var thisScore = Math.round((Nnum / testResultArr.length) * 100);
+                if (testType == 'review') {
+                    window.location = "sentence_test_score.html?score=" + thisScore;
+                } else {
+                    fnsavethisScore(thisScore, testResultArr.length);
+                }
+            });
         }
 
     }
@@ -267,13 +260,16 @@ $(function () {
         $("span.ans_word").unbind()
             .on('click', function () {
                 var topVal = this.innerHTML;
+
                 $(this).html('').attr('class', 'ans_null');
+
                 $.each($("#items>li"), function (index, element) {
                     if (element.id == topVal) {
                         $(element).attr('class', '')
                             .css("cursor", 'pointer');
                     }
                 });
+
                 fnclickItems();
             })
     }
@@ -287,6 +283,7 @@ $(function () {
             $("#items>li").on("selectstart", function () {
                 return false;
             })
+
             fnrecallEvent();
         })
     }
@@ -297,7 +294,7 @@ $(function () {
                 fncontrast();
             })
 
-        $("#audioplay").attr("src", audioplaySrc);
+        // $("#audioplay").attr("src", audioplaySrc);
         fnUpdateAll(thisSentence, thisSentenceArr, sentenceInTheRightOrderArr);
     }
 
@@ -320,8 +317,27 @@ $(function () {
 
     //发送成绩
     function fnsavethisScore(thisScore_, length) {
+        //显示正在加载的图标
+        $('body').loading({
+            loadingWidth: 120,
+            title: '',
+            name: 'test',
+            discription: '加载中，请稍候：）',
+            direction: 'column',
+            type: 'origin',
+            // originBg:'#71EA71',
+            originDivWidth: 40,
+            originDivHeight: 40,
+            originWidth: 6,
+            originHeight: 6,
+            smallLoading: false,
+            loadingMaskBg: 'rgba(0,0,0,0.2)'
+        });
         var testsType = typeStr + "测试中心(" + version_name + '-' + textbook_name + ")";
-        // console.log(testsType);
+        var typeId = parseInt(type);
+        var beforeLearning = 2,
+            countTest = 0;
+            
         $.ajax({
             type: "POST",
             url: thisUrl2 + '/Areas/Api/index.ashx',
@@ -332,14 +348,22 @@ $(function () {
                 textbook_id: textbook_id,
                 test_type: testsType,
                 test_score: thisScore_,
-                test_number: length
+                test_number: length,
+                study_type: typeId,
+                type: beforeLearning,
+                unit_id: chapter_id,
+                count: countTest
             },
             success: function (data) {
+                console.log(JSON.stringify(data));
+
                 if (data.msg == "保存成功") {
                     window.location = "sentence_test_score.html?score=" + thisScore_;
                 } else {
+                    //关闭loading插件
+                    removeLoading('test');
                     $("#alertBox").show().find('h4').text('成绩上传失败，请重试');
-					$('#btnOk').on('click',function(){
+					$('#btnOk').on('click', function () {
 						$("#alertBox").hide();
 					});
                 }

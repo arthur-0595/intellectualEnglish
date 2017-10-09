@@ -632,25 +632,33 @@ $(function () {
     }
 
     function fnshowUnit() {
+        // console.log(textbook_id);
+        var typeId = parseInt(type);
         $.ajax({
             type: "POST",
             url: thisUrl2 + '/Areas/Api/index.ashx',
             dataType: "json",
             data: {
                 method: "GetUnitByTextBookID",
-                textbook_id: textbook_id
+                textbook_id: textbook_id,
+                user_id: username,
+                type_id: typeId
             },
             success: function (data) {
-                //alert(JSON.stringify(data));
+                console.log(data);
                 if (data.length >= 1) {
                     var nhtml = '';
                     $.each(data, function (index, element) {
-                        nhtml += `<li id="${element.id}" data-chaptername="${element.unit_name}">${element.unit_name}</li>`;
+                        nhtml += `<li id="${element.id}" data-chaptername="${element.unit_name}" title="学习次数：${element.study_count}---学前测试分数:${element.score}---闯关测试最高得分:${element.top_score}">
+                            <span title="学习次数">${element.study_count}</span>
+                            <p>${element.unit_name}</p>
+                            <i  title="学前测试分数/闯关测试最高得分">${element.score}/${element.top_score}</i> 
+                        </li>`;
                     })
                     $("#chapterList").html(nhtml);
 
                     $("#chapterList>li").on("click", function () {
-                        var thisname = $(this).html();
+                        var thisname = $(this).find("p").html();
                         $("#sectionBox p").html(thisname);
 
                         chapter_id = this.id;
@@ -660,12 +668,33 @@ $(function () {
                         sessionStorage.chapter_name = chapter_name;
 
                         fnchapterList();
+                        fnUpdateUnit();
+
                         $("#chapterList").hide();
 
                         //获取进度
                         fnpdatePercent();
                     });
                 }
+            }
+        });
+    }
+
+    function fnUpdateUnit() {
+        // console.log(username);
+        var typeId = parseInt(type);
+        $.ajax({
+            type: "GET",
+            url: thisUrl + "/Areas/api/Interface.ashx",
+            data: {
+                method: 'Study',
+                user_id: username,
+                unit_id: chapter_id,
+                type: typeId
+            },
+            dataType: "json",
+            success: function (data) {
+                console.log(data);
             }
         });
     }
