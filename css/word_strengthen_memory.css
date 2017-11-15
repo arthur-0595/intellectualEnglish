@@ -56,13 +56,13 @@ section{
 	position: relative;
 }
 .word .translateBox{
-	height: 70px;
+	 min-height: 70px; 
 }
 .word h3{
 	font-size: 26px;
 	color: #333;
-	line-height: 70px;
-	height: 70px;
+	line-height: 44px;
+	/* height: 70px; */
 	font-weight: normal;
 }
 .word .inputBox{

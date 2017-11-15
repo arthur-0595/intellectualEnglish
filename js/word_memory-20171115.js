@@ -87,7 +87,7 @@ $(function () {
 				unit_id: chapter_id
 			},
 			success: function (data) {
-				console.log(data);
+				// console.log(data);
 				if (data.result.length >= 1) {
 					var thisWord = data.result[0];
 					//赋值当前单词题目的ID
@@ -164,9 +164,7 @@ $(function () {
 				}
 			}
 		});
-
 		return false;
-
 	}
 
 	function fnshowcountDown() {
@@ -181,8 +179,9 @@ $(function () {
 
 			if (num <= 0) {
 				clearInterval(timer);
-				$("#countDown").hide();
-				$("#answer").show();
+				// $("#countDown").hide();
+				// $("#answer").show();
+				$("#theFirstTime button.no").trigger('click');
 			}
 		}, 1000);
 	}

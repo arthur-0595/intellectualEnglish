@@ -104,7 +104,6 @@ $(function () {
 				type: thistype
 			},
 			success: function (data) {
-				console.log(data);
 				if (data[0]) {
 					thisSentence = data[0];
 
@@ -118,8 +117,10 @@ $(function () {
 					var atPresentNum = thisSentence.SenHearing_per + '%';
 					$("#thisprogress").css('width', atPresentNum);
 					$("#progressBar").attr('title', '记忆强度' + atPresentNum);
-
+					
+					// console.log(thisSentence.sentence);
 					var processorSentence = fnprocessor(thisSentence.sentence);
+					// console.log(processorSentence);
 					//将句子切割成数组
 					thisSentenceArr = processorSentence.split(' ');
 					sentenceInTheRightOrderArr = processorSentence.split(' ');
@@ -169,14 +170,14 @@ $(function () {
 		$("#thisSentence_con").hide().html(thisSentence_.sentence);
 		$("#interpret").html(thisSentence_.sentence_mean);
 
-		var re = /^\,|\.|\!|\?|\!$/g;
+		var re = /\,|\.|\!|\?/g;
 		//趁数组还没有进行随机打乱的时候，填充上面答案列表的内容
 		var answerArr_html = '';
 		$.each(sentenceInTheRightOrderArr_, function (index, element) {
-			if (!re.test(element)) {
-				answerArr_html += `<span class="ans_null" id="${element}"></span>`;
-			} else {
+			if (re.test(element)) {
 				answerArr_html += `<span class="punctuation">${element}</span>`;
+			} else {
+				answerArr_html += `<span class="ans_null" id="${element}"></span>`;
 			}
 		});
 		$("#answerArr").attr('class', 'answerArr').html(answerArr_html);
@@ -184,7 +185,6 @@ $(function () {
 		thisSentenceArr_.sort(function () {
 			return (0.5 - Math.random());
 		});
-		var thisSentenceArr_ = fnsenProcessor(thisSentenceArr_);
 		//把处理过后的数组的每一项填到下面的选项中
 		var items_html = '';
 		$.each(thisSentenceArr_, function (index, element) {
@@ -211,11 +211,12 @@ $(function () {
 		if (typeNum == 1) {
 			//首先获取下面正确选项的答案组成字符串
 			var botString = '';
+			//清除空格
 			botString = fnprocessor2(thisSentence.sentence);
-			// console.log(botString);
+			// console.log(botString+'正确答案');
 			//获取上面回答的选项内容组成字符串
 			var topString = '';
-			$.each($("span.ans_word"), function (index, element) {
+			$.each($(".answerArr>span"), function (index, element) {
 				topString += element.innerHTML;
 			});
 			// console.log(topString);
@@ -237,7 +238,7 @@ $(function () {
 					cursor: 'pointer'
 				}).unbind().on("click", function () {
 					fncontrast();
-				})
+				}) 
 
 				$("span.ans_word").css('color', '#57b3ff');
 
@@ -390,7 +391,6 @@ $(function () {
 			$("#items>li").on("selectstart", function () {
 				return false;
 			})
-
 			fnrecallEvent();
 		})
 	}
@@ -410,19 +410,14 @@ $(function () {
 	}
 
 	function fnprocessor(sentence_) {
-		sentence_ = sentence_.replace(/\,+/g, ' ,');
-		sentence_ = sentence_.replace(/\.+/g, ' .');
-		sentence_ = sentence_.replace(/\?+/g, ' ?');
-		sentence_ = sentence_.replace(/\!+/g, ' !');
+		sentence_ = sentence_.replace(/(\w+)(\,|\.|\?|\!)([^0-9]+)/g, '$1 $2$3');
+		sentence_ = sentence_.replace(/(\.|\?|\!){1}$/g, ' $1');
+		sentence_ = sentence_.replace(/(\w)+(\,|\.|\?|\!){1}(\s){1}/g, '$1 $2$3');
 		return sentence_;
 	}
 
 	function fnprocessor2(sentence_) {
-		sentence_ = sentence_.replace(/\,+/g, '');
-		sentence_ = sentence_.replace(/\.+/g, '');
-		sentence_ = sentence_.replace(/\?+/g, '');
-		sentence_ = sentence_.replace(/\!+/g, '');
-		sentence_ = sentence_.replace(/\s+/g, '');
+		sentence_ = sentence_.replace(/\s/g, '');
 		return sentence_;
 	}
 

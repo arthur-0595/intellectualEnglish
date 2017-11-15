@@ -112,10 +112,10 @@ $(function () {
 
         thisSentence = arr_o;
         var processorSentence = fnprocessor(thisSentence.sentence);
+        // console.log(processorSentence);
         //将句子切割成数组
         thisSentenceArr = processorSentence.split(' ');
         sentenceInTheRightOrderArr = processorSentence.split(' ');
-        console.log(thisSentenceArr);
         //自动播放语音文件
         audioplaySrc = thisUrl2 + thisSentence.sentence_url;
         $("#audioplay").attr("src", audioplaySrc);
@@ -130,19 +130,18 @@ $(function () {
         //趁数组还没有进行随机打乱的时候，填充上面答案列表的内容
         var answerArr_html = '';
         $.each(sentenceInTheRightOrderArr_, function (index, element) {
-            if (!re.test(element)) {
-                answerArr_html += `<span class="ans_null" id="${element}"></span>`;
-            } else {
-                answerArr_html += `<span class="punctuation">${element}</span>`;
-            }
+           if (re.test(element)) {
+				answerArr_html += `<span class="punctuation">${element}</span>`;
+			} else {
+				answerArr_html += `<span class="ans_null" id="${element}"></span>`;
+			}
         });
         $("#answerArr").attr('class', 'answerArr').html(answerArr_html);
         //打乱数组的内容
         thisSentenceArr_.sort(function () {
             return (0.5 - Math.random());
         });
-        console.log(thisSentenceArr_);
-
+        // console.log(thisSentenceArr_);
         //把处理过后的数组的每一项填到下面的选项中
         var items_html = '';
         $.each(thisSentenceArr_, function (index, element) {
@@ -169,13 +168,13 @@ $(function () {
         //首先获取下面正确选项的答案组成字符串
         var botString = '';
         botString = fnprocessor2(thisSentence.sentence);
-        console.log(botString);
+        // console.log(botString);
         //获取上面回答的选项内容组成字符串
         var topString = '';
-        $.each($("span.ans_word"), function (index, element) {
+        $.each($(".answerArr>span"), function (index, element) {
             topString += element.innerHTML;
         });
-        console.log(topString);
+        // console.log(topString);
         //对本次回答的答案进行判断
         var answerType = 1;
         if (botString == topString) {
@@ -265,21 +264,20 @@ $(function () {
     }
 
     function fnprocessor(sentence_) {
-        sentence_ = sentence_.replace(/\,+/g, ' ,');
-        sentence_ = sentence_.replace(/\.+/g, ' .');
-        sentence_ = sentence_.replace(/\?+/g, ' ?');
-        sentence_ = sentence_.replace(/\!+/g, ' !');
-        return sentence_;
-    }
+        console.log('1'+sentence_);
+        sentence_ = sentence_.replace(/(\w+)(\,|\.|\?|\!)([^0-9]+)/g, '$1 $2$3');
+        console.log('2' +sentence_);
+        sentence_ = sentence_.replace(/(\.|\?|\!){1}$/g, ' $1');
+        console.log('3' +sentence_);
+        sentence_ = sentence_.replace(/(\w+)(\,|\.|\?|\!){1}(\s){1}/g, '$1 $2$3');
+        console.log('4' +sentence_);
+		return sentence_;
+	}
 
-    function fnprocessor2(sentence_) {
-        sentence_ = sentence_.replace(/\,+/g, '');
-        sentence_ = sentence_.replace(/\.+/g, '');
-        sentence_ = sentence_.replace(/\?+/g, '');
-        sentence_ = sentence_.replace(/\!+/g, '');
-        sentence_ = sentence_.replace(/\s+/g, '');
-        return sentence_;
-    }
+	function fnprocessor2(sentence_) {
+		sentence_ = sentence_.replace(/\s/g, '');
+		return sentence_;
+	}
 
     function fnsavethisScore(thisScore_, length) {
         var stringLearnType;

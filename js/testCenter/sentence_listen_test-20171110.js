@@ -162,15 +162,16 @@ $(function () {
     function fnUpdateAll(thisSentence_, thisSentenceArr_, sentenceInTheRightOrderArr_) {
         $("#thisSentence_con").html(thisSentence_.sentence);
         $("#interpret").html(thisSentence_.sentence_mean);
+
         var re = /\,|\.|\!|\?/g;
         //趁数组还没有进行随机打乱的时候，填充上面答案列表的内容
         var answerArr_html = '';
         $.each(sentenceInTheRightOrderArr_, function (index, element) {
-            if (!re.test(element)) {
-                answerArr_html += `<span class="ans_null" id="${element}"></span>`;
-            } else {
-                answerArr_html += `<span class="punctuation">${element}</span>`;
-            }
+            if (re.test(element)) {
+				answerArr_html += `<span class="punctuation">${element}</span>`;
+			} else {
+				answerArr_html += `<span class="ans_null" id="${element}"></span>`;
+			}
         });
         $("#answerArr").attr('class', 'answerArr').html(answerArr_html);
         //打乱数组的内容
@@ -207,7 +208,7 @@ $(function () {
         // console.log('正确答案'+botString);
         //获取上面回答的选项内容组成字符串
         var topString = '';
-        $.each($("span.ans_word"), function (index, element) {
+        $.each($(".answerArr>span"), function (index, element) {
             topString += element.innerHTML;
         });
         // console.log('我的回答'+topString);
@@ -302,21 +303,16 @@ $(function () {
     }
 
     function fnprocessor(sentence_) {
-        sentence_ = sentence_.replace(/\,+/g, ' ,');
-        sentence_ = sentence_.replace(/\.+/g, ' .');
-        sentence_ = sentence_.replace(/\?+/g, ' ?');
-        sentence_ = sentence_.replace(/\!+/g, ' !');
-        return sentence_;
-    }
+		sentence_ = sentence_.replace(/(\w+)(\,|\.|\?|\!)([^0-9]+)/g, '$1 $2$3');
+		sentence_ = sentence_.replace(/(\.|\?|\!){1}$/g, ' $1');
+		sentence_ = sentence_.replace(/(\w)+(\,|\.|\?|\!){1}(\s){1}/g, '$1 $2$3');
+		return sentence_;
+	}
 
-    function fnprocessor2(sentence_) {
-        sentence_ = sentence_.replace(/\,+/g, '');
-        sentence_ = sentence_.replace(/\.+/g, '');
-        sentence_ = sentence_.replace(/\?+/g, '');
-        sentence_ = sentence_.replace(/\!+/g, '');
-        sentence_ = sentence_.replace(/\s+/g, '');
-        return sentence_;
-    }
+	function fnprocessor2(sentence_) {
+		sentence_ = sentence_.replace(/\s/g, '');
+		return sentence_;
+	}
 
     //发送成绩
     function fnsavethisScore(thisScore_, length) {

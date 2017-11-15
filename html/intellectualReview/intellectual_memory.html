@@ -4,7 +4,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>智能记忆复习</title>
-		<link rel="stylesheet" href="../../css/style-20170929.css" />
+		<link rel="stylesheet" href="../../css/style-20171115.css" />
 		<link rel="stylesheet" href="../../css/loading.css">
 		<link rel="stylesheet" href="../../css/word_memory.css" />
 	</head>
@@ -95,7 +95,7 @@
 		</audio>
 
 		<script src="../../js/jquery-3.2.1.min.js"></script>
-		<script src="../../js/common-20170929.js"></script>
+		<script src="../../js/common-20171115.js"></script>
 		<script src="../../js/loading.js"></script>
 		<script>
 			$(function(){
@@ -333,8 +333,9 @@
 						$("#countDownTime").html(num);			
 						if (num <= 0) {
 							clearInterval(timer);
-							$("#countDown").hide();
-							$("#answer").show();
+							// $("#countDown").hide();
+							// $("#answer").show();
+							$("#theFirstTime button.no").trigger('click');
 						}
 					}, 1000);
 				}
@@ -362,10 +363,7 @@
 					$('#thisStudy').html('复习数： '+reviewWordNum+' 个');
 				}	
 				
-				
-				
 			})
-				
 				
 				
 		</script>
