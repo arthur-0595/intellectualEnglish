@@ -151,7 +151,7 @@ $(function () {
             },
             dataType: "json",
             success: function (data) {
-                console.log(data);
+                // console.log(data);
 
                 contentUl = new Vue({
                     el: '#contentUl',

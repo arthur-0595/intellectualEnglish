@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>认字母——字母拼读</title>
+	<link rel="stylesheet" href="../css/style-20171201.css" />
+	<style>
+		html,body{
+			width:100%;
+			height:100%;
+			background-color: #fafafa;
+		}
+		header{
+			width:100%;
+			background-color: #fff;
+			text-align: center;
+			line-height: 54px;
+			font-size:20px;
+		}
+		.title{
+			width: 1200px;
+			height: 100%;
+			margin: 0 auto;
+			position: relative;	
+		}
+		.title .back{
+			position: absolute;
+			left: 0;top: 0;
+		}
+		.title .back a{
+			color: #333;
+		}
+		.title .back a:hover{
+			color: #ff7b5b;
+		}
+		.content{
+			width:1200px;
+			height:893px;	
+			background:url(../imgs/study/bgc2_03.jpg) no-repeat;
+			padding-top:138px;
+			box-sizing: border-box;
+			margin:0 auto;
+		}
+		.content ul {
+			width:100%;
+			display: flex;
+			justify-content: center;
+			flex-wrap: wrap;
+		}
+		.content ul li{
+			width:14%;
+			height:178px;
+			position: relative;
+			cursor:pointer;
+		}
+		.content ul li img{
+			display: block;
+			position: absolute;			
+			left:50%;
+		}
+		.content ul li img.big{			
+			top:0;
+			margin-left:-20%;
+		}
+		.content ul li img.small{
+			top:50%;
+			left:50%;
+			-webkit-transform:translate(-50%,-50%);
+			transform: translate(-50%,-50%);
+			display: none;
+		}
+		.content ul li img.small.small0{
+			top:40%;
+		}
+		.content ul li img.small.small1{
+			top:37%;
+		}
+	</style>
+</head>
+<body>
+	<header>
+		<div class="title">
+			认字母-字母学习
+			<div class="back">
+				<a href="../html/ver_voice.html">返回</a>
+			</div>
+		</div>
+	</header>
+	<div class="content">
+		<ul id="listBox">
+			<li>
+				<img src="../imgs/study/big_a.png" alt="" class="big">
+				<img src="../imgs/study/small_a.png" alt="" class="small">
+			</li>
+			<li>
+				<img src="../imgs/study/big_b.png" alt="" class="big">
+				<img src="../imgs/study/small_b.png" alt="" class="small">
+			</li>
+			<li>
+				<img src="../imgs/study/big_c.png" alt="" class="big">
+				<img src="../imgs/study/small_c.png" alt="" class="small">
+			</li>
+			<li>
+				<img src="../imgs/study/big_d.png" alt="" class="big">
+				<img src="../imgs/study/small_d.png" alt="" class="small">
+			</li>
+			<li>
+				<img src="../imgs/study/big_e.png" alt="" class="big">
+				<img src="../imgs/study/small_e.png" alt="" class="small">
+			</li>
+			<li>
+				<img src="../imgs/study/big_f.png" alt="" class="big">
+				<img src="../imgs/study/small_f.png" alt="" class="small">
+			</li>
+			<li>
+				<img src="../imgs/study/big_g.png" alt="" class="big">
+				<img src="../imgs/study/small_g.png" alt="" class="small">
+			</li>
+			<li>
+				<img src="../imgs/study/big_h.png" alt="" class="big">
+				<img src="../imgs/study/small_h.png" alt="" class="small">
+			</li>
+			<li>
+				<img src="../imgs/study/big_i.png" alt="" class="big">
+				<img src="../imgs/study/small_i.png" alt="" class="small">
+			</li>
+			<li>
+				<img src="../imgs/study/big_j.png" alt="" class="big">
+				<img src="../imgs/study/small_j.png" alt="" class="small">
+			</li>
+			<li>
+				<img src="../imgs/study/big_k.png" alt="" class="big">
+				<img src="../imgs/study/small_k.png" alt="" class="small">
+			</li>
+			<li>
+				<img src="../imgs/study/big_l.png" alt="" class="big">
+				<img src="../imgs/study/small_l.png" alt="" class="small">
+			</li>
+			<li>
+				<img src="../imgs/study/big_m.png" alt="" class="big">
+				<img src="../imgs/study/small_m.png" alt="" class="small">
+			</li>
+			<li>
+				<img src="../imgs/study/big_n.png" alt="" class="big">
+				<img src="../imgs/study/small_n.png" alt="" class="small">
+			</li>
+			<li>
+				<img src="../imgs/study/big_o.png" alt="" class="big">
+				<img src="../imgs/study/small_o.png" alt="" class="small">
+			</li>
+			<li>
+				<img src="../imgs/study/big_p.png" alt="" class="big">
+				<img src="../imgs/study/small_p.png" alt="" class="small">
+			</li>
+			<li>
+				<img src="../imgs/study/big_q.png" alt="" class="big">
+				<img src="../imgs/study/small_q.png" alt="" class="small">
+			</li>
+			<li>
+				<img src="../imgs/study/big_r.png" alt="" class="big">
+				<img src="../imgs/study/small_r.png" alt="" class="small">
+			</li>
+			<li>
+				<img src="../imgs/study/big_s.png" alt="" class="big">
+				<img src="../imgs/study/small_s.png" alt="" class="small">
+			</li>
+			<li>
+				<img src="../imgs/study/big_t.png" alt="" class="big">
+				<img src="../imgs/study/small_t.png" alt="" class="small">
+			</li>
+			<li>
+				<img src="../imgs/study/big_u.png" alt="" class="big">
+				<img src="../imgs/study/small_u.png" alt="" class="small">
+			</li>
+			<li>
+				<img src="../imgs/study/big_v.png" alt="" class="big">
+				<img src="../imgs/study/small_v.png" alt="" class="small small0">
+			</li>
+			<li>
+				<img src="../imgs/study/big_w.png" alt="" class="big">
+				<img src="../imgs/study/small_w.png" alt="" class="small small1">
+			</li>
+			<li>
+				<img src="../imgs/study/big_x.png" alt="" class="big">
+				<img src="../imgs/study/small_x.png" alt="" class="small">
+			</li>
+			<li>
+				<img src="../imgs/study/big_y.png" alt="" class="big">
+				<img src="../imgs/study/small_y.png" alt="" class="small small1">
+			</li>
+			<li>
+				<img src="../imgs/study/big_z.png" alt="" class="big">
+				<img src="../imgs/study/small_z.png" alt="" class="small">
+			</li>
+		</ul>
+	</div>
+	<audio src="" id="audio"></audio>
+
+	<script src="../js/jquery-3.2.1.min.js"></script>
+	<script src="../js/common-20171201.js"></script>
+	<script>
+		var ali = document.querySelectorAll("#listBox>li");
+		var bigLetters = document.querySelectorAll("#listBox>li>.big");
+		var smallLetters = document.querySelectorAll("#listBox>li>.small");
+		var audio = document.getElementById('audio');
+		var letterObjArr = [],
+			audioSrcList = [];
+		for(var i = 0;i < 26;i++){
+			var letterObj = {}
+			letterObj.isShow = false;
+			letterObjArr.push(letterObj);			
+		}
+		for(var i = 0;i < letterObjArr.length;i++){
+			ali[i].index = i;
+			ali[i].onclick=function(){
+				if(!letterObjArr[this.index].isShow){
+					bigLetters[this.index].style.display = "none";
+					smallLetters[this.index].style.display = "block";
+					letterObjArr[this.index].isShow = true;
+					audio.src = thisUrl + audioSrcList[this.index].word_url;
+					audio.autoplay = "autoplay";
+
+				}
+				else if(letterObjArr[this.index].isShow){
+					bigLetters[this.index].style.display = "block";
+					smallLetters[this.index].style.display = "none";
+					letterObjArr[this.index].isShow = false;
+					audio.src = thisUrl + audioSrcList[this.index].word_url;
+					audio.autoplay = "autoplay";
+				}				
+			}
+		}
+		fnuodateAudio();
+
+		function fnuodateAudio() {
+			$.ajax({
+				type: 'GET',
+				url: thisUrl + '/Areas/api/Interface.ashx',
+				dataType: 'json',
+				data: {
+					method: 'Getvoice_url',
+				},
+				success: function (data) {
+					if(data && data.data){
+						audioSrcList = data.data;
+					}else{
+						alert('音频文件加载失败，请联系管理员');
+					}
+				}
+			});
+		}
+	</script>
+</body>
+</html>

@@ -214,9 +214,10 @@ $(function () {
 			// console.log(botString);
 			//获取上面回答的选项内容组成字符串
 			var topString = '';
-			$.each($("span.ans_word"), function (index, element) {
+			$.each($("span"), function (index, element) {
 				topString += element.innerHTML;
 			});
+			topString = fnprocessor2(topString);
 			// console.log(topString);
 
 			$("#clear").hide();
@@ -410,19 +411,18 @@ $(function () {
 	}
 
 	function fnprocessor(sentence_) {
-		sentence_ = sentence_.replace(/\,+/g, ' ,');
-		sentence_ = sentence_.replace(/\.+/g, ' .');
-		sentence_ = sentence_.replace(/\?+/g, ' ?');
-		sentence_ = sentence_.replace(/\!+/g, ' !');
+		sentence_ = $.trim(sentence_);
+		sentence_ = sentence_.replace(/(\,|\?|\!)([a-zA-z]+)/g, '$1 $2');
+		sentence_ = sentence_.replace(/(\w+)(\,|\?|\!)([^0-9]+)/g, '$1 $2 $3');
+		sentence_ = sentence_.replace(/(\w)(\.|\?|\!{1})$/g, '$1 $2');
+		sentence_ = sentence_.replace(/(\w+)([\s]{1})([\.]{1})(\w+)/g, '$1$3$4');
+		sentence_ = sentence_.replace(/(\w+)(\,|\.|\?|\!{1})(\s{1})/g, '$1 $2$3');
 		return sentence_;
 	}
 
 	function fnprocessor2(sentence_) {
-		sentence_ = sentence_.replace(/\,+/g, '');
-		sentence_ = sentence_.replace(/\.+/g, '');
-		sentence_ = sentence_.replace(/\?+/g, '');
-		sentence_ = sentence_.replace(/\!+/g, '');
-		sentence_ = sentence_.replace(/\s+/g, '');
+		sentence_ = sentence_.replace(/\s/g, '');
+		sentence_ = sentence_.replace(/[\.\?\!\,]/g, '');
 		return sentence_;
 	}
 	//更新本次学习的生词熟词以及复习的数量

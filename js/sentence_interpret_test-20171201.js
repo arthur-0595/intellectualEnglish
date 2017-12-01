@@ -13,7 +13,7 @@ $(function () {
     //当前语音文件播放路径
     var audioplaySrc;
     //当前例句大类的类型
-    var thistype = 1; //1听力2翻译3默写
+    var thistype = 2; //1听力2翻译3默写
     //当前听力的句子变量,由句子的每个单个项组成的数组,顺序没打乱时的数组
     var thisSentence, thisSentenceArr, sentenceInTheRightOrderArr;
     //当前测试所有句子的数组，数组长度，以及构建的一个作为测试结果的数组缓存下来
@@ -53,20 +53,21 @@ $(function () {
 	};
 	var beforeLearningType = $.getUrlParam('beforeLearning');
 	var countTestType = $.getUrlParam('countTest');
+
 	//如果检测到有该参数，则说明是学前测试，在传分数的时候要把对应的状态值传过去
 	if(beforeLearningType){
 		beforeLearning = beforeLearningType;
 	}
-	//如果检测到有该参数，则说明是没有经过学习直接进入测试，在传分数的时候要把对应的状态值传过去
+	//如果检测到有该参数，则没有经过学习直接进入测试，在传分数的时候把状态值传过去
 	if(countTestType){
 		countTest = countTestType;
-    }
+	}
 
     fnUpdatesentence();
 
-    $("#listening").on("click", function () {
-        $("#audioplay").attr("src", audioplaySrc);
-    });
+//  $("#listening").on("click", function () {
+//      $("#audioplay").attr("src", audioplaySrc);
+//  });
 
     $("#clear").on("click", function () {
         $("span.ans_word").html('').attr('class', 'ans_null');
@@ -75,16 +76,15 @@ $(function () {
         fnclickItems();
     });
 
+    //键盘按键模拟点击事件
     document.onkeyup = function (event) {
-		var e = event || window.event || arguments.callee.caller.arguments[0];
-		if (e && e.keyCode == 17) {
-			$("#listening").trigger('click');
-		}else if(e && e.keyCode == 16){
-			$("#clear").trigger('click');
-		}else if(e && e.keyCode == 13){
-			$("#enter").trigger('click');
-		}
-	};
+        var e = event || window.event || arguments.callee.caller.arguments[0];
+        if(e && e.keyCode == 16) {
+            $("#clear").trigger('click');
+        } else if (e && e.keyCode == 13) {
+            $("#enter").trigger('click');
+        }
+    };
 
     function fnUpdatesentence() {
         $.ajax({
@@ -100,7 +100,7 @@ $(function () {
                 if (data[0]) {
                     dataArr = data;
                     dataArrLength = data.length;
-
+					
                     fnArrEvent(dataArr[0]);
                 }
             }
@@ -112,29 +112,28 @@ $(function () {
 
         thisSentence = arr_o;
         var processorSentence = fnprocessor(thisSentence.sentence);
-        // console.log(processorSentence);
         //将句子切割成数组
         thisSentenceArr = processorSentence.split(' ');
         sentenceInTheRightOrderArr = processorSentence.split(' ');
         //自动播放语音文件
-        audioplaySrc = thisUrl2 + thisSentence.sentence_url;
-        $("#audioplay").attr("src", audioplaySrc);
+//      audioplaySrc = thisUrl2 + thisSentence.sentence_url;
+//      $("#audioplay").attr("src", audioplaySrc);
         //获取到数据之后更新对应的句子相关内容
         fnUpdateAll(thisSentence, thisSentenceArr, sentenceInTheRightOrderArr);
     }
 
     function fnUpdateAll(thisSentence_, thisSentenceArr_, sentenceInTheRightOrderArr_) {
-        $("#thisSentence_con").html(thisSentence_.sentence);
-        $("#interpret").html(thisSentence_.sentence_mean);
+        $("#thisSentence_con").html(thisSentence_.sentence_mean);
+        $("#interpret").html(thisSentence_.sentence);
         var re = /\,|\.|\!|\?/g;
         //趁数组还没有进行随机打乱的时候，填充上面答案列表的内容
         var answerArr_html = '';
         $.each(sentenceInTheRightOrderArr_, function (index, element) {
-           if (re.test(element)) {
-				answerArr_html += `<span class="punctuation">${element}</span>`;
-			} else {
-				answerArr_html += `<span class="ans_null" id="${element}"></span>`;
-			}
+            if (!re.test(element)) {
+                answerArr_html += `<span class="ans_null" id="${element}"></span>`;
+            } else {
+                answerArr_html += `<span class="punctuation">${element}</span>`;
+            }
         });
         $("#answerArr").attr('class', 'answerArr').html(answerArr_html);
         //打乱数组的内容
@@ -142,6 +141,7 @@ $(function () {
             return (0.5 - Math.random());
         });
         // console.log(thisSentenceArr_);
+
         //把处理过后的数组的每一项填到下面的选项中
         var items_html = '';
         $.each(thisSentenceArr_, function (index, element) {
@@ -163,7 +163,7 @@ $(function () {
             $("#hint").fadeIn(200).delay(1500).fadeOut(200);
             return false;
         }
-        
+
         num++;
         //首先获取下面正确选项的答案组成字符串
         var botString = '';
@@ -171,9 +171,10 @@ $(function () {
         // console.log(botString);
         //获取上面回答的选项内容组成字符串
         var topString = '';
-        $.each($(".answerArr>span"), function (index, element) {
+        $.each($("span.ans_word"), function (index, element) {
             topString += element.innerHTML;
         });
+        topString = fnprocessor2(topString);
         // console.log(topString);
         //对本次回答的答案进行判断
         var answerType = 1;
@@ -188,10 +189,11 @@ $(function () {
             thisanswerSentence += element.innerHTML + ' ';
         });
         //构建当前题目相关信息的对象
+//      alert(thisSentence.sentence_mean);
         var newObj = {
             index: num,
-            this_name: $.trim(thisSentence.sentence),
-            this_mean: $.trim(thisSentence.sentence_mean),
+            this_name: thisSentence.sentence,
+            this_mean: thisSentence.sentence_mean,
             status: answerType,
             myVal: thisanswerSentence
         };
@@ -200,10 +202,10 @@ $(function () {
         if (num + 1 <= dataArrLength) {
             fnupdateNext();
         } else {
-        	$("#alertBox").show().find('h4').text('测试结束，公布答案');
+        	$("#alertBox").show().find('h4').text('测试完成，点击查看分数');
 			$('#btnOk').on('click',function(){				
 				$("#alertBox").hide();
-				sessionStorage.testResultArr = JSON.stringify(testResultArr);            
+	            sessionStorage.testResultArr = JSON.stringify(testResultArr);	            
 	            var Nnum = 0;
 				$.each(testResultArr, function(index , element) {
 					if(element.status == 1){
@@ -211,9 +213,10 @@ $(function () {
 					}
 				});
 				var thisScore = Math.round( (Nnum/testResultArr.length)*100 );	            
-	            fnsavethisScore(thisScore, testResultArr.length);
-			});            
+	            fnsavethisScore(thisScore, testResultArr.length);				
+			});
         }
+
     }
 
     //更新下一个例句的相关内容
@@ -258,26 +261,24 @@ $(function () {
             .on("click", function () {
                 fncontrast();
             })
-
-        $("#audioplay").attr("src", audioplaySrc);
         fnUpdateAll(thisSentence, thisSentenceArr, sentenceInTheRightOrderArr);
     }
 
     function fnprocessor(sentence_) {
-        console.log('1'+sentence_);
-        sentence_ = sentence_.replace(/(\w+)(\,|\.|\?|\!)([^0-9]+)/g, '$1 $2$3');
-        console.log('2' +sentence_);
-        sentence_ = sentence_.replace(/(\.|\?|\!){1}$/g, ' $1');
-        console.log('3' +sentence_);
-        sentence_ = sentence_.replace(/(\w+)(\,|\.|\?|\!){1}(\s){1}/g, '$1 $2$3');
-        console.log('4' +sentence_);
-		return sentence_;
-	}
+        sentence_ = $.trim(sentence_);
+        sentence_ = sentence_.replace(/(\,|\?|\!)([a-zA-z]+)/g, '$1 $2');
+        sentence_ = sentence_.replace(/(\w+)(\,|\?|\!)([^0-9]+)/g, '$1 $2 $3');
+        sentence_ = sentence_.replace(/(\w)(\.|\?|\!{1})$/g, '$1 $2');
+        sentence_ = sentence_.replace(/(\w+)([\s]{1})([\.]{1})(\w+)/g, '$1$3$4');
+        sentence_ = sentence_.replace(/(\w+)(\,|\.|\?|\!{1})(\s{1})/g, '$1 $2$3');
+        return sentence_;
+    }
 
-	function fnprocessor2(sentence_) {
-		sentence_ = sentence_.replace(/\s/g, '');
-		return sentence_;
-	}
+    function fnprocessor2(sentence_) {
+        sentence_ = sentence_.replace(/\s/g, '');
+        sentence_ = sentence_.replace(/[\.\?\!\,]/g, '');
+        return sentence_;
+    }
 
     function fnsavethisScore(thisScore_, length) {
         var stringLearnType;
@@ -288,7 +289,7 @@ $(function () {
 		}
         var testsType = typeStr + stringLearnType +"(" + version_name + '-' + textbook_name + ")";
         var typeId = parseInt(type);
-        
+
 		$.ajax({
 			type: "POST",
 			url: thisUrl2 + '/Areas/Api/index.ashx',
@@ -314,9 +315,9 @@ $(function () {
 					$('#btnOk').on('click',function(){				
 						$("#alertBox").hide();
 					});
+					//alert('成绩上传失败，请重试');
 				}
 			}
 		});
 	}
-
 });

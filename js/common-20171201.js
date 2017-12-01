@@ -141,7 +141,7 @@ if(robbotBox) {
 	}
 	$(window).resize(function() {
 		var docWidth = $(document.body).width();
-		if(docWidth >= 1200) {
+		if(docWidth >= 1400) {
 			$('#robbot').css({
 				'left': '16px',
 				'bottom': '25%'

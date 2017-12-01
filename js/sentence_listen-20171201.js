@@ -1,4 +1,3 @@
-$(function () {
 	//获取用户ID
 	var userMessage = sessionStorage.userMessage;
 	if (userMessage) {
@@ -213,13 +212,14 @@ $(function () {
 			var botString = '';
 			//清除空格
 			botString = fnprocessor2(thisSentence.sentence);
-			// console.log(botString+'正确答案');
+			console.log(botString+'---正确答案');
 			//获取上面回答的选项内容组成字符串
 			var topString = '';
 			$.each($(".answerArr>span"), function (index, element) {
 				topString += element.innerHTML;
 			});
-			// console.log(topString);
+			topString = fnprocessor2(topString);
+			console.log(topString);
 
 			$("#thisSentence_con").show();
 			$("#clear").hide();
@@ -410,14 +410,18 @@ $(function () {
 	}
 
 	function fnprocessor(sentence_) {
-		sentence_ = sentence_.replace(/(\w+)(\,|\.|\?|\!)([^0-9]+)/g, '$1 $2$3');
-		sentence_ = sentence_.replace(/(\.|\?|\!){1}$/g, ' $1');
-		sentence_ = sentence_.replace(/(\w)+(\,|\.|\?|\!){1}(\s){1}/g, '$1 $2$3');
+		console.log(sentence_);
+		sentence_ = $.trim(sentence_);
+		sentence_ = sentence_.replace(/(\,|\?|\!)([a-zA-z]+)/g, '$1 $2');
+		sentence_ = sentence_.replace(/(\w+)(\,|\?|\!)([^0-9]+)/g, '$1 $2 $3');
+		sentence_ = sentence_.replace(/(\w)(\.|\?|\!{1})$/g, '$1 $2');
+		sentence_ = sentence_.replace(/(\w+)([\s]{1})([\.]{1})(\w+)/g, '$1$3$4');
+		sentence_ = sentence_.replace(/(\w+)(\,|\.|\?|\!{1})(\s{1})/g, '$1 $2$3');
 		return sentence_;
-	}
-
+	}	
 	function fnprocessor2(sentence_) {
 		sentence_ = sentence_.replace(/\s/g, '');
+		sentence_ = sentence_.replace(/[\.\?\!\,]/g, '');
 		return sentence_;
 	}
 
@@ -425,5 +429,3 @@ $(function () {
 	function fnUpdateThisStudyMessage() {
 		$("#thisStudy").html(`本次学习【生句：${newWordNum} 个&nbsp;  熟句：${oldWordNum} 个 &nbsp; 复习：${reviewWordNum} 个】`);
 	}
-
-});

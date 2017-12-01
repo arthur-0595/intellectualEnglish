@@ -211,6 +211,7 @@ $(function () {
         $.each($(".answerArr>span"), function (index, element) {
             topString += element.innerHTML;
         });
+        topString = fnprocessor2(topString);
         // console.log('我的回答'+topString);
         //对本次回答的答案进行判断
         var answerType = 1;
@@ -303,16 +304,20 @@ $(function () {
     }
 
     function fnprocessor(sentence_) {
-		sentence_ = sentence_.replace(/(\w+)(\,|\.|\?|\!)([^0-9]+)/g, '$1 $2$3');
-		sentence_ = sentence_.replace(/(\.|\?|\!){1}$/g, ' $1');
-		sentence_ = sentence_.replace(/(\w)+(\,|\.|\?|\!){1}(\s){1}/g, '$1 $2$3');
-		return sentence_;
-	}
+        sentence_ = $.trim(sentence_);
+        sentence_ = sentence_.replace(/(\,|\?|\!)([a-zA-z]+)/g, '$1 $2');
+        sentence_ = sentence_.replace(/(\w+)(\,|\?|\!)([^0-9]+)/g, '$1 $2 $3');
+        sentence_ = sentence_.replace(/(\w)(\.|\?|\!{1})$/g, '$1 $2');
+        sentence_ = sentence_.replace(/(\w+)([\s]{1})([\.]{1})(\w+)/g, '$1$3$4');
+        sentence_ = sentence_.replace(/(\w+)(\,|\.|\?|\!{1})(\s{1})/g, '$1 $2$3');
+        return sentence_;
+    }
 
-	function fnprocessor2(sentence_) {
-		sentence_ = sentence_.replace(/\s/g, '');
-		return sentence_;
-	}
+    function fnprocessor2(sentence_) {
+        sentence_ = sentence_.replace(/\s/g, '');
+        sentence_ = sentence_.replace(/[\.\?\!\,]/g, '');
+        return sentence_;
+    }
 
     //发送成绩
     function fnsavethisScore(thisScore_, length) {
