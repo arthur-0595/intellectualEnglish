@@ -178,6 +178,7 @@ $(function () {
             $('#btnOk').on('click', function () {
                 $("#alertBox").hide();
                 sessionStorage.testResultArr = JSON.stringify(testsArr);
+                sessionStorage.wordTestsArr = null;
                 var Nnum = 0;
                 $.each(testsArr, function (index, element) {
                     if (element.status == 1) {

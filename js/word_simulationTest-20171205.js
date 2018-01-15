@@ -341,7 +341,7 @@ $(function () {
 		var testsType = typeStr + stringLearnType +"(" + chapter_name + ")";
 		var typeId = parseInt(type);
 
-		console.log(textbook_id);
+		// console.log(textbook_id);
 
 		$.ajax({
 			type: "POST",

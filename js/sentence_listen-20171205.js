@@ -212,14 +212,14 @@
 			var botString = '';
 			//清除空格
 			botString = fnprocessor2(thisSentence.sentence);
-			console.log(botString+'---正确答案');
+			// console.log(botString+'---正确答案');
 			//获取上面回答的选项内容组成字符串
 			var topString = '';
 			$.each($(".answerArr>span"), function (index, element) {
 				topString += element.innerHTML;
 			});
 			topString = fnprocessor2(topString);
-			console.log(topString);
+			// console.log(topString);
 
 			$("#thisSentence_con").show();
 			$("#clear").hide();
@@ -410,13 +410,14 @@
 	}
 
 	function fnprocessor(sentence_) {
-		console.log(sentence_);
+		// console.log(sentence_);
 		sentence_ = $.trim(sentence_);
 		sentence_ = sentence_.replace(/(\,|\?|\!)([a-zA-z]+)/g, '$1 $2');
-		sentence_ = sentence_.replace(/(\w+)(\,|\?|\!)([^0-9]+)/g, '$1 $2 $3');
+		sentence_ = sentence_.replace(/(\w+)(\,|\?|\!)([^0-9]+)/g, '$1 $2$3');
 		sentence_ = sentence_.replace(/(\w)(\.|\?|\!{1})$/g, '$1 $2');
 		sentence_ = sentence_.replace(/(\w+)([\s]{1})([\.]{1})(\w+)/g, '$1$3$4');
 		sentence_ = sentence_.replace(/(\w+)(\,|\.|\?|\!{1})(\s{1})/g, '$1 $2$3');
+		// console.log(sentence_);
 		return sentence_;
 	}	
 	function fnprocessor2(sentence_) {

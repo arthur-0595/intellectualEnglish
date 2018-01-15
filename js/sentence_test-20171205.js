@@ -69,11 +69,13 @@ $(function() {
 		}
 	});
 	
-	if(testResultArr){
+	if(testResultArr.length>10){
 		testResultArr = JSON.parse(testResultArr);
+		// console.log('查看缓存testResultArr--:' + testResultArr);
 		fnshowstatus(testResultArr);
-	}else if(wordTestsArr){
+	}else if(wordTestsArr.length>10){
 		wordTestsArr = JSON.parse(wordTestsArr);
+		// console.log('查看缓存wordTestsArr--:' + wordTestsArr);
 		fnshowstatus(wordTestsArr);
 	}
 	

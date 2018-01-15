@@ -32,7 +32,7 @@ $(function () {
 	//是否是学前测试
 	var beforeLearning = 1;//默认不是学前测试
 	//是否是直接进入测试
-	var countTest = 0;//默认是经过了学习之后进入的
+	var countTest = 1;//默认是经过了学习之后进入的
 
 	textbook_id = sessionStorage.textbook_id;
 	version_id = sessionStorage.version_id;
@@ -95,7 +95,6 @@ $(function () {
 				type: thistype
 			},
 			success: function (data) {
-				console.log(data);
 				if (data[0]) {
 					thisSentence = data[0];
 					//如果该单词的记忆强度大于0，则计算本次的复习次数+1
@@ -150,6 +149,7 @@ $(function () {
 	}
 
 	function fnUpdateAll(senObj) {
+		// console.log(senObj.sentence);
 		$("#status").hide();
 		$("#input").val("").attr('disabled', false).css('color', '#333');
 		$("#input")[0].focus();
@@ -270,6 +270,8 @@ $(function () {
 					//获取到数据之后更新对应的句子相关内容
 					fnUpdateAll(thisSentence);
 				} else {
+					//关闭loading插件
+					removeLoading();
 					$("#alertBox").show().find('h4').text('学习完毕，下面进行测试');
 					$('#btnOk').on('click',function(){
 						$("#alertBox").hide();
@@ -297,6 +299,7 @@ $(function () {
 			},
 			success: function (data) {
 				if (data[0]) {
+					// console.log(data)
 					sentenceArr = data;
 					sentenceArrLength = sentenceArr.length;
 					//关闭loading插件
@@ -322,6 +325,7 @@ $(function () {
 			$('#btnOk').on('click',function(){
 				$("#alertBox").hide();
 				sessionStorage.testResultArr = JSON.stringify(testsArr);
+				sessionStorage.wordTestsArr = null;
 				var Nnum = 0;
 				$.each(testsArr, function (index, element) {
 					if (element.status == 1) {
