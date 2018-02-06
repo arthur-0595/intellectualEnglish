@@ -4,7 +4,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>例句听力复习</title>
-		<link rel="stylesheet" href="../../css/style-20171205.css" />
+		<link rel="stylesheet" href="../../css/style-20180206.css" />
 		<link rel="stylesheet" href="../../css/loading.css" />
 		<link rel="stylesheet" href="../../css/sentence_listen.css" />
 	</head>
@@ -81,7 +81,7 @@
 		
 		<script src="../../js/jquery-3.2.1.min.js"></script>
 		<script src="../../js/vue.min.js"></script>
-		<script src="../../js/common-20171205.js"></script>
+		<script src="../../js/common-20180206.js"></script>
 		<script src="../../js/loading.js"></script>
 		<script>
 			$(function () {
@@ -234,7 +234,7 @@
 					var items_html = '';
 					$.each(thisSentenceArr_, function (index, element) {
 						if (!re.test(element)) {
-							items_html += `<li id="${element}">${element}</li>`;
+							items_html += `<li id="${element}1">${element}</li>`;
 						}
 					});
 					$("#items").show().html(items_html);
@@ -361,10 +361,11 @@
 				
 							$(this).html('').attr('class', 'ans_null');
 				
-							$.each($("#items>li"), function (index, element) {
-								if (element.id == topVal) {
+							$.each($("#items>li.actived"), function (index, element) {
+								if (element.id == topVal+'1') {
 									$(element).attr('class', '')
 										.css("cursor", 'pointer');
+									return false	
 								}
 							});
 				
